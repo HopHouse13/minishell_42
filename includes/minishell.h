@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/12 16:09:29 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/12 20:16:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
 
-typedef struct s_list
+typedef struct s_token
 {
 	char			*cmds;
 	char			tokens;
-	struct s_list	*prev;
-	struct s_list	*next;
-}					t_list;
+	struct s_token	*prev;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct s_parser
 {
@@ -48,7 +48,7 @@ typedef struct s_parser
 
 typedef struct s_lexer
 {
-
+	t_token			*tokens;
 }					t_lexer;
 
 typedef struct s_exec
@@ -62,8 +62,8 @@ typedef struct s_mshell
 	t_list			*cmds_list;
 	char			**env;
 	char			**path;
+	t_token			*tokens;
 	t_parser		parser;
-	t_lexer			lexer;
 	t_exec			exec;
 }					t_mshell;
 
