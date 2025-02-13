@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/12 20:08:10 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/13 13:12:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	ft_loop_mshell(t_mshell *mshell)
 {
 	while (1)
 	{
-		ft_signal(); // je sais pas encore comment gerer ca
+		//ft_signal(); // je sais pas encore comment gerer ca
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			break ;
 		if (mshell->input != NULL)
 			add_history(mshell->input);
-		mshell->lexer.token = ft_lexer(mshell->input, mshell);
+		mshell->tokens = ft_lexer(mshell->input, mshell);
 	
 	}
 }
