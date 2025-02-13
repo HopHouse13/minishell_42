@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/12 20:16:42 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/13 14:52:59 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,37 @@
 typedef struct s_token
 {
 	char			*cmds;
-	char			tokens;
+	t_type			token;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
+
+typedef enum e_type
+{
+					WORD,
+					PIPE, 		// "|"
+					REDIR_IN,	// "<"
+					REDIR_OUT,	// ">"
+					HD,			// "<<"
+					SIN_HD,		// EOF
+					APPEND,		// ">>"
+					DOLLAR,		// "$"
+					S_QUOTE,	// "'"
+					D_QUOTE,	// """
+					END,		// fin de imput
+					UNKNOWN		// inconnu
+}					t_type;
+
+typedef struct s_lexer
+{
+	t_token			*tokens;
+	int 			i;
+}					t_lexer;
 
 typedef struct s_parser
 {
 
 }					t_parser;
-
-typedef struct s_lexer
-{
-	t_token			*tokens;
-}					t_lexer;
 
 typedef struct s_exec
 {
