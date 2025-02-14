@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/14 17:15:42 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:40:45 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,20 @@ typedef struct s_mshell
 
 /// main ///
 int main(int ac, char **av, char **env);
+
+/// lexer ///
+void	ft_lexer(t_mshell mshell, char *input);
+
+/// lexer- ///
+void	ft_init_lexer(t_lexer *lexer);
+bool	ft_isspace(char c);
+bool	ft_isredirection(char c);
+
+/// utils-error ///
+void	ft_error_exit(char *message);
+
+/// utils-init ///
+void	ft_init_mshell(t_mshell *mshell, char **env);
+void	ft_build_paths(t_mshell *mshell);
 
 #endif

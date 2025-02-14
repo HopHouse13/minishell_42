@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/14 17:19:03 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:32:21 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-ft_build_list_tokens(char *input, t_lexer *lexer)
+/* ft_build_list_tokens(char *input, t_lexer *lexer)
 {
 	while(input[++(lexer->i)])
 	{
@@ -22,7 +22,7 @@ ft_build_list_tokens(char *input, t_lexer *lexer)
 			lexer->i++;
 		else if ()
 	}
-}
+} */
 
 void	ft_lexer(t_mshell mshell, char *input)
 {
