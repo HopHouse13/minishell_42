@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/13 13:12:04 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:19:28 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_loop_mshell(t_mshell *mshell)
 			break ;
 		if (mshell->input != NULL)
 			add_history(mshell->input);
-		mshell->tokens = ft_lexer(mshell->input, mshell);
+		ft_lexer(mshell, mshell->input);
 	
 	}
 }
@@ -36,15 +36,16 @@ int	main(int ac, char **av, char **env)
 	{
 		mshell = malloc(sizeof(t_mshell));
 		if (!mshell)
-			
-		ft_init_mshell(mshell); // initialisation de toutes les struct
-		ft_loop_mshell(mshell);
+			ft_error_exit("Error main ");
+		ft_init_mshell(&mshell, env); // initialisation de toutes les struct
+		ft_loop_mshell(&mshell);
+		free(mshell);
+		rl_clear_history();
 	}
 	else
 	{
 		errno = EINVAL; // code error du nombre d'arg inscrit dans la macro errno.
-		perror("Error main ");
-		exit(EXIT_FAILURE);
+		ft_error_exit("Error main ");
 	}
 	return (0);
 }

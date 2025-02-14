@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:59 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:15:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h> // declare la fonction readline.
 # include <readline/history.h> // gere l'historique des commandes (non vide)
 # include <stdlib.h> // exit ;
+# include <stdbool.h> // boolien
 
 # define RESET "\033[0m" // a supprimer si non besoin
 # define BLACK "\033[30m"
@@ -33,13 +34,14 @@
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
 
-typedef struct s_token
+typedef struct s_list
 {
-	char			*cmds;
+	char			**cmds;
+	char			*path;
 	t_type			token;
-	struct s_token	*prev;
-	struct s_token	*next;
-}					t_token;
+	struct s_list	*prev;
+	struct s_list	*next;
+}					t_list;
 
 typedef enum e_type
 {
@@ -59,11 +61,11 @@ typedef enum e_type
 
 typedef struct s_lexer
 {
-	t_token			*tokens;
+	t_list			*tokens;
 	int 			i;
 }					t_lexer;
 
-typedef struct s_parser
+/* typedef struct s_parser
 {
 
 }					t_parser;
@@ -71,17 +73,14 @@ typedef struct s_parser
 typedef struct s_exec
 {
 
-}					t_exec;
+}					t_exec; */
 
 typedef struct s_mshell
 {
 	char			*input;
 	t_list			*cmds_list;
 	char			**env;
-	char			**path;
-	t_token			*tokens;
-	t_parser		parser;
-	t_exec			exec;
+	char			**paths;
 }					t_mshell;
 
 /// main ///

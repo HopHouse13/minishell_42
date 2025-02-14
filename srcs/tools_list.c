@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:12:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/10 20:00:40 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:28:12 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_init_list_head(t_list **list)
 		return ;
 	}
 	fist_node->cmds = NULL;
-	fist_node->tokens = NULL;
 	fist_node->prev = NULL;
 	fist_node->next = NULL;
 	*list = fist_node;
@@ -56,7 +55,6 @@ void	ft_add_node_end(t_list **list)
 	while (tmp_head->next != NULL)
 		tmp_head = tmp_head->next;
 	new_node->cmds = NULL;
-	new_node->tokens = NULL;
 	new_node->prev = tmp_head;
 	new_node->next = NULL;
 	tmp_head->next = new_node;
