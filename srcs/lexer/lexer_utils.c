@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/14 17:19:03 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/14 17:17:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-
-ft_build_list_tokens(char *input, t_lexer *lexer)
+void	ft_init_lexer(t_lexer *lexer)
 {
-	while(input[++(lexer->i)])
-	{
-		if(!ft_isspace(input[lexer->i]))
-			lexer->i++;
-		else if ()
-	}
+	lexer->tokens = NULL;
+	lexer->i = -1;
 }
 
-void	ft_lexer(t_mshell mshell, char *input)
+bool	ft_isspace(char c)
 {
-	t_lexer	lexer;
+	if ((c == ' ') || (c >= 9 && c <= 13))
+		return (true);
+	return (false);
+}
 
-	ft_init_lexer(&lexer); // a completer ay fur et a mesure
-	ft_build_list_tokens(input, &lexer); // a faire
-	return (lexer.tokens);
+bool	ft_isredirection(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
+		return (true);
+	return (false);
 }
