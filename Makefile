@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/02/12 16:10:42 by pbret            ###   ########.fr        #
+#    Updated: 2025/02/14 17:42:07 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS		= srcs/main.c
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -ggdb -I$(SRCS_DIR) -lreadline
+CFLAGS		= -Wall -Wextra -Werror -ggdb -I$(SRCS_DIR)
 LIBFT_AR	= ./includes/libft/libft.a
 PRINTF_AR	= ./includes/printf/printf.a
 

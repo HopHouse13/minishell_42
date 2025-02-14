@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/14 17:19:28 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:34:16 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_loop_mshell(t_mshell *mshell)
 			break ;
 		if (mshell->input != NULL)
 			add_history(mshell->input);
-		ft_lexer(mshell, mshell->input);
+		printf("input -> [%s]\n", mshell->input);
+		//ft_lexer(mshell, mshell->input);
 	
 	}
 }
