@@ -6,14 +6,19 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/02/14 17:42:07 by pbret            ###   ########.fr        #
+#    Updated: 2025/02/16 15:52:56 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
-SRCS		= srcs/main.c
+SRCS		= srcs/main.c \
+			srcs/lexer/lexer_utils.c \
+			srcs/lexer/lexer.c \
+			srcs/utils/error.c \
+			srcs/utils/free.c \
+			srcs/utils/init.c
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc
 RM			= rm -rf
@@ -28,7 +33,7 @@ $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 all:		$(NAME)
 			
 $(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME)
+			$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
 $(LIBFT_AR):

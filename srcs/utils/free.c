@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/16 15:43:00 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/16 15:46:59 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/16 18:21:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-
-/* ft_build_list_tokens(char *input, t_lexer *lexer)
+void	ft_free_manag(t_mshell *mshell)
 {
-	while(input[++(lexer->i)])
+	int	i;
+	
+	if (mshell->input)
+		free(mshell->input);
+	i = -1;
+	if (mshell->paths != NULL)
 	{
-		if(!ft_isspace(input[lexer->i]))
-			lexer->i++;
-		else if ()
+		while (mshell->paths[++i])
+			free(mshell->paths[i]);
+		free(mshell->paths);
 	}
-} */
-
-/* void	ft_lexer(t_mshell mshell, char *input)
-{
-	t_lexer	lexer;
-
-	ft_init_lexer(&lexer); // a completer ay fur et a mesure
-	ft_build_list_tokens(input, &lexer); // a faire
-} */
+	i = -1;
+	if (mshell->env != NULL)
+	{
+		while (mshell->env[++i])
+			free(mshell->env[i]);
+		free(mshell->env);
+	}
+}

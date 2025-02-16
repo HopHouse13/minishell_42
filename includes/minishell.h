@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/14 17:40:45 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/16 16:32:09 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
 
-typedef struct s_list
-{
-	char			**cmds;
-	char			*path;
-	t_type			token;
-	struct s_list	*prev;
-	struct s_list	*next;
-}					t_list;
-
 typedef enum e_type
 {
 					WORD,
@@ -59,11 +50,19 @@ typedef enum e_type
 					UNKNOWN		// inconnu
 }					t_type;
 
+typedef struct s_cmds_list
+{
+	char				**cmds;
+	char				*path;
+	t_type				token;
+	struct s_cmds_list	*prev;
+	struct s_cmds_list	*next;
+}						t_cmds_list;
+
 typedef struct s_lexer
 {
-	t_list			*tokens;
-	int 			i;
-}					t_lexer;
+	int 				i;
+}						t_lexer;
 
 /* typedef struct s_parser
 {
@@ -77,11 +76,11 @@ typedef struct s_exec
 
 typedef struct s_mshell
 {
-	char			*input;
-	t_list			*cmds_list;
-	char			**env;
-	char			**paths;
-}					t_mshell;
+	char				*input;
+	t_cmds_list			*cmds_list;
+	char				**env;
+	char				**paths;
+}						t_mshell;
 
 /// main ///
 int main(int ac, char **av, char **env);
@@ -97,8 +96,12 @@ bool	ft_isredirection(char c);
 /// utils-error ///
 void	ft_error_exit(char *message);
 
+/// utils-free ///
+void	ft_free_manag(t_mshell *mshell);
+
 /// utils-init ///
 void	ft_init_mshell(t_mshell *mshell, char **env);
+void	ft_build_env(t_mshell *mshell, char  **env);
 void	ft_build_paths(t_mshell *mshell);
 
 #endif
