@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/16 14:55:30 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/17 16:00:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_init_lexer(t_lexer *lexer)
 {
 	lexer->i = -1;
+	lexer->intoken = false;
 }
 
 bool	ft_isspace(char c)
@@ -24,9 +25,23 @@ bool	ft_isspace(char c)
 	return (false);
 }
 
-bool	ft_isredirection(char c)
+bool	ft_ischevron(char c)
 {
-	if (c == '<' || c == '>' || c == '|')
+	if (c == '<' || c == '>')
+		return (true);
+	return (false);
+}
+
+bool	ft_isnotredirection(char c)
+{
+	if (c != '<' || c != '>' || c != '|')
+		return (true);
+	return (false);
+}
+
+bool	ft_ispipe(char c)
+{
+	if (c == '|')
 		return (true);
 	return (false);
 }

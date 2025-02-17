@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:24:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/16 18:38:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/17 12:14:25 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ void	ft_init_mshell(t_mshell *mshell, char **env)
 {
 	mshell->input = NULL;
 	mshell->cmds_list = NULL;
-	// mshell->env = env;
+	mshell->env = NULL;
 	ft_build_env(mshell, env);
-
-	//mshell->paths = NULL; // aSupp
-	ft_build_paths(mshell); // init. le double tab path
+	mshell->paths = NULL;
+	ft_build_path(mshell);
 }
 void	ft_build_env(t_mshell *mshell, char  **env)
 {	
@@ -32,8 +31,7 @@ void	ft_build_env(t_mshell *mshell, char  **env)
 	counter_line = 0;
 	while (env[++i])
 		counter_line++;
-	//printf("counter = [%d]\n", counter_line);
-	mshell->env = malloc((counter_line + 1) * sizeof(char *)); //// <<<<<<<<<< +1 ou pas????????????
+	mshell->env = malloc((counter_line + 1) * sizeof(char *));
 	i = -1;
 	while (env[++i])
 	{
@@ -41,26 +39,20 @@ void	ft_build_env(t_mshell *mshell, char  **env)
 		if (mshell->env[i] == NULL)
 			return ;
 	}
-	env[i] = NULL;
-	i = -1;
+	mshell->env[i] = NULL;
+/* 	i = -1;
 	while (mshell->env[++i])
-		printf("%s\n", mshell->env[i]);
-	//printf("value i : [%d]\n", i);
+		printf("%s\n", mshell->env[i]); */
 }
 
 
-void	ft_build_paths(t_mshell *mshell)
+void	ft_build_path(t_mshell *mshell)
 {
 	char	*paths_line;
 	int		i;
 	int		j;
 
 	i = -1;
-	if (mshell->env == NULL)
-	{
-		mshell->paths = NULL;
-		return ;
-	}
 	while (mshell->env[++i])
 	{
 		if (!ft_strncmp(mshell->env[i], "PATH=", 5))
