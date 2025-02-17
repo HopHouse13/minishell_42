@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/02/16 15:52:56 by pbret            ###   ########.fr        #
+#    Updated: 2025/02/17 12:26:43 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer.c \
 			srcs/utils/error.c \
 			srcs/utils/free.c \
-			srcs/utils/init.c
+			srcs/utils/init.c \
+			srcs/utils/print.c
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc
 RM			= rm -rf

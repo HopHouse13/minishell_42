@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/16 16:32:09 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:09:39 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,43 @@ typedef enum e_type
 					REDIR_IN,	// "<"
 					REDIR_OUT,	// ">"
 					HD,			// "<<"
-					SIN_HD,		// EOF
+					END_HD,		// EOF
 					APPEND,		// ">>"
 					DOLLAR,		// "$"
 					S_QUOTE,	// "'"
 					D_QUOTE,	// """
-					END,		// fin de imput
+					END,		// fin de input
 					UNKNOWN		// inconnu
 }					t_type;
 
-typedef struct s_cmds_list
-{
-	char				**cmds;
-	char				*path;
-	t_type				token;
-	struct s_cmds_list	*prev;
-	struct s_cmds_list	*next;
-}						t_cmds_list;
-
 typedef struct s_lexer
 {
-	int 				i;
-}						t_lexer;
+	int 			i;
+	bool			intoken;
+}					t_lexer;
+
+typedef struct s_token
+{
+	char			*elem;
+	t_type			token;
+	struct s_token	*prev;
+	struct s_token	*next;
+}					t_token;
+
+typedef struct s_cmd
+{
+	char			**cmd;
+	char			*path;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+}					t_cmd;
+
+typedef struct s_elem
+{
+	t_cmd			*cmd;
+	struct s_elem	*prev;
+	struct s_elem	*next;
+}					t_elem;
 
 /* typedef struct s_parser
 {
@@ -76,11 +91,11 @@ typedef struct s_exec
 
 typedef struct s_mshell
 {
-	char				*input;
-	t_cmds_list			*cmds_list;
-	char				**env;
-	char				**paths;
-}						t_mshell;
+	char			*input;
+	t_cmds			*cmds_list;
+	char			**env;
+	char			**paths;
+}					t_mshell;
 
 /// main ///
 int main(int ac, char **av, char **env);
@@ -90,8 +105,11 @@ void	ft_lexer(t_mshell mshell, char *input);
 
 /// lexer- ///
 void	ft_init_lexer(t_lexer *lexer);
+void	ft_build_list_tokens(t_mshell *mshell, t_lexer *lexer, char *input);
 bool	ft_isspace(char c);
-bool	ft_isredirection(char c);
+bool	ft_ischevron(char c);
+bool	ft_isnotchevron(char c);
+bool	ft_ispipe(char c);
 
 /// utils-error ///
 void	ft_error_exit(char *message);
@@ -102,6 +120,8 @@ void	ft_free_manag(t_mshell *mshell);
 /// utils-init ///
 void	ft_init_mshell(t_mshell *mshell, char **env);
 void	ft_build_env(t_mshell *mshell, char  **env);
-void	ft_build_paths(t_mshell *mshell);
+void	ft_build_path(t_mshell *mshell);
 
+/// utils-print ///
+void	ft_print_double_tab(char **tab);
 #endif
