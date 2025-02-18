@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:24:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/17 12:14:25 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/18 19:52:27 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init_mshell(t_mshell *mshell, char **env)
 {
 	mshell->input = NULL;
 	mshell->cmds_list = NULL;
+	//mshell->exit_status = 0; "invalid write (4)"  si pas en commentaire, je comprends pas
 	mshell->env = NULL;
 	ft_build_env(mshell, env);
 	mshell->paths = NULL;
@@ -62,7 +63,7 @@ void	ft_build_path(t_mshell *mshell)
 				j++;
 			paths_line = ft_substr(mshell->env[i], j + 1, ft_strlen(mshell->env[i]));
 			if (!paths_line)
-				mshell->paths = NULL;
+				return ;
 			else
 			{
 				mshell->paths = ft_split(paths_line, ':');

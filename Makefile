@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/02/17 12:26:43 by pbret            ###   ########.fr        #
+#    Updated: 2025/02/18 19:21:51 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME		= minishell
 SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
+			srcs/parser/parser.c \
+			srcs/parser/parser-utils.c \
 			srcs/lexer/lexer_utils.c \
 			srcs/lexer/lexer.c \
 			srcs/utils/error.c \

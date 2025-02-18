@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/17 18:09:39 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/18 19:43:55 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define MAGENTA "\033[35m"
 # define CYAN "\033[36m"
 # define WHITE "\033[37m"
+
+# define SIZE_LINE 80000
 
 typedef enum e_type
 {
@@ -79,12 +81,12 @@ typedef struct s_elem
 	struct s_elem	*next;
 }					t_elem;
 
-/* typedef struct s_parser
+typedef struct s_parser
 {
-
+	char			line[SIZE_LINE];
 }					t_parser;
 
-typedef struct s_exec
+/* typedef struct s_exec
 {
 
 }					t_exec; */
@@ -92,18 +94,26 @@ typedef struct s_exec
 typedef struct s_mshell
 {
 	char			*input;
-	t_cmds			*cmds_list;
+	t_cmd			*cmds_list;
 	char			**env;
 	char			**paths;
+	int				exit_status;
 }					t_mshell;
 
 /// main ///
 int main(int ac, char **av, char **env);
 
+/// parser ///
+void	ft_parser(t_mshell *mshell, char *input);
+bool	ft_check_quotes_input(char *input);
+
+/// parser-utils ///
+void	ft_init_line(char virgin_line[SIZE_LINE]);
+
 /// lexer ///
 void	ft_lexer(t_mshell mshell, char *input);
 
-/// lexer- ///
+/// lexer-utils ///
 void	ft_init_lexer(t_lexer *lexer);
 void	ft_build_list_tokens(t_mshell *mshell, t_lexer *lexer, char *input);
 bool	ft_isspace(char c);
