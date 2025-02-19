@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/18 15:46:11 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// bash-5.1$    < in    grep z  |wc -l>out   $
+// bash-5.1$    < in    grep z  |wc -l>OUT_Q   $
 //" "' ' d""
 
 // void	ft_build_list_tokens(t_mshell *mshell, t_lexer *lexer, char *input)

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/18 19:43:55 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:44:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@
 # define WHITE "\033[37m"
 
 # define SIZE_LINE 80000
+# define IN_Q 1
+# define OUT_Q 0
 
 typedef enum e_type
 {
 					WORD,
 					PIPE, 		// "|"
 					REDIR_IN,	// "<"
-					REDIR_OUT,	// ">"
+					REDIR_OUT_Q,	// ">"
 					HD,			// "<<"
 					END_HD,		// EOF
 					APPEND,		// ">>"
@@ -84,6 +86,10 @@ typedef struct s_elem
 typedef struct s_parser
 {
 	char			line[SIZE_LINE];
+	int				i;
+	int				j;
+	int				squote;
+	int				dquote;
 }					t_parser;
 
 /* typedef struct s_exec
@@ -105,10 +111,14 @@ int main(int ac, char **av, char **env);
 
 /// parser ///
 void	ft_parser(t_mshell *mshell, char *input);
-bool	ft_check_quotes_input(char *input);
+bool	ft_check_quotes_input(t_parser *parser, char *input);
+void	ft_check_quotes(t_parser *parser,char c);
+void	ft_put_spaces(t_parser *parser, char *input);
+void	ft_put_pipe(t_parser *parser, char *input);
+void	ft_put_redirection(t_parser *parser, char *input);
 
 /// parser-utils ///
-void	ft_init_line(char virgin_line[SIZE_LINE]);
+void	ft_init_line(char *virgin_line);
 
 /// lexer ///
 void	ft_lexer(t_mshell mshell, char *input);

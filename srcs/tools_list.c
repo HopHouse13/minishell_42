@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:12:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/14 17:28:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_init_list_head(t_list **list)
 	fist_node->next = NULL;
 	*list = fist_node;
 }
-// ft pour ajouter un noeud a la fin de la liste.
+// ft pour ajOUT_Qer un noeud a la fin de la liste.
 void	ft_add_node_end(t_list **list)
 {
 	t_list	*tmp_head;
@@ -59,4 +59,4 @@ void	ft_add_node_end(t_list **list)
 	new_node->next = NULL;
 	tmp_head->next = new_node;
 }
-// ft pour ajouter un noeud au milieu de la liste.
+// ft pour ajOUT_Qer un noeud au milieu de la liste.
