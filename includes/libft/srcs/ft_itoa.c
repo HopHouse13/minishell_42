@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:03:45 by pbret             #+#    #+#             */
-/*   Updated: 2025/01/16 12:21:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 // n <= 0 -> +1 pour la place du '-' au debut
 // Si n != 0 -> +1 et n/10 pour decaler la virgule jusqu'a 0
 // avec la taille de notre futur str -> allocation de zones de memoire +1->'\0'
-// Si n < 0 -> rajout du '-' position [0] & on passe nbr en positif (*-1)
+// Si n < 0 -> rajOUT_Q du '-' position [0] & on passe nbr en positif (*-1)
 // Boucle tant que nbr < 0 
 // -> i-- au debut (position toujours -1 a la len)
 // -> commence de la fin, isolation du dernier(%10) +convetion en carac. ASCII
 // -> decalage de la virgule
-// Une fois a nbr > 0, tout est converti return str (premier pointeur)
+// Une fois a nbr > 0, tOUT_Q est converti return str (premier pointeur)
 
 static int	size(int n)
 {

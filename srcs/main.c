@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/18 16:47:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	ft_loop_mshell(t_mshell *mshell)
 {
-	while (1)
+	while (1) // peut etre changer la condition pour une variable stocke dans la struct mshell et qui change d'etat pour sortir de minishell. (crtl+D ou exit)
 	{
 		//ft_signal(); // je sais pas encore comment gerer ca
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			break ;
-		if (mshell->input != NULL)
+		else
+		{
 			add_history(mshell->input);
-		//printf("input -> [%s]\n", mshell->input);
-		ft_parser(mshell, mshell->input);
-		// ft_lexer(mshell, mshell->input);
+			ft_parser(mshell, mshell->input);
+			// ft_lexer(mshell, mshell->input);
+		}
 	
 	}
 }
@@ -39,10 +40,8 @@ int	main(int ac, char **av, char **env)
 		mshell = malloc(sizeof(t_mshell));
 		if (!mshell)
 			ft_error_exit("Error main ");
-		ft_init_mshell(mshell, env); // initialisation de toutes les struct
-/* 		ft_print_double_tab(mshell->env);
-		ft_print_double_tab(mshell->paths); */
-		ft_loop_mshell(mshell);
+		ft_init_mshell(mshell, env); // initialisation de tOUT_Qes les struct
+		ft_loop_mshell(mshell); // minishell_loop
 		ft_free_manag(mshell);
 		free(mshell);
 		rl_clear_history();
