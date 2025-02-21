@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 16:32:40 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/16 15:46:59 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/16 18:21:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-// AjOUT_Qe l’élément ’new’ à la fin de la liste.
-// ft_lstlast -> Renvoie le dernier élément de la liste.
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_free_manag(t_mshell *mshell)
 {
-	t_list	*tmp;
-
-	if (!lst || !new)
-		return ;
-	if (!*lst)
+	int	i;
+	
+	if (mshell->input)
+		free(mshell->input);
+	i = -1;
+	if (mshell->paths != NULL)
 	{
-		*lst = new;
-		return ;
+		while (mshell->paths[++i])
+			free(mshell->paths[i]);
+		free(mshell->paths);
 	}
-	tmp = ft_lstlast(*lst);
-	tmp -> next = new;
+	i = -1;
+	if (mshell->env != NULL)
+	{
+		while (mshell->env[++i])
+			free(mshell->env[i]);
+		free(mshell->env);
+	}
 }

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 16:32:40 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/17 13:17:26 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-// AjOUT_Qe l’élément ’new’ à la fin de la liste.
-// ft_lstlast -> Renvoie le dernier élément de la liste.
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_print_double_tab(char **tab)
 {
-	t_list	*tmp;
+	int	i;
 
-	if (!lst || !new)
-		return ;
-	if (!*lst)
+	i = -1;
+	if(tab)
 	{
-		*lst = new;
-		return ;
+		while (tab[++i])
+			ft_printf("%s\n", tab[i]);
+		ft_printf("------------------------------------------------------------\n");
 	}
-	tmp = ft_lstlast(*lst);
-	tmp -> next = new;
 }

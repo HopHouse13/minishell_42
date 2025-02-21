@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 16:32:40 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/18 15:57:52 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-// AjOUT_Qe l’élément ’new’ à la fin de la liste.
-// ft_lstlast -> Renvoie le dernier élément de la liste.
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_error_exit(char *message)
 {
-	t_list	*tmp;
-
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	tmp = ft_lstlast(*lst);
-	tmp -> next = new;
+	perror(message);
+	exit(EXIT_FAILURE);
 }
+// gestion d'erreur:
+
+// Avant d'exit et d'afficher un message d'erreur, il faut free l'ensemble des malloc dont le malloc du main (t_mshell)
+// si errno est non null -> afficher son message
+// sinon ecrire dans errno puis l'afficher
