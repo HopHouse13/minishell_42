@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 18:26:36 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/21 14:28:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_loop_mshell(t_mshell *mshell)
 			add_history(mshell->input);
 			ft_parser(mshell, mshell->input);
 			// ft_lexer(mshell, mshell->input);
+			// ft_exec();
 		}
 	
 	}
