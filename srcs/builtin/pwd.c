@@ -11,8 +11,11 @@ void    BI_env_init(void)
 }
 
 
+//Distinction cwd & pwd 
+//cwd : pour obtenir value pour env
+//pwd : print le wd 
 
-char	*BI_init_pwd(char *buff)
+char	*BI_init_cwd(char *buff)
 {
 	//printf() + getcwd()	
 	//PATH_MAX = constante dans limits.h
@@ -39,3 +42,5 @@ char	*BI_init_pwd(char *buff)
     */
 }
 
+
+BI_pwd()
