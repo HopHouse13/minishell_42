@@ -1,0 +1,18 @@
+LOGIQUE :
+
+echo        O
+unset       O
+exit        O
+cd          O
+pwd         X 
+export      O
+
+INTEGRATION : 
+
+echo        O
+unset       O
+exit        O
+cd          O
+pwd         O 
+export      O
+
