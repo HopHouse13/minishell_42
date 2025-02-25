@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser-utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 13:32:20 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/24 18:58:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,11 @@ void	ft_init_line(char *virgin_line)
 	while (++i < SIZE_LINE)
 		virgin_line[i] = '\0';
 	return ;
+}
+
+void	ft_handle_space(t_parser *parser, char *input)
+{
+	parser->line[++parser->j] = ' ';
+	while (input[parser->i + 1] == ' ')
+		parser->i++;
 }
