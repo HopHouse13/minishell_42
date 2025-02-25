@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/19 18:44:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:43:48 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_parser
 	int				j;
 	int				squote;
 	int				dquote;
+	int				flag_quote;
 }					t_parser;
 
 /* typedef struct s_exec
@@ -111,7 +112,8 @@ int main(int ac, char **av, char **env);
 
 /// parser ///
 void	ft_parser(t_mshell *mshell, char *input);
-bool	ft_check_quotes_input(t_parser *parser, char *input);
+bool	ft_input_valid(t_parser *parser, char *input);
+bool	ft_quotes_valid(t_parser *parser, char *input);
 void	ft_check_quotes(t_parser *parser,char c);
 void	ft_put_spaces(t_parser *parser, char *input);
 void	ft_put_pipe(t_parser *parser, char *input);
@@ -119,6 +121,8 @@ void	ft_put_redirection(t_parser *parser, char *input);
 
 /// parser-utils ///
 void	ft_init_line(char *virgin_line);
+void	ft_handle_space(t_parser *parser, char *input);
+
 
 /// lexer ///
 void	ft_lexer(t_mshell mshell, char *input);
