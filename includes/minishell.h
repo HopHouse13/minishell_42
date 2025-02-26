@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/25 00:43:48 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/02/25 13:39:16 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,17 @@ typedef struct s_mshell
 /// main ///
 int main(int ac, char **av, char **env);
 
+bool	ft_input_valid(t_parser *parser, char *input);
 /// parser ///
 void	ft_parser(t_mshell *mshell, char *input);
-bool	ft_input_valid(t_parser *parser, char *input);
 bool	ft_quotes_valid(t_parser *parser, char *input);
 void	ft_check_quotes(t_parser *parser,char c);
 void	ft_put_spaces(t_parser *parser, char *input);
 void	ft_put_pipe(t_parser *parser, char *input);
 void	ft_put_redirection(t_parser *parser, char *input);
+bool	ft_control_operators_valid(t_parser *parser, char *input);
+bool	ft_input_valid(t_parser *parser, char *input);
+
 
 /// parser-utils ///
 void	ft_init_line(char *virgin_line);

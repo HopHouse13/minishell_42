@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/25 01:50:32 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/02/26 01:05:33 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,42 @@ void	ft_init_parcer(t_parser *parser)
 	parser->dquote = OUT_Q;
 	parser->flag_quote = OUT_Q;
 }
-// " <, <<, >, >>, |, ||, &&"
-bool	ft_operators_valid(t_parser *parser, char *input)
+// "|, ||, &&"
+bool	ft_control_operators_valid(t_parser *parser, char *input)
 {
-	char	c;
+	int	a;
 
-	parser->i = 0;
-	while (input[parser->i])
+	parser->i = -1;
+	while (input[++parser->i])
 	{
-		c = input[parser->i];
 		ft_check_quotes(parser, input[parser->i]);
-		if ((c == '<' || c == '>') && (parser->flag_quote = OUT_Q))
-		{	
-			if (ft_redirection_valid(parser, input, c) == false)
-				return (false);
-		}
-		else if ((c == '|' || c == '&') && (parser->flag_quote = OUT_Q))
-		{
-			if (ft_control_operators_valid(parser, input, c) == false) // "|""&"
-				return (false);
-		}
-		parser->i++;
-	}
-	return (true);
-}
-
-bool	ft_redirection_valid(t_parser *parser,char *input, char c)
-{
-	int	k;
-
-	k = parser->i + 1;
-	while (input[++k] == ' ')
-	{
-		
-		if (input[k] == input[parser->i])
+		if (input[parser->i] == '&' && parser->flag_quote == OUT_Q)
 			return (false);
+		else if (input[parser->i] == '|' && parser->flag_quote == OUT_Q)
+		{
+			a = parser->i + 1;
+			while (input[a])
+			{
+				ft_check_quotes(parser, input[parser->i]);
+				if (input[a] == '|')
+					return (false);
+				if (input[a] != ' ')
+					break ;
+				a++;
+			}
+			parser->i = a - 1;
+		}
 	}
 	return (true);
 }
+
 bool	ft_quotes_valid(t_parser *parser, char *input)
 {
 	while (input[++parser->i])
 		ft_check_quotes(parser, input[parser->i]);
 	if (parser->flag_quote == OUT_Q)
-		return (OUT_Q);
-	return (IN_Q);
+		return (true);
+	return (false);
 }
 
 void	ft_check_quotes(t_parser *parser, char c)
@@ -139,13 +130,13 @@ void	ft_put_spaces(t_parser *parser, char *input)
 	}
 	ft_printf("\nline : [%s]\n\n", parser->line);
 }
-bool	ft_input_valid(t_parser *parser, char *input)
+bool	ft_input_valid(t_parser *parser, char *input) // !!!!!!!!!!!!!! gerer les redirection non conforme : "<< <" "> >" "<<>>"
 {
-	if (ft_quotes_valid(&parser, input) == false)
-		return (false); // erreur a gerer
-	if(ft_operators_valid(&parser, input) == false)
-		return (false); // erreur a gerer
-	return (true);
+	if (ft_quotes_valid(parser, input) == false)
+		return (printf("false_quote\n"), false); // erreur a gerer
+	if (ft_control_operators_valid(parser, input) == false)
+		return (printf("false_operators\n"), false); // erreur a gerer
+	return (true);	
 }	
 
 void	ft_parser(t_mshell *mshell, char *input)
@@ -155,6 +146,7 @@ void	ft_parser(t_mshell *mshell, char *input)
 	ft_init_parcer(&parser);
 	if (ft_input_valid(&parser, input) == false)
 		return ; // a gerer
+	printf("value check_input [%d]\n", ft_input_valid(&parser, input));
 	ft_put_spaces(&parser, input);
 	(void)mshell->input;
 }

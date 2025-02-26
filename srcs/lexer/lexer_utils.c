@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/17 16:00:06 by pbret            ###   ########.fr       */
+/*   Updated: 2025/02/25 10:59:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,46 @@ bool	ft_ispipe(char c)
 		return (true);
 	return (false);
 }
+
+
+/// a trier ///
+// validation ordre operateurs
+
+// " <, <<, >, >>, |, ||, &&"
+/* bool	ft_operators_valid(t_parser *parser, char *input)
+{
+	char	c;
+
+	parser->i = 0;
+	while (input[parser->i])
+	{
+		c = input[parser->i];
+		ft_check_quotes(parser, input[parser->i]);
+		{	
+		if ((c == '<' || c == '>') && (parser->flag_quote = OUT_Q))
+			if (ft_redirection_valid(parser, input, c) == false)
+				return (false);
+		}
+		else if ((c == '|' || c == '&') && (parser->flag_quote = OUT_Q))
+		{
+			if (ft_control_operators_valid(parser, input, c) == false) // "|""&"
+				return (false);
+		}
+		parser->i++;
+	}
+	return (true);
+}
+
+bool	ft_redirection_valid(t_parser *parser,char *input, char c)
+{
+	int	k;
+
+	k = parser->i + 1;
+	while (input[++k] == ' ')
+	{
+		
+		if (input[k] == input[parser->i])
+			return (false);
+	}
+	return (true);
+} */
