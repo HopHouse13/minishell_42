@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/26 01:05:33 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/02/27 19:05:59 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_parcer(t_parser *parser)
+void	ft_init_parser(t_parser *parser)
 {
 	ft_init_line(parser->line);
 	parser->i = -1;
@@ -22,7 +22,7 @@ void	ft_init_parcer(t_parser *parser)
 	parser->flag_quote = OUT_Q;
 }
 // "|, ||, &&"
-bool	ft_control_operators_valid(t_parser *parser, char *input)
+bool	ft_control_operators_valid(t_parser *parser, char *input) // gerer interdiction si en dehors des quotes ->{} () [] ; sous-shell etc
 {
 	int	a;
 
@@ -49,9 +49,45 @@ bool	ft_control_operators_valid(t_parser *parser, char *input)
 	}
 	return (true);
 }
+// une fonction gerer carac interdit en dehors des quotes -> {} () [] ; &
+// fusionner les deux fonctions pour le carac |
+//
+//
+
+// Probleme:
+// minishell$ >x>$
+// false_redir$    
+
+// Vrai reponse : [> x >]
+
+bool	ft_control_redir_valid(t_parser *parser, char *input) // !!!!!!!!!!!!!! gerer les redirection non conforme : "<< <" "> >" "<<>>"
+{
+	parser->i = -1;
+	while (input[++parser->i])
+	{
+		ft_check_quotes(parser, input[parser->i]);
+		if (parser->flag_quote == OUT_Q)
+		{
+			if ((input[parser->i] == '<' || input[parser->i] == '>') && input[parser->i + 1])
+			{
+				parser->i++;
+				if (input[parser->i] == input[parser->i - 1] && input[parser->i + 1])
+					parser->i++;
+				while (input[parser->i] == ' ')
+					parser->i++;
+				if (input[parser->i + 1] && ft_valid_carac(input[parser->i + 1]) == false)
+					return (false);
+				parser->i--;
+			}
+		}
+	}
+	return (true);
+}
+
 
 bool	ft_quotes_valid(t_parser *parser, char *input)
 {
+	parser->i = -1;
 	while (input[++parser->i])
 		ft_check_quotes(parser, input[parser->i]);
 	if (parser->flag_quote == OUT_Q)
@@ -86,56 +122,56 @@ void	ft_put_pipe(t_parser *parser, char *input)
 
 void	ft_put_redirection(t_parser *parser, char *input)
 {
-	if (input[parser->i - 1] != ' ')
+	if (parser->i != 0 && input[parser->i - 1] != ' ')
 		parser->line[++parser->j] = ' ';
 	if (input[parser->i] == '<')
 	{
-		parser->line[++parser->j] = '<';
-		if (input[parser->i + 1] == '<')
-		{
-			parser->line[++parser->j] = '<';
-			parser->i++;
-		}
+		parser->line[++parser->j] = input[parser->i];
+		if (parser->i + 1 && input[parser->i + 1] == '<')
+			parser->line[++parser->j] = input[++parser->i];
 	}
 	else if (input[parser->i] == '>')
 	{
-		parser->line[++parser->j] = '>';
-		if (input[parser->i + 1] == '>')
-		{
-			parser->line[++parser->j] = '>';
-			parser->i++;
-		}
+		parser->line[++parser->j] = input[parser->i];
+		if (parser->i + 1 && input[parser->i + 1] == '>')
+			parser->line[++parser->j] = input[++parser->i];
 	}
-	if (input[parser->i + 1] != ' ')
+	if (parser->i + 1 && input[parser->i + 1] != ' ')
 		parser->line[++parser->j] = ' ';
-
 }
 
 void	ft_put_spaces(t_parser *parser, char *input)
 {
-
 	parser->i = 0;
-	while (input[parser->i])
+	while (input && parser->i < SIZE_LINE  && input[parser->i])
 	{
 		ft_check_quotes(parser, input[parser->i]);
-		if (input[parser->i] == '|' && parser->flag_quote == OUT_Q)
-			ft_put_pipe(parser, input);
-		else if ((input[parser->i] == '<' || input[parser->i] == '>') && parser->flag_quote == OUT_Q)
-			ft_put_redirection(parser, input);
-		else if (input[parser->i] == ' ' && parser->flag_quote == OUT_Q)
-			ft_handle_space(parser, input);
+		if(parser->flag_quote == OUT_Q)
+		{
+			if (input[parser->i] == '|')
+				ft_put_pipe(parser, input);
+			else if ((input[parser->i] == '<' || input[parser->i] == '>'))
+				ft_put_redirection(parser, input);
+			else if (input[parser->i] == ' ')
+				ft_handle_space(parser, input);
+			else
+				parser->line[++parser->j] = input[parser->i];
+		}
 		else
 			parser->line[++parser->j] = input[parser->i];
 		parser->i++;
 	}
 	ft_printf("\nline : [%s]\n\n", parser->line);
 }
-bool	ft_input_valid(t_parser *parser, char *input) // !!!!!!!!!!!!!! gerer les redirection non conforme : "<< <" "> >" "<<>>"
+
+bool	ft_input_valid(t_parser *parser, char *input)
 {
 	if (ft_quotes_valid(parser, input) == false)
 		return (printf("false_quote\n"), false); // erreur a gerer
 	if (ft_control_operators_valid(parser, input) == false)
 		return (printf("false_operators\n"), false); // erreur a gerer
+	if (ft_control_redir_valid(parser, input) == false)
+		return (printf("false_redir\n"), false); // erreur a gerer
 	return (true);	
 }	
 
@@ -143,10 +179,10 @@ void	ft_parser(t_mshell *mshell, char *input)
 {
 	t_parser	parser;
 
-	ft_init_parcer(&parser);
+	ft_init_parser(&parser);
 	if (ft_input_valid(&parser, input) == false)
 		return ; // a gerer
-	printf("value check_input [%d]\n", ft_input_valid(&parser, input));
+	// printf("value check_input [%d]\n", ft_input_valid(&parser, input));
 	ft_put_spaces(&parser, input);
 	(void)mshell->input;
 }
