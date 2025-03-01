@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/27 17:37:47 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/01 21:46:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 # include "./libft/includes/libft.h"
 # include "./printf/includes/ft_printf.h"
-
-# include <stdio.h> // printf (pour la phase de dev.)
-# include <errno.h> // liste des erreurs errno.
-# include <sys/errno.h> // meilleur portabilite avec cette librairie.
+# include <errno.h>             // liste des erreurs errno.
+# include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
-# include <readline/history.h> // gere l'historique des commandes (non vide)
-# include <stdlib.h> // exit ;
-# include <stdbool.h> // boolien
+# include <stdbool.h>           // boolien
+# include <stdio.h>             // printf (pour la phase de dev.)
+# include <stdlib.h>            // exit ;
+# include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 
 # define RESET "\033[0m" // a supprimer si non besoin
 # define BLACK "\033[30m"
@@ -40,25 +39,25 @@
 
 typedef enum e_type
 {
-					WORD,
-					PIPE, 		// "|"
-					REDIR_IN,	// "<"
-					REDIR_OUT_Q,	// ">"
-					HD,			// "<<"
-					END_HD,		// EOF
-					APPEND,		// ">>"
-					DOLLAR,		// "$"
-					S_QUOTE,	// "'"
-					D_QUOTE,	// """
-					END,		// fin de input
-					UNKNOWN		// inconnu
+	WORD,
+	PIPE,        // "|"
+	REDIR_IN,    // "<"
+	REDIR_OUT_Q, // ">"
+	HD,          // "<<"
+	END_HD,      // EOF
+	APPEND,      // ">>"
+	DOLLAR,      // "$"
+	S_QUOTE,     // "'"
+	D_QUOTE,     // """
+	END,         // fin de input
+	UNKNOWN      // inconnu
 }					t_type;
 
-typedef struct s_lexer
+typedef struct s_parser
 {
-	int 			i;
+	int				i;
 	bool			intoken;
-}					t_lexer;
+}					t_parser;
 
 typedef struct s_token
 {
@@ -83,7 +82,7 @@ typedef struct s_elem
 	struct s_elem	*next;
 }					t_elem;
 
-typedef struct s_parser
+typedef struct s_lexer
 {
 	char			line[SIZE_LINE];
 	int				i;
@@ -91,7 +90,7 @@ typedef struct s_parser
 	int				squote;
 	int				dquote;
 	int				flag_quote;
-}					t_parser;
+}					t_lexer;
 
 /* typedef struct s_exec
 {
@@ -108,49 +107,53 @@ typedef struct s_mshell
 }					t_mshell;
 
 /// main ///
-int 	main(int ac, char **av, char **env);
+int		main(int ac, char **av, char **env);
 
-bool	ft_input_valid(t_parser *parser, char *input);
-/// parser ///
-void	ft_parser(t_mshell *mshell, char *input);
-void	ft_init_parser(t_parser *parser);
-bool	ft_quotes_valid(t_parser *parser, char *input);
-void	ft_check_quotes(t_parser *parser,char c);
-void	ft_put_spaces(t_parser *parser, char *input);
-void	ft_put_pipe(t_parser *parser, char *input);
-void	ft_put_redirection(t_parser *parser, char *input);
-bool	ft_control_operators_valid(t_parser *parser, char *input);
-bool	ft_input_valid(t_parser *parser, char *input);
-bool	ft_control_redir_valid(t_parser *parser, char *input);
+/// lexer ///
+void	ft_lexer(t_mshell *mshell, char *input);
 
+/// lexer_init ///
+void	ft_init_lexer(t_lexer *lexer);
+
+/// lexer_operateurs_valid ///
+bool	ft_operateurs_valid(t_lexer *lexer, char *input);
+bool	ft_quotes_valid(t_lexer *lexer, char *input);
+bool	ft_control_pipe_valid(t_lexer *lexer, char *input);
+bool	ft_control_redir_valid(t_lexer *lexer, char *input);
+
+/// lexer_cleaning_input ///
+void	ft_cleaning_input(t_lexer *lexer, char *input);
+void	ft_put_pipe(t_lexer *lexer, char *input);
+void	ft_put_redirection(t_lexer *lexer, char *input);
+
+/// lexer_operateurs_utilities ///
+void	ft_check_quotes(t_lexer *lexer, char c);
+void	ft_init_line(char *virgin_line);
+void	ft_handle_space(t_lexer *lexer, char *input);
+bool	ft_valid_carac(char c);
 
 /// parser-utils ///
 void	ft_init_line(char *virgin_line);
-void	ft_handle_space(t_parser *parser, char *input);
+void	ft_handle_space(t_lexer *lexer, char *input);
 bool	ft_valid_carac(char c);
 
-/// lexer ///
-void	ft_lexer(t_mshell mshell, char *input);
+/// parser ///
+void	ft_parser(t_mshell mshell, char *input);
 
-/// lexer-utils ///
-void	ft_init_lexer(t_lexer *lexer);
-void	ft_build_list_tokens(t_mshell *mshell, t_lexer *lexer, char *input);
+/// parser-utils ///
+void	ft_init_parser(t_parser *lexer);
+void	ft_build_list_tokens(t_mshell *mshell, t_parser *lexer, char *input);
 bool	ft_isspace(char c);
 bool	ft_ischevron(char c);
 bool	ft_isnotchevron(char c);
 bool	ft_ispipe(char c);
 
-/// utils-error ///
+/// utilities ///
 void	ft_error_exit(char *message);
-
-/// utils-free ///
 void	ft_free_manag(t_mshell *mshell);
-
-/// utils-init ///
 void	ft_init_mshell(t_mshell *mshell, char **env);
-void	ft_build_env(t_mshell *mshell, char  **env);
+void	ft_build_env(t_mshell *mshell, char **env);
 void	ft_build_path(t_mshell *mshell);
-
-/// utils-print ///
 void	ft_print_double_tab(char **tab);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:32:22 by pbret             #+#    #+#             */
-/*   Updated: 2025/01/16 12:21:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/01 21:58:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 // s_new = ft_calloc et duplique avec while (pour pas depasser src)
 // et if (pour pas depasser len)
 
-char	*ft_substr(char const *s_src, unsigned int start, size_t len)
+char	*ft_substr(char const *s_src, int start, int len)
 {
 	char	*s_new;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	if (!s_src)
 		return (NULL);
