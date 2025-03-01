@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   parser_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/25 10:59:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/01 21:46:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_lexer(t_lexer *lexer)
+void	ft_init_parser(t_parser *parser)
 {
-	lexer->i = -1;
-	lexer->intoken = false;
+	parser->i = -1;
+	parser->intoken = false;
 }
 
 bool	ft_isspace(char c)
@@ -46,7 +46,6 @@ bool	ft_ispipe(char c)
 	return (false);
 }
 
-
 /// a trier ///
 // validation ordre operateurs
 
@@ -60,14 +59,14 @@ bool	ft_ispipe(char c)
 	{
 		c = input[parser->i];
 		ft_check_quotes(parser, input[parser->i]);
-		{	
+		{
 		if ((c == '<' || c == '>') && (parser->flag_quote = OUT_Q))
 			if (ft_redirection_valid(parser, input, c) == false)
 				return (false);
 		}
 		else if ((c == '|' || c == '&') && (parser->flag_quote = OUT_Q))
 		{
-			if (ft_control_operators_valid(parser, input, c) == false) // "|""&"
+			if (ft_control_pipe_valid(parser, input, c) == false) // "|""&"
 				return (false);
 		}
 		parser->i++;
@@ -82,7 +81,7 @@ bool	ft_redirection_valid(t_parser *parser,char *input, char c)
 	k = parser->i + 1;
 	while (input[++k] == ' ')
 	{
-		
+
 		if (input[k] == input[parser->i])
 			return (false);
 	}

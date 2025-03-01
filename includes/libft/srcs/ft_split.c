@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:34:53 by pbret             #+#    #+#             */
-/*   Updated: 2025/01/22 16:48:29 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/01 21:59:57 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_nbr_words(char const *s, char c)
 {
 	long int		i;
-	size_t			nbr;
+	int			nbr;
 	int				same_carac;
 
 	i = 0;
@@ -53,9 +53,9 @@ static char	*ft_alloue_and_copy_word(char const *s, int start, int end)
 	return (word);
 }
 
-static void	*ft_free_double_tab_tab(char **tab_tab, size_t w)
+static void	*ft_free_double_tab_tab(char **tab_tab, int w)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < w)
@@ -67,7 +67,7 @@ static void	*ft_free_double_tab_tab(char **tab_tab, size_t w)
 	return (NULL);
 }
 
-static void	ft_init(size_t *i, size_t *w, int *first_carac)
+static void	ft_init(int *i, int *w, int *first_carac)
 {
 	*i = 0;
 	*w = 0;
@@ -76,10 +76,10 @@ static void	ft_init(size_t *i, size_t *w, int *first_carac)
 
 char	**ft_split(char const *s, char c)
 {
-	char		**tab_tab;
-	size_t		i;
-	int			first_carac;
-	size_t		w;
+	char	**tab_tab;
+	int		i;
+	int		first_carac;
+	int		w;
 
 	tab_tab = ft_calloc(ft_nbr_words(s, c) + 1, sizeof(char *));
 	if (!tab_tab)

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   lexer_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:50:16 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:58:19 by pbret            ###   ########.fr       */
+/*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/01 17:44:05 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-int	ft_strlen(const char *s)
+void	ft_init_lexer(t_lexer *lexer)
 {
-	int	size;
-
-	size = 0;
-	while (s[size])
-		size++;
-	return (size);
+	ft_init_line(lexer->line);
+	lexer->i = -1;
+	lexer->j = -1;
+	lexer->squote = OUT_Q;
+	lexer->dquote = OUT_Q;
+	lexer->flag_quote = OUT_Q;
 }

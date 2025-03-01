@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/02/18 19:21:51 by pbret            ###   ########.fr        #
+#    Updated: 2025/03/01 18:46:11 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,18 @@ NAME		= minishell
 SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
-			srcs/parser/parser.c \
-			srcs/parser/parser-utils.c \
-			srcs/lexer/lexer_utils.c \
+			srcs/lexer/lexer_utilities.c \
+			srcs/lexer/lexer_cleaning_input.c \
+			srcs/lexer/lexer_init.c \
+			srcs/lexer/lexer_operateurs_valid.c \
 			srcs/lexer/lexer.c \
-			srcs/utils/error.c \
-			srcs/utils/free.c \
-			srcs/utils/init.c \
-			srcs/utils/print.c
+			srcs/parser/parser_utilities.c \
+			srcs/parser/parser.c \
+			srcs/utilities/error.c \
+			srcs/utilities/free.c \
+			srcs/utilities/init.c \
+			srcs/utilities/print.c
+		
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc
 RM			= rm -rf
