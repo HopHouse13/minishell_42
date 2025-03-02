@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 17:43:05 by pbret            ###   ########.fr       */
+/*   Created: 2025/03/02 17:53:30 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/02 17:53:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	ft_lexer(t_mshell *mshell, char *input)
+void	ft_strncpy(char *str1, char *str2, int nb)
 {
-	t_lexer	lexer;
+	int	i;
 
-	ft_init_lexer(&lexer);
-	if (ft_validate_operators(&lexer, input) == false)
-		return ; // a gerer
-	ft_cleaning_input(&lexer, input);
-	ft_build_list_tokens(&lexer);
-	(void)mshell->input;
+	i = 0;
+	while (i < nb && str2[i])
+	{
+		str1[i] = str2[i];
+		i++;
+	}
+	str1[i] = '\0';
+	return ;
 }
-
-// grep "mot"<input.txt|wc -l&&echo "bien:$HOME"'Pas bien:$HOME'>output.txt
-// grep "mot" < input.txt | wc -l

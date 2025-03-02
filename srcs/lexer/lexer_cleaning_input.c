@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 19:27:23 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/02 17:42:44 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	ft_cleaning_input(t_lexer *lexer, char *input)
 			lexer->line[++lexer->j] = input[lexer->i];
 		lexer->i++;
 	}
-	ft_printf("\nline : [%s]\n\n", lexer->line);
+	ft_printf("\nline : [%s]\n\n", lexer->line); // ASUPP
 }
