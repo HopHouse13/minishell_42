@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:01:11 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:59:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/02 17:54:02 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst, void (*del)(void*));
 void		ft_lstclear(t_list **lst, void (*del)(void*));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
+void		ft_strncpy(char *str1, char *str2, int nb);
 
 size_t		ft_strlcpy(char *dest, const char *src, size_t destsize);
 size_t		ft_strlcat(char *dest, const char *src, size_t destsize);

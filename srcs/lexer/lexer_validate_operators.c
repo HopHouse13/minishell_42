@@ -6,13 +6,11 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:51:13 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/02 17:31:55 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// une fonction gerer carac interdit en dehors des quotes -> {} () [] ; &
 
 bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 {
@@ -47,7 +45,7 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 {
 	lexer->i = -1;
 	while (++lexer->i < ft_strlen(input))
-	{
+	{	
 		ft_check_quotes(lexer, input[lexer->i]);
 		if (lexer->flag_quote == OUT_Q)
 		{
@@ -64,7 +62,23 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	return (true);
 }
 
-bool	ft_quotes_valid(t_lexer *lexer, char *input)
+bool	ft_control_carac_valid(t_lexer *lexer, char *input)
+{
+	char	c;
+
+	lexer->i = -1;
+	while (++lexer->i < ft_strlen(input))
+	{
+		c = input[lexer->i];
+		ft_check_quotes(lexer, c);
+		if ((c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
+			|| c == ';' || c == '&') && lexer->flag_quote == OUT_Q)
+			return (false);
+	}
+	return (true);
+}
+	
+bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
 {
 	lexer->i = -1;
 	while (input[++lexer->i])
@@ -74,10 +88,12 @@ bool	ft_quotes_valid(t_lexer *lexer, char *input)
 	return (false);
 }
 
-bool	ft_operateurs_valid(t_lexer *lexer, char *input)
+bool	ft_validate_operators(t_lexer *lexer, char *input)
 {
-	if (ft_quotes_valid(lexer, input) == false)
+	if (ft_control_quotes_valid(lexer, input) == false)
 		return (printf("false_quote\n"), false);// erreur a gerer
+	if (ft_control_carac_valid(lexer, input) == false)
+		return (printf("false_carac\n"), false);// erreur a gerer
 	if (ft_control_pipe_valid(lexer, input) == false)
 		return (printf("false_operators\n"), false);// erreur a gerer
 	if (ft_control_redir_valid(lexer, input) == false)

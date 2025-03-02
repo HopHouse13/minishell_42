@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/01 18:46:11 by pbret            ###   ########.fr        #
+#    Updated: 2025/03/02 17:32:35 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer_utilities.c \
 			srcs/lexer/lexer_cleaning_input.c \
 			srcs/lexer/lexer_init.c \
-			srcs/lexer/lexer_operateurs_valid.c \
+			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer.c \
 			srcs/parser/parser_utilities.c \
 			srcs/parser/parser.c \

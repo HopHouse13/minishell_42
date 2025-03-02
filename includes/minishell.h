@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/01 21:46:08 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/02 17:41:39 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ typedef enum e_type
 	UNKNOWN      // inconnu
 }					t_type;
 
-typedef struct s_parser
+/* typedef struct s_parser
 {
-	int				i;
-	bool			intoken;
-}					t_parser;
+}					t_parser; */
 
 typedef struct s_token
 {
@@ -116,8 +114,9 @@ void	ft_lexer(t_mshell *mshell, char *input);
 void	ft_init_lexer(t_lexer *lexer);
 
 /// lexer_operateurs_valid ///
-bool	ft_operateurs_valid(t_lexer *lexer, char *input);
-bool	ft_quotes_valid(t_lexer *lexer, char *input);
+bool	ft_validate_operators(t_lexer *lexer, char *input);
+bool	ft_control_quotes_valid(t_lexer *lexer, char *input);
+bool	ft_control_carac_valid(t_lexer *lexer, char *input);
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input);
 bool	ft_control_redir_valid(t_lexer *lexer, char *input);
 
