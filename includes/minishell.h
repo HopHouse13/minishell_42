@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/03 15:32:22 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/03 20:02:38 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ typedef enum e_type
 	END,         // fin de input
 	UNKNOWN      // inconnu
 }					t_type;
-
-typedef struct s_parser
-{
-	int				i;
-}					t_parser;
-
 typedef struct s_token
 {
 	char			*elem;
@@ -65,7 +59,16 @@ typedef struct s_token
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
-
+typedef struct s_lexer
+{
+	char			line[SIZE_LINE];
+	t_token			*list_tokens;
+	int				i;
+	int				j;
+	int				squote;
+	int				dquote;
+	int				flag_quote;
+}					t_lexer;
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -73,7 +76,10 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
-
+typedef struct s_parser
+{
+	int				i;
+}					t_parser;
 typedef struct s_elem
 {
 	char			**cmd;
@@ -82,15 +88,7 @@ typedef struct s_elem
 	struct s_elem	*next;
 }					t_elem; 
 
-typedef struct s_lexer
-{
-	char			line[SIZE_LINE];
-	int				i;
-	int				j;
-	int				squote;
-	int				dquote;
-	int				flag_quote;
-}					t_lexer;
+
 
 /* typedef struct s_exec
 {
@@ -115,7 +113,10 @@ void	ft_lexer(t_mshell *mshell, char *input);
 /// lexer_init ///
 void	ft_init_lexer(t_lexer *lexer);
 
-///
+/// lexer_build_list_token ///
+void	ft_build_list_tokens(t_lexer *lexer);
+void	ft_add_node_token(t_lexer *lexer, char *elem);
+void	ft_init_list_head(t_token **list, char *elem);
 
 /// lexer_operateurs_valid ///
 bool	ft_validate_operators(t_lexer *lexer, char *input);
@@ -145,7 +146,6 @@ void	ft_parser(t_mshell mshell, char *input);
 
 /// parser-utils ///
 void	ft_init_parser(t_parser *parser);
-void	ft_build_list_tokens(t_mshell *mshell, t_parser *lexer, char *input);
 bool	ft_isspace(char c);
 bool	ft_ischevron(char c);
 bool	ft_isnotchevron(char c);

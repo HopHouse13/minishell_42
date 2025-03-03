@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/02 17:32:35 by pbret            ###   ########.fr        #
+#    Updated: 2025/03/03 19:54:51 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
 			srcs/lexer/lexer_utilities.c \
+			srcs/lexer/lexer_build_list_token.c \
 			srcs/lexer/lexer_cleaning_input.c \
 			srcs/lexer/lexer_init.c \
 			srcs/lexer/lexer_validate_operators.c \
