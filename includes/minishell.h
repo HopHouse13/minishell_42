@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/02 17:41:39 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/03 15:32:22 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ typedef enum e_type
 	UNKNOWN      // inconnu
 }					t_type;
 
-/* typedef struct s_parser
+typedef struct s_parser
 {
-}					t_parser; */
+	int				i;
+}					t_parser;
 
 typedef struct s_token
 {
@@ -75,10 +76,11 @@ typedef struct s_cmd
 
 typedef struct s_elem
 {
-	t_cmd			*cmd;
+	char			**cmd;
+	//liste chainee	**redir;
 	struct s_elem	*prev;
 	struct s_elem	*next;
-}					t_elem;
+}					t_elem; 
 
 typedef struct s_lexer
 {
@@ -113,6 +115,8 @@ void	ft_lexer(t_mshell *mshell, char *input);
 /// lexer_init ///
 void	ft_init_lexer(t_lexer *lexer);
 
+///
+
 /// lexer_operateurs_valid ///
 bool	ft_validate_operators(t_lexer *lexer, char *input);
 bool	ft_control_quotes_valid(t_lexer *lexer, char *input);
@@ -140,7 +144,7 @@ bool	ft_valid_carac(char c);
 void	ft_parser(t_mshell mshell, char *input);
 
 /// parser-utils ///
-void	ft_init_parser(t_parser *lexer);
+void	ft_init_parser(t_parser *parser);
 void	ft_build_list_tokens(t_mshell *mshell, t_parser *lexer, char *input);
 bool	ft_isspace(char c);
 bool	ft_ischevron(char c);

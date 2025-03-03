@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:47:14 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 18:16:41 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/03 10:38:02 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_strncpy(char *str1, char *str2, int nb)
+/* void	ft_strncpy(char *str1, char *str2, int nb)
 {
 	int	i;
 
@@ -91,4 +91,4 @@ char	**ft_split_argv(char *str)
 		return (NULL);
 	ft_initialisation_tab(tab, str);
 	return (tab);
-}
+} */
