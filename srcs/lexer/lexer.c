@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 17:43:05 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/03 09:55:17 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_lexer(t_mshell *mshell, char *input)
 	if (ft_validate_operators(&lexer, input) == false)
 		return ; // a gerer
 	ft_cleaning_input(&lexer, input);
-	ft_build_list_tokens(&lexer);
+	// ft_build_list_tokens(&lexer);
 	(void)mshell->input;
 }
 
