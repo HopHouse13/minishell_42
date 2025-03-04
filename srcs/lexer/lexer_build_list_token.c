@@ -6,23 +6,41 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/03 20:13:35 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/04 17:51:51 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_print_list_tokens(t_token *head)
+
+void	ft_define_token(t_lexer *lexer)
 {
-    t_token *tmp = head;
-    while ( tmp->next != NULL)
-    {
-        printf("Token: %s, Type: %d\n", tmp->elem, tmp->token);
-        tmp = tmp->next;
-    }
+	t_token	*tmp;
+	
+	tmp = lexer->list_tokens;
+	while (tmp)
+	{
+		if (!ft_strncmp(lexer->list_tokens->elem, "|", ft_strlen("|")))
+			lexer->list_tokens->token = PIPE;
+		else if (!ft_strncmp(lexer->list_tokens->elem, "<", ft_strlen("<")))
+			lexer->list_tokens->token = REDIR_IN;
+		else if (!ft_strncmp(lexer->list_tokens->elem, ">", ft_strlen(">")))
+			lexer->list_tokens->token = REDIR_OUT;
+		else if (!ft_strncmp(lexer->list_tokens->elem, "<<", ft_strlen("<<")))
+			lexer->list_tokens->token = HD;
+		else if (!ft_strncmp(lexer->list_tokens->elem, ">>", ft_strlen(">>")))
+			lexer->list_tokens->token = APPEND;
+		else if (!ft_strncmp(lexer->list_tokens->elem, ">", ft_strlen(">")))
+			lexer->list_tokens->token = REDIR_OUT;
+		else if (!ft_strncmp(lexer->list_tokens->elem, ">", ft_strlen(">")))
+			lexer->list_tokens->token = REDIR_OUT;
+		else
+			lexer->list_tokens->token = WORD;
+		tmp = tmp->next;
+	}
 }
 
-void	ft_init_list_head(t_token **list, char *elem)
+void	ft_init_list_head(t_token **list_tokens, char *elem)
 {
 	t_token	*fist_node;
 	
@@ -30,20 +48,20 @@ void	ft_init_list_head(t_token **list, char *elem)
 	if (!fist_node)
 	{
 		perror("initialization list ");
-		//ft_master_free(list);
+		//ft_master_free(list_tokens);
 		return ;
 	}
 	fist_node->elem = elem;
-	fist_node->token = 0;
+	fist_node->token = -1;
 	fist_node->prev = NULL;
 	fist_node->next = NULL;
-	*list = fist_node;
+	*list_tokens = fist_node;
 }
 
 void	ft_add_node_token(t_lexer *lexer, char *elem)
 {
-	t_token	*new_elem;
 	t_token	*tmp_head;
+	t_token	*new_elem;
 	
 	if (!lexer->list_tokens)
 	{
@@ -61,6 +79,7 @@ void	ft_add_node_token(t_lexer *lexer, char *elem)
 	while (tmp_head->next != NULL)
 		tmp_head = tmp_head->next;
 	new_elem->elem = elem;
+	new_elem->token = -1;
 	new_elem->prev = tmp_head;
 	new_elem->next = NULL;
 	tmp_head->next = new_elem;
@@ -75,26 +94,10 @@ void	ft_build_list_tokens(t_lexer *lexer)
 	start = 0; // debut de la sous chaine
 	while (lexer->line[++lexer->i])
 	{
-		while (lexer->line[lexer->i] && lexer->line[lexer->i] == ' ')
-			lexer->i++;
-		if (lexer->line[lexer->i] != ' ' && start == 0)
-			start = lexer->i;
-		while (lexer->line[lexer->i] && lexer->line[lexer->i] != ' ' )
+		start = lexer->i;
+		while (lexer->line[lexer->i] != ' ' && lexer->line[lexer->i++])
 			lexer->j++;
-		if (start != 0)
-		{	
-			ft_add_node_token(lexer, ft_substr(lexer->line, start, lexer->j));
-			start = 0;
-			lexer->j = 0;
-		}
+		ft_add_node_token(lexer, ft_substr(lexer->line, start, lexer->j));
+		lexer->j = 0;
 	}
-	ft_print_list_tokens(lexer->list_tokens);
 }
-
-	/* while (lexer->(list_tokens->next))
-	{
-		ft_printf("\n%s\t%d\n", lexer->list_tokens->elem, lexer->list_tokens->token);
-		lexer->list_tokens = lexer->list_tokens->next;
-	}
-
- */

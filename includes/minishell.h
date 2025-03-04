@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/03 20:02:38 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/04 19:59:19 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@
 typedef enum e_type
 {
 	WORD,
-	PIPE,        // "|"
-	REDIR_IN,    // "<"
-	REDIR_OUT_Q, // ">"
-	HD,          // "<<"
-	END_HD,      // EOF
-	APPEND,      // ">>"
-	DOLLAR,      // "$"
-	S_QUOTE,     // "'"
-	D_QUOTE,     // """
-	END,         // fin de input
-	UNKNOWN      // inconnu
+	PIPE,       // "|"
+	REDIR_IN,   // "<"
+	REDIR_OUT,	// ">"
+	HD,         // "<<"
+	END_HD,     // EOF
+	APPEND,     // ">>"
+	DOLLAR,     // "$"
+	S_QUOTE,    // "'"
+	D_QUOTE,    // """
+	END,        // fin de input
+	UNKNOWN     // inconnu
 }					t_type;
 typedef struct s_token
 {
@@ -114,7 +114,9 @@ void	ft_lexer(t_mshell *mshell, char *input);
 void	ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
+void	ft_define_token(t_lexer *lexer);
 void	ft_build_list_tokens(t_lexer *lexer);
+void	ft_free_list_tokens(t_lexer *lexer);
 void	ft_add_node_token(t_lexer *lexer, char *elem);
 void	ft_init_list_head(t_token **list, char *elem);
 
@@ -126,7 +128,7 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input);
 bool	ft_control_redir_valid(t_lexer *lexer, char *input);
 
 /// lexer_cleaning_input ///
-void	ft_cleaning_input(t_lexer *lexer, char *input);
+void	ft_input_one_space(t_lexer *lexer, char *input);
 void	ft_put_pipe(t_lexer *lexer, char *input);
 void	ft_put_redirection(t_lexer *lexer, char *input);
 
@@ -158,5 +160,6 @@ void	ft_init_mshell(t_mshell *mshell, char **env);
 void	ft_build_env(t_mshell *mshell, char **env);
 void	ft_build_path(t_mshell *mshell);
 void	ft_print_double_tab(char **tab);
+void	ft_print_list_tokens(t_token *head);
 
 #endif

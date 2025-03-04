@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 17:42:44 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/04 17:18:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_put_pipe(t_lexer *lexer, char *input)
 		ft_handle_space(lexer, input);
 }
 
-void	ft_cleaning_input(t_lexer *lexer, char *input)
+void	ft_input_one_space(t_lexer *lexer, char *input)
 {
 	lexer->i = 0;
 	while (input && lexer->i < SIZE_LINE && input[lexer->i])

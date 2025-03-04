@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_operateurs_valid.c                           :+:      :+:    :+:   */
+/*   lexer_validate_operators.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 17:31:55 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/04 17:19:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ bool	ft_control_carac_valid(t_lexer *lexer, char *input)
 	{
 		c = input[lexer->i];
 		ft_check_quotes(lexer, c);
-		if ((c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
-			|| c == ';' || c == '&') && lexer->flag_quote == OUT_Q)
+		if ((c == '{' || c == '}' || c == '[' || c == ']' || c == '(' ||
+			c == ')' || c == ';' || c == '&') && lexer->flag_quote == OUT_Q)
 			return (false);
 	}
 	return (true);
