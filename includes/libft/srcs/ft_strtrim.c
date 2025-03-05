@@ -6,14 +6,14 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:59:31 by pbret             #+#    #+#             */
-/*   Updated: 2025/01/16 12:21:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/05 12:24:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-// 		Dupliquer le contenu de s1 sans les carac. contenu dans set
-// 		ces carac. se trouvent au debut et/ou a la fin
+// 	Dupliquer le contenu de s1 sans les carac. contenu dans set
+// 	ces carac. se trouvent au debut et/ou a la fin
 // - Securites : s1 = 0 -> NULL; s1 = '\0' -> chaine avec '\0'
 // - Boucle du debut en checkant chaque carac. de s1[start] avec "ft_setchr"
 // -> '1' carac. trouve -> s1start++; '0' carac. pas trouve -> stop l'avancement

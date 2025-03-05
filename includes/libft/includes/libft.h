@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:01:11 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/02 17:54:02 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/05 12:32:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			ft_strncmp(const char *str1, const char *str2, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 int			ft_atoi(const char *str);
 int			ft_lstsize(t_list *lst);
+int			ft_strcmp(const char *str1, const char *str2);
 	
 char		*ft_strchr(const char *str, int c);
 char		*ft_strrchr(const char *str, int c);

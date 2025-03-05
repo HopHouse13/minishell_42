@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 16:17:06 by pbret            ###   ########.fr       */
+/*   Created: 2025/03/05 12:17:27 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/05 12:29:59 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-
-t_token	*ft_lexer(char *input)
+// compare str1 a str2
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	t_lexer	lexer;
+	int	i;
 
-	ft_init_lexer(&lexer);
-	if (ft_validate_operators(&lexer, input) == false)
-		return (NULL); // erreur a gerer
-	ft_input_one_space(&lexer, input);
-	ft_build_list_token(&lexer);
-	// ft_print_list_token(lexer.list_token);
-	// ft_free_list_token(&lexer);
-	return (lexer.list_token);
+	i = 0;
+	while (str1[i] && str2[i] && str1[i] == str2[i])
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }

@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 16:53:10 by pbret             #+#    #+#              #
-#    Updated: 2025/03/02 17:55:30 by pbret            ###   ########.fr        #
+#    Updated: 2025/03/05 12:30:49 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS		= srcs/ft_bzero.c srcs/ft_isalnum.c srcs/ft_isalpha.c \
 			srcs/ft_lstlast_bonus.c srcs/ft_lstadd_back_bonus.c\
 			srcs/ft_lstdelone_bonus.c srcs/ft_lstclear_bonus.c \
 			srcs/ft_lstiter_bonus.c srcs/ft_lstmap_bonus.c \
-			srcs/ft_strncpy.c
+			srcs/ft_strncpy.c srcs/ft_strcmp.c \
 						
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc

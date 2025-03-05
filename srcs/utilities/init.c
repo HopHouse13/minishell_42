@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/03 19:48:33 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/05 17:10:31 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init_mshell(t_mshell *mshell, char **env)
 {
 	mshell->input = NULL;
-	mshell->cmds_list = NULL;
+	mshell->list_cmd = NULL;
 	mshell->exit_status = 0;
 	mshell->env = NULL;
 	ft_build_env(mshell, env);
@@ -23,7 +23,7 @@ void	ft_init_mshell(t_mshell *mshell, char **env)
 	ft_build_path(mshell);
 }
 void	ft_build_env(t_mshell *mshell, char  **env)
-{	
+{
 	int	i;
 	int	counter_line;
 	if (!env)
