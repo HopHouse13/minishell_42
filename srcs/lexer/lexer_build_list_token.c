@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 17:11:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/06 17:45:49 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_define_token(t_lexer *lexer)
 		else if (!ft_strcmp(tmp->elem, ";"))
 			tmp->token = END;
 		else
-			tmp->token = WORD;
+			tmp->token = ELEM;
 		tmp = tmp->next;
 	}
 }

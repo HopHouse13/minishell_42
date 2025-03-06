@@ -1,47 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utilities.c                                 :+:      :+:    :+:   */
+/*   lexer_initialisation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/03 10:35:34 by pbret            ###   ########.fr       */
+/*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/06 17:53:51 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_parser(t_parser *parser)
+void	ft_init_lexer(t_lexer *lexer)
 {
-	parser->i = -1;
+	ft_init_line(lexer->line);
+	lexer->list_token = NULL;
+	lexer->i = -1;
+	lexer->j = -1;
+	lexer->squote = OUT_Q;
+	lexer->dquote = OUT_Q;
+	lexer->flag_quote = OUT_Q;
 }
-
-bool	ft_isspace(char c)
-{
-	if ((c == ' ') || (c >= 9 && c <= 13))
-		return (true);
-	return (false);
-}
-
-bool	ft_ischevron(char c)
-{
-	if (c == '<' || c == '>')
-		return (true);
-	return (false);
-}
-
-bool	ft_isnotredirection(char c)
-{
-	if (c != '<' || c != '>' || c != '|')
-		return (true);
-	return (false);
-}
-
-bool	ft_ispipe(char c)
-{
-	if (c == '|')
-		return (true);
-	return (false);
-}
-

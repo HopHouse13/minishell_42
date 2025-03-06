@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/05 17:06:49 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/06 17:46:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 typedef enum e_type
 {
-	WORD,
+	ELEM,
 	PIPE,       // "|"
 	REDIR_IN,   // "<"
 	REDIR_OUT,	// ">"
@@ -53,7 +53,7 @@ typedef enum e_type
 typedef struct s_token
 {
 	char			*elem;
-	t_type			token;
+	t_type			token;			
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
@@ -71,12 +71,15 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	//liste chainee	**redir;
+	bool			squote;
+	bool			dquote;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
 typedef struct s_parser
 {
 	int				i;
+	t_token			*list_token;
 }					t_parser;
 
 
@@ -137,7 +140,7 @@ bool		ft_valid_carac(char c);
 t_cmd		*ft_parser(t_token *token);
 
 /// parser_utils ///
-void		ft_init_parser(t_parser *parser);
+void		ft_init_parser(t_parser *parser, t_token *token);
 bool		ft_isspace(char c);
 bool		ft_ischevron(char c);
 bool		ft_isnotchevron(char c);

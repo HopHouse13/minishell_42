@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 16:21:09 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:34:07 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_print_double_tab(char **tab)
 
 const char	*ft_get_name_type(t_type type)
 {
-	const char *type_tab[] = { "WORD", "PIPE", "REDIR_IN", "REDIR_OUT", "HD",
+	const char *type_tab[] = { "ELEM", "PIPE", "REDIR_IN", "REDIR_OUT", "HD",
 							"END_HD", "APPEND", "DOLLAR", "END", "UNKNOWN"};
 	
-	if ( type >= WORD && type <=UNKNOWN)
+	if ( type >= ELEM && type <=UNKNOWN)
 		return (type_tab[type]);
 	return ("INVALID_TYPE");
 }
