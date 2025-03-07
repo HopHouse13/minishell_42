@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 17:45:49 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/07 16:00:18 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_define_token(t_lexer *lexer)
 	}
 }
 
-void	ft_init_list_head(t_token **list_token, char *elem)
+void	ft_init_list_token(t_token **list_token, char *elem)
 {
 	t_token	*fist_node;
 	
@@ -67,7 +67,7 @@ void	ft_add_node_token(t_lexer *lexer, char *elem)
 	
 	if (!lexer->list_token)
 	{
-		ft_init_list_head(&(lexer->list_token), elem);
+		ft_init_list_token(&(lexer->list_token), elem);
 		return ;
 	}
 	new_elem = malloc(sizeof (t_token));
