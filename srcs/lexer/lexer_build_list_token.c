@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/07 16:00:18 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 12:38:48 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,32 @@ void	ft_define_token(t_lexer *lexer)
 	}
 }
 
-void	ft_init_list_token(t_token **list_token, char *elem)
+void	ft_init_head_list_token(t_token **list_token, char *elem)
 {
-	t_token	*fist_node;
+	t_token	*first_node;
 	
-	fist_node = malloc(sizeof(t_token));
-	if (!fist_node)
+	first_node = malloc(sizeof(t_token));
+	if (!first_node)
 	{
 		perror("initialization list ");
 		//ft_master_free(list_token);
 		return ;
 	}
-	fist_node->elem = elem;
-	fist_node->token = -1;
-	fist_node->prev = NULL;
-	fist_node->next = NULL;
-	*list_token = fist_node;
+	first_node->elem = elem;
+	first_node->token = -1;
+	first_node->prev = NULL;
+	first_node->next = NULL;
+	*list_token = first_node;
 }
 
 void	ft_add_node_token(t_lexer *lexer, char *elem)
 {
-	t_token	*tmp_head;
+	t_token	*tmp;
 	t_token	*new_elem;
 	
 	if (!lexer->list_token)
 	{
-		ft_init_list_token(&(lexer->list_token), elem);
+		ft_init_head_list_token(&(lexer->list_token), elem);
 		return ;
 	}
 	new_elem = malloc(sizeof (t_token));
@@ -77,14 +77,14 @@ void	ft_add_node_token(t_lexer *lexer, char *elem)
 		//ft_master_free(list);
 		return ;
 	}
-	tmp_head = lexer->list_token;
-	while (tmp_head->next != NULL)
-		tmp_head = tmp_head->next;
+	tmp = lexer->list_token;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
 	new_elem->elem = elem;
 	new_elem->token = -1;
-	new_elem->prev = tmp_head;
+	new_elem->prev = tmp;
 	new_elem->next = NULL;
-	tmp_head->next = new_elem;
+	tmp->next = new_elem;
 }
 
 void	ft_build_list_token(t_lexer *lexer)

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:46:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 17:12:48 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 16:03:14 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ void	ft_free_list_token(t_token *list_token)
 		free(tmp);
 	}
 	list_token = NULL;
+}
+
+void	ft_free_list_cmd(t_cmd *list_cmd)
+{
+	t_cmd	*tmp;
+
+	if (!list_cmd)
+		return ;
+	while (list_cmd)
+	{
+		tmp = list_cmd;
+		list_cmd = list_cmd->next;
+		free(tmp);
+	}
+	list_cmd = NULL;
 }

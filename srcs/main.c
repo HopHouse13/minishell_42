@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 16:25:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 15:19:40 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	ft_loop_mshell(t_mshell *mshell)
 			add_history(mshell->input);
 			mshell->list_token = ft_lexer(mshell->input);
 			if (mshell->list_token)
-				ft_parser(mshell->list_token);
+				mshell->list_cmd = ft_parser(mshell->list_token);
+			ft_print_list_cmd(mshell->list_cmd);
+			
 			// if (mshell->list_token && mshell->cmd)
 			// 	ft_exec(mshell->cmd);
 		}
@@ -47,6 +49,7 @@ int	main(int ac, char **av, char **env)
 		ft_loop_mshell(mshell);      // minishell_loop
 		ft_free_manag(mshell);
 		ft_free_list_token(mshell->list_token);
+		ft_free_list_cmd(mshell->list_cmd);
 		free(mshell);
 		rl_clear_history();
 	}

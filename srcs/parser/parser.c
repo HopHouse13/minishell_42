@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/07 16:02:58 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 15:22:17 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 // 		}	
 // 		else if (tmp->elem[i] == '\"')
 // 		{
-			
+
 // 		}	
 // }
 
 // void	ft_expand(t_parser *parser)
 // {
 // 	t_token *tmp;
-	
+
 // 	tmp = parser->list_token;
 // 	while (tmp)
 // 	{
@@ -41,31 +41,34 @@
 // 		tmp = tmp->next;
 // 	}
 // }
-void	ft_init_list_cmd(t_cmd **list_cmd) // a modifier
+void	ft_init_head_list_cmd(t_cmd **list_cmd) // a modifier
 {
-	t_token	*fist_node;
-	
-	fist_node = malloc(sizeof(t_cmd));
-	if (!fist_node)
+	t_cmd	*first_node;
+
+	first_node = malloc(sizeof(t_cmd));
+	if (!first_node)
 	{
 		perror("initialization list ");
-		//ft_master_free(list_token);
+		//ft_master_free(list_cmd);
 		return ;
 	}
-	
-	fist_node->prev = NULL;
-	fist_node->next = NULL;
-	*list_cmd = fist_node;
+	//init variables ici
+	first_node->cmd = NULL;
+	first_node->squote = -1;
+	first_node->dquote = -1;
+	first_node->prev = NULL;
+	first_node->next = NULL;
+	*list_cmd = first_node;
 }
 
 void	ft_add_node_cmd(t_parser *parser) // a modifier
 {
-	t_cmd	*tmp_head;
+	t_cmd	*tmp;
 	t_cmd	*new_elem;
 	
 	if (!parser->list_cmd)
 	{
-		ft_init_list_cmd(&(parser->list_cmd));
+		ft_init_head_list_cmd(&(parser->list_cmd));
 		return ;
 	}
 	new_elem = malloc(sizeof (t_cmd));
@@ -75,26 +78,30 @@ void	ft_add_node_cmd(t_parser *parser) // a modifier
 		//ft_master_free(list);
 		return ;
 	}
-	tmp_head = parser->list_cmd;
-	while (tmp_head->next != NULL)
-		tmp_head = tmp_head->next;
-	
-	new_elem->prev = tmp_head;
+	tmp = parser->list_cmd;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	//init variables ici
+	new_elem->cmd = NULL;
+	new_elem->squote = -1;
+	new_elem->dquote = -1;
+	new_elem->prev = tmp;
 	new_elem->next = NULL;
-	tmp_head->next = new_elem;
+	tmp->next = new_elem;
 }
+
 void ft_init_list_cmd(t_parser *parser)
 {
 	t_token	*tmp;
 
 	tmp = parser->list_token;
-	ft_add_node_cmd(parser);
 	while (tmp)
 	{
 		if (tmp->token == PIPE)
-			ft_add_node_cmd(parser);
+		ft_add_node_cmd(parser);
 		tmp = tmp->next;
 	}
+	ft_add_node_cmd(parser);
 }
 
 t_cmd	*ft_parser(t_token *list_token)
@@ -103,8 +110,8 @@ t_cmd	*ft_parser(t_token *list_token)
 
 	ft_init_parser(&parser, list_token);
 	ft_print_list_token(parser.list_token);
-	//ft_init_list_cmd(&parser);
+	ft_init_list_cmd(&parser);
 	//ft_expand(&parser);
 	
-	return (NULL);
+	return (parser.list_cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 14:34:07 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 15:19:19 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,35 @@ const char	*ft_get_name_type(t_type type)
 	return ("INVALID_TYPE");
 }
 
-void	ft_print_list_token
-(t_token *head) // A SUPP
+void	ft_print_list_token(t_token *head) // A SUPP
 {
-    t_token *tmp = head;
-	ft_printf("---------- list_token----------\n\n");
+    t_token	*tmp;
+	
+	tmp = head;
+	ft_printf("----------- list_token -----------\n\n");
     while (tmp)
     {
         ft_printf("Token: [%s]\t\tType: [%d -> %s]\n", tmp->elem, tmp->token,
 			ft_get_name_type(tmp->token));
         tmp = tmp->next;
     }
-	ft_printf("\n---------------------------------\n\n");
+	ft_printf("\n---------------------------------\n\n\n");
+}
+
+void	ft_print_list_cmd(t_cmd *head) // A SUPP
+{
+    t_cmd	*tmp;
+	char	**tab_cmd;
+	
+	tab_cmd = head->cmd;
+	tmp = head;
+	ft_printf("----------- list_cmd ------------\n\n");
+    while (tmp)
+    {
+		/* while (*tab_cmd)
+        	ft_printf("cmd: [%s]\n", *tab_cmd++); */
+		ft_printf("quote -> %d\n", tmp->dquote);
+        tmp = tmp->next;
+    }
+	ft_printf("\n---------------------------------\n\n\n");
 }

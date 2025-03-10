@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/07 16:00:18 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 14:16:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_type
 	END,        // fin de input
 	UNKNOWN     // inconnu
 }					t_type;
+
 typedef struct s_token
 {
 	char			*elem;
@@ -57,6 +58,7 @@ typedef struct s_token
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
+
 typedef struct s_lexer
 {
 	char			line[SIZE_LINE];
@@ -67,6 +69,7 @@ typedef struct s_lexer
 	int				dquote;
 	int				flag_quote;
 }					t_lexer;
+
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -86,8 +89,8 @@ typedef struct s_HD
 typedef struct s_parser
 {
 	int				i;
-	t_cmd			*list_cmd;
 	t_token			*list_token;
+	t_cmd			*list_cmd;
 }					t_parser;
 
 /* typedef struct s_exec
@@ -118,7 +121,7 @@ void		ft_init_lexer(t_lexer *lexer);
 void		ft_define_token(t_lexer *lexer);
 void		ft_build_list_token(t_lexer *lexer);
 void		ft_add_node_token(t_lexer *lexer, char *elem);
-void		ft_init_list_token(t_token **list, char *elem);
+void		ft_init_head_list_token(t_token **list, char *elem);
 
 /// lexer_operateurs_valid ///
 bool		ft_validate_operators(t_lexer *lexer, char *input);
@@ -162,10 +165,12 @@ void		ft_build_path(t_mshell *mshell);
 /// utilities_free ///
 void		ft_free_manag(t_mshell *mshell);
 void		ft_free_list_token(t_token *lexer);
+void		ft_free_list_cmd(t_cmd *list_cmd);
 
 /// utilities_print ///
 void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
+void		ft_print_list_cmd(t_cmd *head);
 
 #endif	
