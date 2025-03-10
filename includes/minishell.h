@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/10 14:16:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 18:02:55 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,18 @@ typedef struct s_parser
 
 }					t_exec; */
 
+/* typedef struct s_mnode  		// noeud par malloc
+{
+	void			*mptr;
+	size_t			size;
+	struct s_mnode	prev;
+	struct s_mnode	next;
+}					t_mnode;
+typedef struct s_ml				// head de la liste de malloc (init dans le main)
+{
+	void			*head_ml;
+}					t_ml;
+ */
 typedef struct s_mshell
 {
 	char			*input;

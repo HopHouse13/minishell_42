@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/10 15:19:40 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/10 18:03:10 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ void	ft_loop_mshell(t_mshell *mshell)
 
 int	main(int ac, char **av, char **env)
 {
+	
 	t_mshell	*mshell;
-
+	//t_ml		m_list;
+	
 	(void)av; // utilisation de av pour pourvoir compiler sans erreurs.
+	//m_list.head_ml = NULL;
 	if (ac == 1)
 	{
 		mshell = malloc(sizeof(t_mshell));
