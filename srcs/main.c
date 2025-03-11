@@ -25,7 +25,7 @@ void	ft_loop_mshell(t_mshell *mshell)
 			add_history(mshell->input);
 			ft_parser(mshell, mshell->input);
 			// ft_lexer(mshell, mshell->input);
-			// ft_exec();
+			//ft_executer(instructions); // c'est ici qu'on fait l'echange entre la data brut et la data clean pour execution
 		}
 	
 	}

@@ -144,4 +144,22 @@ void	ft_build_path(t_mshell *mshell);
 
 /// utils-print ///
 void	ft_print_double_tab(char **tab);
+
+
+
+		// *** EXEC *** //
+
+void	ft_executer(t_mshell instructions);
+
+	//execution_cmd.c
+//void	execution_cmd();
+
+	//redirect.c
+void	redirect(src, dest);
+
+
+
+
+
+
 #endif
