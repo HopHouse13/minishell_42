@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/10 18:02:55 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/11 21:12:17 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,18 @@ typedef struct s_parser
 
 }					t_exec; */
 
-/* typedef struct s_mnode  		// noeud par malloc
+typedef struct s_mnode  		// noeud par malloc
 {
-	void			*mptr;
+	void			*ptr;
 	size_t			size;
-	struct s_mnode	prev;
 	struct s_mnode	next;
 }					t_mnode;
-typedef struct s_ml				// head de la liste de malloc (init dans le main)
+
+/* typedef struct s_ml				// head de la liste de malloc (init dans le main)
 {
 	void			*head_ml;
-}					t_ml;
- */
+}					t_ml; */
+
 typedef struct s_mshell
 {
 	char			*input;
@@ -163,16 +163,19 @@ t_cmd		*ft_parser(t_token *token);
 
 /// parser_utils ///
 void		ft_init_parser(t_parser *parser, t_token *token);
-bool		ft_isspace(char c);
-bool		ft_ischevron(char c);
-bool		ft_isnotchevron(char c);
-bool		ft_ispipe(char c);
+
+/// malloc ///
+void		*ft_malloc_list(size_t size, t_mnode *ml);
+void		*ft_calloc_list(size_t nb, size_t size_type, t_mnode *ml);
+void 		ft_add_ml(void *ptr, size_t size, t_mnode *ml);
+void		ft_free_mlist(t_mnode *ml);
+
 
 /// utilities ///
 void		ft_error_exit(char *message);
-void		ft_init_mshell(t_mshell *mshell, char **env);
-void		ft_build_env(t_mshell *mshell, char **env);
-void		ft_build_path(t_mshell *mshell);
+void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode *ml);
+void		ft_build_env(t_mshell *mshell, char **env,  t_mnode *ml);
+void		ft_build_path(t_mshell *mshell,  t_mnode *ml);
 
 /// utilities_free ///
 void		ft_free_manag(t_mshell *mshell);

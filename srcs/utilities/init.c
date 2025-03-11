@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 17:10:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/11 21:13:00 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_mshell(t_mshell *mshell, char **env)
+void	ft_init_mshell(t_mshell *mshell, char **env, t_mnode *ml)
 {
 	mshell->input = NULL;
 	mshell->list_cmd = NULL;
 	mshell->exit_status = 0;
 	mshell->env = NULL;
-	ft_build_env(mshell, env);
+	ft_build_env(mshell, env, ml);
 	mshell->paths = NULL;
-	ft_build_path(mshell);
+	ft_build_path(mshell, ml);
 }
-void	ft_build_env(t_mshell *mshell, char  **env)
+void	ft_build_env(t_mshell *mshell, char  **env, t_mnode *ml)
 {
 	int	i;
 	int	counter_line;
@@ -32,7 +32,7 @@ void	ft_build_env(t_mshell *mshell, char  **env)
 	counter_line = 0;
 	while (env[++i])
 		counter_line++;
-	mshell->env = malloc((counter_line + 1) * sizeof(char *));
+	mshell->env = ft_malloc_list((counter_line + 1) * sizeof(char *), ml);
 	i = -1;
 	while (env[++i])
 	{
@@ -47,7 +47,7 @@ void	ft_build_env(t_mshell *mshell, char  **env)
 }
 
 
-void	ft_build_path(t_mshell *mshell)
+void	ft_build_path(t_mshell *mshell, t_mnode *l)
 {
 	char	*paths_line;
 	int		i;

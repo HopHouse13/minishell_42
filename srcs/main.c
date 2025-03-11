@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/10 18:03:10 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/11 21:08:52 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,24 @@ int	main(int ac, char **av, char **env)
 {
 	
 	t_mshell	*mshell;
-	//t_ml		m_list;
+	// t_ml		m_list;
+	t_mnode		*ml;
 	
 	(void)av; // utilisation de av pour pourvoir compiler sans erreurs.
+	ml = NULL;
 	//m_list.head_ml = NULL;
 	if (ac == 1)
 	{
-		mshell = malloc(sizeof(t_mshell));
+		mshell = ft_malloc_list(sizeof(t_mshell), ml);
 		if (!mshell)
 			ft_error_exit("Error main ");
-		ft_init_mshell(mshell, env); // initialisation de tes les struct
+		ft_init_mshell(mshell, env, ml); // initialisation de tes les struct
 		ft_loop_mshell(mshell);      // minishell_loop
-		ft_free_manag(mshell);
+		ft_free_mlist(ml);
+/* 		ft_free_manag(mshell);
 		ft_free_list_token(mshell->list_token);
 		ft_free_list_cmd(mshell->list_cmd);
-		free(mshell);
+		free(mshell); */
 		rl_clear_history();
 	}
 	else

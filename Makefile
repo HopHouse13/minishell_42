@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
+#    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/06 17:50:17 by pbret            ###   ########.fr        #
+#    Updated: 2025/03/11 18:32:03 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer.c \
 			srcs/parser/parser_initialisation.c \
 			srcs/parser/parser.c \
+			srcs/malloc/malloc_list.c \
+			srcs/malloc/malloc_free.c \
 			srcs/utilities/error.c \
 			srcs/utilities/free.c \
 			srcs/utilities/init.c \
