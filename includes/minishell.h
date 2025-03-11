@@ -92,10 +92,6 @@ typedef struct s_parser
 	int				dquote;
 }					t_parser;
 
-/* typedef struct s_exec
-{
-
-}					t_exec; */
 
 typedef struct s_mshell
 {
@@ -151,12 +147,17 @@ void	ft_print_double_tab(char **tab);
 
 void	ft_executer(t_mshell instructions);
 
-	//execution_cmd.c
-//void	execution_cmd();
-
 	//redirect.c
 void	redirect(src, dest);
 
+void	redirect_case(fd,tokken);
+void	redirect_in(src,dest);
+void	redirect_out_trunc(src, dst);
+void	redirect_out_app(src, dest);
+void	redirect_hd(src, dest);
+
+	//execution_cmd.c
+void	execution_cmd();
 
 
 
