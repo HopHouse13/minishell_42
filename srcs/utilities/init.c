@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 21:13:00 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/11 23:20:53 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_build_env(t_mshell *mshell, char  **env, t_mnode *ml)
 	i = -1;
 	while (env[++i])
 	{
-		mshell->env[i] = ft_strdup(env[i]);
+		mshell->env[i] = ft_strdup_ml(env[i], ml);
 		if (mshell->env[i] == NULL)
 			return ;
 	}
@@ -47,7 +47,7 @@ void	ft_build_env(t_mshell *mshell, char  **env, t_mnode *ml)
 }
 
 
-void	ft_build_path(t_mshell *mshell, t_mnode *l)
+void	ft_build_path(t_mshell *mshell, t_mnode *ml)
 {
 	char	*paths_line;
 	int		i;
@@ -61,13 +61,14 @@ void	ft_build_path(t_mshell *mshell, t_mnode *l)
 			j = 0;
 			while (mshell->env[i][j] != '=')
 				j++;
-			paths_line = ft_substr(mshell->env[i], j + 1, ft_strlen(mshell->env[i]));
+			paths_line = ft_substr_ml(mshell->env[i], j + 1,
+			ft_strlen(mshell->env[i]), ml);
 			if (!paths_line)
 				return ;
 			else
 			{
-				mshell->paths = ft_split(paths_line, ':');
-				free (paths_line);
+				mshell->paths = ft_split_ml(paths_line, ':', ml);
+				ft_free_one_node_ml(paths_line, ml);
 			}
 		}
 	}

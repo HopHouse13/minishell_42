@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   strdup_ml.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:28:54 by ubuntu           ###   ########.fr       */
+/*   Created: 2025/03/11 22:10:29 by ubuntu            #+#    #+#             */
+/*   Updated: 2025/03/11 22:11:28 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-t_token	*ft_lexer(char *input, t_mnode *ml)
+char	*ft_strdup_ml(const char *s_src, t_mnode *ml)
 {
-	t_lexer	lexer;
+	char	*s_dup;
+	size_t	i;
 
-	ft_init_lexer(&lexer);
-	if (ft_validate_operators(&lexer, input) == false)
-		return (NULL); // erreur a gerer
-	ft_input_one_space(&lexer, input);
-	ft_build_list_token(&lexer, ml);
-	return (lexer.list_token);
+	s_dup = ft_malloc_list(sizeof(char) * ft_strlen(s_src) + 1, ml);
+	if (!s_dup)
+		return (NULL);
+	i = 0;
+	while (s_src[i])
+	{
+		s_dup[i] = s_src[i];
+		i++;
+	}
+	s_dup[i] = '\0';
+	return (s_dup);
 }

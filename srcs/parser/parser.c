@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/10 15:22:17 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/11 23:48:34 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@
 // 		tmp = tmp->next;
 // 	}
 // }
-void	ft_init_head_list_cmd(t_cmd **list_cmd) // a modifier
+
+void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode *ml) // a modifier
 {
 	t_cmd	*first_node;
 
-	first_node = malloc(sizeof(t_cmd));
+	first_node = ft_malloc_list(sizeof(t_cmd), ml);
 	if (!first_node)
 	{
 		perror("initialization list ");
@@ -61,17 +62,17 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd) // a modifier
 	*list_cmd = first_node;
 }
 
-void	ft_add_node_cmd(t_parser *parser) // a modifier
+void	ft_add_node_cmd(t_parser *parser, t_mnode *ml) // a modifier
 {
 	t_cmd	*tmp;
 	t_cmd	*new_elem;
 	
 	if (!parser->list_cmd)
 	{
-		ft_init_head_list_cmd(&(parser->list_cmd));
+		ft_init_head_list_cmd(&(parser->list_cmd), ml);
 		return ;
 	}
-	new_elem = malloc(sizeof (t_cmd));
+	new_elem = ft_malloc_list(sizeof (t_cmd), ml);
 	if (!new_elem)
 	{
 		perror("initialization list ");
@@ -90,7 +91,7 @@ void	ft_add_node_cmd(t_parser *parser) // a modifier
 	tmp->next = new_elem;
 }
 
-void ft_init_list_cmd(t_parser *parser)
+void	ft_init_list_cmd(t_parser *parser, t_mnode *ml)
 {
 	t_token	*tmp;
 
@@ -98,19 +99,19 @@ void ft_init_list_cmd(t_parser *parser)
 	while (tmp)
 	{
 		if (tmp->token == PIPE)
-		ft_add_node_cmd(parser);
+		ft_add_node_cmd(parser, ml);
 		tmp = tmp->next;
 	}
-	ft_add_node_cmd(parser);
+	ft_add_node_cmd(parser, ml);
 }
 
-t_cmd	*ft_parser(t_token *list_token)
+t_cmd	*ft_parser(t_token *list_token, t_mnode *ml)
 {
 	t_parser	parser;
 
 	ft_init_parser(&parser, list_token);
 	ft_print_list_token(parser.list_token);
-	ft_init_list_cmd(&parser);
+	ft_init_list_cmd(&parser, ml);
 	//ft_expand(&parser);
 	
 	return (parser.list_cmd);

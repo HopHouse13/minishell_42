@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:27:27 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/11 21:59:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/11 22:06:04 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode ml)
+char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode *ml)
 {
 	char	*s_new;
 	int		j;
@@ -21,14 +21,14 @@ char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode ml)
 		return (NULL);
 	if (start >= ft_strlen(s_src))
 	{
-		s_new = ft_calloc(1, sizeof(char));
+		s_new = ft_calloc_list(1, sizeof(char), ml);
 		if (!s_new)
 			return (NULL);
 		return (s_new);
 	}
 	if (len > ft_strlen(s_src) - start)
 		len = ft_strlen(s_src) - start;
-	s_new = ft_calloc((len + 1), sizeof(char));
+	s_new = ft_calloc_list((len + 1), sizeof(char), ml);
 	if (!s_new)
 		return (NULL);
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 16:48:53 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/11 23:31:51 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	ft_define_token(t_lexer *lexer)
 	}
 }
 
-void	ft_init_head_list_token(t_token **list_token, char *elem)
+void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode *ml)
 {
 	t_token	*first_node;
 	
-	first_node = malloc(sizeof(t_token));
+	first_node = ft_malloc_list(sizeof(t_token), ml);
 	if (!first_node)
 	{
 		perror("initialization list ");
@@ -60,17 +60,17 @@ void	ft_init_head_list_token(t_token **list_token, char *elem)
 	*list_token = first_node;
 }
 
-void	ft_add_node_token(t_lexer *lexer, char *elem)
+void	ft_add_node_token(t_lexer *lexer, char *elem, t_mnode *ml)
 {
 	t_token	*tmp;
 	t_token	*new_elem;
 	
 	if (!lexer->list_token)
 	{
-		ft_init_head_list_token(&(lexer->list_token), elem);
+		ft_init_head_list_token(&(lexer->list_token), elem, ml);
 		return ;
 	}
-	new_elem = malloc(sizeof (t_token));
+	new_elem = ft_malloc_list(sizeof (t_token), ml);
 	if (!new_elem)
 	{
 		perror("initialization list ");
@@ -87,7 +87,7 @@ void	ft_add_node_token(t_lexer *lexer, char *elem)
 	tmp->next = new_elem;
 }
 
-void	ft_build_list_token(t_lexer *lexer)
+void	ft_build_list_token(t_lexer *lexer, t_mnode *ml)
 {
 	int	start;
 
@@ -99,7 +99,7 @@ void	ft_build_list_token(t_lexer *lexer)
 		start = lexer->i;
 		while (lexer->line[lexer->i] != ' ' && lexer->line[lexer->i++])
 			lexer->j++;
-		ft_add_node_token(lexer, ft_substr(lexer->line, start, lexer->j));
+		ft_add_node_token(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 		lexer->j = 0;
 	}
 	ft_define_token(lexer);

@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/11 18:32:03 by ubuntu           ###   ########.fr        #
+#    Updated: 2025/03/12 00:16:51 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \
+			srcs/malloc/malloc_split_ml.c \
+			srcs/malloc/malloc_strdup_ml.c \
+			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
 			srcs/utilities/free.c \
 			srcs/utilities/init.c \

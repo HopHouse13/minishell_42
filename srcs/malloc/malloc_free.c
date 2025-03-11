@@ -6,22 +6,50 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/11 18:07:03 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/11 23:56:30 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_mlist(t_mnode *ml)
+void	ft_free_ml(t_mnode *ml)
 {
 	t_mnode	*tmp;
- 
+
+	if (ml == NULL)
+		return ;
 	while (ml)
 	{
 		tmp = ml->next;
 		free(ml->ptr);
 		free(ml);
-		tmp = ml;
+		ml = tmp;
 	}
 	ml = NULL;
+}
+
+void	ft_free_one_node_ml(void *ptr, t_mnode *ml)
+{
+	t_mnode	*tmp;
+	t_mnode	*prev;
+	
+	if (ml == NULL)
+		return ;
+	tmp = ml;
+	prev = NULL;
+	while (tmp)
+	{
+		if (tmp->ptr == ptr)
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				ml = tmp->next;
+			free(tmp->ptr);
+			free(tmp);
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->	next;
+	}
 }

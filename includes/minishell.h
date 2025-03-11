@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/11 21:12:17 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/11 23:58:36 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_mnode  		// noeud par malloc
 {
 	void			*ptr;
 	size_t			size;
-	struct s_mnode	next;
+	struct s_mnode	*next;
 }					t_mnode;
 
 /* typedef struct s_ml				// head de la liste de malloc (init dans le main)
@@ -122,18 +122,19 @@ typedef struct s_mshell
 
 /// main ///
 int			main(int ac, char **av, char **env);
+void		ft_loop_mshell(t_mshell *mshell, t_mnode *ml);
 
 /// lexer ///
-t_token		*ft_lexer(char *input);
+t_token		*ft_lexer(char *input, t_mnode *ml);
 
 /// lexer_init ///
 void		ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
 void		ft_define_token(t_lexer *lexer);
-void		ft_build_list_token(t_lexer *lexer);
-void		ft_add_node_token(t_lexer *lexer, char *elem);
-void		ft_init_head_list_token(t_token **list, char *elem);
+void		ft_build_list_token(t_lexer *lexer, t_mnode *ml);
+void		ft_add_node_token(t_lexer *lexer, char *elem, t_mnode *ml);
+void		ft_init_head_list_token(t_token **list, char *elem, t_mnode *ml);
 
 /// lexer_operateurs_valid ///
 bool		ft_validate_operators(t_lexer *lexer, char *input);
@@ -159,7 +160,10 @@ void		ft_handle_space(t_lexer *lexer, char *input);
 bool		ft_valid_carac(char c);
 
 /// parser ///
-t_cmd		*ft_parser(t_token *token);
+t_cmd		*ft_parser(t_token *list_token, t_mnode *ml);
+void		ft_init_list_cmd(t_parser *parser, t_mnode *ml);
+void		ft_add_node_cmd(t_parser *parser, t_mnode *ml);
+void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode *ml);
 
 /// parser_utils ///
 void		ft_init_parser(t_parser *parser, t_token *token);
@@ -168,8 +172,11 @@ void		ft_init_parser(t_parser *parser, t_token *token);
 void		*ft_malloc_list(size_t size, t_mnode *ml);
 void		*ft_calloc_list(size_t nb, size_t size_type, t_mnode *ml);
 void 		ft_add_ml(void *ptr, size_t size, t_mnode *ml);
-void		ft_free_mlist(t_mnode *ml);
-
+char		**ft_split_ml(char const *s, char c, t_mnode *ml);
+char		*ft_strdup_ml(const char *s_src, t_mnode *ml);
+char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode *ml);
+void		ft_free_one_node_ml(void *ptr, t_mnode *ml);
+void		ft_free_ml(t_mnode *ml);
 
 /// utilities ///
 void		ft_error_exit(char *message);
@@ -183,6 +190,7 @@ void		ft_free_list_token(t_token *lexer);
 void		ft_free_list_cmd(t_cmd *list_cmd);
 
 /// utilities_print ///
+void		ft_print_input_clean(char *line);
 void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
