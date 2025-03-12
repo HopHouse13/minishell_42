@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:31:51 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:56:16 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_define_token(t_lexer *lexer)
 	}
 }
 
-void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode *ml)
+void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode **ml)
 {
 	t_token	*first_node;
 	
@@ -60,7 +60,7 @@ void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode *ml)
 	*list_token = first_node;
 }
 
-void	ft_add_node_token(t_lexer *lexer, char *elem, t_mnode *ml)
+void	ft_add_node_token(t_lexer *lexer, char *elem, t_mnode **ml)
 {
 	t_token	*tmp;
 	t_token	*new_elem;
@@ -87,7 +87,7 @@ void	ft_add_node_token(t_lexer *lexer, char *elem, t_mnode *ml)
 	tmp->next = new_elem;
 }
 
-void	ft_build_list_token(t_lexer *lexer, t_mnode *ml)
+void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 {
 	int	start;
 

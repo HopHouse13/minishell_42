@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:48:34 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 18:36:08 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 // 	}
 // }
 
-void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode *ml) // a modifier
+void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
 {
 	t_cmd	*first_node;
 
@@ -62,7 +62,7 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode *ml) // a modifier
 	*list_cmd = first_node;
 }
 
-void	ft_add_node_cmd(t_parser *parser, t_mnode *ml) // a modifier
+void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
 {
 	t_cmd	*tmp;
 	t_cmd	*new_elem;
@@ -91,21 +91,21 @@ void	ft_add_node_cmd(t_parser *parser, t_mnode *ml) // a modifier
 	tmp->next = new_elem;
 }
 
-void	ft_init_list_cmd(t_parser *parser, t_mnode *ml)
+void	ft_init_list_cmd(t_parser *parser, t_mnode **ml)
 {
 	t_token	*tmp;
 
 	tmp = parser->list_token;
+	ft_add_node_cmd(parser, ml);
 	while (tmp)
 	{
 		if (tmp->token == PIPE)
 		ft_add_node_cmd(parser, ml);
 		tmp = tmp->next;
 	}
-	ft_add_node_cmd(parser, ml);
 }
 
-t_cmd	*ft_parser(t_token *list_token, t_mnode *ml)
+t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 {
 	t_parser	parser;
 

@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/12 00:16:51 by ubuntu           ###   ########.fr        #
+#    Updated: 2025/03/12 18:34:31 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS		= srcs/main.c \
 			srcs/malloc/malloc_strdup_ml.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
-			srcs/utilities/free.c \
 			srcs/utilities/init.c \
 			srcs/utilities/print.c
 		

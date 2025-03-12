@@ -6,14 +6,14 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:28:54 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 18:11:13 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-t_token	*ft_lexer(char *input, t_mnode *ml)
+t_token	*ft_lexer(char *input, t_mnode **ml)
 {
 	t_lexer	lexer;
 

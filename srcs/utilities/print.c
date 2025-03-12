@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 00:14:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:18:16 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	ft_printf("----------- list_token -----------\n\n");
     while (tmp)
     {
-        ft_printf("Token: [%s]\t\tType: [%d -> %s]\n", tmp->elem, tmp->token,
-			ft_get_name_type(tmp->token));
+        printf("Token: [%s]\t\tType: [%d -> %s]\n", tmp->elem, tmp->token,
+		ft_get_name_type(tmp->token));
         tmp = tmp->next;
     }
 	ft_printf("\n---------------------------------\n\n\n");

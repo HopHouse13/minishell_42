@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_ml.c                                         :+:      :+:    :+:   */
+/*   malloc_split_ml.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/11 22:30:13 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 18:28:37 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_nbr_words(char const *s, char c)
 	return (nbr);
 }
 
-static char	*ft_alloue_and_copy_word(char const *s, int start, int end, t_mnode *ml)
+static char	*ft_alloue_and_copy_word(char const *s, int start, int end, t_mnode **ml)
 {
 	char	*word;
 	int		i;
@@ -74,7 +74,7 @@ static void	ft_init(int *i, int *w, int *first_carac)
 	*first_carac = -1;
 }
 
-char	**ft_split_ml(char const *s, char c, t_mnode *ml)
+char	**ft_split_ml(char const *s, char c, t_mnode **ml)
 {
 	char	**tab_tab;
 	int		i;

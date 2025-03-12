@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:52:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:54:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_loop_mshell(t_mshell *mshell, t_mnode *ml)
+void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 {
 	while (1)
 	// peut etre changer la condition pour une variable stock dans la struct mshell et qui change d'etat pour sortir de minishell. (crtl+D ou exit)
@@ -45,12 +45,12 @@ int	main(int ac, char **av, char **env)
 	ml = NULL;
 	if (ac == 1)
 	{
-		mshell = ft_malloc_list(sizeof(t_mshell), ml);
+		mshell = ft_malloc_list(sizeof(t_mshell), &ml);
 		if (!mshell)
 			ft_error_exit("Error main ");
-		ft_init_mshell(mshell, env, ml); // initialisation de tes les struct
-		ft_loop_mshell(mshell, ml);      // minishell_loop
-		ft_free_ml(ml);
+		ft_init_mshell(mshell, env, &ml); // initialisation de tes les struct
+		ft_loop_mshell(mshell, &ml);      // minishell_loop
+		ft_free_ml(&ml);
 /* 		ft_free_manag(mshell);
 		ft_free_list_token(mshell->list_token);
 		ft_free_list_cmd(mshell->list_cmd);

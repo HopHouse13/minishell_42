@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   substr_ml.c                                        :+:      :+:    :+:   */
+/*   malloc_substr_ml.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:27:27 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/11 22:06:04 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:55:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode *ml)
+char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml)
 {
 	char	*s_new;
 	int		j;
