@@ -5,7 +5,7 @@ void    ft_executer(t_mshell instructions)
 {
 
     // redirection si necessaire (cf. redirect.c)
-    redirect(src,dest)
+    redirect(t_mshell instructions)
     
     // redirect_in ?
 
