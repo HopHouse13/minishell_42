@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/12 18:34:31 by ubuntu           ###   ########.fr        #
+#    Updated: 2025/03/13 17:30:53 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer_initialisation.c \
 			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer.c \
+			srcs/parser/parser_initialisation_list_cmd.c \
 			srcs/parser/parser_initialisation.c \
 			srcs/parser/parser.c \
 			srcs/malloc/malloc_list.c \

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/12 18:33:12 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:40:29 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,24 @@ typedef struct s_lexer
 	int				flag_quote;
 }					t_lexer;
 
+typedef struct s_hd
+{
+	char			*delim;
+	bool			expand;
+}					t_hd;
+
 typedef struct s_cmd
 {
 	char			**cmd;
 	//liste chainee	**redir;
 	bool			squote;
 	bool			dquote;
+	bool			flag_hs;
+	int				hd_count;
+	t_hd			*hd;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
-
-typedef struct s_HD
-{
-	char			*delim;
-	bool			expand;
-}					t_HD;
 
 typedef struct s_parser
 {
@@ -98,17 +101,12 @@ typedef struct s_parser
 
 }					t_exec; */
 
-typedef struct s_mnode  		// noeud par malloc
+typedef struct s_mnode  		// noeud par la liste de malloc
 {
 	void			*ptr;
 	size_t			size;
 	struct s_mnode	*next;
 }					t_mnode;
-
-/* typedef struct s_ml				// head de la liste de malloc (init dans le main)
-{
-	void			*head_ml;
-}					t_ml; */
 
 typedef struct s_mshell
 {
@@ -161,6 +159,8 @@ bool		ft_valid_carac(char c);
 
 /// parser ///
 t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
+
+/// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
