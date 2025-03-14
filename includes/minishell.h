@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/13 16:40:29 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:07:54 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,24 @@ typedef struct s_lexer
 
 typedef struct s_hd
 {
-	char			*delim;
-	bool			expand;
+	char			*delim; // pab
+	char			**buff_doc; //emir
+	bool			expand; //pab
 }					t_hd;
+
+typedef struct s_redir
+{
+	t_type			token; // pab
+	char			*file; // pab
+}					t_redir;
 
 typedef struct s_cmd
 {
 	char			**cmd;
-	//liste chainee	**redir;
+	t_redir			*redir;
 	bool			squote;
 	bool			dquote;
-	bool			flag_hs;
-	int				hd_count;
+	int				hd_count; // 0 -> pas de hd, autre hd | Pab
 	t_hd			*hd;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
