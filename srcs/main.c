@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 17:54:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:37:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 			ft_print_list_cmd(mshell->list_cmd);
 			
 			// if (mshell->list_token && mshell->cmd)
-			// 	ft_exec(mshell->cmd);
+			// 	ft_executer(mshell->cmd);
 		}
 	}
 }

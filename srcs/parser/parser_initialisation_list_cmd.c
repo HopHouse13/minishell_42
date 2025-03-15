@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/14 11:40:14 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/14 12:36:57 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
 	new_elem->cmd = NULL;
 	new_elem->squote = -1;
 	new_elem->dquote = -1;			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	new_elem->flag_hd = false;		// faire une fonciton pour init toutes les variables
 	new_elem->hd_count = 0;			// meme fonction a utiliser pour  ft_inti_heas_list_cmd
 	new_elem->hd = NULL;			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	new_elem->prev = tmp;
