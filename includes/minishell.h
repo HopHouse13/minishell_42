@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/14 12:07:54 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:25:21 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_lexer
 typedef struct s_hd
 {
 	char			*delim; // pab
-	char			**buff_doc; //emir
-	bool			expand; //pab
+	char			**buff_doc; // emir
+	bool			expand; // pab
 }					t_hd;
 
 typedef struct s_redir
@@ -170,6 +170,7 @@ t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
+void		ft_init_node_values(t_cmd *new_elem, bool first_node);
 
 /// parser_utils ///
 void		ft_init_parser(t_parser *parser, t_token *token);

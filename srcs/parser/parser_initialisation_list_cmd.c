@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation_list_cmd.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/14 12:36:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:20:03 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_init_node_values(t_cmd *new_elem, bool first_node)
+{
+	if(first_node)
+	{
+		new_elem->cmd = NULL;
+		new_elem->squote = -1;
+		new_elem->dquote = -1;
+		new_elem->prev = NULL;
+		new_elem->next = NULL;
+	}
+	else
+	{
+		new_elem->cmd = NULL;
+		new_elem->squote = -1;
+		new_elem->dquote = -1;
+		new_elem->hd_count = 0;
+		new_elem->hd = NULL;
+		new_elem->next = NULL;
+	}
+}
 
 void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
 {
@@ -23,12 +44,7 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
 		//ft_master_free(list_cmd);
 		return ;
 	}
-	//init variables ici
-	first_node->cmd = NULL;
-	first_node->squote = -1;
-	first_node->dquote = -1;	// <<<<<<<<<<<<<<<<<<<<<<<<<<< ici
-	first_node->prev = NULL;
-	first_node->next = NULL;
+	ft_init_node_values(first_node, true);
 	*list_cmd = first_node;
 }
 
@@ -52,14 +68,8 @@ void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
 	tmp = parser->list_cmd;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	//init variables ici
-	new_elem->cmd = NULL;
-	new_elem->squote = -1;
-	new_elem->dquote = -1;			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	new_elem->hd_count = 0;			// meme fonction a utiliser pour  ft_inti_heas_list_cmd
-	new_elem->hd = NULL;			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	ft_init_node_values(new_elem, false);
 	new_elem->prev = tmp;
-	new_elem->next = NULL;
 	tmp->next = new_elem;
 }
 
