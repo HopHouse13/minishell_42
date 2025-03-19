@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/18 20:25:21 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/19 15:43:29 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char			**cmd;
+	char			**cmd; //ELEM
 	t_redir			*redir;
-	bool			squote;
-	bool			dquote;
+	bool			squote; //ELEM
+	bool			dquote; //ELEM
 	int				hd_count; // 0 -> pas de hd, autre hd | Pab
 	t_hd			*hd;
 	struct s_cmd	*prev;
@@ -170,7 +170,7 @@ t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
-void		ft_init_node_values(t_cmd *new_elem, bool first_node);
+void		ft_init_node_values(t_cmd *new_elem);
 
 /// parser_utils ///
 void		ft_init_parser(t_parser *parser, t_token *token);

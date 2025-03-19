@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/18 20:28:47 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/19 15:37:00 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,7 @@
 // 		tmp = tmp->next;
 // 	}
 // }
-/* void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml)
-{
-	t_token	*tmp_token;
-	t_cmd	*tmp_cmd;
-	
-	tmp_token = parser->list_token;
-	tmp_cmd = parser->list_cmd;
-	while (tmp_token->token == END && tmp_cmd)
-	{
-		if (tmp_token->token == PIPE && tmp_cmd->next)
-			tmp_cmd = tmp_cmd->next;
- 		else if (tmp_token->token == REDIR_IN ||
-				tmp_token->token == REDIR_OUT ||
- 				tmp_token->token == APPEND)
- 			ft_redir(tmp_token, tmp_cmd);
- 		else if (tmp_token->token == HD)
- 			ft_hd(tmp_token, tmp_cmd);
- 		else if (tmp_token->token == ELEM)
- 			ft_elem(tmp_token, tmp_cmd);
-		tmp_token = tmp_token->next;	
-	}
-} */
+
 
 t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 {

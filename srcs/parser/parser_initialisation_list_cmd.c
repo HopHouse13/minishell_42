@@ -3,34 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation_list_cmd.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/18 20:20:03 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/19 15:24:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_node_values(t_cmd *new_elem, bool first_node)
+void	ft_init_node_values(t_cmd *new_elem)
 {
-	if(first_node)
-	{
-		new_elem->cmd = NULL;
-		new_elem->squote = -1;
-		new_elem->dquote = -1;
-		new_elem->prev = NULL;
-		new_elem->next = NULL;
-	}
-	else
-	{
-		new_elem->cmd = NULL;
-		new_elem->squote = -1;
-		new_elem->dquote = -1;
-		new_elem->hd_count = 0;
-		new_elem->hd = NULL;
-		new_elem->next = NULL;
-	}
+	new_elem->cmd = NULL;
+	new_elem->redir = NULL;
+	new_elem->squote = -1;
+	new_elem->dquote = -1;
+	new_elem->hd_count = 0;
+	new_elem->hd = NULL;
+	new_elem->next = NULL;
 }
 
 void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
@@ -44,7 +34,7 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
 		//ft_master_free(list_cmd);
 		return ;
 	}
-	ft_init_node_values(first_node, true);
+	ft_init_node_values(first_node);
 	*list_cmd = first_node;
 }
 
@@ -54,23 +44,23 @@ void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
 	t_cmd	*new_elem;
 	
 	if (!parser->list_cmd)
-	{
 		ft_init_head_list_cmd(&(parser->list_cmd), ml);
-		return ;
-	}
-	new_elem = ft_malloc_list(sizeof (t_cmd), ml);
-	if (!new_elem)
+	else
 	{
-		perror("initialization list ");
-		ft_free_ml(ml);
-		return ;
+		new_elem = ft_malloc_list(sizeof (t_cmd), ml);
+		if (!new_elem)
+		{
+			perror("initialization list ");
+			ft_free_ml(ml);
+			return ;
+		}
+		tmp = parser->list_cmd;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		ft_init_node_values(new_elem);
+		new_elem->prev = tmp;
+		tmp->next = new_elem;
 	}
-	tmp = parser->list_cmd;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	ft_init_node_values(new_elem, false);
-	new_elem->prev = tmp;
-	tmp->next = new_elem;
 }
 
 void	ft_init_list_cmd(t_parser *parser, t_mnode **ml)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 17:56:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:24:37 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 	int	start;
 
 	lexer->i = -1;
-	lexer->j = 0; //len de la sous chaine
+	lexer->j = 0; // len de la sous chaine
 	start = 0; // debut de la sous chaine
 	while (lexer->line[++lexer->i])
 	{
