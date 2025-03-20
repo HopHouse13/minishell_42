@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/13 15:13:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/20 19:22:55 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void	ft_print_double_tab(char **tab)
 const char	*ft_get_name_type(t_type type)
 {
 	const char *type_tab[] = { "ELEM", "PIPE", "REDIR_IN", "REDIR_OUT", "HD",
-							"END_HD", "APPEND", "DOLLAR", "END", "UNKNOWN"};
+								"APPEND", "FILE_IN", "FILE_OUT", "FILE_APP",
+								"DELIM_HD", "CMD", "ARG", "OPT", "END"};
 	
-	if ( type >= ELEM && type <=UNKNOWN)
+	if ( type >= ELEM && type <=END)
 		return (type_tab[type]);
 	return ("INVALID_TYPE");
 }

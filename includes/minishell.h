@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/20 18:03:55 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/20 19:25:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef enum e_type
 	REDIR_OUT,	// ">"
 	HD,         // "<<"
 	APPEND,     // ">>"
-	DOLLAR,     // "$"
 	FILE_IN,	// fichier d'entree
 	FILE_OUT,	// ecrasement dans fichier
 	FILE_APP,	// rajout dans fichier
@@ -140,7 +139,7 @@ t_token		*ft_lexer(char *input, t_mnode **ml);
 void		ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
-void		ft_define_token(t_lexer *lexer);
+void		ft_define_token_redir(t_lexer *lexer);
 void		ft_build_list_token(t_lexer *lexer, t_mnode **ml);
 void		ft_add_node_token(t_lexer *lexer, char *elem, t_mnode **ml);
 void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);

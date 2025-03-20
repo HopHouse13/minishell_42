@@ -6,14 +6,35 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/19 18:24:37 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 19:52:31 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_define_token_elem(t_lexer *lexer)
+{
+	t_token *tmp;
 
-void	ft_define_token(t_lexer *lexer)
+	tmp = lexer->list_token;
+	while (tmp->token != END)
+	{
+		if (tmp->token == ELEM)
+		{
+			if (tmp->prev->token == REDIR_IN) // <
+				tmp->token = FILE_IN;
+			else if (tmp->prev->token == REDIR_OUT) // <
+				tmp->token = FILE_OUT;
+			else if (tmp->prev->token == REDIR_IN) // <
+				tmp->token = FILE_IN;
+			else if (tmp->prev->token == REDIR_IN) // <
+				tmp->token = FILE_IN;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	ft_define_token_redir(t_lexer *lexer)
 {
 	t_token	*tmp;
 
@@ -102,5 +123,6 @@ void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 		ft_add_node_token(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 		lexer->j = 0;
 	}
-	ft_define_token(lexer);
+	ft_define_token_redir(lexer);
+	ft_define_token_elem(lexer);
 }

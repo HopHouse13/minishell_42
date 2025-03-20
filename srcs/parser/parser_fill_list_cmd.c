@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:36:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/19 18:34:19 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 19:13:01 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_elem(t_token *token, t_cmd *cmd, t_mnode **ml)
+/* void	ft_elem(t_token *token, t_cmd *cmd, t_mnode **ml)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml)
  			ft_elem(tmp_token, tmp_cmd, ml);
 		tmp_token = tmp_token->next;	
 	}
-}
+} */
 // bash-5.1$ cat infile 
 // bonjour Paul
 // salut Jo!

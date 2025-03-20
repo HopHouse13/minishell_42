@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/20 18:10:39 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/20 19:27:17 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,6 @@ void	ft_put_pipe(t_lexer *lexer, char *input)
 		ft_handle_space(lexer, input);
 }
 
-void	ft_handle_between_redirects(t_lexer *lexer)
-{
-	t_type	type;
-
-	type = ELEM;
-	lexer->i = 0;		
-	while (lexer->line[lexer->i] != ';' && lexer->i < SIZE_LINE) // ';' carac de fin
-	{
-		
-	}
-}
-
 void	ft_input_one_space(t_lexer *lexer, char *input)
 {
 	lexer->i = 0;
@@ -88,6 +76,8 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 	}
 	lexer->line[++lexer->j] = ' ';
 	lexer->line[++lexer->j] = ';';
-	ft_handle_between_redirects(lexer);
 	ft_print_input_clean(lexer->line); // ASUPP
 }
+
+
+// < infile grep 'o'|wc -l>outfile
