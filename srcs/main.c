@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/14 12:37:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 17:05:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 		{
 			add_history(mshell->input);
 			mshell->list_token = ft_lexer(mshell->input, ml);
-			if (mshell->list_token)
+			ft_print_list_token(mshell->list_token);
+/* 			if (mshell->list_token)
 				mshell->list_cmd = ft_parser(mshell->list_token, ml);
-			ft_print_list_cmd(mshell->list_cmd);
+			ft_print_list_cmd(mshell->list_cmd); */
 			
 			// if (mshell->list_token && mshell->cmd)
 			// 	ft_executer(mshell->cmd);
@@ -51,10 +52,6 @@ int	main(int ac, char **av, char **env)
 		ft_init_mshell(mshell, env, &ml); // initialisation de tes les struct
 		ft_loop_mshell(mshell, &ml);      // minishell_loop
 		ft_free_ml(&ml);
-/* 		ft_free_manag(mshell);
-		ft_free_list_token(mshell->list_token);
-		ft_free_list_cmd(mshell->list_cmd);
-		free(mshell); */
 		rl_clear_history();
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 17:54:01 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 17:19:24 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@ void	ft_init_line(char *virgin_line)
 	while (++i < SIZE_LINE)
 		virgin_line[i] = '\0';
 	return ;
-}
-
-void	ft_handle_space(t_lexer *lexer, char *input)
-{
-	int	z;
-	
-	z = ft_strlen(input) - 1;
-	while (input[z] == ' ' && z > 0)
-		z--;
-	if (lexer->i > 0 && lexer->i <= z)
-		lexer->line[++lexer->j] = ' ';
-	while (input[lexer->i + 1] == ' ')
-		lexer->i++;
 }
 
 bool	ft_valid_carac(char c)

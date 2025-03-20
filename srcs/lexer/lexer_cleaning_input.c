@@ -6,11 +6,24 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 23:26:26 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/20 18:10:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_handle_space(t_lexer *lexer, char *input)
+{
+	int	z;
+	
+	z = ft_strlen(input) - 1;
+	while (input[z] == ' ' && z > 0)
+		z--;
+	if (lexer->i > 0 && lexer->i <= z)
+		lexer->line[++lexer->j] = ' ';
+	while (input[lexer->i + 1] == ' ')
+		lexer->i++;
+}
 
 void	ft_put_redirection(t_lexer *lexer, char *input)
 {
@@ -40,6 +53,18 @@ void	ft_put_pipe(t_lexer *lexer, char *input)
 		ft_handle_space(lexer, input);
 }
 
+void	ft_handle_between_redirects(t_lexer *lexer)
+{
+	t_type	type;
+
+	type = ELEM;
+	lexer->i = 0;		
+	while (lexer->line[lexer->i] != ';' && lexer->i < SIZE_LINE) // ';' carac de fin
+	{
+		
+	}
+}
+
 void	ft_input_one_space(t_lexer *lexer, char *input)
 {
 	lexer->i = 0;
@@ -63,5 +88,6 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 	}
 	lexer->line[++lexer->j] = ' ';
 	lexer->line[++lexer->j] = ';';
+	ft_handle_between_redirects(lexer);
 	ft_print_input_clean(lexer->line); // ASUPP
 }

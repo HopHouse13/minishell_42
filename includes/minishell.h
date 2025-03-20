@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/19 15:43:29 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 18:03:55 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ typedef enum e_type
 	REDIR_IN,   // "<"
 	REDIR_OUT,	// ">"
 	HD,         // "<<"
-	END_HD,     // EOF
 	APPEND,     // ">>"
 	DOLLAR,     // "$"
+	FILE_IN,	// fichier d'entree
+	FILE_OUT,	// ecrasement dans fichier
+	FILE_APP,	// rajout dans fichier
+	DELIM_HD,	// delimiteur heredoc
+	CMD,		// commande
+	ARG,		// argument de la precedente commande
+	OPT,		// option de la commande
 	END,        // fin de input
-	UNKNOWN     // inconnu
 }					t_type;
 
 typedef struct s_token
@@ -148,6 +153,7 @@ bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
 bool		ft_control_redir_valid(t_lexer *lexer, char *input);
 
 /// lexer_cleaning_input ///
+void		ft_handle_space(t_lexer *lexer, char *input);
 void		ft_input_one_space(t_lexer *lexer, char *input);
 void		ft_put_pipe(t_lexer *lexer, char *input);
 void		ft_put_redirection(t_lexer *lexer, char *input);
@@ -160,7 +166,6 @@ bool		ft_valid_carac(char c);
 
 /// parser_utils ///
 void		ft_init_line(char *virgin_line);
-void		ft_handle_space(t_lexer *lexer, char *input);
 bool		ft_valid_carac(char c);
 
 /// parser ///

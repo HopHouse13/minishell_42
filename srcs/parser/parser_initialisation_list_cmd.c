@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation_list_cmd.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/19 15:24:06 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 17:11:30 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_init_node_values(t_cmd *new_elem)
 	new_elem->next = NULL;
 }
 
-void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
+void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml)
 {
 	t_cmd	*first_node;
 
@@ -38,7 +38,7 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
 	*list_cmd = first_node;
 }
 
-void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
+void	ft_add_node_cmd(t_parser *parser, t_mnode **ml)
 {
 	t_cmd	*tmp;
 	t_cmd	*new_elem;
