@@ -19,17 +19,23 @@ void	ft_define_token_elem(t_lexer *lexer)
 	tmp = lexer->list_token;
 	while (tmp->token != END)
 	{
-		if (tmp->token == ELEM)
+		if (tmp->token == ELEM && tmp->prev)
 		{
 			if (tmp->prev->token == REDIR_IN) // <
 				tmp->token = FILE_IN;
 			else if (tmp->prev->token == REDIR_OUT) // <
 				tmp->token = FILE_OUT;
-			else if (tmp->prev->token == REDIR_IN) // <
-				tmp->token = FILE_IN;
-			else if (tmp->prev->token == REDIR_IN) // <
-				tmp->token = FILE_IN;
+			else if (tmp->prev->token == APPEND) // <
+				tmp->token = FILE_APP;
+			else if (tmp->prev->token == HD) // <
+				tmp->token = DELIM_HD;
+			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
+				tmp->token = ARG;
+			else
+				tmp->token = CMD;
 		}
+		else if (tmp->token == ELEM)
+			tmp->token = CMD;
 		tmp = tmp->next;
 	}
 }
