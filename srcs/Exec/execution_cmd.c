@@ -1,26 +1,24 @@
-#include "minshell.h"
+#include "../../includes/minshell.h"
 
 
 void    ft_executer(t_mshell instructions)
 {
 
     // redirection si necessaire (cf. redirect.c)
-    redirect(t_mshell instructions)
-    
+    redirect(t_mshell instructions);
+    forker();
     // redirect_in ?
 
     // redirect_out ?
 
-
     // commandes
-    execution_cmd()
+    execution_cmd();
 
 
 
 
 
 }
-
 
 void    execution_cmd()
 {
