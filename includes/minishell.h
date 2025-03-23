@@ -23,6 +23,8 @@
 # include <readline/history.h> // gere l'historique des commandes (non vide)
 # include <stdlib.h> // exit ;
 # include <stdbool.h> // boolien
+# include <fcntl.h> //open
+
 
 # define RESET "\033[0m" // a supprimer si non besoin
 # define BLACK "\033[30m"

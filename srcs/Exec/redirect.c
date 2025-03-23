@@ -12,10 +12,6 @@ void    redirect(t_mshell instructions)
 
 
   
-    
-
-
-
 
     /* 
     if (hd)
