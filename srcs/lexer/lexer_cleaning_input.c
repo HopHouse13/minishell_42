@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/20 19:27:17 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/25 02:52:27 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 		if (lexer->flag_quote == OUT_Q)
 		{
 			if (input[lexer->i] == '|')
+			{
 				ft_put_pipe(lexer, input);
+			}
 			else if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
 				ft_put_redirection(lexer, input);
 			else if (input[lexer->i] == ' ')

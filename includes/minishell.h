@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/20 19:25:42 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/24 20:19:57 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,18 +163,24 @@ void		ft_init_line(char *virgin_line);
 void		ft_handle_space(t_lexer *lexer, char *input);
 bool		ft_valid_carac(char c);
 
-/// parser_utils ///
+/// lexer_utils ///
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_carac(char c);
 
 /// parser ///
 t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 
+/// parser_valid_syntax ///
+bool    ft_valid_syntax(t_token *list_token);
+
 /// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void		ft_init_node_values(t_cmd *new_elem);
+
+/// parser_fill_list_cmd
+void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
 /// parser_utils ///
 void		ft_init_parser(t_parser *parser, t_token *token);

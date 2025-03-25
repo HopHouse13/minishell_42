@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/20 17:19:24 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/24 23:55:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_check_quotes(t_lexer *lexer, char c)
 		lexer->flag_quote = OUT_Q;
 	else
 		lexer->flag_quote = IN_Q;
+	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",lexer->squote, lexer->dquote, lexer->flag_quote);
 }
 
 void	ft_init_line(char *virgin_line)
