@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialisation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 17:53:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/25 16:36:11 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	ft_init_lexer(t_lexer *lexer)
 	lexer->j = -1;
 	lexer->squote = OUT_Q;
 	lexer->dquote = OUT_Q;
-	lexer->flag_quote = OUT_Q;
+	lexer->flag_q = OUT_Q;
+	lexer->APP_HD = false;
 }

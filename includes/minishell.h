@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/24 20:19:57 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/25 16:29:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_lexer
 	int				j;
 	int				squote;
 	int				dquote;
-	int				flag_quote;
+	int				flag_q;
+	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
 
 typedef struct s_hd

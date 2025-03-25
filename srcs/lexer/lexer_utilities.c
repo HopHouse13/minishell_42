@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/24 23:55:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/25 11:28:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_check_quotes(t_lexer *lexer, char c)
 	else if (c == '\"' && lexer->dquote == IN_Q && lexer->squote == OUT_Q)
 		lexer->dquote = OUT_Q;
 	if (lexer->squote == OUT_Q && lexer->dquote == OUT_Q)
-		lexer->flag_quote = OUT_Q;
+		lexer->flag_q = OUT_Q;
 	else
-		lexer->flag_quote = IN_Q;
-	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",lexer->squote, lexer->dquote, lexer->flag_quote);
+		lexer->flag_q = IN_Q;
+	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",lexer->squote, lexer->dquote, lexer->flag_q);
 }
 
 void	ft_init_line(char *virgin_line)

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 02:52:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/25 11:28:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 	while (input && lexer->i < SIZE_LINE && input[lexer->i])
 	{
 		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_quote == OUT_Q)
+		if (lexer->flag_q == OUT_Q)
 		{
 			if (input[lexer->i] == '|')
 			{
