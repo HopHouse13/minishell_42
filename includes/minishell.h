@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/25 16:29:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/25 21:03:26 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_parser
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	int				exit_status;
 }					t_parser;
 
 /* typedef struct s_exec
@@ -172,7 +173,7 @@ bool		ft_valid_carac(char c);
 t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 
 /// parser_valid_syntax ///
-bool    ft_valid_syntax(t_token *list_token);
+bool    ft_valid_syntax(t_parser *list_token);
 
 /// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);

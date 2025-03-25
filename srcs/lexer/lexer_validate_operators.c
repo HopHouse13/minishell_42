@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 16:37:00 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/25 17:30:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,63 +36,6 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 	return (true);
 }
 
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{printf("carac_REDIR -> %c\t", input[lexer->i]);
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_q == IN_Q)
-			continue ;
-		if (input[lexer->i] == '<' || input[lexer->i] == '>')
-		{
-			if (input[lexer->i + 1] && input[lexer->i] == input[lexer->i + 1])
-				lexer->i++;
-			if (input[lexer->i + 1])
-				lexer->i++;
-			ft_check_quotes(lexer, input[lexer->i]);
-			if (lexer->flag_q == IN_Q)
-				continue ;
-			while (input[lexer->i] == ' ')
-				lexer->i++;
-			ft_check_quotes(lexer, input[lexer->i]);
-			if (lexer->flag_q == OUT_Q && !ft_valid_carac(input[lexer->i]))
-				return (false);
-		}
-	}
-	printf("-------------------REDIR---------------------\n\n");
-	return (true);
-} */
-
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{printf("carac_REDIR -> %c\n", input[lexer->i]);
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_q == OUT_Q)
-		{
-			if ((input[lexer->i] == '<' || input[lexer->i] == '>') 
-				&& input[lexer->i + 1])
-			{
-				lexer->i++;
-				if (input[lexer->i] == input[lexer->i - 1])
-				{
-					if (input[lexer->i + 1])
-						lexer->i++;
-					else	
-						break ;
-				}
-				while (input[lexer->i] == ' ')
-					lexer->i++;
-				if (ft_valid_carac(input[lexer->i]) == false)
-					return (false);
-			}
-		}
-	}
-	printf("-------------------REDIR---------------------\n\n");
-	return (true);
-} */
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 {printf("\n\n-------------------PIPE---------------------\n");
 	bool	pipe;
@@ -113,30 +56,6 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	}
 	return (true);
 }
-
-/* bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
-{
-	bool	pipe;
-
-	pipe = false;
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{printf("carac_PIPE -> %c\t\t", input[lexer->i]);
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (input[lexer->i] != ' ' && ft_valid_carac(input[lexer->i]) == true) // sinon il retombe sur un 2eme pipe consecutif et il mets le bool "pipe" a zero avant de check si ct pas un 2eme pipe consecutif.
-			pipe = false;
-		if (lexer->flag_q == OUT_Q)
-		{
-			if (input[lexer->i] == '|' && pipe == false)
-				pipe = true;
-			else if (pipe == true && ft_valid_carac(input[lexer->i]) == false)
-				return (false);
-		}
-		printf("value_pipe : %d\n", pipe);
-	}
-	printf("-------------------PIPE---------------------\n\n");
-	return (true);
-} */
 
 bool	ft_control_carac_valid(t_lexer *lexer, char *input)
 {printf("\n\n--------------------CARAC_VALID--------------------\n");
