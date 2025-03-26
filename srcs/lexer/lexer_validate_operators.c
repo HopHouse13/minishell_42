@@ -6,14 +6,14 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 03:26:57 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 17:17:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{printf("\n\n-------------------REDIR---------------------\n");
+{printf("\n\n----------------------REDIR------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
@@ -37,7 +37,7 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 }
 
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
-{printf("\n\n-------------------PIPE---------------------\n");
+{printf("\n\n-----------------------PIPE------------------------\n");
 	bool	pipe;
 
 	pipe = false;
@@ -66,15 +66,18 @@ bool	ft_control_carac_valid(t_lexer *lexer, char *input)
 	{
 		c = input[lexer->i];
 		ft_check_quotes(lexer, c);
-		if ((c == '{' || c == '}' || c == '[' || c == ']' || c == '(' ||
-			c == ')' || c == ';' || c == '&') && lexer->flag_q == OUT_Q)
+		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
+			|| lexer->flag_q == IN_Q)
+			continue ;
+		if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
+			|| c == ';' || c == '&')
 			return (false);
 	}
 	return (true);
 }
 	
 bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
-{printf("\n\n------------------QUOTES----------------------\n");
+{printf("\n\n--------------------QUOTES-------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
 		ft_check_quotes(lexer, input[lexer->i]);

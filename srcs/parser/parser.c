@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 03:32:17 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 20:45:40 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,15 @@
 // 	}
 // }
 
+// 3 CHOSES A F AIRE:
+// - implementer le [#] ignore tout ce qui est apres.
+// -  
+
 
 t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 {
 	t_parser	parser;
-
-
+	
 	ft_init_parser(&parser, list_token);
 	//ft_expand(&parser, ml); le faire avant de controle si la syntaxe est bonne car pdt les controles, j'ai besoin des nom des cmd sans quote
 	if (ft_valid_syntax(&parser))

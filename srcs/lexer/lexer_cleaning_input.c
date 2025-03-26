@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 11:28:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 16:53:13 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_put_redirection(t_lexer *lexer, char *input)
 	if (lexer->i + 1 < ft_strlen(input) && input[lexer->i + 1] != ' ')
 		lexer->line[++lexer->j] = ' ';
 }
+
 void	ft_put_pipe(t_lexer *lexer, char *input)
 {
 	if (lexer->i != 0 && input[lexer->i - 1] != ' ')
