@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:36:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/24 21:35:55 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 00:26:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml)
 		tmp_token = tmp_token->next; // ASUPP
 		/* if (tmp_token->token == PIPE && tmp_cmd->next)
 			tmp_cmd = tmp_cmd->next;
- 		else if (tmp_token->token == REDIR_IN ||
-				tmp_token->token == REDIR_OUT ||
+ 		else if (tmp_token->token == R_IN ||
+				tmp_token->token == R_OUT ||
  				tmp_token->token == APPEND)
  			ft_build_list_redir(tmp_token, tmp_cmd, ml);
  		else if (tmp_token->token == HD)

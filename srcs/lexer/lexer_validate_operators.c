@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 17:30:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 03:26:57 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	pipe = false;
 	lexer->i = -1;
 	while (input[++lexer->i])
-	{printf("carac_PIPE -> %c\t", input[lexer->i]);
+	{
 		ft_check_quotes(lexer, input[lexer->i]);
 		if (lexer->flag_q) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
 			continue;

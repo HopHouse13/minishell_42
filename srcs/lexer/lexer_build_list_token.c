@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/20 19:52:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/26 01:00:52 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	ft_define_token_elem(t_lexer *lexer)
 	{
 		if (tmp->token == ELEM && tmp->prev)
 		{
-			if (tmp->prev->token == REDIR_IN) // <
-				tmp->token = FILE_IN;
-			else if (tmp->prev->token == REDIR_OUT) // <
-				tmp->token = FILE_OUT;
+			if (tmp->prev->token == R_IN) // <
+				tmp->token = F_IN;
+			else if (tmp->prev->token == R_OUT) // <
+				tmp->token = F_OUT;
 			else if (tmp->prev->token == APPEND) // <
-				tmp->token = FILE_APP;
+				tmp->token = F_APP;
 			else if (tmp->prev->token == HD) // <
 				tmp->token = DELIM_HD;
 			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
@@ -50,17 +50,17 @@ void	ft_define_token_redir(t_lexer *lexer)
 		if (!ft_strcmp(tmp->elem, "|"))
 			tmp->token = PIPE;
 		else if (!ft_strcmp(tmp->elem, "<"))
-			tmp->token = REDIR_IN;
+			tmp->token = R_IN;
 		else if (!ft_strcmp(tmp->elem, ">"))
-			tmp->token = REDIR_OUT;
+			tmp->token = R_OUT;
 		else if (!ft_strcmp(tmp->elem, "<<"))
 			tmp->token = HD;
 		else if (!ft_strcmp(tmp->elem, ">>"))
 			tmp->token = APPEND;
 		else if (!ft_strcmp(tmp->elem, ">"))
-			tmp->token = REDIR_OUT;
+			tmp->token = R_OUT;
 		else if (!ft_strcmp(tmp->elem, ">"))
-			tmp->token = REDIR_OUT;
+			tmp->token = R_OUT;
 		else if (!ft_strcmp(tmp->elem, ";"))
 			tmp->token = END;
 		else

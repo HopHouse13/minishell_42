@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 19:54:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 03:32:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,14 @@ t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 
 
 	ft_init_parser(&parser, list_token);
-	if (ft_valid_syntax(&parser)) // pas sur de ca... check si il y a une seule cmd par pipe ( plus d'une  -> erreur)
-	{
+	//ft_expand(&parser, ml); le faire avant de controle si la syntaxe est bonne car pdt les controles, j'ai besoin des nom des cmd sans quote
+	if (ft_valid_syntax(&parser))
+	{ printf("\nSUCCESS\n\n");
 		ft_init_list_cmd(&parser, ml);
 		//ft_fill_list_cmd(&parser, ml);
-		//ft_expand(&parser);
 		return (parser.list_cmd);
 	}
+	printf("\nFAILURE\n\n");
 	return (NULL); 
 	
 }

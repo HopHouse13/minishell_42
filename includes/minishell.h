@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/25 21:03:26 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 03:14:08 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,23 @@ typedef enum e_type
 {
 	ELEM,
 	PIPE,       // "|"
-	REDIR_IN,   // "<"
-	REDIR_OUT,	// ">"
+	R_IN,   	// "<"
+	R_OUT,		// ">"
 	HD,         // "<<"
 	APPEND,     // ">>"
-	FILE_IN,	// fichier d'entree
-	FILE_OUT,	// ecrasement dans fichier
-	FILE_APP,	// rajout dans fichier
+	F_IN,		// fichier d'entree
+	F_OUT,		// ecrasement dans fichier
+	F_APP,		// rajout dans fichier
 	DELIM_HD,	// delimiteur heredoc
 	CMD,		// commande
 	ARG,		// argument de la precedente commande
-	OPT,		// option de la commande
 	END,        // fin de input
 }					t_type;
 
 typedef struct s_token
 {
 	char			*elem;
-	t_type			token;			
+	t_type			token;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
@@ -137,7 +136,7 @@ void		ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 /// lexer ///
 t_token		*ft_lexer(char *input, t_mnode **ml);
 
-/// lexer_init ///
+/// lexer_initialisation ///
 void		ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
@@ -165,15 +164,21 @@ void		ft_init_line(char *virgin_line);
 void		ft_handle_space(t_lexer *lexer, char *input);
 bool		ft_valid_carac(char c);
 
-/// lexer_utils ///
+/// lexer_utilities ///
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_carac(char c);
 
 /// parser ///
 t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 
+/// parser_initilisation ///
+void		ft_init_parser(t_parser *parser, t_token *token);
+
 /// parser_valid_syntax ///
-bool    ft_valid_syntax(t_parser *list_token);
+bool		ft_valid_pipes(t_parser *parser);
+bool		ft_valid_cmds(t_parser *parser);
+bool		ft_valid_redirs(t_parser *parser);
+bool		ft_valid_syntax(t_parser *list_token);
 
 /// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
@@ -181,11 +186,12 @@ void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void		ft_init_node_values(t_cmd *new_elem);
 
-/// parser_fill_list_cmd
+/// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
-/// parser_utils ///
-void		ft_init_parser(t_parser *parser, t_token *token);
+/// parser_utilities ///
+bool		ft_cmds(char *cmd);
+char		*ft_find_next_cmd(t_token *tmp);
 
 /// malloc ///
 void		*ft_malloc_list(size_t size, t_mnode **ml);

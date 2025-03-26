@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/24 21:40:41 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/26 01:00:52 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	ft_print_double_tab(char **tab)
 
 const char	*ft_get_name_type(t_type type)
 {
-	const char *type_tab[] = { "ELEM", "PIPE", "REDIR_IN", "REDIR_OUT", "HD",
-								"APPEND", "FILE_IN", "FILE_OUT", "FILE_APP",
-								"DELIM_HD", "CMD", "ARG", "OPT", "END"};
+	const char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
+								"APPEND", "F_IN", "F_OUT", "F_APP",
+								"DELIM_HD", "CMD", "ARG", "END"};
 	
 	if ( type >= ELEM && type <=END)
 		return (type_tab[type]);
