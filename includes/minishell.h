@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/27 16:47:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 19:48:27 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ typedef struct s_parser
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	int				squote;
-	int				dquote;
+	int				simpleq;
+	int				doubleq;
 	int				flag_q;
 	int				exit_status;
 }					t_parser;

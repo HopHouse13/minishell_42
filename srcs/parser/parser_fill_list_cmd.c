@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:36:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 00:26:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 17:06:00 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml)
 	
 	tmp_token = parser->list_token;
 	tmp_cmd = parser->list_cmd;
-	while (tmp_token->token != END || tmp_cmd) // pas sur de ca... 
+	while (tmp_token->token != END || tmp_cmd) // pas sur de ca...
 	{
 		ft_deletion_quotes(tmp_token->elem, ml);
 		tmp_token = tmp_token->next; // ASUPP

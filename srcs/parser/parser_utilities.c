@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/27 16:57:56 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 21:06:22 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,57 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 	return (str_without_q);
 }
 
+/* int	ft_inside_quotes_parser(t_parser *parser, char c)
+{
+	if (c = '\'' && parser->doubleq == OUT_Q)
+	{
+		if ()
+	}
+	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->simpleq, parser->doubleq, parser->flag_q);
+	return (parser->flag_q);
+} */
+
+// ft GPT
 int	ft_inside_quotes_parser(t_parser *parser, char c)
 {
-	if (c == '\'' && parser->dquote == OUT_Q && parser->squote == OUT_Q)
-		parser->squote = IN_Q;
-	else if (c == '\'' && parser->squote == IN_Q && parser->dquote == OUT_Q)
-		parser->squote = OUT_Q;
-	else if (c == '\"' && parser->squote == OUT_Q && parser->dquote == OUT_Q)
-		parser->dquote = IN_Q;
-	else if (c == '\"' && parser->dquote == IN_Q && parser->squote == OUT_Q)
-		parser->dquote = OUT_Q;
-	if ((parser->squote == IN_Q || parser->dquote == IN_Q) 
+	if (c == '\'' && parser->doubleq == OUT_Q)
+	{
+		if (parser->simpleq == IN_Q)
+			parser->simpleq = OUT_Q;
+		else
+			parser->simpleq = IN_Q;
+		return (OUT_Q);
+	}
+	if (c == '\"' && parser->simpleq == OUT_Q)
+	{
+		if (parser->doubleq == IN_Q)
+			parser->doubleq = OUT_Q;
+		else
+			parser->doubleq = IN_Q;
+		return (OUT_Q);
+	}
+	printf("S_quote: %d\tD_quote: %d\n", parser->simpleq, parser->doubleq);
+	return (parser->simpleq == IN_Q || parser->doubleq == IN_Q);
+}
+/* int	ft_inside_quotes_parser(t_parser *parser, char c)
+{
+	if (c == '\'' && parser->doubleq == OUT_Q && parser->simpleq == OUT_Q)
+		parser->simpleq = IN_Q;
+	else if (c == '\'' && parser->simpleq == IN_Q && parser->doubleq == OUT_Q)
+		parser->simpleq = OUT_Q;
+	else if (c == '\'' && parser->simpleq == OUT_Q && parser->doubleq == IN_Q)
+		parser->doubleq = IN_Q;
+	else if (c == '\"' && parser->simpleq == OUT_Q && parser->doubleq == OUT_Q)
+		parser->doubleq = IN_Q;
+	else if (c == '\"' && parser->doubleq == IN_Q && parser->simpleq == OUT_Q)
+		parser->doubleq = OUT_Q;
+	else if (c == '\"' && parser->simpleq == IN_Q && parser->doubleq == OUT_Q)
+		parser->simpleq = IN_Q;
+	if ((parser->simpleq == IN_Q || parser->doubleq == IN_Q) 
 		&& (c != '\'' && c != '\"'))
 		parser->flag_q = IN_Q;
 	else
 		parser->flag_q = OUT_Q;
-	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->squote, parser->dquote, parser->flag_q);
+	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->simpleq, parser->doubleq, parser->flag_q);
 	return (parser->flag_q);
-}
+} */
