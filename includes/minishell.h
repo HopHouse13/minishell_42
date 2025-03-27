@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/26 03:14:08 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 16:47:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ typedef struct s_parser
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	int				squote;
+	int				dquote;
+	int				flag_q;
 	int				exit_status;
 }					t_parser;
 
@@ -159,7 +162,7 @@ void		ft_put_pipe(t_lexer *lexer, char *input);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
 /// lexer_operateurs_utilities ///
-void		ft_check_quotes(t_lexer *lexer, char c);
+int			ft_inside_quotes_lexer(t_lexer *lexer, char c);
 void		ft_init_line(char *virgin_line);
 void		ft_handle_space(t_lexer *lexer, char *input);
 bool		ft_valid_carac(char c);
@@ -177,8 +180,9 @@ void		ft_init_parser(t_parser *parser, t_token *token);
 /// parser_valid_syntax ///
 bool		ft_valid_pipes(t_parser *parser);
 bool		ft_valid_cmds(t_parser *parser);
-bool		ft_valid_redirs(t_parser *parser);
-bool		ft_valid_syntax(t_parser *list_token);
+bool		ft_valid_redirs(t_parser *parser, t_mnode **ml);
+bool		ft_valid_syntax(t_parser *parser, t_mnode **ml);
+
 
 /// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
@@ -191,7 +195,9 @@ void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
 /// parser_utilities ///
 bool		ft_cmds(char *cmd);
-char		*ft_find_next_cmd(t_token *tmp);
+char		*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml);
+char		*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml);
+int			ft_inside_quotes_parser(t_parser *parser, char c);
 
 /// malloc ///
 void		*ft_malloc_list(size_t size, t_mnode **ml);

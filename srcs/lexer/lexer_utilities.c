@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/25 11:28:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 16:47:04 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_check_quotes(t_lexer *lexer, char c)
+int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 {
 	if (c == '\'' && lexer->dquote == OUT_Q && lexer->squote == OUT_Q)
 		lexer->squote = IN_Q;
@@ -22,11 +22,13 @@ void	ft_check_quotes(t_lexer *lexer, char c)
 		lexer->dquote = IN_Q;
 	else if (c == '\"' && lexer->dquote == IN_Q && lexer->squote == OUT_Q)
 		lexer->dquote = OUT_Q;
-	if (lexer->squote == OUT_Q && lexer->dquote == OUT_Q)
-		lexer->flag_q = OUT_Q;
-	else
+	if ((lexer->squote == IN_Q || lexer->dquote == IN_Q) 
+		&& (c != '\'' && c != '\"'))
 		lexer->flag_q = IN_Q;
+	else
+		lexer->flag_q = OUT_Q;
 	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",lexer->squote, lexer->dquote, lexer->flag_q);
+	return (lexer->flag_q);
 }
 
 void	ft_init_line(char *virgin_line)

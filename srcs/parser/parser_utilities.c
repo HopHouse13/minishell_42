@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/26 02:56:02 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 16:57:56 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,68 @@
 
 bool	ft_cmds(char *cmd)
 {
+	printf(">> [%s]\n\n", cmd);
 	if (!cmd)
 		return (false);
-	if (!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep") || !ft_strcmp(cmd, "wc") || !ft_strcmp(cmd, "sort")
-		|| !ft_strcmp(cmd, "uniq") || !ft_strcmp(cmd, "awk") || !ft_strcmp(cmd, "sed") || !ft_strcmp(cmd, "head")
+	if (!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep")
+		|| !ft_strcmp(cmd, "wc") || !ft_strcmp(cmd, "sort")
+		|| !ft_strcmp(cmd, "uniq") || !ft_strcmp(cmd, "awk")
+		|| !ft_strcmp(cmd, "sed") || !ft_strcmp(cmd, "head")
 		|| !ft_strcmp(cmd, "tail"))
 		return (true);
 	return (false);
 }
-char	*ft_find_next_cmd(t_token *tmp)
+
+char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
 {
 	while (tmp && tmp->token != END)
 	{
 		if (tmp->token == CMD)
-			return (tmp->elem);
+			return (ft_remove_quotes(parser, tmp->elem, ml));
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
+{
+	int		i;
+	int		j;
+	size_t	count_without_q;
+	char	*str_without_q;
+	
+	i = -1;
+	count_without_q = 0;
+	while (str[++i])
+		if (ft_inside_quotes_parser(parser, str[i])
+			|| (str[i] != '\'' && str[i] != '\"'))
+			count_without_q++;
+	printf("carac copie -> %ld\n", count_without_q + 1);
+	str_without_q = ft_malloc_list(sizeof(char) * count_without_q + 1, ml);
+	i = -1;
+	j = 0;
+	while (str[++i])
+		if ((ft_inside_quotes_parser(parser, str[i]))
+			|| (str[i] != '\'' && str[i] != '\"'))
+			str_without_q[j++] = str[i];
+	str_without_q[j] = '\0';
+	return (str_without_q);
+}
+
+int	ft_inside_quotes_parser(t_parser *parser, char c)
+{
+	if (c == '\'' && parser->dquote == OUT_Q && parser->squote == OUT_Q)
+		parser->squote = IN_Q;
+	else if (c == '\'' && parser->squote == IN_Q && parser->dquote == OUT_Q)
+		parser->squote = OUT_Q;
+	else if (c == '\"' && parser->squote == OUT_Q && parser->dquote == OUT_Q)
+		parser->dquote = IN_Q;
+	else if (c == '\"' && parser->dquote == IN_Q && parser->squote == OUT_Q)
+		parser->dquote = OUT_Q;
+	if ((parser->squote == IN_Q || parser->dquote == IN_Q) 
+		&& (c != '\'' && c != '\"'))
+		parser->flag_q = IN_Q;
+	else
+		parser->flag_q = OUT_Q;
+	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->squote, parser->dquote, parser->flag_q);
+	return (parser->flag_q);
 }

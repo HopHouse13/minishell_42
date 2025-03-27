@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 17:17:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 16:50:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_q == IN_Q)
+		if (ft_inside_quotes_lexer(lexer, input[lexer->i]))
 			continue ;
 		if ((input[lexer->i] == '<' || input[lexer->i] == '>')
 			&& (lexer->APP_HD == false && input[lexer->i + 1]
@@ -44,8 +43,7 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_q) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
+		if (ft_inside_quotes_lexer(lexer, input[lexer->i])) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
 			continue;
 		if (input[lexer->i] != ' ' && ft_valid_carac(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
 			pipe = false;
@@ -65,12 +63,11 @@ bool	ft_control_carac_valid(t_lexer *lexer, char *input)
 	while (input[++lexer->i])
 	{
 		c = input[lexer->i];
-		ft_check_quotes(lexer, c);
 		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
-			|| lexer->flag_q == IN_Q)
+			|| ft_inside_quotes_lexer(lexer, c))
 			continue ;
 		if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
-			|| c == ';' || c == '&')
+			|| c == ';' || c == '&' || c == '#')
 			return (false);
 	}
 	return (true);
@@ -80,7 +77,7 @@ bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
 {printf("\n\n--------------------QUOTES-------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
-		ft_check_quotes(lexer, input[lexer->i]);
+		ft_inside_quotes_lexer(lexer, input[lexer->i]);
 	if (lexer->flag_q == OUT_Q)
 		return (true);
 	return (false);

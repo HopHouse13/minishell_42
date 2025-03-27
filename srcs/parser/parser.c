@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 20:45:40 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/27 17:02:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
 // {
 // 	t_token	*tmp;
 
-// 	tmp = parser->list_token;
+// 	tmp = parser->list_token;`
 // 	ft_add_node_cmd(parser, ml);
 // 	while (tmp)
 // 	{
@@ -105,9 +105,9 @@
 // 	}
 // }
 
-// 3 CHOSES A F AIRE:
+// 3 CHOSES A FAIRE:
 // - implementer le [#] ignore tout ce qui est apres.
-// -  
+// - 
 
 
 t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
@@ -115,10 +115,10 @@ t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 	t_parser	parser;
 	
 	ft_init_parser(&parser, list_token);
-	//ft_expand(&parser, ml); le faire avant de controle si la syntaxe est bonne car pdt les controles, j'ai besoin des nom des cmd sans quote
-	if (ft_valid_syntax(&parser))
+	if (ft_valid_syntax(&parser, ml))
 	{ printf("\nSUCCESS\n\n");
 		ft_init_list_cmd(&parser, ml);
+		//ft_expand(&parser, ml);
 		//ft_fill_list_cmd(&parser, ml);
 		return (parser.list_cmd);
 	}
