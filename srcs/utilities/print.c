@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 01:00:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 11:56:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_print_list_cmd(t_cmd *head) // A SUPP
     	{
 			/* while (*tab_cmd)
     	    	ft_printf("cmd: [%s]\n", *tab_cmd++); */
-			ft_printf("\tquote -> %d\n", tmp->dquote);
+			ft_printf("\tquote -> %d\n", tmp->doubleq);
     	    tmp = tmp->next;
     	}
 		// ft_printf("\n\t---------------------------------\n\n");

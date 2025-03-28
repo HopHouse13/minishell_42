@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/27 17:02:24 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 11:56:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 	while (tmp->elem[++i])
 // 		if (tmp->elem[i] == '\'')
 // 		{
-// 			tmp->squote = 0;
+// 			tmp->simpleq = 0;
 // 		}	
 // 		else if (tmp->elem[i] == '\"')
 // 		{
@@ -55,8 +55,8 @@
 // 	}
 // 	//init variables ici
 // 	first_node->cmd = NULL;
-// 	first_node->squote = -1;
-// 	first_node->dquote = -1;
+// 	first_node->simpleq = -1;
+// 	first_node->doubleq = -1;
 // 	first_node->prev = NULL;
 // 	first_node->next = NULL;
 // 	*list_cmd = first_node;
@@ -84,8 +84,8 @@
 // 		tmp = tmp->next;
 // 	//init variables ici
 // 	new_elem->cmd = NULL;
-// 	new_elem->squote = -1;
-// 	new_elem->dquote = -1;
+// 	new_elem->simpleq = -1;
+// 	new_elem->doubleq = -1;
 // 	new_elem->prev = tmp;
 // 	new_elem->next = NULL;
 // 	tmp->next = new_elem;

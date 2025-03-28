@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/27 21:06:22 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 11:17:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,22 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 	return (str_without_q);
 }
 
-/* int	ft_inside_quotes_parser(t_parser *parser, char c)
-{
-	if (c = '\'' && parser->doubleq == OUT_Q)
-	{
-		if ()
-	}
-	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->simpleq, parser->doubleq, parser->flag_q);
-	return (parser->flag_q);
-} */
+// Si c est une quote simple (') et qu'on n'est pas dans une quote double :
+// On ouvre ou ferme simpleq.
+// On retourne OUT_Q.
 
-// ft GPT
+// Si c est une quote double (") et qu'on n'est pas dans une quote simple :
+// On ouvre ou ferme doubleq.
+// On retourne OUT_Q.
+
+// On retourne 1 si on est dans une quote (simpleq ou doubleq), sinon 0.
 int	ft_inside_quotes_parser(t_parser *parser, char c)
 {
 	if (c == '\'' && parser->doubleq == OUT_Q)
 	{
 		if (parser->simpleq == IN_Q)
 			parser->simpleq = OUT_Q;
-		else
+		else 
 			parser->simpleq = IN_Q;
 		return (OUT_Q);
 	}

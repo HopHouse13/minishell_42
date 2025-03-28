@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/27 19:48:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 11:56:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ typedef struct s_lexer
 	t_token			*list_token;
 	int				i;
 	int				j;
-	int				squote;
-	int				dquote;
+	int				simpleq;
+	int				doubleq;
 	int				flag_q;
 	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
@@ -91,8 +91,8 @@ typedef struct s_cmd
 {
 	char			**cmd; //ELEM
 	t_redir			*redir;
-	bool			squote; //ELEM
-	bool			dquote; //ELEM
+	bool			simpleq; //ELEM
+	bool			doubleq; //ELEM
 	int				hd_count; // 0 -> pas de hd, autre hd | Pab
 	t_hd			*hd;
 	struct s_cmd	*prev;

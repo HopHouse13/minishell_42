@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/27 16:47:04 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 11:55:16 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 {
-	if (c == '\'' && lexer->dquote == OUT_Q && lexer->squote == OUT_Q)
-		lexer->squote = IN_Q;
-	else if (c == '\'' && lexer->squote == IN_Q && lexer->dquote == OUT_Q)
-		lexer->squote = OUT_Q;
-	else if (c == '\"' && lexer->squote == OUT_Q && lexer->dquote == OUT_Q)
-		lexer->dquote = IN_Q;
-	else if (c == '\"' && lexer->dquote == IN_Q && lexer->squote == OUT_Q)
-		lexer->dquote = OUT_Q;
-	if ((lexer->squote == IN_Q || lexer->dquote == IN_Q) 
-		&& (c != '\'' && c != '\"'))
-		lexer->flag_q = IN_Q;
-	else
-		lexer->flag_q = OUT_Q;
-	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",lexer->squote, lexer->dquote, lexer->flag_q);
-	return (lexer->flag_q);
+	if (c == '\'' && lexer->doubleq == OUT_Q)
+	{
+		if (lexer->simpleq == IN_Q)
+			lexer->simpleq = OUT_Q;
+		else 
+			lexer->simpleq = IN_Q;
+		return (OUT_Q);
+	}
+	if (c == '\"' && lexer->simpleq == OUT_Q)
+	{
+		if (lexer->doubleq == IN_Q)
+			lexer->doubleq = OUT_Q;
+		else
+			lexer->doubleq = IN_Q;
+		return (OUT_Q);
+	}
+	printf("S_quote: %d\tD_quote: %d\n", lexer->simpleq, lexer->doubleq);
+	return (lexer->simpleq == IN_Q || lexer->doubleq == IN_Q);
 }
 
 void	ft_init_line(char *virgin_line)
