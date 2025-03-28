@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/28 11:56:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 22:49:01 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ typedef struct s_lexer
 	t_token			*list_token;
 	int				i;
 	int				j;
-	int				simpleq;
-	int				doubleq;
-	int				flag_q;
+	int				simple_q;
+	int				double_q;
 	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
 
@@ -91,8 +90,8 @@ typedef struct s_cmd
 {
 	char			**cmd; //ELEM
 	t_redir			*redir;
-	bool			simpleq; //ELEM
-	bool			doubleq; //ELEM
+	bool			simple_q; //ELEM
+	bool			double_q; //ELEM
 	int				hd_count; // 0 -> pas de hd, autre hd | Pab
 	t_hd			*hd;
 	struct s_cmd	*prev;
@@ -104,9 +103,9 @@ typedef struct s_parser
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	int				simpleq;
-	int				doubleq;
-	int				flag_q;
+	int				simple_q;
+	int				double_q;
+	char			**env;
 	int				exit_status;
 }					t_parser;
 
@@ -136,6 +135,8 @@ typedef struct s_mshell
 int			main(int ac, char **av, char **env);
 void		ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 
+////////////////////////////////////////////////////////////////////////////////
+
 /// lexer ///
 t_token		*ft_lexer(char *input, t_mnode **ml);
 
@@ -151,7 +152,7 @@ void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 /// lexer_operateurs_valid ///
 bool		ft_validate_operators(t_lexer *lexer, char *input);
 bool		ft_control_quotes_valid(t_lexer *lexer, char *input);
-bool		ft_control_carac_valid(t_lexer *lexer, char *input);
+bool		ft_control_character_valid(t_lexer *lexer, char *input);
 bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
 bool		ft_control_redir_valid(t_lexer *lexer, char *input);
 
@@ -161,21 +162,18 @@ void		ft_input_one_space(t_lexer *lexer, char *input);
 void		ft_put_pipe(t_lexer *lexer, char *input);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
-/// lexer_operateurs_utilities ///
+/// lexer_utilities ///
 int			ft_inside_quotes_lexer(t_lexer *lexer, char c);
 void		ft_init_line(char *virgin_line);
-void		ft_handle_space(t_lexer *lexer, char *input);
-bool		ft_valid_carac(char c);
+bool		ft_valid_character(char c);
 
-/// lexer_utilities ///
-void		ft_init_line(char *virgin_line);
-bool		ft_valid_carac(char c);
+////////////////////////////////////////////////////////////////////////////////
 
 /// parser ///
-t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
+t_cmd		*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml);
 
 /// parser_initilisation ///
-void		ft_init_parser(t_parser *parser, t_token *token);
+void		ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token);
 
 /// parser_valid_syntax ///
 bool		ft_valid_pipes(t_parser *parser);
@@ -190,6 +188,13 @@ void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void		ft_init_node_values(t_cmd *new_elem);
 
+/// parser_expand_and_ckeanup ///
+
+void		ft_expand_and_cleanup(t_parser *parser, t_mnode **ml);
+void		ft_expand(t_parser *parser, t_mnode **ml);
+void		ft_delete_quotes(t_parser *parser, t_mnode **ml);
+void		ft_clear_escape_character(t_parser *parser, t_mnode **ml);
+
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
@@ -198,6 +203,8 @@ bool		ft_cmds(char *cmd);
 char		*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml);
 char		*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml);
 int			ft_inside_quotes_parser(t_parser *parser, char c);
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// malloc ///
 void		*ft_malloc_list(size_t size, t_mnode **ml);
@@ -209,6 +216,8 @@ char		*ft_strdup_ml(const char *s_src, t_mnode **ml);
 char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void		ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void		ft_free_ml(t_mnode **ml);
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
 void		ft_error_exit(char *message);

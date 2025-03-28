@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/28 11:17:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 21:04:46 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_cmds(char *cmd)
 {
-	printf(">> [%s]\n\n", cmd);
+	printf("\ncmd >> [%s]\n\n", cmd);
 	if (!cmd)
 		return (false);
 	if (!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep")
@@ -36,6 +36,7 @@ char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
 	}
 	return (NULL);
 }
+
 char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 {
 	int		i;
@@ -49,7 +50,6 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 		if (ft_inside_quotes_parser(parser, str[i])
 			|| (str[i] != '\'' && str[i] != '\"'))
 			count_without_q++;
-	printf("carac copie -> %ld\n", count_without_q + 1);
 	str_without_q = ft_malloc_list(sizeof(char) * count_without_q + 1, ml);
 	i = -1;
 	j = 0;
@@ -62,54 +62,32 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 }
 
 // Si c est une quote simple (') et qu'on n'est pas dans une quote double :
-// On ouvre ou ferme simpleq.
+// On ouvre ou ferme simple_q.
 // On retourne OUT_Q.
 
 // Si c est une quote double (") et qu'on n'est pas dans une quote simple :
-// On ouvre ou ferme doubleq.
+// On ouvre ou ferme double_q.
 // On retourne OUT_Q.
 
-// On retourne 1 si on est dans une quote (simpleq ou doubleq), sinon 0.
+// On retourne 1 si on est dans une quote (simple_q ou double_q), sinon 0.
 int	ft_inside_quotes_parser(t_parser *parser, char c)
 {
-	if (c == '\'' && parser->doubleq == OUT_Q)
+	if (c == '\'' && parser->double_q == OUT_Q)
 	{
-		if (parser->simpleq == IN_Q)
-			parser->simpleq = OUT_Q;
+		if (parser->simple_q == IN_Q)
+			parser->simple_q = OUT_Q;
 		else 
-			parser->simpleq = IN_Q;
+			parser->simple_q = IN_Q;
 		return (OUT_Q);
 	}
-	if (c == '\"' && parser->simpleq == OUT_Q)
+	if (c == '\"' && parser->simple_q == OUT_Q)
 	{
-		if (parser->doubleq == IN_Q)
-			parser->doubleq = OUT_Q;
+		if (parser->double_q == IN_Q)
+			parser->double_q = OUT_Q;
 		else
-			parser->doubleq = IN_Q;
+			parser->double_q = IN_Q;
 		return (OUT_Q);
 	}
-	printf("S_quote: %d\tD_quote: %d\n", parser->simpleq, parser->doubleq);
-	return (parser->simpleq == IN_Q || parser->doubleq == IN_Q);
+	printf("S_quote: %d\tD_quote: %d\n", parser->simple_q, parser->double_q);
+	return (parser->simple_q == IN_Q || parser->double_q == IN_Q);
 }
-/* int	ft_inside_quotes_parser(t_parser *parser, char c)
-{
-	if (c == '\'' && parser->doubleq == OUT_Q && parser->simpleq == OUT_Q)
-		parser->simpleq = IN_Q;
-	else if (c == '\'' && parser->simpleq == IN_Q && parser->doubleq == OUT_Q)
-		parser->simpleq = OUT_Q;
-	else if (c == '\'' && parser->simpleq == OUT_Q && parser->doubleq == IN_Q)
-		parser->doubleq = IN_Q;
-	else if (c == '\"' && parser->simpleq == OUT_Q && parser->doubleq == OUT_Q)
-		parser->doubleq = IN_Q;
-	else if (c == '\"' && parser->doubleq == IN_Q && parser->simpleq == OUT_Q)
-		parser->doubleq = OUT_Q;
-	else if (c == '\"' && parser->simpleq == IN_Q && parser->doubleq == OUT_Q)
-		parser->simpleq = IN_Q;
-	if ((parser->simpleq == IN_Q || parser->doubleq == IN_Q) 
-		&& (c != '\'' && c != '\"'))
-		parser->flag_q = IN_Q;
-	else
-		parser->flag_q = OUT_Q;
-	printf("S_quote : %d\tD_quote : %d\t>>> value quotes : %d\n",parser->simpleq, parser->doubleq, parser->flag_q);
-	return (parser->flag_q);
-} */

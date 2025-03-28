@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 12:00:53 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 19:58:58 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 			continue ;
 		else if (lexer->APP_HD == true && input[lexer->i] != input[lexer->i -1]) // si on a deja trouve un chevron et que le carac precedent est le meme chevron (c'est pour passer au carac suivant dans les cas << ou >>)
 		{
-			if (ft_valid_carac(input[lexer->i]) == false)
+			if (ft_valid_character(input[lexer->i]) == false)
 				return (false);
 			lexer->APP_HD = false;
 		}
@@ -45,17 +45,17 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	{
 		if (ft_inside_quotes_lexer(lexer, input[lexer->i])) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
 			continue;
-		if (input[lexer->i] != ' ' && ft_valid_carac(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
+		if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
 			pipe = false;
 		else if (input[lexer->i] == '|' && pipe == false) // si tu rencontres un pipe et qu c'est un pipe non consecutif
 			pipe = true;
-		else if (pipe == true && !ft_valid_carac(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
+		else if (pipe == true && !ft_valid_character(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
 			return (false);
 	}
 	return (true);
 }
 
-bool	ft_control_carac_valid(t_lexer *lexer, char *input)
+bool	ft_control_character_valid(t_lexer *lexer, char *input)
 {printf("\n\n--------------------CARAC_VALID--------------------\n");
 	char	c;
 
@@ -64,8 +64,10 @@ bool	ft_control_carac_valid(t_lexer *lexer, char *input)
 	{
 		c = input[lexer->i];
 		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
-			|| ft_inside_quotes_lexer(lexer, c))
+			|| ft_inside_quotes_lexer(lexer, c)) // pour eviter d'interdir n'importe quel caractere car il a le caractere d'echappement juste avant.
 			continue ;
+		if (lexer->i == ft_strlen(input) - 1 && c == '\\') // pour interdir '\' au dernier caractere car dans le vrai bash il est fait pour ecrire ta commande sur plusieurs lignes. (pas a gerer dans minishell)
+			return (false);
 		if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
 			|| c == ';' || c == '&' || c == '#')
 			return (false);
@@ -77,8 +79,15 @@ bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
 {printf("\n\n--------------------QUOTES-------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
+	{
+		if (input[lexer->i] == '\\')
+		{
+			lexer->i++;
+			continue ;
+		}
 		ft_inside_quotes_lexer(lexer, input[lexer->i]);
-	if (lexer->simpleq == IN_Q || lexer->doubleq == IN_Q)
+	}
+		if (lexer->simple_q == IN_Q || lexer->double_q == IN_Q)
 		return (false);
 	return (true);
 }
@@ -87,7 +96,7 @@ bool	ft_validate_operators(t_lexer *lexer, char *input)
 {
 	if (ft_control_quotes_valid(lexer, input) == false)
 		return (printf("false_quote\n"), false);// erreur a gerer
-	if (ft_control_carac_valid(lexer, input) == false)
+	if (ft_control_character_valid(lexer, input) == false)
 		return (printf("false_carac\n"), false);// erreur a gerer
 	if (ft_control_pipe_valid(lexer, input) == false)
 		return (printf("false_operators\n"), false);// erreur a gerer
