@@ -6,7 +6,7 @@
 #    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/26 16:03:18 by pab              ###   ########.fr        #
+#    Updated: 2025/03/28 23:17:58 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser_utilities.c \
 			srcs/parser/parser_fill_list_cmd.c \
 			srcs/parser/parser_valid_syntax.c \
+			srcs/parser/parser_expand_and_cleanup.c \
 			srcs/parser/parser_initialisation_list_cmd.c \
 			srcs/parser/parser_initialisation.c \
 			srcs/parser/parser.c \

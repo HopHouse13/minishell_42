@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/28 21:04:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 23:20:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int	ft_inside_quotes_parser(t_parser *parser, char c)
 			parser->double_q = IN_Q;
 		return (OUT_Q);
 	}
-	printf("S_quote: %d\tD_quote: %d\n", parser->simple_q, parser->double_q);
+	printf("\tS_quote: %d\tD_quote: %d\n", parser->simple_q, parser->double_q);
 	return (parser->simple_q == IN_Q || parser->double_q == IN_Q);
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 19:58:58 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/28 23:20:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 			lexer->double_q = IN_Q;
 		return (OUT_Q);
 	}
-	printf("simple_q: %d\tdouble_q: %d\n", lexer->simple_q, lexer->double_q);
+	printf("\tsimple_q: %d\tdouble_q: %d\n", lexer->simple_q, lexer->double_q);
 	return (lexer->simple_q == IN_Q || lexer->double_q == IN_Q);
 }
 
