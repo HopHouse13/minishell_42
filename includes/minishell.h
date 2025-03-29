@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/29 15:29:50 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/29 19:39:02 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_lexer
+typedef struct s_lexer // local
 {
 	char			line[SIZE_LINE];
 	t_token			*list_token;
@@ -84,21 +84,23 @@ typedef struct s_redir
 {
 	t_type			token; // pab
 	char			*file; // pab
+	struct s_redir	*prev;
+	struct s_redir	*next;
 }					t_redir;
 
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
 	t_redir			*redir;
+	t_hd			*hd;
+	int				count_hd; // 0 -> pas de hd, autre hd | Pab
 	bool			simple_q; //ELEM
 	bool			double_q; //ELEM
-	int				hd_count; // 0 -> pas de hd, autre hd | Pab
-	t_hd			*hd;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct s_parser
+typedef struct s_parser // local
 {
 	int				i;
 	t_token			*list_token;
@@ -109,10 +111,11 @@ typedef struct s_parser
 	int				exit_status;
 }					t_parser;
 
-/* typedef struct s_exec
+typedef struct s_exec // local
 {
-
-}					t_exec; */
+	int				i;
+//	int				exit_status;
+}					t_exec;
 
 typedef struct s_mnode  		// noeud par la liste de malloc
 {
@@ -126,6 +129,7 @@ typedef struct s_mshell
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	int				count_pipe; // pab
 	char			**env;
 	char			**paths;
 	int				exit_status;
@@ -189,7 +193,6 @@ void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void		ft_init_node_values(t_cmd *new_elem);
 
 /// parser_expand_and_ckeanup ///
-
 void		ft_expand_and_cleanup(t_parser *parser, t_mnode **ml);
 void		ft_expand(t_parser *parser, t_mnode **ml);
 void		ft_delete_quotes(t_parser *parser, t_mnode **ml);
@@ -224,6 +227,7 @@ void		ft_error_exit(char *message);
 void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
+void		ft_init_exec(t_exec *exec);
 
 /// utilities_print ///
 void		ft_print_input_clean(char *line);

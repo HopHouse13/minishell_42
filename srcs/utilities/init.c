@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 18:03:51 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/29 19:39:05 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void	ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml)
 {
 	mshell->input = NULL;
+	mshell->list_token = NULL;
 	mshell->list_cmd = NULL;
+	mshell->count_pipe = 0;
 	mshell->exit_status = 0;
 	mshell->env = NULL;
 	ft_build_env(mshell, env, ml);
 	mshell->paths = NULL;
 	ft_build_path(mshell, ml);
 }
+
 void	ft_build_env(t_mshell *mshell, char  **env, t_mnode **ml)
 {
 	int	i;
@@ -73,3 +76,4 @@ void	ft_build_path(t_mshell *mshell, t_mnode **ml)
 		}
 	}
 }
+

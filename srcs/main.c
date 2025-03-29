@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 18:52:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/29 19:33:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 			{
 				mshell->list_cmd = ft_parser( mshell, mshell->list_token, ml);
 				ft_print_list_cmd(mshell->list_cmd); // ASUPP
+				/* if (mshell->exec->list_cmd)
+					ft_executer(mshell->exec->list_cmd); */
 			}
-			// if (mshell->list_token && mshell->cmd)
-			// 	ft_executer(mshell->cmd);
 		}
 	}
 }
