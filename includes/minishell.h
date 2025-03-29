@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/28 22:49:01 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/29 15:29:50 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef enum e_type
 	DELIM_HD,	// delimiteur heredoc
 	CMD,		// commande
 	ARG,		// argument de la precedente commande
-	END,        // fin de input
+	END,		// fin de input
 }					t_type;
 
 typedef struct s_token
