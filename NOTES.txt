@@ -22,3 +22,4 @@ HEREDOC :
 - delimiteur ->		sans quote -> interpretation variables/carac specieux dans l'input
 					avec simple quote -> Tout est pris littéralement (pas d'expansion, pas d'interprétation)
 					avec double quote -> 
+

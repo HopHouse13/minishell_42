@@ -236,4 +236,26 @@ void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
 
+
+	// * EXEC * //
+
+//redirect.c
+
+void	redirect(t_mshell instructions);
+void	redirect_case(void fd, void tokken);
+void	redirect_in(void fd, char *infile);
+void	redirect_out_trunc(char *outfile);
+void	redirect_out_app(char *outfile);
+void	redirect_hd(src, dest);
+
+// execution_cmd.c
+void	ft_executer(t_mshell instructions);
+void	execution_cmd(char *cmd, char **cmd_args);
+
+
+
+
+	// * Built - In * //
+void	BI_echo(char *env_var);
+
 #endif	
