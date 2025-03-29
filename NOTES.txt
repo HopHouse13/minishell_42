@@ -1,0 +1,24 @@
+valgrind SUPP readline : 
+
+valgrind --suppressions=readline.supp --trace-children=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
+
+valgrind --tool=callgrind
+
+
+--- regles quotes ---
+
+simple quote:
+
+- interpretation litterale
+- pas d'expansion
+
+double quote :
+
+- interpretation caracteres speciaux
+- expansion
+
+HEREDOC :
+
+- delimiteur ->		sans quote -> interpretation variables/carac specieux dans l'input
+					avec simple quote -> Tout est pris littéralement (pas d'expansion, pas d'interprétation)
+					avec double quote ->   vvc
