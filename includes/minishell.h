@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/29 19:39:02 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/29 20:07:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,27 +235,5 @@ void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
-
-
-	// * EXEC * //
-
-//redirect.c
-
-void	redirect(t_mshell instructions);
-void	redirect_case(void fd, void tokken);
-void	redirect_in(void fd, char *infile);
-void	redirect_out_trunc(char *outfile);
-void	redirect_out_app(char *outfile);
-void	redirect_hd(src, dest);
-
-// execution_cmd.c
-void	ft_executer(t_mshell instructions);
-void	execution_cmd(char *cmd, char **cmd_args);
-
-
-
-
-	// * Built - In * //
-void	BI_echo(char *env_var);
 
 #endif	

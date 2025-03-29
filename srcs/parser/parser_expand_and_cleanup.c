@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/03/29 15:25:50 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/29 20:08:05 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 // - supp "\" et "[" "]" 	Pour '\'	-> dans les double_q : conservation sauf si devant " ou $ ou / (car il est actif pour ce cas la)
 //										-> dans simple_q : conservation totale
 //										-> a l'exterieur : disparition total car actif pour tout
+
 // void	ft_expand_and_cleanup(t_parser *parser, t_mnode **ml)
 // {
 // 	ft_expand(parser, ml);
