@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:50:16 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:58:19 by pbret            ###   ########.fr       */
+/*   Created: 2025/03/05 12:17:27 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/05 12:29:59 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strlen(const char *s)
+// compare str1 a str2
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	int	size;
+	int	i;
 
-	size = 0;
-	while (s[size])
-		size++;
-	return (size);
+	i = 0;
+	while (str1[i] && str2[i] && str1[i] == str2[i])
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:50:16 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:58:19 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
+/*   Updated: 2025/02/18 15:57:52 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-int	ft_strlen(const char *s)
+void	ft_error_exit(char *message)
 {
-	int	size;
-
-	size = 0;
-	while (s[size])
-		size++;
-	return (size);
+	perror(message);
+	exit(EXIT_FAILURE);
 }
+// gestion d'erreur:
+
+// Avant d'exit et d'afficher un message d'erreur, il faut free l'ensemble des malloc dont le malloc du main (t_mshell)
+// si errno est non null -> afficher son message
+// sinon ecrire dans errno puis l'afficher

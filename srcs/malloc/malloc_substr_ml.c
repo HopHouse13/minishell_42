@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   malloc_substr_ml.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 13:32:22 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/11 21:49:21 by ubuntu           ###   ########.fr       */
+/*   Created: 2025/03/11 21:27:27 by ubuntu            #+#    #+#             */
+/*   Updated: 2025/03/12 17:55:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-// dupliquer une une partie de la src dans une sous chaine
-// si l'indice (start) est > ou = a la len de src
-// -> return une chaine vide (strdup)
-// si longueur de la sous chaine est > (len de src)-(l'indice de depart(start))
-// -> tronquer len pour pas quelle depasse src
-// s_new = ft_calloc et duplique avec while (pour pas depasser src)
-// et if (pour pas depasser len)
-
-char	*ft_substr(char const *s_src, int start, int len)
+char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml)
 {
 	char	*s_new;
 	int		j;
@@ -29,14 +21,14 @@ char	*ft_substr(char const *s_src, int start, int len)
 		return (NULL);
 	if (start >= ft_strlen(s_src))
 	{
-		s_new = ft_calloc(1, sizeof(char));
+		s_new = ft_calloc_list(1, sizeof(char), ml);
 		if (!s_new)
 			return (NULL);
 		return (s_new);
 	}
 	if (len > ft_strlen(s_src) - start)
 		len = ft_strlen(s_src) - start;
-	s_new = ft_calloc((len + 1), sizeof(char));
+	s_new = ft_calloc_list((len + 1), sizeof(char), ml);
 	if (!s_new)
 		return (NULL);
 	j = 0;

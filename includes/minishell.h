@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/02/19 18:44:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/20 19:25:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 
 # include "./libft/includes/libft.h"
 # include "./printf/includes/ft_printf.h"
-
-# include <stdio.h> // printf (pour la phase de dev.)
-# include <errno.h> // liste des erreurs errno.
-# include <sys/errno.h> // meilleur portabilite avec cette librairie.
+# include <errno.h>             // liste des erreurs errno.
+# include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
-# include <readline/history.h> // gere l'historique des commandes (non vide)
-# include <stdlib.h> // exit ;
-# include <stdbool.h> // boolien
-# include <fcntl.h> //open
+# include <stdbool.h>           // boolien
+# include <stdio.h>             // printf (pour la phase de dev.)
+# include <stdlib.h>            // exit ;
+# include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 
-
-# define RESET "\033[0m" // a supprimer si non besoin
-# define BLACK "\033[30m"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define BLUE "\033[34m"
-# define MAGENTA "\033[35m"
-# define CYAN "\033[36m"
-# define WHITE "\033[37m"
+# define RESET "\033[0m"		// a supprimer si non besoin
+# define BLACK "\033[30m"		// a supprimer si non besoin
+# define RED "\033[31m"			// a supprimer si non besoin
+# define GREEN "\033[32m"		// a supprimer si non besoin
+# define YELLOW "\033[33m"		// a supprimer si non besoin
+# define BLUE "\033[34m"		// a supprimer si non besoin
+# define MAGENTA "\033[35m"		// a supprimer si non besoin
+# define CYAN "\033[36m"		// a supprimer si non besoin
+# define WHITE "\033[37m"		// a supprimer si non besoin
 
 # define SIZE_LINE 80000
 # define IN_Q 1
@@ -42,25 +39,26 @@
 
 typedef enum e_type
 {
-					ELEM,
-					PIPE, 		// "|"
-					R_IN,	// "<"
-					R_OUT,	// ">" ; TRUNCATE ?
-					HD,			// "<<"
-					APPEND,		// ">>"
-					F_IN, 	// fichier d'entree
-					F_OUT,	// ecrasement dans fichier
-					F_APP,	// append mode
-					DELIM_HD,	// delimiter heredoc
-					CMD,		// commande
-					ARG,		// argument commande precedente		// option commande
-					END,		// fin input
+	ELEM,
+	PIPE,       // "|"
+	REDIR_IN,   // "<"
+	REDIR_OUT,	// ">"
+	HD,         // "<<"
+	APPEND,     // ">>"
+	FILE_IN,	// fichier d'entree
+	FILE_OUT,	// ecrasement dans fichier
+	FILE_APP,	// rajout dans fichier
+	DELIM_HD,	// delimiteur heredoc
+	CMD,		// commande
+	ARG,		// argument de la precedente commande
+	OPT,		// option de la commande
+	END,        // fin de input
 }					t_type;
 
 typedef struct s_token
 {
 	char			*elem;
-	t_type			token;
+	t_type			token;			
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
@@ -71,34 +69,32 @@ typedef struct s_lexer
 	t_token			*list_token;
 	int				i;
 	int				j;
-	int				simple_q;
-	int				double_q;
-	bool			APP_HD;
+	int				squote;
+	int				dquote;
+	int				flag_quote;
 }					t_lexer;
 
 typedef struct s_hd
 {
-	char	*delim;
-	char	**buff_doc;
-	bool	expand;
-}			t_hd;
+	char			*delim; // pab
+	char			**buff_doc; // emir
+	bool			expand; // pab
+}					t_hd;
 
-typedef	struct s_redir
+typedef struct s_redir
 {
-	t_type			token;
-	char			*file;
-	struct s_redir	*prev;
-	struct s_redir	*next;
-}			t_redir;
+	t_type			token; // pab
+	char			*file; // pab
+}					t_redir;
 
 typedef struct s_cmd
 {
-	char			**cmd;
+	char			**cmd; //ELEM
 	t_redir			*redir;
+	bool			squote; //ELEM
+	bool			dquote; //ELEM
+	int				hd_count; // 0 -> pas de hd, autre hd | Pab
 	t_hd			*hd;
-	int				count_hd;
-	bool			simple_q;
-	bool			double_q;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -106,19 +102,25 @@ typedef struct s_cmd
 typedef struct s_parser
 {
 	int				i;
-	t_token		*list_token;
-	t_cmd		*list_cmd;
-	int			simple_q;
-	int			double_q;
-	char		**env;
-	int			exit_status;
+	t_token			*list_token;
+	t_cmd			*list_cmd;
 }					t_parser;
 
-typedef struct s_exec // local
+/* typedef struct s_exec
 {
-	int				i;
-//	int				exit_status;
-}					t_exec;
+	char	*delim;
+	char	**buff_doc;
+	bool	expand;
+}			t_hd;
+
+}					t_exec; */
+
+typedef struct s_mnode  		// noeud par la liste de malloc
+{
+	void			*ptr;
+	size_t			size;
+	struct s_mnode	*next;
+}					t_mnode;
 
 typedef	struct	s_mnode
 {
@@ -132,76 +134,84 @@ typedef struct s_mshell
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	int				count_pipe;
 	char			**env;
-	char			**paths; 
+	char			**paths;
 	int				exit_status;
 }					t_mshell;
 
 /// main ///
-int main(int ac, char **av, char **env);
-
-/// parser ///
-void	ft_parser(t_mshell *mshell, char *input);
-bool	ft_check_quotes_input(t_parser *parser, char *input);
-void	ft_check_quotes(t_parser *parser,char c);
-void	ft_put_spaces(t_parser *parser, char *input);
-void	ft_put_pipe(t_parser *parser, char *input);
-void	ft_put_redirection(t_parser *parser, char *input);
-
-/// parser-utils ///
-void	ft_init_line(char *virgin_line);
+int			main(int ac, char **av, char **env);
+void		ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 
 /// lexer ///
-void	ft_lexer(t_mshell mshell, char *input);
+t_token		*ft_lexer(char *input, t_mnode **ml);
 
-/// lexer-utils ///
-void	ft_init_lexer(t_lexer *lexer);
-void	ft_build_list_tokens(t_mshell *mshell, t_lexer *lexer, char *input);
-bool	ft_isspace(char c);
-bool	ft_ischevron(char c);
-bool	ft_isnotchevron(char c);
-bool	ft_ispipe(char c);
+/// lexer_init ///
+void		ft_init_lexer(t_lexer *lexer);
 
-/// utils-error ///
-void	ft_error_exit(char *message);
+/// lexer_build_list_token ///
+void		ft_define_token_redir(t_lexer *lexer);
+void		ft_build_list_token(t_lexer *lexer, t_mnode **ml);
+void		ft_add_node_token(t_lexer *lexer, char *elem, t_mnode **ml);
+void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
-/// utils-free ///
-void	ft_free_manag(t_mshell *mshell);
+/// lexer_operateurs_valid ///
+bool		ft_validate_operators(t_lexer *lexer, char *input);
+bool		ft_control_quotes_valid(t_lexer *lexer, char *input);
+bool		ft_control_carac_valid(t_lexer *lexer, char *input);
+bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
+bool		ft_control_redir_valid(t_lexer *lexer, char *input);
 
-/// utils-init ///
-void	ft_init_mshell(t_mshell *mshell, char **env);
-void	ft_build_env(t_mshell *mshell, char  **env);
-void	ft_build_path(t_mshell *mshell);
+/// lexer_cleaning_input ///
+void		ft_handle_space(t_lexer *lexer, char *input);
+void		ft_input_one_space(t_lexer *lexer, char *input);
+void		ft_put_pipe(t_lexer *lexer, char *input);
+void		ft_put_redirection(t_lexer *lexer, char *input);
 
-/// utils-print ///
-void	ft_print_double_tab(char **tab);
+/// lexer_operateurs_utilities ///
+void		ft_check_quotes(t_lexer *lexer, char c);
+void		ft_init_line(char *virgin_line);
+void		ft_handle_space(t_lexer *lexer, char *input);
+bool		ft_valid_carac(char c);
 
+/// parser_utils ///
+void		ft_init_line(char *virgin_line);
+bool		ft_valid_carac(char c);
 
+/// parser ///
+t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
 
-		// *** EXEC *** //
+/// parser_initialisation_list_cmd ///
+void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
+void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
+void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
+void		ft_init_node_values(t_cmd *new_elem);
 
-void	ft_executer(t_mshell instructions);
+/// parser_utils ///
+void		ft_init_parser(t_parser *parser, t_token *token);
 
-	//redirect.c
-void	ft_redirect(t_mshell mshell);
+/// malloc ///
+void		*ft_malloc_list(size_t size, t_mnode **ml);
+void		*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml);
+void 		ft_add_ml(void *ptr, size_t size, t_mnode **ml);
+void		ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
+char		**ft_split_ml(char const *s, char c, t_mnode **ml);
+char		*ft_strdup_ml(const char *s_src, t_mnode **ml);
+char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
+void		ft_free_one_node_ml(void *ptr, t_mnode **ml);
+void		ft_free_ml(t_mnode **ml);
 
-void	redirect_case(fd,tokken);
-void	redirect_in(src,dest);
-void	redirect_out_trunc(src, dst);
-void	redirect_out_app(src, dest);
-void	redirect_hd(src, dest);
+/// utilities ///
+void		ft_error_exit(char *message);
+void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
+void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
+void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
 
-	//execution_cmd.c
+/// utilities_print ///
+void		ft_print_input_clean(char *line);
+void		ft_print_double_tab(char **tab);
+void		ft_print_list_token(t_token *head);
+const char	*ft_get_name_type(t_type type);
+void		ft_print_list_cmd(t_cmd *head);
 
-
-bool	ft_check_hd(t_cmd *list_cmd);
-bool	ft_check_BI(t_cmd *list_cmd);
-char	**ft_check_env(char **envp);
-
-int		forker(t_mshell mshell);
-int		pipex(t_mshell mshell);
-void	execution_cmd(t_mshell mshell);
-
-
-#endif
+#endif	

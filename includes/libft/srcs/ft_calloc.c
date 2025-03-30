@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:09:45 by pbret             #+#    #+#             */
-/*   Updated: 2025/01/16 12:21:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/11 17:15:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t			total;
 	unsigned char	*ptr;
 
-	if (count < 1 || size < 1)
-	{
-		ptr = malloc(0);
-		return (ptr);
-	}
-	if (count > SIZE_MAX / size)
+	if (count < 1 || size < 1 || count > SIZE_MAX / size)
 		return (NULL);
 	total = count * size;
 	ptr = malloc(count * size);

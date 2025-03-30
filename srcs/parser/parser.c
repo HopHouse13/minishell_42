@@ -5,108 +5,116 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/02/19 18:44:41 by pbret            ###   ########.fr       */
+/*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
+/*   Updated: 2025/03/19 15:37:00 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_parcer(t_parser *parser)
-{
-	ft_init_line(parser->line);
-	parser->i = -1;
-	parser->j = -1;
-	parser->squote = OUT_Q;
-	parser->dquote = OUT_Q;
-}
-// true(1) = exterieur de quote
-// false(0) = interieur de quote
-/* bool	ft_check_quotes_input(t_parser *parser, char *input)
-{
-	while (input[++parser->i])
-	{
-		if (input[parser->i] == '\'' && parser->dquote == true && parser->squote == true)
-			parser->squote = false;
-		else if (input[parser->i] == '\'' && parser->squote == false && parser->dquote == true)
-			parser->squote = true;
-		else if (input[parser->i] == '\"' && parser->squote == true && parser->dquote == true)
-			parser->dquote = false;
-		else if (input[parser->i] == '\"' && parser->dquote == false && parser->squote == true)
-			parser->dquote = true;
-	}
-	if (parser->squote == true && parser->dquote == true)
-		return (true);
-	return (false);
-} */
-bool	ft_check_quotes_input(t_parser *parser, char *input)
-{
-	while (input[++parser->i])
-		ft_check_quotes(parser, input[parser->i]);
-	if (parser->squote == OUT_Q && parser->dquote == OUT_Q)
-		return (OUT_Q);
-	return (IN_Q);
-}
+// ft_supp_quotes(t_token *tmp)
+// {
+// 	int	i;
+// 	int	nb_quotes;
 
-void	ft_check_quotes(t_parser *parser, char c)
-{
-	if (c == '\'' && parser->dquote == OUT_Q && parser->squote == OUT_Q)
-		parser->squote = IN_Q;
-	else if (c == '\'' && parser->squote == IN_Q && parser->dquote == OUT_Q)
-		parser->squote = OUT_Q;
-	else if (c == '\"' && parser->squote == OUT_Q && parser->dquote == OUT_Q)
-		parser->dquote = IN_Q;
-	else if (c == '\"' && parser->dquote == IN_Q && parser->squote == OUT_Q)
-		parser->dquote = OUT_Q;
-}
+// 	i = -1;
+// 	while (tmp->elem[++i])
+// 		if (tmp->elem[i] == '\'')
+// 		{
+// 			tmp->squote = 0;
+// 		}	
+// 		else if (tmp->elem[i] == '\"')
+// 		{
 
-void	ft_put_pipe(t_parser *parser, char *input)
-{
-	if (input[parser->i - 1] != ' ')
-	{
-		//parser->j++;
-		parser->line[++parser->j] = ' ';
-		parser->line[++parser->j] = '|';
-		parser->line[++parser->j] = ' ';
-	}
-}
-void	ft_put_redirection(t_parser *parser, char *input)
-{
+// 		}	
+// }
+
+// void	ft_expand(t_parser *parser)
+// {
+// 	t_token *tmp;
+
+// 	tmp = parser->list_token;
+// 	while (tmp)
+// 	{
+// 		if (tmp->token == ELEM && ft_is_quote(tmp))
+// 			ft_supp_quotes(tmp);
+// 		tmp = tmp->next;
+// 	}
+// }
+
+// void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml) // a modifier
+// {
+// 	t_cmd	*first_node;
+
+// 	first_node = ft_malloc_list(sizeof(t_cmd), ml);
+// 	if (!first_node)
+// 	{
+// 		perror("initialization list ");
+// 		//ft_master_free(list_cmd);
+// 		return ;
+// 	}
+// 	//init variables ici
+// 	first_node->cmd = NULL;
+// 	first_node->squote = -1;
+// 	first_node->dquote = -1;
+// 	first_node->prev = NULL;
+// 	first_node->next = NULL;
+// 	*list_cmd = first_node;
+// }
+
+// void	ft_add_node_cmd(t_parser *parser, t_mnode **ml) // a modifier
+// {
+// 	t_cmd	*tmp;
+// 	t_cmd	*new_elem;
 	
-}
+// 	if (!parser->list_cmd)
+// 	{
+// 		ft_init_head_list_cmd(&(parser->list_cmd), ml);
+// 		return ;
+// 	}
+// 	new_elem = ft_malloc_list(sizeof (t_cmd), ml);
+// 	if (!new_elem)
+// 	{
+// 		perror("initialization list ");
+// 		//ft_master_free(list);
+// 		return ;
+// 	}
+// 	tmp = parser->list_cmd;
+// 	while (tmp->next != NULL)
+// 		tmp = tmp->next;
+// 	//init variables ici
+// 	new_elem->cmd = NULL;
+// 	new_elem->squote = -1;
+// 	new_elem->dquote = -1;
+// 	new_elem->prev = tmp;
+// 	new_elem->next = NULL;
+// 	tmp->next = new_elem;
+// }
 
-void	ft_put_spaces(t_parser *parser, char *input)
-{
-	int	flag_quote;
-	
-	parser->i = 0;
-	flag_quote == OUT_Q;
-	while (input[parser->i])
-	{
-		ft_check_quotes(parser, input[parser->i]);
-		if (parser->squote == IN_Q || parser->dquote == IN_Q)
-			flag_quote = IN_Q;
-		else
-			flag_quote = OUT_Q;
-		if (input[parser->i] == '|' && flag_quote == OUT_Q)
-			ft_put_pipe(parser, input);
-		else if ((input[parser->i] == '<' || input[parser->i] == '>') && flag_quote == OUT_Q)
-			ft_put_redirection(parser, input);
-		else if (input[parser->i] != ' ')
-			parser->line[++parser->j] = input[parser->i];
-	}
-	ft_printf("\nline : [%s]\n\n", parser->line);
-}
+// void	ft_init_list_cmd(t_parser *parser, t_mnode **ml)
+// {
+// 	t_token	*tmp;
 
-void	ft_parser(t_mshell *mshell, char *input)
+// 	tmp = parser->list_token;
+// 	ft_add_node_cmd(parser, ml);
+// 	while (tmp)
+// 	{
+// 		if (tmp->token == PIPE)
+// 		ft_add_node_cmd(parser, ml);
+// 		tmp = tmp->next;
+// 	}
+// }
+
+
+t_cmd	*ft_parser(t_token *list_token, t_mnode **ml)
 {
 	t_parser	parser;
 
-	ft_init_parcer(&parser);
-	ft_check_quotes_input(&parser, input); // gerer l'erreur lorsque on est endehors de quotes
-	ft_put_spaces(&parser, input);
-	(void)mshell->input;
+	ft_init_parser(&parser, list_token);
+	ft_print_list_token(parser.list_token);
+	ft_init_list_cmd(&parser, ml);
+	// ft_fill_list_cmd(&parser, ml);
+	//ft_expand(&parser);
+	
+	return (parser.list_cmd);
 }
-
-// 	"bonjour'je'suis'" 'hello"i"am"'
-// "bonjourjesuis" 'helloiam'
