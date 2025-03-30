@@ -102,30 +102,26 @@ void    ft_redirect(t_mshell mshell)
     REDIRECTION
     EXECUTION 
 */
-void    forker(t_mshell mshell)
+void    forker(t_mshell *mshell)
 {
+    char    *cmd[]= {"cat", "file1.txt", NULL};
+
     pid_t pid;
     pid = fork();  
-    if (pid == 0)  // Processus enfant
+    if (pid == 0)
     {
-        execve(mshell->list_cmd->cmd[0], mshell->list_cmd->cmd, mshell->envp)
-        if (execve == -1)
-        { // secu
+        //execve(mshell->list_cmd->cmd[0], mshell->list_cmd->cmd, mshell->envp)
+        if (execve(cmd[0], cmd, NULL) == -1)
+        {
             perror("Execve child ");
-            ft_free(cmd_args);
+            //ft_free(cmd_args);
             exit(EXIT_FAILURE);
         }
-        //execution_cmd(mshell); obsolete
-        /*
-            // Exécuter la commande
-            if (execve(mshell) == -1);
-            {
-                perror("execve"); // En cas d'échec
-                exit(EXIT_FAILURE);
-            }
-        */
     }
+    else 
+        wait(NULL);
 }
+
 /*
 void    execution_cmd(t_mshell mshell)
 {

@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 		ft_init_mshell(mshell, env, &ml); // initialisation de tes les struct
 		ft_loop_mshell(mshell, &ml);      // minishell_loop
 		ft_free_ml(&ml);
-		rl_clear_history();
+		//rl_clear_history();
 	}
 	else
 	{

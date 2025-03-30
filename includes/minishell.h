@@ -122,12 +122,14 @@ typedef struct s_mnode  		// noeud par la liste de malloc
 	struct s_mnode	*next;
 }					t_mnode;
 
+/*
 typedef	struct	s_mnode
 {
 	void	*ptr;
 	size_t	size;
 	struct	s_mnode	*next;
 }			t_mnode;
+*/
 
 typedef struct s_mshell
 {
