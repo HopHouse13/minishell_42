@@ -37,14 +37,16 @@ void    ft_executer(t_mshell mshell)
     printf("fin de l'exec.\n");
 }
 
-// superflu déja dans parsing ?
-boll    ft_check_hd()
+// superflu déja dans parsing ? suffit de regarder dans t_cmd
+/*
+bool    ft_check_hd(int count_hd)
 {
     if (hd)
         return (1);
 
     return (0);
 }
+*/
 
 bool check_BI(t_cmd *list_cmd)
 {
@@ -56,7 +58,7 @@ bool check_BI(t_cmd *list_cmd)
 
     while (i < 7)
     {
-        if (ft_strchr(list_cmd->cmd[0], BI_list[i]))
+        if (ft_strmp(list_cmd->cmd[0], BI_list[i]))
             return (1);
         i++;
     }
