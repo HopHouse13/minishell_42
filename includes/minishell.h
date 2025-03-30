@@ -184,7 +184,7 @@ void	ft_print_double_tab(char **tab);
 void	ft_executer(t_mshell instructions);
 
 	//redirect.c
-void	redirect(src, dest);
+void	ft_redirect(t_mshell mshell);
 
 void	redirect_case(fd,tokken);
 void	redirect_in(src,dest);

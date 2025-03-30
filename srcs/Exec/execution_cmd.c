@@ -8,16 +8,15 @@
  */
 
 /* ft_executer
-    - check si heredoc
-    - check si BI
+    - check si heredoc --> surperflu déjà dans parsing ?
+    - check si BI 
     - check env
+    
     - check pipe
-
     - - fork & redirection
     - - piping
 
     - execution cmd
-
 */
 
 void    ft_executer(t_mshell mshell)
@@ -26,21 +25,26 @@ void    ft_executer(t_mshell mshell)
     ft_check_BI(mshell->list_cmd);
     ft_check_env(mshell->env);
 
-    //fork + redirection ?
-    //check si pipe
     if (mshell->count_pipe)
         pipex(mshell); // |
     else
         forker(mshell); // no pipe
 
-    redirect(mshell); // dans le parent ou dans l'enfant ?
+    //redirect(mshell); // dans le parent ou dans l'enfant ?
     
     // commandes
-    execution_cmd(mshell);
+    //execution_cmd(mshell);
     printf("fin de l'exec.\n");
 }
 
+// superflu déja dans parsing ?
+boll    ft_check_hd()
+{
+    if (hd)
+        return (1);
 
+    return (0);
+}
 
 bool check_BI(t_cmd *list_cmd)
 {
@@ -58,8 +62,8 @@ bool check_BI(t_cmd *list_cmd)
     }
     return (0);
 }
-
-char    *check_env()
+/*
+char    **check_env(char **envp)
 {
     char *path;
 
@@ -71,10 +75,11 @@ char    *check_env()
         //mallocking en cas de env -i 
         // ** TO DO ** (voir strat avec Pab)
     }
-    return ();
+    return (envp);
 }
+*/
 
-void    redirigeur(t_mshell node)
+void    ft_redirect(t_mshell mshell)
 {
     // Redirection d'entrée
         if (infile != -1) // indicateur de redirection
@@ -83,52 +88,51 @@ void    redirigeur(t_mshell node)
             close(infile);
         }
         // Redirection de sortie
-        if (element->token == REDIR_OUT_Q || element->token == APPEND) // indicateur de redirection
+        if (mshell->token == REDIR_OUT_Q || mshell->token == APPEND) // indicateur de redirection
         {
             dup2(outfile, STDOUT_FILENO);
             close(outfile);
         }
 }
 
-
-void    forker(t_mshell element)
-{
 /*
     FORK
     REDIRECTION
     EXECUTION 
-
 */
-
-    pid_t pid = fork();
+void    forker(t_mshell mshell)
+{
+    pid_t pid;
+    pid = fork();  
     if (pid == 0)  // Processus enfant
     {
-        // Exécuter la commande
-        execve(element->paths, args_args, element->env);
-        perror("execve"); // En cas d'échec
-        exit(EXIT_FAILURE);
+        execve(mshell->list_cmd->cmd[0], mshell->list_cmd->cmd, mshell->envp)
+        if (execve == -1)
+        { // secu
+            perror("Execve child ");
+            ft_free(cmd_args);
+            exit(EXIT_FAILURE);
+        }
+        //execution_cmd(mshell); obsolete
+        /*
+            // Exécuter la commande
+            if (execve(mshell) == -1);
+            {
+                perror("execve"); // En cas d'échec
+                exit(EXIT_FAILURE);
+            }
+        */
     }
 }
 
-
-
-/*
-void    execution_cmd()
+void    execution_cmd(t_mshell mshell)
 {
-    // transformation de la commande
-    char *cmd_path;
-    char *argv[];
-    char *envp[];
-    envp = getenv() ?? //char* vs char** ? ; //char *getenv(char *name)
+    //char *cmd_path; //
+    //char *argv[];   // t_cmd-> cmd
+    //char *envp[];   // t_mshell-> env
+    //envp = getenv() ?? //char* vs char** ? ; //char *getenv(char *name)
 
-    execve(cmd_path, cmd_args, envp)
     
-    if (execve == -1){ // secu
-        perror("Execve child1 ");
-        ft_free(cmd_args);
-        exit(EXIT_FAILURE);
-    }
     
 
 }
-*/
