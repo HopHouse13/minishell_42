@@ -126,7 +126,7 @@ void    forker(t_mshell mshell)
         */
     }
 }
-
+/*
 void    execution_cmd(t_mshell mshell)
 {
     //char *cmd_path; //
@@ -138,3 +138,4 @@ void    execution_cmd(t_mshell mshell)
     
 
 }
+*/
