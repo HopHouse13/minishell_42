@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 19:58:58 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/30 21:54:40 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,11 @@ bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		if (input[lexer->i] == '\\')
-		{
-			lexer->i++;
+		if (lexer->i > 0 && input[lexer->i - 1] == '\\')
 			continue ;
-		}
 		ft_inside_quotes_lexer(lexer, input[lexer->i]);
 	}
-		if (lexer->simple_q == IN_Q || lexer->double_q == IN_Q)
+	if (lexer->simple_q == IN_Q || lexer->double_q == IN_Q)
 		return (false);
 	return (true);
 }

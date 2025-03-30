@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/26 01:00:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/30 16:02:23 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	ft_define_token_elem(t_lexer *lexer)
 		{
 			if (tmp->prev->token == R_IN) // <
 				tmp->token = F_IN;
-			else if (tmp->prev->token == R_OUT) // <
+			else if (tmp->prev->token == R_OUT) // >
 				tmp->token = F_OUT;
-			else if (tmp->prev->token == APPEND) // <
+			else if (tmp->prev->token == APPEND) // >>
 				tmp->token = F_APP;
-			else if (tmp->prev->token == HD) // <
+			else if (tmp->prev->token == HD) // <<
 				tmp->token = DELIM_HD;
 			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
 				tmp->token = ARG;
 			else
-				tmp->token = CMD;
+				tmp->token = ft_builtin_or_cmd(tmp->elem);
 		}
 		else if (tmp->token == ELEM)
-			tmp->token = CMD;
+			tmp->token = ft_builtin_or_cmd(tmp->elem);
 		tmp = tmp->next;
 	}
 }

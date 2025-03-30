@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:17:27 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/05 12:29:59 by pbret            ###   ########.fr       */
+/*   Updated: 2025/03/30 16:01:04 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 // compare str1 a str2
+// retourne 0 si c'est good sinon la difference
 int	ft_strcmp(const char *str1, const char *str2)
 {
 	int	i;

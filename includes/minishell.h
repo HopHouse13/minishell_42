@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/29 20:07:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/30 20:45:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # include "./libft/includes/libft.h"
 # include "./printf/includes/ft_printf.h"
+# include <unistd.h>			// get
 # include <errno.h>             // liste des erreurs errno.
 # include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
 # include <stdbool.h>           // boolien
 # include <stdio.h>             // printf (pour la phase de dev.)
-# include <stdlib.h>            // exit ;
+# include <stdlib.h>            // exit ; getenv ;
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 
 # define RESET "\033[0m"		// a supprimer si non besoin
@@ -50,6 +51,7 @@ typedef enum e_type
 	F_APP,		// rajout dans fichier
 	DELIM_HD,	// delimiteur heredoc
 	CMD,		// commande
+	BI,			// builtin
 	ARG,		// argument de la precedente commande
 	END,		// fin de input
 }					t_type;
@@ -170,6 +172,7 @@ void		ft_put_redirection(t_lexer *lexer, char *input);
 int			ft_inside_quotes_lexer(t_lexer *lexer, char c);
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_character(char c);
+t_type		ft_builtin_or_cmd(char *elem);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -193,8 +196,8 @@ void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void		ft_init_node_values(t_cmd *new_elem);
 
 /// parser_expand_and_ckeanup ///
-void		ft_expand_and_cleanup(t_parser *parser, t_mnode **ml);
-void		ft_expand(t_parser *parser, t_mnode **ml);
+void		ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml);
+void		ft_expand_list(t_parser *parser, t_mnode **ml);
 void		ft_delete_quotes(t_parser *parser, t_mnode **ml);
 void		ft_clear_escape_character(t_parser *parser, t_mnode **ml);
 

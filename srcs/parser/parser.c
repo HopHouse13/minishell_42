@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/29 18:37:13 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/30 22:25:47 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 	if (ft_valid_syntax(&parser, ml))
 	{printf("\nSUCCESS\n\n");
 		ft_init_list_cmd(&parser, ml);
-		// ft_expand_and_cleanup(&parser, ml);
+		ft_expand_list_and_cleanup(&parser, ml);
 		//ft_fill_list_cmd(&parser, ml);
 		return (parser.list_cmd);
 	}

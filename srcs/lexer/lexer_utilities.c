@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 23:20:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/03/30 16:01:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 	return (lexer->simple_q == IN_Q || lexer->double_q == IN_Q);
 }
 
-void	ft_init_line(char *virgin_line)
+void	ft_init_line(char *virgin_line) // remplir le tab de caracteres de '\0'
 {
 	int	i;
 
@@ -58,4 +58,14 @@ bool	ft_valid_character(char c)
 	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
 		return (false);
 	return (true);
-}	
+}
+
+t_type	ft_builtin_or_cmd(char *elem)
+{
+	if (!ft_strcmp(elem, "echo") || !ft_strcmp(elem, "cd")
+		|| !ft_strcmp(elem, "pwd") || !ft_strcmp(elem, "export")
+		|| !ft_strcmp(elem, "unset") || !ft_strcmp(elem, "env")
+		|| !ft_strcmp(elem, "exit"))
+		return (BI);
+	return (CMD);
+}
