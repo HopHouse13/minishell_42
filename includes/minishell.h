@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/30 20:45:20 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 00:49:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_lexer // local
 	int				j;
 	int				simple_q;
 	int				double_q;
+	bool			marker_q;
 	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
 
@@ -107,9 +108,12 @@ typedef struct s_parser // local
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	char			**env;
 	int				simple_q;
 	int				double_q;
-	char			**env;
+	bool			marker_q;
+	int				start;
+	int				end;
 	int				exit_status;
 }					t_parser;
 
@@ -152,7 +156,7 @@ void		ft_init_lexer(t_lexer *lexer);
 /// lexer_build_list_token ///
 void		ft_define_token_redir(t_lexer *lexer);
 void		ft_build_list_token(t_lexer *lexer, t_mnode **ml);
-void		ft_add_node_token(t_lexer *lexer, char *elem, t_mnode **ml);
+void		ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
 void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
 /// lexer_operateurs_valid ///
@@ -219,6 +223,7 @@ void 		ft_add_ml(void *ptr, size_t size, t_mnode **ml);
 void		ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
 char		**ft_split_ml(char const *s, char c, t_mnode **ml);
 char		*ft_strdup_ml(const char *s_src, t_mnode **ml);
+char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
 char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void		ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void		ft_free_ml(t_mnode **ml);

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/30 16:01:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 01:36:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 // Si c est une quote simple (') et qu'on n'est pas dans une quote double :
 // On ouvre ou ferme simple_q.
-// On retourne OUT_Q.
+// marker_q prend OUT_Q.
 
 // Si c est une quote double (") et qu'on n'est pas dans une quote simple :
 // On ouvre ou ferme double_q.
-// On retourne OUT_Q.
+// marker_q prend OUT_Q.
 
-// On retourne 1 si on est dans une quote (simple_q ou double_q), sinon 0.
+// Si simple_q ou double_q est IN_Q alore MARKER_Q prend IN_Q.
+// marker_q est retourne.
 int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 {
 	if (c == '\'' && lexer->double_q == OUT_Q)
@@ -29,18 +30,20 @@ int	ft_inside_quotes_lexer(t_lexer *lexer, char c)
 			lexer->simple_q = OUT_Q;
 		else 
 			lexer->simple_q = IN_Q;
-		return (OUT_Q);
+		lexer->marker_q = OUT_Q;
 	}
-	if (c == '\"' && lexer->simple_q == OUT_Q)
+	else if (c == '\"' && lexer->simple_q == OUT_Q)
 	{
 		if (lexer->double_q == IN_Q)
 			lexer->double_q = OUT_Q;
 		else
 			lexer->double_q = IN_Q;
-		return (OUT_Q);
+		lexer->marker_q = OUT_Q;
 	}
-	printf("\tsimple_q: %d\tdouble_q: %d\n", lexer->simple_q, lexer->double_q);
-	return (lexer->simple_q == IN_Q || lexer->double_q == IN_Q);
+	else if (lexer->simple_q == IN_Q || lexer->double_q == IN_Q)
+		lexer->marker_q = IN_Q;
+	printf("\tsimple_q: %d\tdouble_q: %d\t\tmarker_q: %d\n", lexer->simple_q, lexer->double_q, lexer->marker_q);
+	return (lexer->marker_q);
 }
 
 void	ft_init_line(char *virgin_line) // remplir le tab de caracteres de '\0'

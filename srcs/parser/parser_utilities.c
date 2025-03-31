@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/03/28 23:20:19 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 01:35:57 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 
 // Si c est une quote simple (') et qu'on n'est pas dans une quote double :
 // On ouvre ou ferme simple_q.
-// On retourne OUT_Q.
+// marker_q prend OUT_Q.
 
 // Si c est une quote double (") et qu'on n'est pas dans une quote simple :
 // On ouvre ou ferme double_q.
-// On retourne OUT_Q.
+// marker_q prend OUT_Q.
 
-// On retourne 1 si on est dans une quote (simple_q ou double_q), sinon 0.
+// Si simple_q ou double_q est IN_Q alore MARKER_Q prend IN_Q.
+// marker_q est retourne.
 int	ft_inside_quotes_parser(t_parser *parser, char c)
 {
 	if (c == '\'' && parser->double_q == OUT_Q)
@@ -78,16 +79,18 @@ int	ft_inside_quotes_parser(t_parser *parser, char c)
 			parser->simple_q = OUT_Q;
 		else 
 			parser->simple_q = IN_Q;
-		return (OUT_Q);
+		parser->marker_q = OUT_Q;
 	}
-	if (c == '\"' && parser->simple_q == OUT_Q)
+	else if (c == '\"' && parser->simple_q == OUT_Q)
 	{
 		if (parser->double_q == IN_Q)
 			parser->double_q = OUT_Q;
 		else
 			parser->double_q = IN_Q;
-		return (OUT_Q);
+		parser->marker_q = OUT_Q;
 	}
-	printf("\tS_quote: %d\tD_quote: %d\n", parser->simple_q, parser->double_q);
-	return (parser->simple_q == IN_Q || parser->double_q == IN_Q);
+	else if (parser->simple_q == IN_Q || parser->double_q == IN_Q)
+		parser->marker_q = IN_Q;
+	printf("\tsimple_q: %d\tdouble_q: %d\t\tmarker_q: %d\n", parser->simple_q, parser->double_q, parser->marker_q);
+	return (parser->marker_q);
 }

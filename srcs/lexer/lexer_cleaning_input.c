@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/28 16:41:17 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 01:38:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void	ft_put_pipe(t_lexer *lexer, char *input)
 }
 
 void	ft_input_one_space(t_lexer *lexer, char *input)
-{printf("\n\n----------------------INPUT------------------------\n");
+{printf("\n\n\t----------------------INPUT------------------------\n");
 	lexer->i = 0;
 	while (input && lexer->i < SIZE_LINE && input[lexer->i])
 	{
-		if (!ft_inside_quotes_lexer(lexer, input[lexer->i]))
+		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
+			|| ft_inside_quotes_lexer(lexer, input[lexer->i]))
+			lexer->line[++lexer->j] = input[lexer->i];
+		else
 		{
 			if (input[lexer->i] == '|')
 			{
@@ -72,8 +75,6 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 			else
 				lexer->line[++lexer->j] = input[lexer->i];
 		}
-		else
-			lexer->line[++lexer->j] = input[lexer->i];
 		lexer->i++;
 	}
 	lexer->line[++lexer->j] = ' ';

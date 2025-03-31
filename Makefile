@@ -6,7 +6,7 @@
 #    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/28 23:17:58 by pab              ###   ########.fr        #
+#    Updated: 2025/03/31 13:37:18 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		= srcs/main.c \
 			srcs/malloc/malloc_free.c \
 			srcs/malloc/malloc_split_ml.c \
 			srcs/malloc/malloc_strdup_ml.c \
+			srcs/malloc/malloc_strjoin_ml.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
 			srcs/utilities/init.c \

@@ -6,18 +6,19 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/30 21:54:40 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 01:37:32 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{printf("\n\n----------------------REDIR------------------------\n");
+{printf("\n\n\t----------------------REDIR------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		if (ft_inside_quotes_lexer(lexer, input[lexer->i]))
+		if ((lexer->i > 0 && input[lexer->i - 1] == '\\') || 
+			ft_inside_quotes_lexer(lexer, input[lexer->i]))
 			continue ;
 		if ((input[lexer->i] == '<' || input[lexer->i] == '>')
 			&& (lexer->APP_HD == false && input[lexer->i + 1]
@@ -36,14 +37,15 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 }
 
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
-{printf("\n\n-----------------------PIPE------------------------\n");
+{printf("\n\n\t-----------------------PIPE------------------------\n");
 	bool	pipe;
 
 	pipe = false;
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		if (ft_inside_quotes_lexer(lexer, input[lexer->i])) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
+		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
+			|| ft_inside_quotes_lexer(lexer, input[lexer->i])) // si on se trouve dans des quotes, tu ignores la suite de la boucle et tu passes au cycle suivant
 			continue;
 		if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
 			pipe = false;
@@ -56,7 +58,7 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 }
 
 bool	ft_control_character_valid(t_lexer *lexer, char *input)
-{printf("\n\n--------------------CARAC_VALID--------------------\n");
+{printf("\n\n\t--------------------CARAC_VALID--------------------\n");
 	char	c;
 
 	lexer->i = -1;
@@ -76,7 +78,7 @@ bool	ft_control_character_valid(t_lexer *lexer, char *input)
 }
 	
 bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
-{printf("\n\n--------------------QUOTES-------------------------\n");
+{printf("\n\n\t--------------------QUOTES-------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{

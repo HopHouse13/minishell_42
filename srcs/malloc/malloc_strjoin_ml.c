@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_initialisation.c                            :+:      :+:    :+:   */
+/*   malloc_strjoin_ml.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 00:48:28 by pab              ###   ########.fr       */
+/*   Created: 2025/03/31 13:31:19 by pab               #+#    #+#             */
+/*   Updated: 2025/03/31 15:50:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token)
+char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml)
 {
-	parser->i = -1;
-	parser->list_token = list_token;
-	parser->list_cmd = NULL;
-	parser->env = mshell->env;
-	parser->simple_q = OUT_Q;
-	parser->double_q = OUT_Q;
-	parser->marker_q = OUT_Q;
-	parser->start = -1;
-	parser->end = -1;
-	parser->exit_status = -1;
+	size_t	i;
+	size_t	j;
+
+	char	*dest;
+	dest = ft_malloc_list(sizeof(char) * (ft_strlen(s1)+ft_strlen(s2) +1), ml);
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2 && s2[j])
+	{
+		dest[i + j] = s2[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }
-
-
