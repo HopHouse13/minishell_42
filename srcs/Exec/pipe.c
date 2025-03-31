@@ -1,6 +1,6 @@
-#incldue "../../includes/minishell.h" 
+#include "../../includes/minishell.h" 
 
-
+/*
 void    pipe(void)
 {
     int fd_entry; // arguments ??
@@ -62,3 +62,4 @@ void	redirect_arg(char *av_arg, int fd, char *location)
 	close (fd_open);
 	return ;
 }
+*/

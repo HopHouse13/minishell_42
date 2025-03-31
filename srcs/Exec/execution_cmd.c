@@ -1,4 +1,4 @@
-#include "../../includes/minshell.h"
+#include "../../includes/minishell.h"
 
 /** EXEC MINISHELL
     STEP : 
@@ -109,9 +109,9 @@ void    ft_redirect(t_mshell mshell)
 */
 void    ft_forker(t_mshell *mshell)
 {
-    char    *cmd[]= {"/bin/cat", "file1.txt", NULL};
+    (void)mshell;
+    char    *cmd[]= {"/usr/bin/touch", "file2.txt", NULL};
 
-    printf("ici ??\n");
     pid_t pid;
     pid = fork();  
     if (pid == 0)

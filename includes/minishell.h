@@ -21,7 +21,9 @@
 # include <stdbool.h>           // boolien
 # include <stdio.h>             // printf (pour la phase de dev.)
 # include <stdlib.h>            // exit ;
+# include <unistd.h>
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
+# include <sys/types.h>
 
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin

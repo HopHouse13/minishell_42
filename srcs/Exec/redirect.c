@@ -1,5 +1,6 @@
 #include "../../includes/minishell.h"
 
+/*
 void    redirect(t_mshell instructions)
 {
     //besoin comme info :
@@ -13,12 +14,12 @@ void    redirect(t_mshell instructions)
 
   
 
-    /* 
+     
     if (hd)
         redirection_hd()
     else
         redirection_std()
-    */
+    
     redirect_case(fd, tokken)
     //int fd_open;
     //open (av_arg, 0_RDONLY); open (av_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -45,13 +46,13 @@ void    redirect_case(fd, tokken) //(infile,outfile?)
 
 void    redirect_in(, char *infile)
 {
-     /*
-        Open un fd (open);
-        change les fd de rediction I/O (dup2) ; 2 cas :
-            - Redirecition Input
-            - Redirection Output
-        referme proprement(close)
-    */
+    
+    Open un fd (open);
+    change les fd de rediction I/O (dup2) ; 2 cas :
+        - Redirecition Input
+        - Redirection Output
+    referme proprement(close)
+    
     int fd_open;
 
     fd_open = open (infile, O_RDONLY);
@@ -108,3 +109,4 @@ void    redirect_hd(src, dest)
 
 
 }
+*/
