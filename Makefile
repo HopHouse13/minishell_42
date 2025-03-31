@@ -30,7 +30,10 @@ SRCS		= srcs/main.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
 			srcs/utilities/init.c \
-			srcs/utilities/print.c
+			srcs/utilities/print.c \
+			srcs/exec/execution_cmds.c \
+			srcs/exec/pipe.c \
+			srcs/exec/redirect.c
 		
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc

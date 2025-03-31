@@ -19,16 +19,16 @@
     - execution cmd
 */
 
-void    ft_executer(t_mshell mshell)
+void    ft_executer(t_mshell *mshell)
 {
-    ft_check_hd(mshell->list_cmd);
-    ft_check_BI(mshell->list_cmd);
-    ft_check_env(mshell->env);
+    //ft_check_hd(mshell->list_cmd);
+    //ft_check_BI(mshell->list_cmd);
+    //ft_check_env(mshell->env);
 
-    if (mshell->count_pipe)
-        pipex(mshell); // |
-    else
-        forker(mshell); // no pipe
+    //if (mshell->count_pipe)
+    //    pipex(mshell); // |
+    //else
+    ft_forker(mshell); // no pipe
 
     //redirect(mshell); // dans le parent ou dans l'enfant ?
     
@@ -47,7 +47,7 @@ bool    ft_check_hd(int count_hd)
     return (0);
 }
 */
-
+/*
 bool check_BI(t_cmd *list_cmd)
 {
     char    BI_list[];
@@ -64,6 +64,8 @@ bool check_BI(t_cmd *list_cmd)
     }
     return (0);
 }
+*/
+
 /*
 char    **check_env(char **envp)
 {
@@ -81,6 +83,7 @@ char    **check_env(char **envp)
 }
 */
 
+/*
 void    ft_redirect(t_mshell mshell)
 {
     // Redirection d'entrée
@@ -96,16 +99,19 @@ void    ft_redirect(t_mshell mshell)
             close(outfile);
         }
 }
+*/
+
 
 /*
     FORK
     REDIRECTION
     EXECUTION 
 */
-void    forker(t_mshell *mshell)
+void    ft_forker(t_mshell *mshell)
 {
-    char    *cmd[]= {"cat", "file1.txt", NULL};
+    char    *cmd[]= {"/bin/cat", "file1.txt", NULL};
 
+    printf("ici ??\n");
     pid_t pid;
     pid = fork();  
     if (pid == 0)

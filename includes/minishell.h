@@ -216,4 +216,14 @@ void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
 
+
+//Exec
+
+
+void	ft_executer(t_mshell *mshell);
+
+
+void	ft_forker(t_mshell *mshell);
+
+
 #endif	

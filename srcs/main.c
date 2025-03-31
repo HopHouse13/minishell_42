@@ -29,7 +29,7 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 				mshell->list_cmd = ft_parser(mshell->list_token, ml);
 			ft_print_list_cmd(mshell->list_cmd);
 			// if (mshell->list_token && mshell->cmd)
-			// 	ft_executer(mshell->cmd);
+			ft_executer(mshell);
 		}
 	}
 }
