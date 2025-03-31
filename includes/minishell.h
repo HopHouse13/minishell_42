@@ -133,6 +133,18 @@ typedef	struct	s_mnode
 }			t_mnode;
 */
 
+typedef	struct	s_cmd_test
+{
+	char			**cmd; //ELEM
+	t_redir			*redir;
+	bool			squote; //ELEM
+	bool			dquote; //ELEM
+	int				hd_count; // 0 -> pas de hd, autre hd | Pab
+	t_hd			*hd;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+}				t_cmd_test;
+
 typedef struct s_mshell
 {
 	char			*input;
@@ -226,6 +238,9 @@ void	ft_executer(t_mshell *mshell);
 
 
 void	ft_forker(t_mshell *mshell);
+
+
+t_cmd_test	*test_cmd_init(t_cmd_test	*test);
 
 
 #endif	

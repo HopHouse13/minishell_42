@@ -136,8 +136,32 @@ void    execution_cmd(t_mshell mshell)
     //char *envp[];   // t_mshell-> env
     //envp = getenv() ?? //char* vs char** ? ; //char *getenv(char *name)
 
+*/    
     
+t_cmd_test    *test_cmd_init(t_cmd_test *test)
+{
     
+    //creation d'une liste chainée test qui servira a envoyer les data à une autre fonction pour servir de test
+    t_cmd_test *test;
+
+    test = malloc(sizeof(t_cmd_test));
+    if (!test)
+        return (NULL);
+    test->cmd = NULL;
+    test->redir = NULL;
+    test->squote = false;
+    test->dquote = false;
+    test->hd_count = 0;
+    test->hd = NULL;
+    test->prev = NULL;
+    test->next = NULL;
+
+    return (test);
+
+
+    return (test);
 
 }
-*/
+}
+
+
