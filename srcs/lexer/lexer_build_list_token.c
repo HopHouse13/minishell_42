@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 00:56:45 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 15:25:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,13 @@ void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 	start = 0; // debut de la sous chaine
 	while (lexer->line[++lexer->i])
 	{
-		ft_inside_quotes_lexer(lexer, lexer->line[lexer->i]);
+		ft_inside_quotes_lexer(lexer, lexer->line, lexer->i);
 		start = lexer->i;
-		while ((lexer->line[lexer->i] != ' ' || lexer->marker_q)
+		while ((lexer->line[lexer->i] != ' ' || ft_inside_quotes_lexer(lexer, lexer->line, lexer->i))
 				 && lexer->line[lexer->i])
 		{
 			lexer->j++;
 			lexer->i++;
-			ft_inside_quotes_lexer(lexer, lexer->line[lexer->i]);
 		}
 		ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 		lexer->j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 01:38:20 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 14:12:28 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 	lexer->i = 0;
 	while (input && lexer->i < SIZE_LINE && input[lexer->i])
 	{
-		if ((lexer->i > 0 && input[lexer->i - 1] == '\\')
-			|| ft_inside_quotes_lexer(lexer, input[lexer->i]))
+		if (ft_inside_quotes_lexer(lexer, input, lexer->i))
 			lexer->line[++lexer->j] = input[lexer->i];
 		else
 		{

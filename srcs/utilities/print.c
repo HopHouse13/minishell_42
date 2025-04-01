@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/30 01:33:59 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 13:29:07 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_input_clean(char *line)
 {
-	ft_printf("\n\t----------- input_clean ----------\n\n");
+	ft_printf("\n\t******************* input_clear *******************\n\n");
 	ft_printf("\tline : [%s]\n\n", line);
 }
 
@@ -27,7 +27,7 @@ void	ft_print_double_tab(char **tab)
 	{
 		while (tab[++i])
 			ft_printf("%s\n", tab[i]);
-		ft_printf("\n---------------------------------\n\n");
+		ft_printf("\n-----------------------------------------------------\n\n");
 	}
 }
 
@@ -49,7 +49,7 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	tmp = head;
 	if (tmp)
 	{
-		ft_printf("\n\t----------- list_token -----------\n\n");
+		ft_printf("\n\t****************** list_token ********************\n\n");
     	while (tmp)
     	{
     	    printf("\tToken: [%s]\t\tType: [%d -> %s]\n\n", tmp->elem, tmp->token,
@@ -69,7 +69,7 @@ void	ft_print_list_cmd(t_cmd *head) // A SUPP
 	tmp = head;
 	if (tmp)
 	{
-		ft_printf("\n\t----------- list_cmd ------------\n\n");
+		ft_printf("\n\t******************* list_cmd *********************\n\n");
     	while (tmp)
     	{
 			/* while (*tab_cmd)

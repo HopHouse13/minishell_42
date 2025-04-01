@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/01 00:49:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/01 17:29:47 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_lexer // local
 	int				j;
 	int				simple_q;
 	int				double_q;
+	bool			marker_sq;
+	bool			marker_dq;
 	bool			marker_q;
 	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
@@ -173,7 +175,7 @@ void		ft_put_pipe(t_lexer *lexer, char *input);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
 /// lexer_utilities ///
-int			ft_inside_quotes_lexer(t_lexer *lexer, char c);
+int			ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_character(char c);
 t_type		ft_builtin_or_cmd(char *elem);
