@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 15:51:13 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/02 12:48:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool	ft_control_character_valid(t_lexer *lexer, char *input)
 		ft_inside_quotes_lexer(lexer, input, lexer->i); // pour eviter d'interdir n'importe quel caractere car il a le caractere d'echappement juste avant.
 		if (lexer->i == ft_strlen(input) - 1 && c == '\\') // pour interdir '\' au dernier caractere car dans le vrai bash il est fait pour ecrire ta commande sur plusieurs lignes. (pas a gerer dans minishell)
 			return (false);
-		if (lexer->marker_q || (lexer->i > 0 && input[lexer->i - 1] == '\\'))
+		if (lexer->mark_q || (lexer->i > 0 && input[lexer->i - 1] == '\\'))
 			continue ;
 		if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
 			|| c == ';' || c == '&' || c == '#')

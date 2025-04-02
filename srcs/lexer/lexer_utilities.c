@@ -6,63 +6,28 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 17:36:43 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/02 21:18:32 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Si c est une quote simple (') et qu'on n'est pas dans une quote double :
-// On ouvre ou ferme simple_q.
-// marker_q prend OUT_Q.
-
-// Si c est une quote double (") et qu'on n'est pas dans une quote simple :
-// On ouvre ou ferme double_q.
-// marker_q prend OUT_Q.
-
-// Si simple_q ou double_q est IN_Q alore MARKER_Q prend IN_Q.
-// marker_q est retourne.
-
+// Si le nombre de changement d'etat de on_off est:
+// impair	-> 	pas d'effet
+// pair		->	effet
+// [\] pas d'effet dans simple quote
+// dans double quotes npas d'effet sauf avec ["][\][$]
 bool	ft_effect_escape(t_lexer *lexer, char *str, int i)
 {
-	if (i >= 1 && str[i - 1] == '\\' && !lexer->marker_sq)
-	{
-		if (i >= 2 && str[i - 2] == '\\')
-			return (printf("false\n"), false);
-		else
-			return (printf("true\n"), true);
-	}
-	return (printf("false\n"), false);
-}
-
-int	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i)
-{
-	if (ft_effect_escape(lexer, str, i))
-		lexer->marker_q = lexer->marker_q;
-	else if (str[i] == '\'' && lexer->double_q == OUT_Q)
-	{
-		if (lexer->simple_q == IN_Q)
-			lexer->simple_q = OUT_Q;
-		else 
-			lexer->simple_q = IN_Q;
-		lexer->marker_q = OUT_Q;
-	}
-	else if (str[i] == '\"' && lexer->simple_q == OUT_Q)
-	{
-		if (lexer->double_q == IN_Q)
-			lexer->double_q = OUT_Q;
-		else
-			lexer->double_q = IN_Q;
-		lexer->marker_q = OUT_Q;
-	}
-	else if (lexer->simple_q == IN_Q)
-		lexer->marker_sq = IN_Q;
-	else if (lexer->double_q == IN_Q)
-		lexer->marker_dq = IN_Q;
-	if (lexer->marker_sq == IN_Q || lexer->marker_dq == IN_Q)
-		lexer->marker_q = IN_Q;
-	printf("\tsimple_q: %d\tdouble_q: %d\tmarker_q: %d\tchar: [%c]\n", lexer->simple_q, lexer->double_q, lexer->marker_q, str[i]);
-	return (lexer->marker_q);
+	bool	on_off;
+	
+	on_off = false;
+	if((lexer->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
+		|| lexer->simple_q)
+		return (on_off);
+	while (--i>= 0 && str[i] == '\\')
+		on_off = !on_off;
+	return (on_off);
 }
 
 void	ft_init_line(char *virgin_line) // remplir le tab de caracteres de '\0'

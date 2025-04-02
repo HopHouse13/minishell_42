@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/01 17:29:47 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/02 21:21:16 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ typedef struct s_lexer // local
 	t_token			*list_token;
 	int				i;
 	int				j;
-	int				simple_q;
-	int				double_q;
-	bool			marker_sq;
-	bool			marker_dq;
-	bool			marker_q;
+	bool			simple_q;
+	bool			double_q;
+	bool			flag_q;
+	bool			mark_q;
 	bool			APP_HD; // uniquement pour ft_control_redir_valid
 }					t_lexer;
 
@@ -113,7 +112,7 @@ typedef struct s_parser // local
 	char			**env;
 	int				simple_q;
 	int				double_q;
-	bool			marker_q;
+	bool			mark_q;
 	int				start;
 	int				end;
 	int				exit_status;
@@ -174,8 +173,12 @@ void		ft_input_one_space(t_lexer *lexer, char *input);
 void		ft_put_pipe(t_lexer *lexer, char *input);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
+/// lexer_handle_quotes ///
+bool		ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
+void		ft_status_upd(bool *quote, bool *mark, bool *flag);
+
 /// lexer_utilities ///
-int			ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
+bool		ft_effect_escape(t_lexer *lexer, char *str, int i);
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_character(char c);
 t_type		ft_builtin_or_cmd(char *elem);

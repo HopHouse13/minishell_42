@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 00:48:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/02 12:48:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token)
 	parser->env = mshell->env;
 	parser->simple_q = OUT_Q;
 	parser->double_q = OUT_Q;
-	parser->marker_q = OUT_Q;
+	parser->mark_q = OUT_Q;
 	parser->start = -1;
 	parser->end = -1;
 	parser->exit_status = -1;

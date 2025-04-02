@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 15:25:04 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/02 12:48:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 // 			start = lexer->i;
 // 			in_elem = true;
 // 		}
-// 		if (in_elem && lexer->line[lexer->i] == ' ' && !lexer->marker_q)
+// 		if (in_elem && lexer->line[lexer->i] == ' ' && !lexer->mark_q)
 // 		{	
 // 			ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 // 			lexer->j = 0;
