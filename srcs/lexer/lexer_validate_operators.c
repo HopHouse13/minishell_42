@@ -3,15 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_validate_operators.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/02 12:48:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/04 00:34:45 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+//EN COURS
+/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+{printf("\n\n\t----------------------REDIR------------------------\n");
+	bool	duplicate;
+	
+	duplicate = false;
+	lexer->i = -1;
+	while (input[++lexer->i])
+	{
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape(lexer, input, lexer->i))
+		{
+			if ((input[lexer->i] == '<' || input[lexer->i] == '>')
+				&& input[lexer->i] == input[lexer->i + 1]))
+		}
+	}
+	return (true);
+} */
+//ANCIENNE NON FONCITONNEL
 bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t----------------------REDIR------------------------\n");
 	lexer->i = -1;
@@ -42,13 +60,16 @@ bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		ft_inside_quotes_lexer(lexer, input, lexer->i);
-		if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
-			pipe = false;
-		else if (input[lexer->i] == '|' && pipe == false) // si tu rencontres un pipe et qu c'est un pipe non consecutif
-			pipe = true;
-		else if (pipe == true && !ft_valid_character(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
-			return (false);
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape(lexer, input, lexer->i))
+		{
+			if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
+					pipe = false;
+			else if (input[lexer->i] == '|' && pipe == false) // si tu rencontres un pipe et qu c'est un pipe non consecutif
+				pipe = true;
+			else if (pipe == true && !ft_valid_character(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
+				return (false);
+		}
 	}
 	return (true);
 }
@@ -61,14 +82,12 @@ bool	ft_control_character_valid(t_lexer *lexer, char *input)
 	while (input[++lexer->i])
 	{
 		c = input[lexer->i];
-		ft_inside_quotes_lexer(lexer, input, lexer->i); // pour eviter d'interdir n'importe quel caractere car il a le caractere d'echappement juste avant.
-		if (lexer->i == ft_strlen(input) - 1 && c == '\\') // pour interdir '\' au dernier caractere car dans le vrai bash il est fait pour ecrire ta commande sur plusieurs lignes. (pas a gerer dans minishell)
-			return (false);
-		if (lexer->mark_q || (lexer->i > 0 && input[lexer->i - 1] == '\\'))
-			continue ;
-		if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
-			|| c == ';' || c == '&' || c == '#')
-			return (false);
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape(lexer, input, lexer->i))// pour eviter d'interdir n'importe quel caractere car dans des quotes ou il a le caractere d'echappement juste avant.
+			if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
+				|| c == ';' || c == '&' || c == '#'
+				|| (lexer->i == ft_strlen(input) - 1 && c == '\\'))
+				return (false);
 	}
 	return (true);
 }

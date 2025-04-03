@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/02 21:18:32 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/03 01:05:34 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 // impair	-> 	pas d'effet
 // pair		->	effet
 // [\] pas d'effet dans simple quote
-// dans double quotes npas d'effet sauf avec ["][\][$]
+// dans double quotes pas d'effet sauf avec ["][\][$]
+// false (0) -> pas d'effet ; true (1) -> effet
 bool	ft_effect_escape(t_lexer *lexer, char *str, int i)
 {
 	bool	on_off;

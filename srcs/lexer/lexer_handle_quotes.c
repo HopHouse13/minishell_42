@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_handle_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:17:37 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/02 21:23:35 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/03 15:23:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_status_upd(bool *quote, bool *mark, bool *flag)
 // Vérifie l'ouverture et la fermeture des guillemets simples et doubles,
 // en prenant en compte les caractères d'échappement.
 // Retourne l'état du marqueur `mark_q` après traitement du caractère.
+//  si 1 -> IN_Q ; si 0 -> OUT_Q;
 bool	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i)
 {
 	if (lexer->flag_q == IN_Q)
@@ -52,6 +53,6 @@ bool	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i)
 		else if (str[i] == '\"' && lexer->simple_q == OUT_Q)
 			ft_status_upd(&lexer->double_q, &lexer->mark_q, &lexer->flag_q);
 	}
-	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar: [%c]\n", lexer->simple_q, lexer->double_q, lexer->mark_q, str[i]);
+	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", lexer->simple_q, lexer->double_q, lexer->mark_q, str[i]);
 	return (lexer->mark_q);
 }
