@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_handle_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:17:37 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/03 15:23:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/04 12:51:44 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Si le guillemet est ouvert, il est fermé et le marqueur est mis à OUT_Q.
 // S'il est fermé, il est ouvert et le marqueur est mis à OUT_Q seulement si
 // aucun autre guillemet n'était déjà actif.
-void	ft_status_upd(bool *quote, bool *mark, bool *flag)
+void	ft_status_update(bool *quote, bool *mark, bool *flag)
 {
 	if (*quote == IN_Q)
 	{
@@ -49,9 +49,9 @@ bool	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i)
 	if (!ft_effect_escape(lexer, str, i))
 	{
 		if (str[i] == '\'' && lexer->double_q == OUT_Q)
-			ft_status_upd(&lexer->simple_q, &lexer->mark_q, &lexer->flag_q);
+			ft_status_update(&lexer->simple_q, &lexer->mark_q, &lexer->flag_q);
 		else if (str[i] == '\"' && lexer->simple_q == OUT_Q)
-			ft_status_upd(&lexer->double_q, &lexer->mark_q, &lexer->flag_q);
+			ft_status_update(&lexer->double_q, &lexer->mark_q, &lexer->flag_q);
 	}
 	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", lexer->simple_q, lexer->double_q, lexer->mark_q, str[i]);
 	return (lexer->mark_q);

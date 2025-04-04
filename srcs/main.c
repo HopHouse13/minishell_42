@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/30 01:32:34 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/04 18:40:10 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 			add_history(mshell->input);
 			mshell->list_token = ft_lexer(mshell->input, ml);
 			ft_print_list_token(mshell->list_token); //ASUPP
-			if (mshell->list_token)
-			{
-				mshell->list_cmd = ft_parser( mshell, mshell->list_token, ml);
-				ft_print_list_cmd(mshell->list_cmd); // ASUPP
-				/* if (mshell->exec->list_cmd)
-					ft_executer(mshell->exec->list_cmd); */
-			}
+			// if (mshell->list_token)
+			// {
+			// 	mshell->list_cmd = ft_parser( mshell, mshell->list_token, ml);
+			// 	ft_print_list_cmd(mshell->list_cmd); // ASUPP
+			// 	/* if (mshell->exec->list_cmd)
+			// 		ft_executer(mshell->exec->list_cmd); */
+			// }
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 14:12:28 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/04 16:39:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,13 @@ void	ft_input_one_space(t_lexer *lexer, char *input)
 	lexer->i = 0;
 	while (input && lexer->i < SIZE_LINE && input[lexer->i])
 	{
-		if (ft_inside_quotes_lexer(lexer, input, lexer->i))
+		if (ft_inside_quotes_lexer(lexer, input, lexer->i) || 
+			ft_effect_escape(lexer, input, lexer->i))
 			lexer->line[++lexer->j] = input[lexer->i];
 		else
 		{
 			if (input[lexer->i] == '|')
-			{
 				ft_put_pipe(lexer, input);
-			}
 			else if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
 				ft_put_redirection(lexer, input);
 			else if (input[lexer->i] == ' ')

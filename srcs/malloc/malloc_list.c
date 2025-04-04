@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/12 18:31:47 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/04/04 18:47:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
 void	ft_add_ml(void *ptr, size_t size, t_mnode **ml)
 {
 	t_mnode *new_node;
-
 	if (ml == NULL)
 	{
 		ft_init_head_list_ml(ptr, size, ml);
 		return ;
 	}
+	printf("TEST\n");
 	new_node = malloc(sizeof(t_mnode));
 	if (!new_node)
 	{
@@ -79,5 +79,8 @@ void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml)
 		exit(EXIT_FAILURE);
 	}
 	ft_add_ml(ptr, nb * size_type, ml);
+	printf("value_ptr : %p\n", ptr);
 	return (ptr);
 }
+
+

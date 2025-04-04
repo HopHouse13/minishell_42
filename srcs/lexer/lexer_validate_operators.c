@@ -3,34 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_validate_operators.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/04 00:34:45 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/04 16:30:34 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //EN COURS
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+
+
+bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t----------------------REDIR------------------------\n");
-	bool	duplicate;
-	
-	duplicate = false;
+	bool	flag = false;
 	lexer->i = -1;
 	while (input[++lexer->i])
 	{
-		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
-			&& !ft_effect_escape(lexer, input, lexer->i))
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i) &&
+			!ft_effect_escape(lexer, input, lexer->i))
 		{
-			if ((input[lexer->i] == '<' || input[lexer->i] == '>')
-				&& input[lexer->i] == input[lexer->i + 1]))
+			if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
+			{
+				if (flag)
+					return (false);
+				flag = true;
+				if (input[lexer->i] == input[lexer->i + 1])
+					lexer->i++;
+			}
+			else if (input[lexer->i] == '<' || input[lexer->i] == '>')
+				return (false);
+			else
+				flag = false;
 		}
 	}
 	return (true);
+}
+
+/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+{printf("\n\n\t----------------------REDIR------------------------\n");
+	bool	flag;
+	bool	dupli;
+
+	dupli = false;
+	flag = false;
+	lexer->i = -1;
+	while (input[++lexer->i])
+	{ printf("\tvalue_escape[%d]\tflag[%d]\n", ft_effect_escape(lexer, input, lexer->i), flag);
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape(lexer, input, lexer->i) && dupli == false
+			&& (input[lexer->i] != '<' || input[lexer->i] != '>'))
+		{
+			if (input[lexer->i + 1] == input[lexer->i] && flag == false)
+				flag = true, dupli = true; 
+			else if (flag == true && !ft_valid_character(input[lexer->i]))
+				return (false);
+		}
+		else
+			printf("test\n"), flag = false, dupli = false;
+	}
+	return (true);
 } */
+
+/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+{printf("\n\n\t----------------------REDIR------------------------\n");
+	bool	flag;
+	
+	flag = false;
+	lexer->i = -1;
+	while (input[++lexer->i])
+	{ printf("\tvalue_escape[%d]\tflag[%d]\n", ft_effect_escape(lexer, input, lexer->i), flag);
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape(lexer, input, lexer->i))
+		{
+			if ((input[lexer->i] != ' ' && ft_valid_character(input[lexer->i]))
+				|| (ft_effect_escape(lexer, input, lexer->i)))
+				flag = false;
+			if ((input[lexer->i] == '<' || input[lexer->i] == '>')
+				&& lexer->i > 0 && input[lexer->i - 1] == input[lexer->i]
+				&& flag == false)
+					flag = true;
+			else if ((flag == true && !ft_valid_character(input[lexer->i]))
+					|| (lexer->i > 0 && input[lexer->i - 1] != input[lexer->i]))
+				return (false);
+		}
+		else
+			flag = false;
+	}
+	return (true);
+} */
+
 //ANCIENNE NON FONCITONNEL
-bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t----------------------REDIR------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
@@ -50,7 +114,7 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 		}
 	}
 	return (true);
-}
+} */
 
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t-----------------------PIPE------------------------\n");

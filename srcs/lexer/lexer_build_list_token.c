@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/02 12:48:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/04 18:51:47 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	ft_define_token_elem(t_lexer *lexer)
 	{printf("VALUE = %d\t ELEM = %s\n", tmp->token, tmp->elem);
 		if (tmp->token == ELEM && tmp->prev)
 		{
-			if (tmp->prev->token == R_IN) // <
+			if (tmp->prev->token == R_IN && tmp->token == ELEM) // <
 				tmp->token = F_IN;
-			else if (tmp->prev->token == R_OUT) // >
+			else if (tmp->prev->token == R_OUT && tmp->token == ELEM) // >
 				tmp->token = F_OUT;
-			else if (tmp->prev->token == APPEND) // >>
+			else if (tmp->prev->token == APPEND && tmp->token == ELEM) // >>
 				tmp->token = F_APP;
-			else if (tmp->prev->token == HD) // <<
+			else if (tmp->prev->token == HD && tmp->token == ELEM) // <<
 				tmp->token = DELIM_HD;
 			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
 				tmp->token = ARG;
@@ -114,6 +114,62 @@ void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 	new_elem->next = NULL;
 	tmp->next = new_elem;
 }
+/* void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
+{
+	int	start;
+
+	lexer->i = -1;
+	lexer->j = 0; // len de la sous chaine
+	start = 0; // debut de la sous chaine
+	while (lexer->line[++lexer->i])
+	{;
+		ft_inside_quotes_lexer(lexer, lexer->line, lexer->i);
+		start = lexer->i;
+		while ((lexer->line[lexer->i] != ' ' || ft_inside_quotes_lexer(lexer, lexer->line, lexer->i))
+				 && lexer->line[lexer->i])
+		{
+			lexer->j++;
+			lexer->i++;
+		}
+		printf ("start {%d}\tlen {%d}\n",  start, lexer->j);
+		ft_substr_ml(lexer->line, start, lexer->j, ml);
+		lexer->j = 0;
+	}
+	ft_define_token_redir(lexer);
+	ft_define_token_elem(lexer);
+} */
+/* void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
+{printf("---------------------list_token----------------------\n");
+	int		start;
+	bool	in_elem;
+	
+	lexer->i = -1;
+	lexer->j = 0; // len de la sous chaine
+	start = -1; // debut de la sous chaine
+	in_elem = false;
+	while (lexer->line[++lexer->i])
+	{
+		ft_inside_quotes_lexer(lexer, lexer->line, lexer->i);
+		if (start == -1 && lexer->line[lexer->i] != ' ')
+		{
+			start = lexer->i;
+			in_elem = true;
+		}
+		if (in_elem && lexer->line[lexer->i] == ' ' && !lexer->mark_q)
+		{
+			printf ("start {%d}\tlen {%d}\n",  start, lexer->j);
+			ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
+			lexer->j = 0;
+			start = -1;
+			in_elem = false;
+		}
+		else
+			lexer->j++;
+	}
+	ft_define_token_redir(lexer);
+	ft_define_token_elem(lexer);
+} */
+
 void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 {
 	int	start;
@@ -123,47 +179,15 @@ void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 	start = 0; // debut de la sous chaine
 	while (lexer->line[++lexer->i])
 	{
-		ft_inside_quotes_lexer(lexer, lexer->line, lexer->i);
 		start = lexer->i;
-		while ((lexer->line[lexer->i] != ' ' || ft_inside_quotes_lexer(lexer, lexer->line, lexer->i))
-				 && lexer->line[lexer->i])
-		{
+		while (lexer->line[lexer->i] != ' ' && lexer->line[lexer->i++])
 			lexer->j++;
-			lexer->i++;
-		}
-		ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
+		printf("line: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->line, start, lexer->j);
+		ft_substr_ml(lexer->line, start, lexer->j, ml);
+		//ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 		lexer->j = 0;
 	}
-	ft_define_token_redir(lexer);
-	ft_define_token_elem(lexer);
+	// ft_define_token_redir(lexer);
+	// ft_define_token_elem(lexer);
 }
-// void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
-// {printf("---------------------list_token----------------------\n");
-// 	int		start;
-// 	bool	in_elem;
-	
-// 	lexer->i = -1;
-// 	lexer->j = 0; // len de la sous chaine
-// 	start = -1; // debut de la sous chaine
-// 	in_elem = false;
-// 	while (lexer->line[++lexer->i])
-// 	{
-// 		ft_inside_quotes_lexer(lexer, lexer->line[lexer->i]);
-// 		if (start == -1 && lexer->line[lexer->i] != ' ')
-// 		{
-// 			start = lexer->i;
-// 			in_elem = true;
-// 		}
-// 		if (in_elem && lexer->line[lexer->i] == ' ' && !lexer->mark_q)
-// 		{	
-// 			ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
-// 			lexer->j = 0;
-// 			start = -1;
-// 			in_elem = false;
-// 		}
-// 		else
-// 			lexer->j++;
-// 	}
-// 	ft_define_token_redir(lexer);
-// 	ft_define_token_elem(lexer);
-// }
+

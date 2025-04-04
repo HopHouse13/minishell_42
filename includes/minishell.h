@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/02 21:21:16 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/04 18:38:12 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		ft_put_redirection(t_lexer *lexer, char *input);
 
 /// lexer_handle_quotes ///
 bool		ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
-void		ft_status_upd(bool *quote, bool *mark, bool *flag);
+void		ft_status_update(bool *quote, bool *mark, bool *flag);
 
 /// lexer_utilities ///
 bool		ft_effect_escape(t_lexer *lexer, char *str, int i);
@@ -228,7 +228,7 @@ void 		ft_add_ml(void *ptr, size_t size, t_mnode **ml);
 void		ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
 char		**ft_split_ml(char const *s, char c, t_mnode **ml);
 char		*ft_strdup_ml(const char *s_src, t_mnode **ml);
-char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
+char		*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
 char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void		ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void		ft_free_ml(t_mnode **ml);
