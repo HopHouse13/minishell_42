@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:27:27 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/04 18:47:44 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/04 19:26:56 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml)
 		return (NULL);
 	j = 0;
 	while (j < len && s_src[start] != '\0')
-		printf("test4\n"), s_new[j++] = s_src[start++];
+		s_new[j++] = s_src[start++];
 	s_new[j] = '\0';
 	return (s_new);
 }
