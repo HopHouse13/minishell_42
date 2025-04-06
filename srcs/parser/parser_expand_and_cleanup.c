@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/06 21:34:07 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 char	*ft_add_brack(char *str, t_mnode **ml)
 {
-	return ft_strjoin_ml(ft_strjoin_ml("[", str, ml), "]", ml);
+	return (ft_strjoin_ml(ft_strjoin_ml("[", str, ml), "]", ml));
 }
 
 char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
@@ -76,9 +76,7 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 			/* if(i , ) */
 			ft_inside_quotes_parser(parser, tmp->elem[i]);
 			if (tmp->elem[i] == '$' && parser->simple_q == OUT_Q
-				&& tmp->token != DELIM_HD && (i == 0
-				|| (tmp->elem[i - 1] != '\\' 
-				&& tmp->elem[i - 1] != '$')))
+				&& tmp->token != DELIM && (i == 0 || tmp->elem[i - 1] != '\\'))
 			{
 				parser->start = i;
 				var_exp = ft_add_brack(ft_expand(tmp->elem, i, parser, ml), ml);

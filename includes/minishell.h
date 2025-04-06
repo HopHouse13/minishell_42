@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/04 18:38:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum e_type
 	F_IN,		// fichier d'entree
 	F_OUT,		// ecrasement dans fichier
 	F_APP,		// rajout dans fichier
-	DELIM_HD,	// delimiteur heredoc
+	DELIM,	// delimiteur heredoc
 	CMD,		// commande
 	BI,			// builtin
 	ARG,		// argument de la precedente commande

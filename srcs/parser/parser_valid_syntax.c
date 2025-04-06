@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/03/27 13:36:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	ft_valid_redirs(t_parser *parser, t_mnode **ml)
 		if ((tmp->token == R_IN && tmp->next->token != F_IN)
 			|| (tmp->token == R_OUT && tmp->next->token != F_OUT)
 			|| (tmp->token == APPEND && tmp->next->token != F_APP)
-			|| (tmp->token == HD && tmp->next->token != DELIM_HD))
+			|| (tmp->token == HD && tmp->next->token != DELIM))
 			return (false);
 		tmp= tmp->next;
 	}

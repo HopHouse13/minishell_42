@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/04 19:38:55 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_define_token_elem(t_lexer *lexer)
 			else if (tmp->prev->token == APPEND) // >>
 				tmp->token = F_APP;
 			else if (tmp->prev->token == HD) // <<
-				tmp->token = DELIM_HD;
+				tmp->token = DELIM;
 			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
 				tmp->token = ARG;
 			else
