@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand_and_cleanup.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/04 19:50:21 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/06 21:34:07 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 
 // CHOSES A FAIRE:
 // - EXPAND selon les quotes et les carac d'echappement puis mettre entre [...] l'expansion pour bien les identifier pour les conserver brut.
-// - supp quotes sauf avec '\' devant(dans double quote ou exterieur) ou simple quote dans double quote et pas a l'intieur de[...] VAR expand ni tout ce qui il  ya entre simple quote.
+// - supp quotes sauf avec '\' devant(dans double quote ou exterieur) ou simple quote dans double quote et pas a l'interieur de[...] VAR expand ni tout ce qui il  ya entre simple quote.
 // - supp "\" et "[" "]" 	Pour '\'	-> dans les double_q : conservation sauf si devant " ou $ ou / (car il est actif pour ce cas la)
 //										-> dans simple_q : conservation totale
 //										-> a l'exterieur : disparition total car actif pour tout
