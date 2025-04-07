@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/03 01:05:34 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/07 14:58:48 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // [\] pas d'effet dans simple quote
 // dans double quotes pas d'effet sauf avec ["][\][$]
 // false (0) -> pas d'effet ; true (1) -> effet
-bool	ft_effect_escape(t_lexer *lexer, char *str, int i)
+bool	ft_effect_escape_lexer(t_lexer *lexer, char *str, int i)
 {
 	bool	on_off;
 	

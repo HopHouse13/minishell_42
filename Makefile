@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
+#    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/04/02 21:22:00 by pbret            ###   ########.fr        #
+#    Updated: 2025/04/07 18:17:49 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,11 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer.c \
 			srcs/parser/parser_utilities.c \
+			srcs/parser/parser_handle_quotes.c \
 			srcs/parser/parser_fill_list_cmd.c \
 			srcs/parser/parser_valid_syntax.c \
 			srcs/parser/parser_expand_and_cleanup.c \
+			srcs/parser/parser_expand.c \
 			srcs/parser/parser_initialisation_list_cmd.c \
 			srcs/parser/parser_initialisation.c \
 			srcs/parser/parser.c \

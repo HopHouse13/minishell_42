@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/07 18:20:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ typedef struct s_parser // local
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	char			**env;
-	int				simple_q;
-	int				double_q;
+	bool			simple_q;
+	bool			double_q;
+	bool			flag_q;
 	bool			mark_q;
 	int				start;
 	int				end;
@@ -175,10 +176,10 @@ void		ft_put_redirection(t_lexer *lexer, char *input);
 
 /// lexer_handle_quotes ///
 bool		ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
-void		ft_status_update(bool *quote, bool *mark, bool *flag);
+void		ft_status_update_lexer(bool *quote, bool *mark, bool *flag);
 
 /// lexer_utilities ///
-bool		ft_effect_escape(t_lexer *lexer, char *str, int i);
+bool		ft_effect_escape_lexer(t_lexer *lexer, char *str, int i);
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_character(char c);
 t_type		ft_builtin_or_cmd(char *elem);
@@ -206,18 +207,26 @@ void		ft_init_node_values(t_cmd *new_elem);
 
 /// parser_expand_and_ckeanup ///
 void		ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml);
-void		ft_expand_list(t_parser *parser, t_mnode **ml);
 void		ft_delete_quotes(t_parser *parser, t_mnode **ml);
 void		ft_clear_escape_character(t_parser *parser, t_mnode **ml);
 
+/// parser_expand ///
+void		ft_expand_list(t_parser *parser, t_mnode **ml);
+char		*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
+char		*ft_merge(char *str, char *exp, int i, t_parser *parser, t_mnode **ml);
+
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
+
+/// parser_handle_quotes ///
+void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
+bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 
 /// parser_utilities ///
 bool		ft_cmds(char *cmd);
 char		*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml);
 char		*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml);
-int			ft_inside_quotes_parser(t_parser *parser, char c);
+bool		ft_effect_escape_parser(t_parser *parser, char *str, int i);
 
 ////////////////////////////////////////////////////////////////////////////////
 
