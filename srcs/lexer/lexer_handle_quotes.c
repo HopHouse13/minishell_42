@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:17:37 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/07 14:58:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/08 14:36:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	ft_status_update_lexer(bool *quote, bool *mark, bool *flag)
 //  si 1 -> IN_Q ; si 0 -> OUT_Q;
 bool	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i)
 {
+	if (i == 0)
+	{
+		lexer->simple_q = OUT_Q;
+		lexer->double_q = OUT_Q;
+		lexer->flag_q = OUT_Q;
+		lexer->mark_q = OUT_Q;
+	}
 	if (lexer->flag_q == IN_Q)
 	{
 		lexer->flag_q = OUT_Q;

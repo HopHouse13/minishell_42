@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/07 18:18:50 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/08 14:39:46 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 //										-> a l'exterieur : disparition total car actif pour tout
 
 void	ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml)
-{
+{ft_printf("\n\t****************** expand_&_clear ********************\n\n");
 	ft_expand_list(parser, ml);			// >> delim -> ne pas expand si HD avant
 	// ft_delete_quotes(parser, ml);
 	// ft_clear_escape_character(parser, ml);
