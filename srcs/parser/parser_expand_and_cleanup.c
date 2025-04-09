@@ -6,21 +6,33 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/09 18:15:03 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/09 19:30:31 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* void	ft_delete_quotes(t_parser *parser, t_mnode **ml)
+void	ft_delete_quotes(t_parser *parser, t_mnode **ml)
 {
 	t_token	*tmp;
-	int		i;
 	
 	tmp = parser->list_token;
-	while (tmp && tmp->elem != END)
+	while (tmp && tmp->token != END)
 	{
-		ft_remove_quotes
+		tmp->elem = ft_remove_quotes(parser, tmp->elem, ml);
+		tmp = tmp->next;
+	}
+}
+
+/* void	ft_clear_escape_character(t_parser *parser, t_mnode **ml)
+{
+	t_token	*tmp;
+	
+	tmp = parser->list_token;
+	while (tmp && tmp->token != END)
+	{
+		tmp->elem = ft_remove_quotes(parser, tmp->elem, ml);
+		tmp = tmp->next;
 	}
 } */
 
@@ -37,8 +49,9 @@
 
 void	ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml)
 {ft_printf("\n\t****************** expand_&_clear ********************\n\n");
-	ft_expand_list(parser, ml);		// >> delim -> ne pas expand si HD avant
+	ft_expand_list(parser, ml);	// >> delim -> ne pas expand si HD avant
 	ft_print_list_token(parser->list_token);
-	// ft_delete_quotes(parser, ml);
+	ft_delete_quotes(parser, ml);
+	ft_print_list_token(parser->list_token);
 	// ft_clear_escape_character(parser, ml);
 } 

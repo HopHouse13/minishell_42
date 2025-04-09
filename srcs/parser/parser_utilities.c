@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/09 18:22:56 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/09 19:30:19 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
 	return (NULL);
 }
 
-// bool	ft_inside_bracket(t_parser *parser, char *str, int i)
-// {	
-// 	parser->mark_b = false;
-// 	if (str[i] == '[')
-// 	parser->mark_b = true;
-// 	else if (str[i] == ']')
-// 	parser->mark_b = false;
-// 	return(parser->mark_b);
-// }
+bool	ft_inside_bracket(t_parser *parser, char *str, int i)
+{	
+	parser->mark_b = false;
+	if (str[i] == '[')
+	parser->mark_b = true;
+	else if (str[i] == ']')
+	parser->mark_b = false;
+	return(parser->mark_b);
+}
 
 char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 {
@@ -57,14 +57,14 @@ char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 	i = -1;
 	count_without_q = 0;
 	while (str[++i])
-		if (ft_inside_quotes_parser(parser, str, i)
+		if (ft_inside_quotes_parser(parser, str, i) || ft_inside_bracket(parser, str, i)
 			|| (str[i] != '\'' && str[i] != '\"'))
 			count_without_q++;
 	str_without_q = ft_malloc_list(sizeof(char) * count_without_q + 1, ml);
 	i = -1;
 	j = 0;
 	while (str[++i])
-		if ((ft_inside_quotes_parser(parser, str, i))
+		if ((ft_inside_quotes_parser(parser, str, i))|| ft_inside_bracket(parser, str, i)
 			|| (str[i] != '\'' && str[i] != '\"'))
 			str_without_q[j++] = str[i];
 	str_without_q[j] = '\0';
