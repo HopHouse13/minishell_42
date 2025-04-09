@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/07 15:20:34 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/09 18:22:56 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
 	}
 	return (NULL);
 }
+
+// bool	ft_inside_bracket(t_parser *parser, char *str, int i)
+// {	
+// 	parser->mark_b = false;
+// 	if (str[i] == '[')
+// 	parser->mark_b = true;
+// 	else if (str[i] == ']')
+// 	parser->mark_b = false;
+// 	return(parser->mark_b);
+// }
 
 char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
 {

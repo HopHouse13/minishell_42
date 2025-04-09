@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_validate_operators.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/07 14:58:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/09 18:10:00 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,82 +39,6 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 	}
 	return (true);
 }
-
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{printf("\n\n\t----------------------REDIR------------------------\n");
-	bool	flag;
-	bool	dupli;
-
-	dupli = false;
-	flag = false;
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{ printf("\tvalue_escape[%d]\tflag[%d]\n", ft_effect_escape_lexer(lexer, input, lexer->i), flag);
-		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
-			&& !ft_effect_escape_lexer(lexer, input, lexer->i) && dupli == false
-			&& (input[lexer->i] != '<' || input[lexer->i] != '>'))
-		{
-			if (input[lexer->i + 1] == input[lexer->i] && flag == false)
-				flag = true, dupli = true; 
-			else if (flag == true && !ft_valid_character(input[lexer->i]))
-				return (false);
-		}
-		else
-			printf("test\n"), flag = false, dupli = false;
-	}
-	return (true);
-} */
-
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{printf("\n\n\t----------------------REDIR------------------------\n");
-	bool	flag;
-	
-	flag = false;
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{ printf("\tvalue_escape[%d]\tflag[%d]\n", ft_effect_escape_lexer(lexer, input, lexer->i), flag);
-		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
-			&& !ft_effect_escape_lexer(lexer, input, lexer->i))
-		{
-			if ((input[lexer->i] != ' ' && ft_valid_character(input[lexer->i]))
-				|| (ft_effect_escape_lexer(lexer, input, lexer->i)))
-				flag = false;
-			if ((input[lexer->i] == '<' || input[lexer->i] == '>')
-				&& lexer->i > 0 && input[lexer->i - 1] == input[lexer->i]
-				&& flag == false)
-					flag = true;
-			else if ((flag == true && !ft_valid_character(input[lexer->i]))
-					|| (lexer->i > 0 && input[lexer->i - 1] != input[lexer->i]))
-				return (false);
-		}
-		else
-			flag = false;
-	}
-	return (true);
-} */
-
-//ANCIENNE NON FONCITONNEL
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{printf("\n\n\t----------------------REDIR------------------------\n");
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{
-		ft_inside_quotes_lexer(lexer, input, lexer->i);
-		if ((input[lexer->i] == '<' || input[lexer->i] == '>')
-			&& (lexer->APP_HD == false && input[lexer->i + 1]
-			&& input[lexer->i] == input[lexer->i + 1])) // si on vient de trouver une chevron et que c'est le 1er et que le prochain carac est le meme chevron 
-			lexer->APP_HD = true;
-		else if (lexer->APP_HD == true && input[lexer->i] == ' ') // si on a deja trouve un chevron et que le carac est une espace
-			continue ;
-		else if (lexer->APP_HD == true && input[lexer->i] != input[lexer->i -1]) // si on a deja trouve un chevron et que le carac precedent est le meme chevron (c'est pour passer au carac suivant dans les cas << ou >>)
-		{
-			if (ft_valid_character(input[lexer->i]) == false)
-				return (false);
-			lexer->APP_HD = false;
-		}
-	}
-	return (true);
-} */
 
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t-----------------------PIPE------------------------\n");
@@ -161,7 +85,7 @@ bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
 	lexer->i = -1;
 	while (input[++lexer->i])
 		ft_inside_quotes_lexer(lexer, input, lexer->i);
-	if (lexer->simple_q == IN_Q || lexer->double_q == IN_Q)
+	if (lexer->simple_q == IN || lexer->double_q == IN)
 		return (false);
 	return (true);
 }

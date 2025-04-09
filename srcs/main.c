@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/04 19:43:50 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/09 17:10:09 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ int	main(int ac, char **av, char **env)
 	t_mshell	*mshell;
 	t_mnode		*ml;
 
-	(void)av; // utilisation de av pour pourvoir compiler sans erreurs.
 	ml = NULL;
-	if (ac == 1)
+	if (av && ac == 1)
 	{
 		mshell = ft_malloc_list(sizeof(t_mshell), &ml);
 		if (!mshell)

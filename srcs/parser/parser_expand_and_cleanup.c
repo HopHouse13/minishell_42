@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand_and_cleanup.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/08 14:39:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/09 18:15:03 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/* void	ft_delete_quotes(t_parser *parser, t_mnode **ml)
+{
+	t_token	*tmp;
+	int		i;
+	
+	tmp = parser->list_token;
+	while (tmp && tmp->elem != END)
+	{
+		ft_remove_quotes
+	}
+} */
 
 // Expansion ($VAR → contenu brut dans l'input)
 // dans double quote -> l'echappemment a effet uniquement sur [ " $ / ]    C'EST TOUT
@@ -25,7 +37,8 @@
 
 void	ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml)
 {ft_printf("\n\t****************** expand_&_clear ********************\n\n");
-	ft_expand_list(parser, ml);			// >> delim -> ne pas expand si HD avant
+	ft_expand_list(parser, ml);		// >> delim -> ne pas expand si HD avant
+	ft_print_list_token(parser->list_token);
 	// ft_delete_quotes(parser, ml);
 	// ft_clear_escape_character(parser, ml);
 } 

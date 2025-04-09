@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/07 18:20:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/09 18:14:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
 # include <stdbool.h>           // boolien
-# include <stdio.h>             // printf (pour la phase de dev.)
+# include <stdio.h>             // printf (pour la phase de dev.); dprintf
 # include <stdlib.h>            // exit ; getenv ;
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 
@@ -35,8 +35,8 @@
 # define WHITE "\033[37m"		// a supprimer si non besoin
 
 # define SIZE_LINE 80000
-# define IN_Q 1
-# define OUT_Q 0
+# define IN 1
+# define OUT 0
 
 typedef enum e_type
 {
@@ -116,6 +116,7 @@ typedef struct s_parser // local
 	bool			mark_q;
 	int				start;
 	int				end;
+	bool			mark_b;
 	int				exit_status;
 }					t_parser;
 

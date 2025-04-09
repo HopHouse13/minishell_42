@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/07 18:52:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/09 17:00:45 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*ft_malloc_list(size_t size, t_mnode **ml)
 	void	*ptr;
 	
 	ptr = malloc(size);
-	if (!size)
+	if (!ptr)
 	{
 		perror("allocation failed ");
 		//ft_free tout tout
