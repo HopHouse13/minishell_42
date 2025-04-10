@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/10 12:35:25 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/10 17:54:11 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ char	*ft_merge(char *str, char *exp, int i, t_parser *parser, t_mnode **ml)
 	printf("\ttab0 [%s]\ttab1 [%s]\ttab2 [%s]\n\n", tab[0], tab[1], tab[2]); //ASUPP
 	str_merged = ft_strjoin_ml(tab[0], ft_strjoin_ml(tab[1], tab[2], ml), ml);
 	return (str_merged);
-}
-
-char	*ft_add_brack(char *str, t_mnode **ml)
-{
-	return (ft_strjoin_ml(ft_strjoin_ml("[", str, ml), "]", ml));
 }
 
 char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
@@ -85,17 +80,17 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 		while (tmp->elem[++i])
 		{
 			ft_inside_quotes_parser(parser, tmp->elem, i);
-			if (tmp->elem[i] == '$' && parser->simple_q == OUT
-				&& tmp->token != DELIM
-				&& (i == 0 || !ft_effect_escape_parser(parser, tmp->elem, i)))
+			if (tmp->elem[i] == '!' && parser->simple_q == OUT
+				&& tmp->token != DELIM /* && (tmp->elem[i + 1] && tmp->elem[i + 1] == '!') */
+				&& (i == 1 || !ft_effect_escape_parser(parser, tmp->elem, i - 1 && tmp->elem[i - 1] == '$')))
 			{
 				parser->start = i;
-				if (!ft_expand(tmp->elem, i, parser, ml))
+				var_exp = ft_expand(tmp->elem, i, parser, ml);
+				if (!var_exp)
 				{
 					dprintf(2, "INVALID_NAME_EXPAND");
 					return ;
 				}
-				var_exp = ft_add_brack(ft_expand(tmp->elem, i, parser, ml), ml);
 				printf("\n\tExppanded : %s\n\n", var_exp);
 				tmp->elem = ft_merge(tmp->elem, var_exp, i, parser, ml);
 				i = -1;
