@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:36:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/09 17:46:58 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/10 10:37:45 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 // 	tmp_cmd = parser->list_cmd;
 // 	while (tmp_token->token != END || tmp_cmd) // pas sur de ca...
 // 	{
-// 		ft_delete_quotes(tmp_token->elem, ml);
 // 		tmp_token = tmp_token->next; // ASUPP
 // 		/* if (tmp_token->token == PIPE && tmp_cmd->next)
 // 			tmp_cmd = tmp_cmd->next;

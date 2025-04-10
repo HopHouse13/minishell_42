@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/09 19:30:19 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/10 10:33:39 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,6 @@ char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
 	return (NULL);
 }
 
-bool	ft_inside_bracket(t_parser *parser, char *str, int i)
-{	
-	parser->mark_b = false;
-	if (str[i] == '[')
-	parser->mark_b = true;
-	else if (str[i] == ']')
-	parser->mark_b = false;
-	return(parser->mark_b);
-}
-
-char	*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml)
-{
-	int		i;
-	int		j;
-	size_t	count_without_q;
-	char	*str_without_q;
-	
-	i = -1;
-	count_without_q = 0;
-	while (str[++i])
-		if (ft_inside_quotes_parser(parser, str, i) || ft_inside_bracket(parser, str, i)
-			|| (str[i] != '\'' && str[i] != '\"'))
-			count_without_q++;
-	str_without_q = ft_malloc_list(sizeof(char) * count_without_q + 1, ml);
-	i = -1;
-	j = 0;
-	while (str[++i])
-		if ((ft_inside_quotes_parser(parser, str, i))|| ft_inside_bracket(parser, str, i)
-			|| (str[i] != '\'' && str[i] != '\"'))
-			str_without_q[j++] = str[i];
-	str_without_q[j] = '\0';
-	return (str_without_q);
-}
-
 // Si le nombre de changement d'etat de on_off est:
 // impair	-> 	pas d'effet
 // pair		->	effet
@@ -83,9 +49,10 @@ bool	ft_effect_escape_parser(t_parser *parser, char *str, int i)
 	
 	on_off = false;
 	if((parser->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
-		|| parser->simple_q)
-		return (on_off);
+	|| parser->simple_q)
+	return (on_off);
 	while (--i>= 0 && str[i] == '\\')
-		on_off = !on_off;
+	on_off = !on_off;
 	return (on_off);
 }
+

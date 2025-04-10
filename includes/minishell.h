@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/09 18:14:42 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/10 11:27:37 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum e_type
 	F_IN,		// fichier d'entree
 	F_OUT,		// ecrasement dans fichier
 	F_APP,		// rajout dans fichier
-	DELIM,	// delimiteur heredoc
+	DELIM,		// delimiteur heredoc
 	CMD,		// commande
 	BI,			// builtin
 	ARG,		// argument de la precedente commande
@@ -208,7 +208,7 @@ void		ft_init_node_values(t_cmd *new_elem);
 
 /// parser_expand_and_ckeanup ///
 void		ft_expand_list_and_cleanup(t_parser *parser, t_mnode **ml);
-void		ft_delete_quotes(t_parser *parser, t_mnode **ml);
+void		ft_delete_quotes_and_brackets(t_parser *parser, t_mnode **ml);
 void		ft_clear_escape_character(t_parser *parser, t_mnode **ml);
 
 /// parser_expand ///
