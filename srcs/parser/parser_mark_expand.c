@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/11 19:21:49 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 20:29:33 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,17 @@ char	*ft_insert_marker(char *str, int i, t_mnode **ml)
 	
 	end_name = 0;
 	end_name = ft_def_var_name(str, i);
-	printf("\n>>>>>>>>>>>>>>>>>>>>>>>>> %d\n\n", end_name);
-	result = ft_malloc_list(sizeof(char) * ft_strlen(str) + 3, ml);
+	result = ft_calloc_list(ft_strlen(str) + 3, sizeof(char), ml);
 	j = 0;
 	k = 0;
 	while (str[j])
 	{
-		if (k == i || k == end_name)
-			result[k++] = '!';		
-		else
-			result[k++] = str[j++];
+		if (k == i)
+			result[k++] = '!';
+		result[k++] = str[j++];
+		if (k == end_name)
+			result[k++] = '!';
 	}
-	result[k] = '\0';
 	printf("\n\tresult_marker : %s\n\n", result);
 	return (result);
 }

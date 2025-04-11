@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/11 13:03:17 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 20:53:21 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ char	*ft_find_next_cmd(t_token *tmp)
 bool	ft_effect_escape_parser(t_parser *parser, char *str, int i)
 {
 	bool	on_off;
-	
+	//printf(">>>%c\n", str[i]);
 	on_off = false;
 	if((parser->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
 	|| parser->simple_q)
 	return (on_off);
 	while (--i>= 0 && str[i] == '\\')
-	on_off = !on_off;
+		on_off = !on_off;
 	return (on_off);
 }
 

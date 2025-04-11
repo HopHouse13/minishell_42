@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/11 19:16:38 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 20:53:26 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml)
 		ft_inside_quotes_parser(parser, tmp->elem, i);
 		if (tmp->elem[i] == '!' && parser->simple_q == OUT
 			&& tmp->token != DELIM && tmp->elem[i - 1] == '$'
-			&& (i == 1 || !ft_effect_escape_parser(parser, tmp->elem, i - 1)))
-		{
+			&& (i == 1 || !ft_effect_escape_parser(parser, tmp->elem, i)))
+		{//printf("\ncarac du i : %c\n\n", tmp->elem[i]);
 			parser->start = i;
 			var_exp = ft_expand(tmp->elem, i, parser, ml);
 			if (!var_exp)

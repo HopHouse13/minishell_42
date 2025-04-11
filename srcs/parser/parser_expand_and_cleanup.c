@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/11 18:18:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 20:55:10 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_clear_and_expand(t_parser *parser, t_mnode **ml)
 	ft_clear_quotes(parser, ml);
 	ft_print_list_token(parser->list_token); // ASUPP
 
+	// PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
+	// faut qu'il soit supprimer uniquement devant ces 3 caracteres
 	ft_printf("\n\t**************** clear_escape_char *******************\n");
 	ft_clear_escape_char(parser, ml);
 	ft_print_list_token(parser->list_token); // ASUPP
