@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:17:37 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/09 18:06:49 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 16:59:34 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ bool	ft_inside_quotes_parser(t_parser *parser, char *str, int i)
 			ft_status_update_parser(&parser->double_q,
 			&parser->mark_q, &parser->flag_q);
 	}
-	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", parser->simple_q, parser->double_q, parser->mark_q, str[i]);
+	// printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", parser->simple_q, parser->double_q, parser->mark_q, str[i]);
 	return (parser->mark_q);
 }

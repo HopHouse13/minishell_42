@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/11 19:16:38 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 14:32:11 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_merge(char *str, char *exp, int i, t_parser *parser, t_mnode **ml)
 	while (--i != 0)
 		len_before++;
 	len_after = 0;
-	i = ++parser->end;
+	i = parser->end;
 	while (i > 0 && str[i++])
 		len_after++;
 	printf("\tBEFORE : %d \tEXP : %d\t AFTER : %d\n\n", len_before, ft_strlen(exp), len_after); //ASUPP
@@ -46,7 +46,6 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	char	*var_expanded;
 	
 	parser->start = ++i;
-	printf("\nVALUE CARAC debut : %c\n\n", elem[i]);
 	if (elem[i] == '?')
 	{
 		parser->end = i + 1;
@@ -54,15 +53,12 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	}
 	if (!ft_isalpha(elem[i]) && elem[i] != '_')
 	{
-		parser->end = i + 1;
-		return ("");
+		return (NULL);
 	}
-	while (elem[i] != '!')
+	while ((ft_isalnum(elem[i]) || elem[i] == '_') && elem[i] != '\\')
 		i++;
 	parser->end = i;
-	printf("\nVALUE CARAC FIN : %c\n\n", elem[i]);
 	var_name = ft_substr_ml(elem, parser->start, i - parser->start, ml); // si me malloc fail c'est deja gerer dans la fonction
-	printf("\n\tVAR_NAME : %s\n\n", var_name);
 	value_ptr = getenv(var_name); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (value_ptr)
 		var_expanded = ft_strdup_ml(value_ptr, ml);
@@ -71,41 +67,35 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	return (var_expanded);
 }
 
-void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml)
-{
-	int		i;
-	char	*var_exp;
-	
-	i = -1;
-	while (tmp->elem[++i])
-	{
-		ft_inside_quotes_parser(parser, tmp->elem, i);
-		if (tmp->elem[i] == '!' && parser->simple_q == OUT
-			&& tmp->token != DELIM && tmp->elem[i - 1] == '$'
-			&& (i == 1 || !ft_effect_escape_parser(parser, tmp->elem, i - 1)))
-		{
-			parser->start = i;
-			var_exp = ft_expand(tmp->elem, i, parser, ml);
-			if (!var_exp)
-			{
-				dprintf(2, "\nINVALID_NAME_EXPAND");
-				return ;
-			}
-			printf("\n\tExppanded : %s\n\n", var_exp);
-			tmp->elem = ft_merge(tmp->elem, var_exp, i, parser, ml);
-			i = -1;
-		}
-	}
-}
-
 void	ft_expand_list(t_parser *parser, t_mnode **ml)
 {
+	int		i;
 	t_token *tmp;
+	char	*var_exp;
 	
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		ft_expand_elem(tmp, parser, ml);
+		i = -1;
+		while (tmp->elem[++i])
+		{
+			ft_inside_quotes_parser(parser, tmp->elem, i);
+			if (tmp->elem[i] == '\t' && parser->simple_q == OUT
+				&& tmp->token != DELIM && tmp->elem[i - 1] == '$'
+				&& (i == 1 || !ft_effect_escape_parser(parser, tmp->elem, i - 1)))
+			{
+				parser->start = i;
+				var_exp = ft_expand(tmp->elem, i, parser, ml);
+				if (!var_exp)
+				{
+					dprintf(2, "\nINVALID_NAME_EXPAND");
+					return ;
+				}
+				printf("\n\tExppanded : %s\n\n", var_exp);
+				tmp->elem = ft_merge(tmp->elem, var_exp, i, parser, ml);
+				i = -1;
+			}
+		}
 		printf("\n\n\tELEM_FINAL : %s\n\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}
