@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/10 17:33:30 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 13:03:17 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ bool	ft_cmds(char *cmd)
 	return (false);
 }
 
-char	*ft_find_next_cmd(t_parser *parser, t_token *tmp, t_mnode **ml)
+char	*ft_find_next_cmd(t_token *tmp)
 {
 	while (tmp && tmp->token != END)
 	{
 		if (tmp->token == CMD)
-			return (ft_suppression(parser, tmp->elem, ml));
+			return (tmp->elem);
 		tmp = tmp->next;
 	}
 	return (NULL);

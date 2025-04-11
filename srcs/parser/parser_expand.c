@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/10 17:54:11 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/11 12:27:44 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	}
 	if (!ft_isalpha(elem[i]) && elem[i] != '_')
 		return (NULL);
-	while (ft_isalnum(elem[i]) || elem[i] == '_')
+	printf("\n >>> start : %c\n\n", elem[parser->start]);
+	while ((ft_isalnum(elem[i]) || elem[i] == '_') && elem[i] != '\\')
 		i++;
 	parser->end = i;
+	printf("\n>>>> end : %c >>>>>>>> %s\n\n", elem[parser->end], ft_substr_ml(elem, parser->start, i - parser->start, ml));
 	var_name = ft_substr_ml(elem, parser->start, i - parser->start, ml); // si me malloc fail c'est deja gerer dans la fonction
 	value_ptr = getenv(var_name); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (value_ptr)

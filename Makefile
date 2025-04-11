@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/04/10 17:30:13 by pbret            ###   ########.fr        #
+#    Updated: 2025/04/11 13:10:09 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer.c \
 			srcs/parser/parser_utilities.c \
-			srcs/parser/parser_suppresion.c \
+			srcs/parser/parser_clear.c \
+			srcs/parser/parser_mark_expand.c \
 			srcs/parser/parser_handle_quotes.c \
 			srcs/parser/parser_fill_list_cmd.c \
 			srcs/parser/parser_valid_syntax.c \
