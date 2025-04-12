@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/11 13:09:07 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/12 20:39:54 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ bool		ft_valid_cmds(t_parser *parser);
 bool		ft_valid_redirs(t_parser *parser);
 bool		ft_valid_syntax(t_parser *parser);
 
-
 /// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
@@ -209,22 +208,21 @@ void		ft_init_node_values(t_cmd *new_elem);
 /// parser_expand_and_ckeanup ///
 void		ft_clear_and_expand(t_parser *parser, t_mnode **ml);
 
-/// parser_clear ///
-void		ft_clear_quotes(t_parser *parser, t_mnode **ml);
-char		*ft_remove_quotes(t_parser *parser, char *str, t_mnode **ml);
-void		ft_clear_escape_char(t_parser *parser, t_mnode **ml);
+/// parser_clear_elem ///
+bool		ft_char_saved(t_parser *parser, char *str, int i);
+void		ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml);
 char		*ft_remove_escape_char(t_parser *parser, char *str, t_mnode **ml);
 
-/// parser_mark_expand ///
+/// parser_markers_expand ///
+int			ft_find_end_var(char *str, int i);
 char		*ft_insert_marker(char *str, int i, t_mnode **ml);
 char		*ft_marker(char *str, t_type token, t_parser *parser, t_mnode **ml);
 void		ft_mark_expand(t_parser *parser, t_mnode **ml);
 
-
 /// parser_expand ///
 void		ft_expand_list(t_parser *parser, t_mnode **ml);
 char		*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
-char		*ft_merge(char *str, char *exp, int i, t_parser *parser, t_mnode **ml);
+char		*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_mark_expand.c                               :+:      :+:    :+:   */
+/*   parser_markers_expand.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/11 20:29:33 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/12 16:28:47 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_def_var_name(char *str, int i)
+int	ft_find_end_var(char *str, int i)
 {
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (i + 1);
-	while (ft_isalnum(str[i]) || str[i] == '_')
-		i++;
+	if (ft_isalpha(str[i]) || str[i] == '_')
+	{
+		while (ft_isalnum(str[i]) || str[i] == '_')
+			i++;
+	}
 	return (i + 1);
 }
 
@@ -29,17 +30,17 @@ char	*ft_insert_marker(char *str, int i, t_mnode **ml)
 	int		end_name;
 	
 	end_name = 0;
-	end_name = ft_def_var_name(str, i);
+	end_name = ft_find_end_var(str, i);
 	result = ft_calloc_list(ft_strlen(str) + 3, sizeof(char), ml);
 	j = 0;
 	k = 0;
 	while (str[j])
 	{
 		if (k == i)
-			result[k++] = '!';
+			result[k++] = '[';
 		result[k++] = str[j++];
 		if (k == end_name)
-			result[k++] = '!';
+			result[k++] = ']';
 	}
 	printf("\n\tresult_marker : %s\n\n", result);
 	return (result);

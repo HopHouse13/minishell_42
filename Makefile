@@ -6,7 +6,7 @@
 #    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/04/11 13:10:09 by pbret            ###   ########.fr        #
+#    Updated: 2025/04/12 16:23:09 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,24 @@ NAME		= minishell
 SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
-			srcs/lexer/lexer_utilities.c \
-			srcs/lexer/lexer_handle_quotes.c \
-			srcs/lexer/lexer_build_list_token.c \
-			srcs/lexer/lexer_cleaning_input.c \
+			srcs/lexer/lexer.c \
 			srcs/lexer/lexer_initialisation.c \
 			srcs/lexer/lexer_validate_operators.c \
-			srcs/lexer/lexer.c \
-			srcs/parser/parser_utilities.c \
-			srcs/parser/parser_clear.c \
-			srcs/parser/parser_mark_expand.c \
-			srcs/parser/parser_handle_quotes.c \
-			srcs/parser/parser_fill_list_cmd.c \
-			srcs/parser/parser_valid_syntax.c \
-			srcs/parser/parser_expand_and_cleanup.c \
-			srcs/parser/parser_expand.c \
-			srcs/parser/parser_initialisation_list_cmd.c \
-			srcs/parser/parser_initialisation.c \
+			srcs/lexer/lexer_cleaning_input.c \
+			srcs/lexer/lexer_build_list_token.c \
+			srcs/lexer/lexer_handle_quotes.c \
+			srcs/lexer/lexer_utilities.c \
 			srcs/parser/parser.c \
+			srcs/parser/parser_initialisation.c \
+			srcs/parser/parser_clear_and_expand.c \
+			srcs/parser/parser_markers_expand.c \
+			srcs/parser/parser_clear_elem.c \
+			srcs/parser/parser_expand.c \
+			srcs/parser/parser_valid_syntax.c \
+			srcs/parser/parser_initialisation_list_cmd.c \
+			srcs/parser/parser_fill_list_cmd.c \
+			srcs/parser/parser_handle_quotes.c \
+			srcs/parser/parser_utilities.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \
 			srcs/malloc/malloc_split_ml.c \
