@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/13 18:01:20 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/13 20:09:58 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,9 +220,11 @@ char		*ft_marker(char *str, t_type token, t_parser *parser, t_mnode **ml);
 void		ft_mark_expand(t_parser *parser, t_mnode **ml);
 
 /// parser_expand ///
-void		ft_expand_list(t_parser *parser, t_mnode **ml);
-char		*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
+char		*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
 char		*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
+char		*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
+void		ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
+void		ft_expand_list(t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);

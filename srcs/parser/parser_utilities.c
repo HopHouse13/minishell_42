@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/13 18:40:09 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/13 19:09:49 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ bool	ft_inside_brackets(t_parser *parser, char *str, int i)
 		parser->mark_b = IN;
 	if (str[i] == ']' && parser->mark_b == IN)
 		parser->mark_b = OUT;
-	printf("\nvalue_BRAKET : %d\n", parser->mark_b);
 	return (parser->mark_b);
 }
