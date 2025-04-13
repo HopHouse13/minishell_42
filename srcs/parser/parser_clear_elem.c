@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/12 20:39:54 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/13 18:00:49 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	ft_char_saved(t_parser *parser, char *str, int i)
 {
+	if (ft_inside_brackets(parser, str, i))
+		return (true);
 	if ( str[i] == '\\')
 	{
 		if (parser->simple_q)

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/12 20:39:54 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/13 18:01:20 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 bool		ft_cmds(char *cmd);
 char		*ft_find_next_cmd(t_token *tmp);
 bool		ft_effect_escape_parser(t_parser *parser, char *str, int i);
+bool		ft_inside_brackets(t_parser *parser, char *str, int i);
 
 ////////////////////////////////////////////////////////////////////////////////
 

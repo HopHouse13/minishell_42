@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/12 20:48:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/13 17:48:51 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	char	*ev_ptr;
 	char	*ev_expanded;
 	
+//	if (ft_invalid_name(elem, i))
 	parser->start = i + 2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
 	//printf("\nVALUE CARAC debut : %c\n\n", elem[parser->start]);
 	if (elem[parser->start] == '?')
 	{
-		parser->end = parser->start /* + 1 */;
-		// 	return (ft_itoa_ml(exit_status)); // dernier exit status
+		parser->end = parser->start + 1;
+		// return (ft_itoa_ml(exit_status)); // dernier exit status
 	}
 	if (!ft_isalpha(elem[parser->start]) && elem[parser->start] != '_')
 	{
-		parser->end = parser->start /* + 1 */;
+		parser->end = parser->start + 1;
 		return ("");
 	}
 	parser->end = parser->start;
@@ -47,7 +48,7 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 		parser->end++;
 	// printf("\nVALUE CARAC FIN : %c\n\n", elem[parser->end]);
 	ev_name = ft_substr_ml(elem, parser->start, parser->end - parser->start, ml); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
-	parser->end--; // pour avoir uniquement le nom de la VAR
+	// parser->end--; // pour avoir uniquement le nom de la VAR
 	printf("\n\tEV_NAME : %s\n\n", ev_name);
 	ev_ptr = getenv(ev_name); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (ev_ptr)
@@ -72,7 +73,7 @@ void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml)
 			&& tmp->elem[i + 1]
 			&& tmp->elem[i + 1] == '['
 			&& (i == 0 || !ft_effect_escape_parser(parser, tmp->elem, i-1)))
-		{//printf("\ncarac du i : %c\n\n", tmp->elem[i]);
+		{
 			ev_exp = ft_expand(tmp->elem, i, parser, ml);
 			if (!ev_exp)
 			{
@@ -99,3 +100,18 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 	}
 }
 
+// un probleme:
+// -> gestion du 1er caractere invalide -> bash interprete le $ et le caractere invalide literalement.
+// ex : $@HOME -> $@HOME	|	$\HOME -> $HOME (car le carac d'escape est supprimer a la fin)
+
+
+// bash-5.1$ echo $ \HOME
+// $HOME
+// bash-5.1$ echo $ "HOME"
+// HOME
+// bash-5.1$ echo $ .HOME
+// $.HOME
+
+
+// autre probleme:
+// input -> $$ pas gerer
