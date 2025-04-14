@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/13 20:09:58 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 18:39:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>             // printf (pour la phase de dev.); dprintf
 # include <stdlib.h>            // exit ; getenv ;
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
+#include <fcntl.h>				// open;
 
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin
@@ -38,6 +39,7 @@
 # define IN 1
 # define OUT 0
 
+extern int		exit_status; // variable globale pour obtenir le dernier exit_code.
 typedef enum e_type
 {
 	ELEM,
@@ -74,7 +76,7 @@ typedef struct s_lexer // local
 	bool			double_q;
 	bool			flag_q;
 	bool			mark_q;
-	bool			APP_HD; // uniquement pour ft_control_redir_valid
+	bool			cmd_in_pipe;
 }					t_lexer;
 
 typedef struct s_hd
@@ -95,11 +97,11 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
-	t_redir			*redir;
+	int				infile;
+	int				outfile;
+	//t_redir			*redir; // pour les redir : 4 variables : PARSER ->  infile && outfile | EXEC ->  write && read. 
 	t_hd			*hd;
 	int				count_hd; // 0 -> pas de hd, autre hd | Pab
-	bool			simple_q; //ELEM
-	bool			double_q; //ELEM
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -183,7 +185,7 @@ void		ft_status_update_lexer(bool *quote, bool *mark, bool *flag);
 bool		ft_effect_escape_lexer(t_lexer *lexer, char *str, int i);
 void		ft_init_line(char *virgin_line);
 bool		ft_valid_character(char c);
-t_type		ft_builtin_or_cmd(char *elem);
+t_type		ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -227,9 +229,12 @@ void		ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
 void		ft_expand_list(t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
-void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
+void		ft_handle_redir(t_token *token, t_cmd *cmd);
+void		ft_fill_list_cmd(t_parser *parser/* , t_mnode **ml */);
 
 /// parser_handle_quotes ///
+void		ft_get_outfile(t_cmd *cmd, t_token *token);
+void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
 bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 

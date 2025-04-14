@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/11 13:21:44 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 18:58:01 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	tmp = head;
 	if (tmp)
 	{
-		ft_printf("\n\n\t\t\t ... list_token ... \n\n");
+		ft_printf("\n\n\t\t\t --- list_token --- \n\n");
     	while (tmp)
     	{
-    	    printf("\tToken: [%s]\t\tType: [%d -> %s]\n\n", tmp->elem, tmp->token,
+    	    printf("\tToken: [%s]\t\tType: [%s]\n\n", tmp->elem,
 			ft_get_name_type(tmp->token));
     	    tmp = tmp->next;
     	}
@@ -61,20 +61,20 @@ void	ft_print_list_token(t_token *head) // A SUPP
 void	ft_print_list_cmd(t_cmd *head) // A SUPP
 {
     t_cmd	*tmp;
-	// char	**tab_cmd;
+	int		counter;
 	
-	//tab_cmd = head->cmd;
+	counter = 1;
 	tmp = head;
 	if (tmp)
 	{
 		ft_printf("\n\t******************* list_cmd *********************\n\n");
-    	while (tmp)
+    	while (tmp != NULL)
     	{
-			/* while (*tab_cmd)
-    	    	ft_printf("cmd: [%s]\n", *tab_cmd++); */
-			ft_printf("\tcmd -> %s\n", tmp->cmd);
+			printf("\n\t\t\t--- NODE Nº%d ---\n", counter++);
+			ft_print_double_tab(tmp->cmd);
+			printf("\n\tinfile\t\t[%d]\n", tmp->infile);
+			printf("\n\toutfile\t\t[%d]\n", tmp->outfile);
     	    tmp = tmp->next;
     	}
-		// ft_printf("\n\t---------------------------------\n\n");
 	}
 }

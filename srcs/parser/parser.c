@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/11 13:05:41 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 18:53:35 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 	ft_init_parser(mshell, &parser, list_token);
 	ft_clear_and_expand(&parser, ml);
 	if (ft_valid_syntax(&parser))
-	{printf("\nSUCCESS\n\n");
+	{printf("\n\n\tSUCCESS: COMMANDE VALIDE\n\n\n");
 		ft_init_list_cmd(&parser, ml);
-		//ft_fill_list_cmd(&parser, ml);
+		ft_fill_list_cmd(&parser/* , ml */);
+		//ft_print_list_cmd(parser.list_cmd);
 		return (parser.list_cmd);
 	}
-	printf("\nFAILURE\n\n");
+	printf("\n\n\t\tFAILURE : TAPE MIEUX LOOSER\n\n\n");
 	return (NULL);
 }
 

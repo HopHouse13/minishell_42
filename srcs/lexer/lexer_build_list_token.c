@@ -3,47 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/07 00:41:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/14 16:52:22 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_define_token_elem(t_lexer *lexer)
+void ft_define_token_elem(t_lexer *lexer)
 {
 	t_token *tmp;
 
 	tmp = lexer->list_token;
 	while (tmp->token != END)
-	{printf("VALUE = %d\t ELEM = %s\n", tmp->token, tmp->elem);
-		if (tmp->token == ELEM && tmp->prev)
+	{
+		if (tmp->token == PIPE)
+			lexer->cmd_in_pipe = false;
+		if (tmp->token == ELEM)
 		{
-			if (tmp->prev->token == R_IN) // <
+			if (tmp->prev && tmp->prev->token == R_IN) // <
 				tmp->token = F_IN;
-			else if (tmp->prev->token == R_OUT) // >
+			else if (tmp->prev && tmp->prev->token == R_OUT) // >
 				tmp->token = F_OUT;
-			else if (tmp->prev->token == APPEND) // >>
+			else if (tmp->prev && tmp->prev->token == APPEND) // >>
 				tmp->token = F_APP;
-			else if (tmp->prev->token == HD) // <<
+			else if (tmp->prev && tmp->prev->token == HD) // <<
 				tmp->token = DELIM;
-			else if (tmp->prev->token == CMD || tmp->prev->token == ARG)
-				tmp->token = ARG;
+			else if (tmp->token == ELEM && !lexer->cmd_in_pipe)
+				tmp->token = ft_builtin_or_cmd(lexer, tmp->elem);
 			else
-				tmp->token = ft_builtin_or_cmd(tmp->elem);
+				tmp->token = ARG;
 		}
-		else if (tmp->token == ELEM)
-			tmp->token = ft_builtin_or_cmd(tmp->elem);
 		tmp = tmp->next;
 	}
-	printf("VALUE = %d\t ELEM = %s\n", tmp->token, tmp->elem);
 }
 
-void	ft_define_token_redir(t_lexer *lexer)
+void ft_define_token_redir(t_lexer *lexer)
 {
-	t_token	*tmp;
+	t_token *tmp;
 
 	tmp = lexer->list_token;
 	while (tmp)
@@ -70,16 +69,16 @@ void	ft_define_token_redir(t_lexer *lexer)
 	}
 }
 
-void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode **ml)
+void ft_init_head_list_token(t_token **list_token, char *elem, t_mnode **ml)
 {
-	t_token	*first_node;
-	
+	t_token *first_node;
+
 	first_node = ft_malloc_list(sizeof(t_token), ml);
 	if (!first_node)
 	{
 		perror("initialization list ");
-		//ft_master_free(list_token);
-		return ;
+		// ft_master_free(list_token);
+		return;
 	}
 	first_node->elem = elem;
 	first_node->token = -1;
@@ -88,23 +87,23 @@ void	ft_init_head_list_token(t_token **list_token, char *elem, t_mnode **ml)
 	*list_token = first_node;
 }
 
-void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
+void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 {
-	t_token	*tmp;
-	t_token	*new_elem;
-	
+	t_token *tmp;
+	t_token *new_elem;
+
 	if (!lexer->list_token)
 	{
 		ft_init_head_list_token(&(lexer->list_token), elem, ml);
-		return ;
+		return;
 	}
-	new_elem = ft_malloc_list(sizeof (t_token), ml);
+	new_elem = ft_malloc_list(sizeof(t_token), ml);
 	if (!new_elem)
 	{
 		perror("initialization list ");
-		//ft_master_free(list);
-		return ;
-	}	
+		// ft_master_free(list);
+		return;
+	}
 	tmp = lexer->list_token;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
@@ -115,23 +114,22 @@ void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 	tmp->next = new_elem;
 }
 
-void	ft_build_list_token(t_lexer *lexer, t_mnode **ml)
+void ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 {
-	int	start;
+	int start;
 
 	lexer->i = -1;
 	lexer->j = 0; // len de la sous chaine
-	start = 0; // debut de la sous chaine
+	start = 0;	  // debut de la sous chaine
 	while (lexer->line[++lexer->i])
 	{
 		start = lexer->i;
 		while (lexer->line[lexer->i] != ' ' && lexer->line[lexer->i++])
 			lexer->j++;
-		//printf("\tline: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->line, start, lexer->j);
+		// printf("\tline: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->line, start, lexer->j);
 		ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
 		lexer->j = 0;
 	}
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
 }
-

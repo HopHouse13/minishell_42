@@ -6,15 +6,14 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/13 19:09:49 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 16:51:13 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_cmds(char *cmd)
+bool	ft_cmds(char *cmd) // apparemment useless car organiquement execve va gerer.
 {
-	printf("\ncmd >> [%s]\n\n", cmd);
 	if (!cmd)
 		return (false);
 	if (!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep")
@@ -46,7 +45,7 @@ char	*ft_find_next_cmd(t_token *tmp)
 bool	ft_effect_escape_parser(t_parser *parser, char *str, int i)
 {
 	bool	on_off;
-	//printf(">>>%c\n", str[i]);
+
 	on_off = false;
 	if((parser->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
 	|| parser->simple_q)

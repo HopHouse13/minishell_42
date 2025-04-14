@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/09 18:04:07 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 16:39:30 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_lexer(t_lexer *lexer)
+void ft_init_lexer(t_lexer *lexer)
 {
 	ft_init_line(lexer->line);
 	lexer->list_token = NULL;
@@ -22,5 +22,5 @@ void	ft_init_lexer(t_lexer *lexer)
 	lexer->double_q = OUT;
 	lexer->flag_q = false;
 	lexer->mark_q = OUT;
-	lexer->APP_HD = false;
+	lexer->cmd_in_pipe = false;
 }

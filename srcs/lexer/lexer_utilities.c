@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/07 14:58:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/14 16:41:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ bool	ft_valid_character(char c)
 	return (true);
 }
 
-t_type	ft_builtin_or_cmd(char *elem)
+t_type	ft_builtin_or_cmd( t_lexer *lexer, char *elem)
 {
+	lexer->cmd_in_pipe = true;
 	if (!ft_strcmp(elem, "echo") || !ft_strcmp(elem, "cd")
 		|| !ft_strcmp(elem, "pwd") || !ft_strcmp(elem, "export")
 		|| !ft_strcmp(elem, "unset") || !ft_strcmp(elem, "env")

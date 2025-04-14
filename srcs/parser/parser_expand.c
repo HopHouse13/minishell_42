@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/13 20:07:00 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 16:47:27 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 	while (tmp && tmp->token != END)
 	{
 		ft_expand_elem(tmp, parser, ml);
-		printf("\n\n\tELEM_FINAL : %s\n\n", tmp->elem); // ASUPP
+		printf("\n\n\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}
 }
