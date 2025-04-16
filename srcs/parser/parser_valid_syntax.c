@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_valid_syntax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/04/11 13:05:14 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/16 17:18:26 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ bool	ft_valid_redirs(t_parser *parser)
 	t_token	*tmp;
 	
 	tmp = parser->list_token;
-	if ((tmp->token == R_IN && !ft_cmds(ft_find_next_cmd(tmp))) // cherche la prochaine cmd dans l'input et la compare dans la liste de cmd dans "ft_cmds"
+/* 	if ((tmp->token == R_IN && !ft_cmds(ft_find_next_cmd(tmp))) // cherche la prochaine cmd dans l'input et la compare dans la liste de cmd dans "ft_cmds"
 		|| tmp->token == R_OUT || tmp->token == APPEND || tmp->token == HD)
-		return (false);
+		return (false); */
 	while (tmp->next && tmp->next->token != END)
 	{
 		if ((tmp->token == R_IN && tmp->next->token != F_IN)
@@ -77,10 +77,10 @@ bool	ft_valid_redirs(t_parser *parser)
 bool	ft_valid_syntax(t_parser *parser)
 {
 	if (!ft_valid_pipes(parser)) // check si il y a un pipe en premier ou en dernier de l'input.
-		return (false);
+		return (printf("pipe_issue\n"), false);
 	if (!ft_valid_cmds(parser)) // check si il y a plus d'une cmd par pipe.
-		return (false);
-	if (!ft_valid_redirs(parser))  // check si au debut et a la fin il y a une redir. Check si au milieu de l'input, les redir sont suivis du bon token.
-		return (false);
+		return (printf("cmds_issue\n"), false);
+	if (!ft_valid_redirs(parser))  // Check si toutes les redir sont suivis du bon token.
+		return (printf("redir_issue\n"), false);
 	return (true);
 }

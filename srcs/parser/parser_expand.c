@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/14 16:47:27 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/16 15:10:12 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	while (elem[parser->end] && elem[parser->end] != ']')
 		parser->end++;
 	ev_name = ft_substr_ml(elem, parser->start, parser->end - parser->start, ml); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
-	printf("\n\tEV_NAME : %s\n\n", ev_name);
+	printf("\tVAR_NAME : %s\n", ev_name);
 	ev_ptr = getenv(ev_name); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
@@ -89,13 +89,11 @@ void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml)
 	i = -1;
 	while (tmp->elem[++i])
 	{
-		ft_inside_quotes_parser(parser, tmp->elem, i);
-		if (tmp->elem[i] == '$' && parser->simple_q == OUT
-			&& tmp->token != DELIM && tmp->elem[i +1] && tmp->elem[i +1] == '['
-			&& (i == 0 || !ft_effect_escape_parser(parser, tmp->elem, i -1)))
+		
+		if (tmp->elem[i] == '$' && tmp->elem[i +1] == '[')
 		{
 			ev_exp = ft_expand(tmp->elem, i, parser, ml);
-			printf("\n\tExppanded : %s\n\n", ev_exp);
+			printf("\tEXPANDED : %s\n", ev_exp);
 			tmp->elem = ft_merge(tmp->elem, ev_exp, parser, ml);
 			i = -1;
 		}
@@ -110,7 +108,7 @@ void	ft_expand_list(t_parser *parser, t_mnode **ml)
 	while (tmp && tmp->token != END)
 	{
 		ft_expand_elem(tmp, parser, ml);
-		printf("\n\n\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
+		printf("\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}
 }

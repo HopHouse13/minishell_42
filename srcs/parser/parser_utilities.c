@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/14 16:51:13 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/16 17:14:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_cmds(char *cmd) // apparemment useless car organiquement execve va gerer.
+/* bool	ft_cmds(char *cmd) // apparemment useless car organiquement execve va gerer.
 {
 	if (!cmd)
 		return (false);
@@ -34,7 +34,7 @@ char	*ft_find_next_cmd(t_token *tmp)
 		tmp = tmp->next;
 	}
 	return (NULL);
-}
+} */
 
 // Si le nombre de changement d'etat de on_off est:
 // impair	-> 	pas d'effet
