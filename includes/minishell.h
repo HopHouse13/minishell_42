@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/14 18:39:08 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/16 18:12:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ void		ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
 void		ft_expand_list(t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
-void		ft_handle_redir(t_token *token, t_cmd *cmd);
+void		ft_handle_redir(t_parser *parser);
 void		ft_fill_list_cmd(t_parser *parser/* , t_mnode **ml */);
 
 /// parser_handle_quotes ///
