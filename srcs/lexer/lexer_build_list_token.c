@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/14 16:52:22 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/17 18:51:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,20 @@ void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 void ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 {
 	int start;
-
+(void)ml; ////////////////////////////////////
 	lexer->i = -1;
 	lexer->j = 0; // len de la sous chaine
 	start = 0;	  // debut de la sous chaine
-	while (lexer->line[++lexer->i])
+	while (lexer->input_clear[++lexer->i])
 	{
 		start = lexer->i;
-		while (lexer->line[lexer->i] != ' ' && lexer->line[lexer->i++])
+		while (lexer->input_clear[lexer->i] != ' ' && lexer->input_clear[lexer->i++])
 			lexer->j++;
-		// printf("\tline: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->line, start, lexer->j);
-		ft_add_node(lexer, ft_substr_ml(lexer->line, start, lexer->j, ml), ml);
+		printf("\tline: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->input_clear, start, lexer->j);
+		printf("test1");
+		printf("retour de substr : %s\n\n", ft_substr_ml(lexer->input_clear, start, lexer->j, ml));
+		// printf("test2");
+		// ft_add_node(lexer, ft_substr_ml(lexer->input_clear, start, lexer->j, ml), ml);
 		lexer->j = 0;
 	}
 	ft_define_token_redir(lexer);

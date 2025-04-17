@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/17 15:44:04 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/17 18:02:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct s_token
 
 typedef struct s_lexer // local
 {
-	char			line[SIZE_LINE];
+	char			wild_input[SIZE_LINE];
+	char			*input_clear;
 	t_token			*list_token;
 	int				i;
 	int				j;
@@ -168,13 +169,13 @@ void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 bool		ft_validate_operators(t_lexer *lexer, char *input);
 bool		ft_control_quotes_valid(t_lexer *lexer, char *input);
 bool		ft_control_character_valid(t_lexer *lexer, char *input);
-bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
-bool		ft_control_redir_valid(t_lexer *lexer, char *input);
+/* bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
+bool		ft_control_redir_valid(t_lexer *lexer, char *input); */
 
 /// lexer_cleaning_input ///
-void		ft_handle_space(t_lexer *lexer, char *input);
-void		ft_input_one_space(t_lexer *lexer, char *input);
-void		ft_put_pipe(t_lexer *lexer, char *input);
+void		ft_handle_space(t_lexer *lexer, char *input, t_mnode **ml);
+void		ft_input_one_space(t_lexer *lexer, char *input, t_mnode **ml);
+void		ft_put_pipe(t_lexer *lexer);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
 /// lexer_handle_quotes ///
