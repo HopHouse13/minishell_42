@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/14 18:53:35 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/17 12:15:54 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 	if (ft_valid_syntax(&parser))
 	{printf("\n\n\tSUCCESS: COMMANDE VALIDE\n\n\n");
 		ft_init_list_cmd(&parser, ml);
-		ft_fill_list_cmd(&parser/* , ml */);
-		//ft_print_list_cmd(parser.list_cmd);
+		ft_fill_list_cmd(&parser, ml);
 		return (parser.list_cmd);
 	}
 	printf("\n\n\t\tFAILURE : TAPE MIEUX LOOSER\n\n\n");

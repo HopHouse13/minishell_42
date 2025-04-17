@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/16 18:12:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/17 15:44:04 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,16 @@ void		ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
 void		ft_expand_list(t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
+void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
+
+/// parser_fill_list_cmd ///
+void		ft_get_outfile(t_cmd *cmd, t_token *token);
+void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_handle_redir(t_parser *parser);
-void		ft_fill_list_cmd(t_parser *parser/* , t_mnode **ml */);
+
+/// parser_fill_list_cmd ///
+void		ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml);
+void		ft_handle_cmd(t_parser *parser, t_mnode **ml);
 
 /// parser_handle_quotes ///
 void		ft_get_outfile(t_cmd *cmd, t_token *token);
