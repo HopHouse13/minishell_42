@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/16 17:14:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/18 19:05:29 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,20 @@ bool	ft_inside_brackets(t_parser *parser, char *str, int i)
 	if (str[i] == ']' && parser->mark_b == IN)
 		parser->mark_b = OUT;
 	return (parser->mark_b);
+}
+
+int	ft_count_pipe(t_parser *parser)
+{
+	t_token	*tmp;
+	int		count_pipe;
+
+	count_pipe = 0;
+	tmp = parser->list_token;
+	while (tmp->token != END)
+	{
+		if ( tmp->token == PIPE)
+			count_pipe++;
+		tmp = tmp->next;
+	}
+	return (count_pipe);
 }

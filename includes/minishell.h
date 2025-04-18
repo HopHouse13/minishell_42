@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/17 18:02:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/18 18:10:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_cmd
 	char			**cmd; //ELEM
 	int				infile;
 	int				outfile;
-	//t_redir			*redir; // pour les redir : 4 variables : PARSER ->  infile && outfile | EXEC ->  write && read. 
 	t_hd			*hd;
 	int				count_hd; // 0 -> pas de hd, autre hd | Pab
 	struct s_cmd	*prev;
@@ -248,10 +247,11 @@ void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
 bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 
 /// parser_utilities ///
-bool		ft_cmds(char *cmd);
-char		*ft_find_next_cmd(t_token *tmp);
+/* bool		ft_cmds(char *cmd);
+char		*ft_find_next_cmd(t_token *tmp); */
 bool		ft_effect_escape_parser(t_parser *parser, char *str, int i);
 bool		ft_inside_brackets(t_parser *parser, char *str, int i);
+int			ft_count_pipe(t_parser *parser);
 
 ////////////////////////////////////////////////////////////////////////////////
 

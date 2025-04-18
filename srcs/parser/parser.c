@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:48:36 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/17 12:15:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/18 18:04:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 	{printf("\n\n\tSUCCESS: COMMANDE VALIDE\n\n\n");
 		ft_init_list_cmd(&parser, ml);
 		ft_fill_list_cmd(&parser, ml);
+		mshell->count_pipe = ft_count_pipe(&parser);
 		return (parser.list_cmd);
 	}
 	printf("\n\n\t\tFAILURE : TAPE MIEUX LOOSER\n\n\n");

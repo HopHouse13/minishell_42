@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/14 18:58:01 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/18 19:01:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_print_double_tab(char **tab)
 	if(tab)
 	{
 		while (tab[++i])
-			ft_printf("%s\n", tab[i]);
+			printf("\t\tELEM nº%d\t->\t%s\n", i, tab[i]);
 	}
 }
 
@@ -70,10 +70,10 @@ void	ft_print_list_cmd(t_cmd *head) // A SUPP
 		ft_printf("\n\t******************* list_cmd *********************\n\n");
     	while (tmp != NULL)
     	{
-			printf("\n\t\t\t--- NODE Nº%d ---\n", counter++);
+			printf("\n\t\t\t--- NODE nº%d ---\n\n", counter++);
 			ft_print_double_tab(tmp->cmd);
-			printf("\n\tinfile\t\t[%d]\n", tmp->infile);
-			printf("\n\toutfile\t\t[%d]\n", tmp->outfile);
+			printf("\n\t\tINFILE\t\t->\t[%d]", tmp->infile);
+			printf("\n\t\tOUTFILE\t\t->\t[%d]\n", tmp->outfile);
     	    tmp = tmp->next;
     	}
 	}
