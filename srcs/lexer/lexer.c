@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 18:11:13 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/04/18 15:39:59 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*ft_lexer(char *input, t_mnode **ml)
 	ft_init_lexer(&lexer);
 	if (ft_validate_operators(&lexer, input) == false)
 		return (NULL); // erreur a gerer
-	ft_input_one_space(&lexer, input);
+	ft_input_one_space(&lexer, input, ml);
 	ft_build_list_token(&lexer, ml);
 	return (lexer.list_token);
 }

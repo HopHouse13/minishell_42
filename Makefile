@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
+#    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/03/12 18:34:31 by ubuntu           ###   ########.fr        #
+#    Updated: 2025/04/17 15:44:45 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,22 +14,48 @@ NAME		= minishell
 SRCS_DIR	= srcs
 OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
-			srcs/lexer/lexer_utilities.c \
-			srcs/lexer/lexer_build_list_token.c \
-			srcs/lexer/lexer_cleaning_input.c \
+			srcs/lexer/lexer.c \
 			srcs/lexer/lexer_initialisation.c \
 			srcs/lexer/lexer_validate_operators.c \
-			srcs/lexer/lexer.c \
-			srcs/parser/parser_initialisation.c \
+			srcs/lexer/lexer_cleaning_input.c \
+			srcs/lexer/lexer_build_list_token.c \
+			srcs/lexer/lexer_handle_quotes.c \
+			srcs/lexer/lexer_utilities.c \
 			srcs/parser/parser.c \
+			srcs/parser/parser_initialisation.c \
+			srcs/parser/parser_clear_and_expand.c \
+			srcs/parser/parser_markers_expand.c \
+			srcs/parser/parser_clear_elem.c \
+			srcs/parser/parser_expand.c \
+			srcs/parser/parser_valid_syntax.c \
+			srcs/parser/parser_initialisation_list_cmd.c \
+			srcs/parser/parser_handle_cmd.c \
+			srcs/parser/parser_handle_redir.c \
+			srcs/parser/parser_fill_list_cmd.c \
+			srcs/parser/parser_handle_quotes.c \
+			srcs/parser/parser_utilities.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \
 			srcs/malloc/malloc_split_ml.c \
 			srcs/malloc/malloc_strdup_ml.c \
+			srcs/malloc/malloc_strjoin_ml.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
 			srcs/utilities/init.c \
-			srcs/utilities/print.c
+			srcs/utilities/print.c \
+			srcs/exec/execution_cmd.c \
+			srcs/exec/ft_exe_builtins.c \
+			srcs/exec/pipe.c \
+			srcs/exec/redirect.c \
+			srcs/exec/test_init.c \
+			srcs/builtin/ft_cd.c \
+			srcs/builtin/ft_echo.c \
+			srcs/builtin/ft_env.c \
+			srcs/builtin/ft_exit.c \
+			srcs/builtin/ft_export.c \
+			srcs/builtin/ft_pwd.c \
+			srcs/builtin/ft_unset.c
+
 		
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc

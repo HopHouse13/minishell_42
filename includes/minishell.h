@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/03/12 18:33:12 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/04/18 18:10:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@
 # include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
 # include <stdbool.h>           // boolien
-# include <stdio.h>             // printf (pour la phase de dev.)
-# include <stdlib.h>            // exit ;
+# include <stdio.h>             // printf (pour la phase de dev.); dprintf
+# include <stdlib.h>            // exit ; getenv ;
+# include <unistd.h>			// get
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <fcntl.h>				// open;
 
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin
@@ -34,88 +39,133 @@
 # define WHITE "\033[37m"		// a supprimer si non besoin
 
 # define SIZE_LINE 80000
-# define IN_Q 1
-# define OUT_Q 0
+# define IN 1
+# define OUT 0
 
+extern int		exit_status; // variable globale pour obtenir le dernier exit_code.
 typedef enum e_type
 {
 	ELEM,
 	PIPE,       // "|"
-	REDIR_IN,   // "<"
-	REDIR_OUT,	// ">"
+	R_IN,   	// "<"
+	R_OUT,		// ">"
 	HD,         // "<<"
-	END_HD,     // EOF
 	APPEND,     // ">>"
-	DOLLAR,     // "$"
-	END,        // fin de input
-	UNKNOWN     // inconnu
+	F_IN,		// fichier d'entree
+	F_OUT,		// ecrasement dans fichier
+	F_APP,		// rajout dans fichier
+	DELIM,		// delimiteur heredoc
+	CMD,		// commande
+	BI,			// builtin
+	ARG,		// argument de la precedente commande
+	END,		// fin de input
 }					t_type;
 
 typedef struct s_token
 {
 	char			*elem;
-	t_type			token;			
+	t_type			token;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_lexer
+typedef struct s_lexer // local
 {
-	char			line[SIZE_LINE];
+	char			wild_input[SIZE_LINE];
+	char			*input_clear;
 	t_token			*list_token;
 	int				i;
 	int				j;
-	int				squote;
-	int				dquote;
-	int				flag_quote;
+	bool			simple_q;
+	bool			double_q;
+	bool			flag_q;
+	bool			mark_q;
+	bool			cmd_in_pipe;
 }					t_lexer;
+
+typedef struct s_hd
+{
+	char			*delim; // pab
+	char			**buff_doc; // emir
+	bool			expand; // pab
+}					t_hd;
+
+typedef struct s_redir
+{
+	t_type			token; // pab
+	char			*file; // pab
+	struct s_redir	*prev;
+	struct s_redir	*next;
+}					t_redir;
 
 typedef struct s_cmd
 {
-	char			**cmd;
-	//liste chainee	**redir;
-	bool			squote;
-	bool			dquote;
+	char			**cmd; //ELEM
+	int				infile;
+	int				outfile;
+	t_hd			*hd;
+	int				count_hd; // 0 -> pas de hd, autre hd | Pab
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct s_HD
+typedef	struct	s_cmd_test
 {
-	char			*delim;
-	bool			expand;
-}					t_HD;
+	char			**cmd;
+	int				infile;
+	int				outfile;
+	t_hd			*hd;
+	int				hd_count; 
+	struct s_cmd_test	*prev;
+	struct s_cmd_test	*next;
+}				t_cmd_test;
 
-typedef struct s_parser
+typedef struct s_parser // local
 {
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	char			**env;
+	bool			simple_q;
+	bool			double_q;
+	bool			flag_q;
+	bool			mark_q;
+	int				start;
+	int				end;
+	bool			mark_b;
+	int				exit_status;
 }					t_parser;
 
-/* typedef struct s_exec
+typedef struct s_exec // local
 {
+	int				i;
+//	int				exit_status;
+}					t_exec;
 
-}					t_exec; */
-
-typedef struct s_mnode  		// noeud par malloc
+typedef struct s_mnode  		// noeud par la liste de malloc
 {
 	void			*ptr;
 	size_t			size;
 	struct s_mnode	*next;
 }					t_mnode;
 
-/* typedef struct s_ml				// head de la liste de malloc (init dans le main)
+typedef	struct s_env
 {
-	void			*head_ml;
-}					t_ml; */
+	char	*key;
+	char	*value;
+	struct s_env	*prev;
+	struct s_env	*next;
+}		t_env;
 
 typedef struct s_mshell
 {
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	char			**env;
+	t_cmd_test		*list_cmd_test; 
+	t_env			*env_list; // build_list
+	int				count_pipe; // pab
+	char			**env; // a suppr
 	char			**paths;
 	int				exit_status;
 }					t_mshell;
@@ -124,49 +174,110 @@ typedef struct s_mshell
 int			main(int ac, char **av, char **env);
 void		ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 
+////////////////////////////////////////////////////////////////////////////////
+
 /// lexer ///
 t_token		*ft_lexer(char *input, t_mnode **ml);
 
-/// lexer_init ///
+/// lexer_initialisation ///
 void		ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
-void		ft_define_token(t_lexer *lexer);
+void		ft_define_token_redir(t_lexer *lexer);
 void		ft_build_list_token(t_lexer *lexer, t_mnode **ml);
-void		ft_add_node_token(t_lexer *lexer, char *elem, t_mnode **ml);
+void		ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
 void		ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
 /// lexer_operateurs_valid ///
 bool		ft_validate_operators(t_lexer *lexer, char *input);
 bool		ft_control_quotes_valid(t_lexer *lexer, char *input);
-bool		ft_control_carac_valid(t_lexer *lexer, char *input);
-bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
-bool		ft_control_redir_valid(t_lexer *lexer, char *input);
+bool		ft_control_character_valid(t_lexer *lexer, char *input);
+/* bool		ft_control_pipe_valid(t_lexer *lexer, char *input);
+bool		ft_control_redir_valid(t_lexer *lexer, char *input); */
 
 /// lexer_cleaning_input ///
-void		ft_input_one_space(t_lexer *lexer, char *input);
-void		ft_put_pipe(t_lexer *lexer, char *input);
+void		ft_handle_space(t_lexer *lexer, char *input, t_mnode **ml);
+void		ft_input_one_space(t_lexer *lexer, char *input, t_mnode **ml);
+void		ft_put_pipe(t_lexer *lexer);
 void		ft_put_redirection(t_lexer *lexer, char *input);
 
-/// lexer_operateurs_utilities ///
-void		ft_check_quotes(t_lexer *lexer, char c);
-void		ft_init_line(char *virgin_line);
-void		ft_handle_space(t_lexer *lexer, char *input);
-bool		ft_valid_carac(char c);
+/// lexer_handle_quotes ///
+bool		ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
+void		ft_status_update_lexer(bool *quote, bool *mark, bool *flag);
 
-/// parser_utils ///
+/// lexer_utilities ///
+bool		ft_effect_escape_lexer(t_lexer *lexer, char *str, int i);
 void		ft_init_line(char *virgin_line);
-void		ft_handle_space(t_lexer *lexer, char *input);
-bool		ft_valid_carac(char c);
+bool		ft_valid_character(char c);
+t_type		ft_builtin_or_cmd(t_lexer *lexer, char *elem);
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// parser ///
-t_cmd		*ft_parser(t_token *list_token, t_mnode **ml);
+t_cmd		*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml);
+
+/// parser_initilisation ///
+void		ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token);
+
+/// parser_valid_syntax ///
+bool		ft_valid_pipes(t_parser *parser);
+bool		ft_valid_cmds(t_parser *parser);
+bool		ft_valid_redirs(t_parser *parser);
+bool		ft_valid_syntax(t_parser *parser);
+
+/// parser_initialisation_list_cmd ///
 void		ft_init_list_cmd(t_parser *parser, t_mnode **ml);
 void		ft_add_node_cmd(t_parser *parser, t_mnode **ml);
 void		ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
+void		ft_init_node_values(t_cmd *new_elem);
 
-/// parser_utils ///
-void		ft_init_parser(t_parser *parser, t_token *token);
+/// parser_expand_and_ckeanup ///
+void		ft_clear_and_expand(t_parser *parser, t_mnode **ml);
+
+/// parser_clear_elem ///
+bool		ft_char_saved(t_parser *parser, char *str, int i);
+void		ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml);
+char		*ft_remove_escape_char(t_parser *parser, char *str, t_mnode **ml);
+
+/// parser_markers_expand ///
+int			ft_find_end_var(char *str, int i);
+char		*ft_insert_marker(char *str, int i, t_mnode **ml);
+char		*ft_marker(char *str, t_type token, t_parser *parser, t_mnode **ml);
+void		ft_mark_expand(t_parser *parser, t_mnode **ml);
+
+/// parser_expand ///
+char		*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
+char		*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
+char		*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
+void		ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
+void		ft_expand_list(t_parser *parser, t_mnode **ml);
+
+/// parser_fill_list_cmd ///
+void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
+
+/// parser_fill_list_cmd ///
+void		ft_get_outfile(t_cmd *cmd, t_token *token);
+void		ft_get_infile(t_cmd *cmd, t_token *token);
+void		ft_handle_redir(t_parser *parser);
+
+/// parser_fill_list_cmd ///
+void		ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml);
+void		ft_handle_cmd(t_parser *parser, t_mnode **ml);
+
+/// parser_handle_quotes ///
+void		ft_get_outfile(t_cmd *cmd, t_token *token);
+void		ft_get_infile(t_cmd *cmd, t_token *token);
+void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
+bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
+
+/// parser_utilities ///
+/* bool		ft_cmds(char *cmd);
+char		*ft_find_next_cmd(t_token *tmp); */
+bool		ft_effect_escape_parser(t_parser *parser, char *str, int i);
+bool		ft_inside_brackets(t_parser *parser, char *str, int i);
+int			ft_count_pipe(t_parser *parser);
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// malloc ///
 void		*ft_malloc_list(size_t size, t_mnode **ml);
@@ -175,15 +286,19 @@ void 		ft_add_ml(void *ptr, size_t size, t_mnode **ml);
 void		ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
 char		**ft_split_ml(char const *s, char c, t_mnode **ml);
 char		*ft_strdup_ml(const char *s_src, t_mnode **ml);
+char		*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
 char		*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void		ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void		ft_free_ml(t_mnode **ml);
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
 void		ft_error_exit(char *message);
 void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
+void		ft_init_exec(t_exec *exec);
 
 /// utilities_print ///
 void		ft_print_input_clean(char *line);
@@ -193,25 +308,45 @@ const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
 
 
-	// * EXEC * //
-
-//redirect.c
-
-void	redirect(t_mshell instructions);
-void	redirect_case(void fd, void tokken);
-void	redirect_in(void fd, char *infile);
-void	redirect_out_trunc(char *outfile);
-void	redirect_out_app(char *outfile);
-void	redirect_hd(src, dest);
-
-// execution_cmd.c
-void	ft_executer(t_mshell instructions);
-void	execution_cmd(char *cmd, char **cmd_args);
+////////////////////////////////////////////////////////////////////////////////
 
 
+// exec
+void    ft_executer(t_mshell *mshell);
+
+void    ft_forker_test(t_mshell *mshell);
+void	ft_forker(t_mshell *mshell);
+
+void    ft_exe_built_in(t_mshell *mshell);
+
+t_cmd_test		*test_cmd_init(void);
+t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
+
+t_cmd    		*cmd_init(void);
+t_mshell    	*cmd_remplissage(t_mshell *mshell);
+
+// BUILTINS
+
+// ft_cd
+
+// ft_echo
+
+// ft_env
+int		ft_env(t_mshell *mshell);
+void	ft_print_env_list(t_env *env_list);
+void    ft_env_minimal(t_mshell *mshell);
+
+void    ft_build_env_list(t_mshell   *mshell);
 
 
-	// * Built - In * //
-void	BI_echo(char *env_var);
+// ft_exit
+
+// ft_export
+int		ft_export(t_mshell *mshell);
+
+
+// ft_pwd
+
+// ft_unset
 
 #endif	

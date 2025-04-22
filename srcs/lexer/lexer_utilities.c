@@ -6,29 +6,32 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 17:54:01 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/14 16:41:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_check_quotes(t_lexer *lexer, char c)
+// Si le nombre de changement d'etat de on_off est:
+// impair	-> 	pas d'effet
+// pair		->	effet
+// [\] pas d'effet dans simple quote
+// dans double quotes pas d'effet sauf avec ["][\][$]
+// false (0) -> pas d'effet ; true (1) -> effet
+bool	ft_effect_escape_lexer(t_lexer *lexer, char *str, int i)
 {
-	if (c == '\'' && lexer->dquote == OUT_Q && lexer->squote == OUT_Q)
-		lexer->squote = IN_Q;
-	else if (c == '\'' && lexer->squote == IN_Q && lexer->dquote == OUT_Q)
-		lexer->squote = OUT_Q;
-	else if (c == '\"' && lexer->squote == OUT_Q && lexer->dquote == OUT_Q)
-		lexer->dquote = IN_Q;
-	else if (c == '\"' && lexer->dquote == IN_Q && lexer->squote == OUT_Q)
-		lexer->dquote = OUT_Q;
-	if (lexer->squote == OUT_Q && lexer->dquote == OUT_Q)
-		lexer->flag_quote = OUT_Q;
-	else
-		lexer->flag_quote = IN_Q;
+	bool	on_off;
+	
+	on_off = false;
+	if((lexer->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
+		|| lexer->simple_q)
+		return (on_off);
+	while (--i>= 0 && str[i] == '\\')
+		on_off = !on_off;
+	return (on_off);
 }
 
-void	ft_init_line(char *virgin_line)
+void	ft_init_line(char *virgin_line) // remplir le tab de caracteres de '\0'
 {
 	int	i;
 
@@ -38,22 +41,20 @@ void	ft_init_line(char *virgin_line)
 	return ;
 }
 
-void	ft_handle_space(t_lexer *lexer, char *input)
-{
-	int	z;
-	
-	z = ft_strlen(input) - 1;
-	while (input[z] == ' ' && z > 0)
-		z--;
-	if (lexer->i > 0 && lexer->i <= z)
-		lexer->line[++lexer->j] = ' ';
-	while (input[lexer->i + 1] == ' ')
-		lexer->i++;
-}
-
-bool	ft_valid_carac(char c)
+bool	ft_valid_character(char c)
 {
 	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
 		return (false);
 	return (true);
-}	
+}
+
+t_type	ft_builtin_or_cmd( t_lexer *lexer, char *elem)
+{
+	lexer->cmd_in_pipe = true;
+	if (!ft_strcmp(elem, "echo") || !ft_strcmp(elem, "cd")
+		|| !ft_strcmp(elem, "pwd") || !ft_strcmp(elem, "export")
+		|| !ft_strcmp(elem, "unset") || !ft_strcmp(elem, "env")
+		|| !ft_strcmp(elem, "exit"))
+		return (BI);
+	return (CMD);
+}

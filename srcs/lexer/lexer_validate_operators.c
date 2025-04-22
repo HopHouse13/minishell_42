@@ -3,100 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_validate_operators.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/04 17:19:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/17 16:56:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_control_redir_valid(t_lexer *lexer, char *input)
-{
+/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+{printf("\n\n\t----------------------REDIR------------------------\n");
+	bool	flag = false;
 	lexer->i = -1;
-	while (++lexer->i < ft_strlen(input))
+	while (input[++lexer->i])
 	{
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_quote == OUT_Q)
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i) &&
+			!ft_effect_escape_lexer(lexer, input, lexer->i))
 		{
-			if ((input[lexer->i] == '<' || input[lexer->i] == '>') 
-				&& input[lexer->i + 1])
+			if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
 			{
-				lexer->i++;
-				if (input[lexer->i] == input[lexer->i - 1])
-				{
-					if (input[lexer->i + 1])
-						lexer->i++;
-					else
-						break ;	
-				}
-				while (input[lexer->i] == ' ')
-					lexer->i++;
-				if (ft_valid_carac(input[lexer->i]) == false)
+				if (flag)
 					return (false);
+				flag = true;
+				if (input[lexer->i] == input[lexer->i + 1])
+					lexer->i++;
 			}
+			else if (input[lexer->i] == '<' || input[lexer->i] == '>')
+				return (false);
+			else
+				flag = false;
 		}
 	}
 	return (true);
 }
 
 bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
-{
+{printf("\n\n\t-----------------------PIPE------------------------\n");
+	bool	pipe;
+
+	pipe = false;
 	lexer->i = -1;
-	while (++lexer->i < ft_strlen(input))
-	{	
-		ft_check_quotes(lexer, input[lexer->i]);
-		if (lexer->flag_quote == OUT_Q)
+	while (input[++lexer->i])
+	{
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape_lexer(lexer, input, lexer->i))
 		{
-			if (input[lexer->i] == '|' && input[lexer->i + 1])
-			{
-				lexer->i++;
-				while (input[lexer->i] == ' ')
-					lexer->i++;
-				if (ft_valid_carac(input[lexer->i]) == false)
-					return (false);
-			}
+			if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
+					pipe = false;
+			else if (input[lexer->i] == '|' && pipe == false) // si tu rencontres un pipe et qu c'est un pipe non consecutif
+				pipe = true;
+			else if (pipe == true && !ft_valid_character(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
+				return (false);
 		}
 	}
 	return (true);
-}
+} */
 
-bool	ft_control_carac_valid(t_lexer *lexer, char *input)
-{
+bool	ft_control_character_valid(t_lexer *lexer, char *input)
+{printf("\n\n\t--------------------CARAC_VALID--------------------\n");
 	char	c;
 
 	lexer->i = -1;
-	while (++lexer->i < ft_strlen(input))
+	while (input[++lexer->i])
 	{
 		c = input[lexer->i];
-		ft_check_quotes(lexer, c);
-		if ((c == '{' || c == '}' || c == '[' || c == ']' || c == '(' ||
-			c == ')' || c == ';' || c == '&') && lexer->flag_quote == OUT_Q)
-			return (false);
+		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
+			&& !ft_effect_escape_lexer(lexer, input, lexer->i))// pour eviter d'interdir n'importe quel caractere car dans des quotes ou il a le caractere d'echappement juste avant.
+			if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
+				|| c == ';' || c == '&' || c == '#'
+				|| (lexer->i == ft_strlen(input) - 1 && c == '\\'))
+				return (false);
 	}
 	return (true);
 }
 	
 bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
-{
+{printf("\n\n\t--------------------QUOTES-------------------------\n");
 	lexer->i = -1;
 	while (input[++lexer->i])
-		ft_check_quotes(lexer, input[lexer->i]);
-	if (lexer->flag_quote == OUT_Q)
-		return (true);
-	return (false);
+		ft_inside_quotes_lexer(lexer, input, lexer->i);
+	if (lexer->simple_q == IN || lexer->double_q == IN)
+		return (false);
+	return (true);
 }
 
 bool	ft_validate_operators(t_lexer *lexer, char *input)
 {
 	if (ft_control_quotes_valid(lexer, input) == false)
 		return (printf("false_quote\n"), false);// erreur a gerer
-	if (ft_control_carac_valid(lexer, input) == false)
+	if (ft_control_character_valid(lexer, input) == false)
 		return (printf("false_carac\n"), false);// erreur a gerer
-	if (ft_control_pipe_valid(lexer, input) == false)
+	/* if (ft_control_pipe_valid(lexer, input) == false)
 		return (printf("false_operators\n"), false);// erreur a gerer
 	if (ft_control_redir_valid(lexer, input) == false)
-		return (printf("false_redir\n"), false);// erreur a gerer
+		return (printf("false_redir\n"), false);// erreur a gerer */
 	return (true);
 }

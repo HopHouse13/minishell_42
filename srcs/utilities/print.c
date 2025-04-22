@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/12 17:18:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/04/18 19:01:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_print_input_clean(char *line)
 {
-	ft_printf("\nline : [%s]\n\n", line);
+	ft_printf("\n\t******************** input_clear *********************\n\n");
+	ft_printf("\tline : [%s]\n\n", line);
 }
 
 void	ft_print_double_tab(char **tab)
@@ -25,17 +26,17 @@ void	ft_print_double_tab(char **tab)
 	if(tab)
 	{
 		while (tab[++i])
-			ft_printf("%s\n", tab[i]);
-		ft_printf("\n---------------------------------\n\n");
+			printf("\t\tELEM nº%d\t->\t%s\n", i, tab[i]);
 	}
 }
 
 const char	*ft_get_name_type(t_type type)
 {
-	const char *type_tab[] = { "ELEM", "PIPE", "REDIR_IN", "REDIR_OUT", "HD",
-							"END_HD", "APPEND", "DOLLAR", "END", "UNKNOWN"};
+	const char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
+								"APPEND", "F_IN", "F_OUT", "F_APP",
+								"DELIM", "CMD", "BI", "ARG", "END"};
 	
-	if ( type >= ELEM && type <=UNKNOWN)
+	if (type >= ELEM && type <=END)
 		return (type_tab[type]);
 	return ("INVALID_TYPE");
 }
@@ -45,30 +46,35 @@ void	ft_print_list_token(t_token *head) // A SUPP
     t_token	*tmp;
 	
 	tmp = head;
-	ft_printf("----------- list_token -----------\n\n");
-    while (tmp)
-    {
-        printf("Token: [%s]\t\tType: [%d -> %s]\n", tmp->elem, tmp->token,
-		ft_get_name_type(tmp->token));
-        tmp = tmp->next;
-    }
-	ft_printf("\n---------------------------------\n\n\n");
+	if (tmp)
+	{
+		ft_printf("\n\n\t\t\t --- list_token --- \n\n");
+    	while (tmp)
+    	{
+    	    printf("\tToken: [%s]\t\tType: [%s]\n\n", tmp->elem,
+			ft_get_name_type(tmp->token));
+    	    tmp = tmp->next;
+    	}
+	}
 }
 
 void	ft_print_list_cmd(t_cmd *head) // A SUPP
 {
     t_cmd	*tmp;
-	// char	**tab_cmd;
+	int		counter;
 	
-	//tab_cmd = head->cmd;
+	counter = 1;
 	tmp = head;
-	ft_printf("----------- list_cmd ------------\n\n");
-    while (tmp)
-    {
-		/* while (*tab_cmd)
-        	ft_printf("cmd: [%s]\n", *tab_cmd++); */
-		ft_printf("quote -> %d\n", tmp->dquote);
-        tmp = tmp->next;
-    }
-	ft_printf("\n---------------------------------\n\n\n");
+	if (tmp)
+	{
+		ft_printf("\n\t******************* list_cmd *********************\n\n");
+    	while (tmp != NULL)
+    	{
+			printf("\n\t\t\t--- NODE nº%d ---\n\n", counter++);
+			ft_print_double_tab(tmp->cmd);
+			printf("\n\t\tINFILE\t\t->\t[%d]", tmp->infile);
+			printf("\n\t\tOUTFILE\t\t->\t[%d]\n", tmp->outfile);
+    	    tmp = tmp->next;
+    	}
+	}
 }

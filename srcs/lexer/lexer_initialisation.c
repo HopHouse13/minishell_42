@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialisation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/06 17:53:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/17 18:23:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_lexer(t_lexer *lexer)
+void ft_init_lexer(t_lexer *lexer)
 {
-	ft_init_line(lexer->line);
+	ft_init_line(lexer->wild_input);
+	lexer->input_clear = NULL;
 	lexer->list_token = NULL;
 	lexer->i = -1;
 	lexer->j = -1;
-	lexer->squote = OUT_Q;
-	lexer->dquote = OUT_Q;
-	lexer->flag_quote = OUT_Q;
+	lexer->simple_q = OUT;
+	lexer->double_q = OUT;
+	lexer->flag_q = false;
+	lexer->mark_q = OUT;
+	lexer->cmd_in_pipe = false;
 }
