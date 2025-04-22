@@ -32,8 +32,9 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 				ft_print_list_cmd(mshell->list_cmd); // ASUPP
 				printf("\n\tnbr de pipe %d\n\n", mshell->count_pipe);
 			// 	/* if (mshell->exec->list_cmd)
-		}
-		ft_executer(mshell);
+		  }
+	    ft_executer(mshell);
+			}
 		}
 	}
 }
@@ -50,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		mshell = ft_malloc_list(sizeof(t_mshell), &ml);
 		if (!mshell)
 			ft_error_exit("Error main ");
-		ft_init_mshell(mshell, env, &ml); // initialisation de tes les struct
+		ft_init_mshell(mshell, env/*, &ml*/); // initialisation de tes les struct
 		ft_loop_mshell(mshell, &ml);      // minishell_loop
 		ft_free_ml(&ml);
 		rl_clear_history();

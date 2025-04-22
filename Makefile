@@ -2,11 +2,6 @@
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/04/17 15:44:45 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +25,7 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser_valid_syntax.c \
 			srcs/parser/parser_initialisation_list_cmd.c \
 			srcs/parser/parser_handle_cmd.c \
+			srcs/parser/parser_handle_hd.c \
 			srcs/parser/parser_handle_redir.c \
 			srcs/parser/parser_fill_list_cmd.c \
 			srcs/parser/parser_handle_quotes.c \

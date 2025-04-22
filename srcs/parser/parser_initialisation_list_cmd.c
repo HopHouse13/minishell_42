@@ -6,7 +6,6 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/22 17:08:07 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +16,16 @@ void	ft_init_node_values(t_cmd *new_elem)
 	new_elem->cmd = NULL;
 	new_elem->infile = -1;
 	new_elem->outfile = -1;
-	
-	new_elem->count_hd = 0;
-	new_elem->hd = NULL;
+	new_elem->fd_hd = -1;
+	new_elem->delim_hd = NULL;
+	new_elem->buff_hd = NULL;
+	new_elem->expand_hd = false;
 	new_elem->next = NULL;
 }
 
 void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml)
 {
 	t_cmd	*first_node;
-
 	first_node = ft_malloc_list(sizeof(t_cmd), ml);
 	if (!first_node)
 	{

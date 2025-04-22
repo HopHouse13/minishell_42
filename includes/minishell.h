@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
@@ -15,18 +16,21 @@
 
 # include "./libft/includes/libft.h"
 # include "./printf/includes/ft_printf.h"
+# include <unistd.h>			// get
 # include <errno.h>             // liste des erreurs errno.
 # include <readline/history.h>  // gere l'historique des commandes (non vide)
 # include <readline/readline.h> // declare la fonction readline.
 # include <stdbool.h>           // boolien
 # include <stdio.h>             // printf (pour la phase de dev.); dprintf
 # include <stdlib.h>            // exit ; getenv ;
+
 # include <unistd.h>			// get
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <string.h>
 # include <fcntl.h>				// open;
+
 
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin
@@ -83,13 +87,6 @@ typedef struct s_lexer // local
 	bool			cmd_in_pipe;
 }					t_lexer;
 
-typedef struct s_hd
-{
-	char			*delim; // pab
-	char			**buff_doc; // emir
-	bool			expand; // pab
-}					t_hd;
-
 typedef struct s_redir
 {
 	t_type			token; // pab
@@ -103,22 +100,13 @@ typedef struct s_cmd
 	char			**cmd; //ELEM
 	int				infile;
 	int				outfile;
-	t_hd			*hd;
-	int				count_hd; // 0 -> pas de hd, autre hd | Pab
+	int				fd_hd; // pab
+	char			*delim_hd; // pab
+	char			**buff_hd; // emir
+	bool			expand_hd; // pab
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
-
-typedef	struct	s_cmd_test
-{
-	char			**cmd;
-	int				infile;
-	int				outfile;
-	t_hd			*hd;
-	int				hd_count; 
-	struct s_cmd_test	*prev;
-	struct s_cmd_test	*next;
-}				t_cmd_test;
 
 typedef struct s_parser // local
 {
@@ -135,12 +123,6 @@ typedef struct s_parser // local
 	bool			mark_b;
 	int				exit_status;
 }					t_parser;
-
-typedef struct s_exec // local
-{
-	int				i;
-//	int				exit_status;
-}					t_exec;
 
 typedef struct s_mnode  		// noeud par la liste de malloc
 {
@@ -162,10 +144,9 @@ typedef struct s_mshell
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	t_cmd_test		*list_cmd_test; 
 	t_env			*env_list; // build_list
 	int				count_pipe; // pab
-	char			**env; // a suppr
+	char			**env;
 	char			**paths;
 	int				exit_status;
 }					t_mshell;
@@ -255,18 +236,20 @@ void		ft_expand_list(t_parser *parser, t_mnode **ml);
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
-/// parser_fill_list_cmd ///
+/// parser_handle_redir ///
 void		ft_get_outfile(t_cmd *cmd, t_token *token);
 void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_handle_redir(t_parser *parser);
 
-/// parser_fill_list_cmd ///
-void		ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml);
+/// parser_handle_hd ///
+void		ft_get_hd(t_cmd *cmd, t_token *token);
+void		ft_handle_hd(t_parser *parser);
+
+/// parser_handle_cmd ///
+void		ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
 void		ft_handle_cmd(t_parser *parser, t_mnode **ml);
 
 /// parser_handle_quotes ///
-void		ft_get_outfile(t_cmd *cmd, t_token *token);
-void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
 bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 
@@ -295,7 +278,7 @@ void		ft_free_ml(t_mnode **ml);
 
 /// utilities ///
 void		ft_error_exit(char *message);
-void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
+void		ft_init_mshell(t_mshell *mshell, char **env); // **ml
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
 void		ft_init_exec(t_exec *exec);
@@ -306,7 +289,6 @@ void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
