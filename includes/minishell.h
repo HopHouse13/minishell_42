@@ -164,9 +164,8 @@ typedef struct s_mshell
 	t_cmd			*list_cmd;
 	t_env			*env_list; 	// build_list
 	int				count_pipe;
-	char			**paths;			// XXX
-	char			**env; 				// XXX
 	int				exit_status;
+	char			**paths;			// XXX
 	t_cmd_test		*list_cmd_test; 	// XXX
 }					t_mshell;
 
