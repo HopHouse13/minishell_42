@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/22 15:26:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/22 19:21:40 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,6 @@ typedef struct s_lexer // local
 	bool			cmd_in_pipe;
 }					t_lexer;
 
-typedef struct s_hd
-{
-	char			*delim; // pab
-	char			**buff_doc; // emir
-	bool			expand; // pab
-}					t_hd;
-
 typedef struct s_redir
 {
 	t_type			token; // pab
@@ -100,8 +93,10 @@ typedef struct s_cmd
 	char			**cmd; //ELEM
 	int				infile;
 	int				outfile;
-	t_hd			*hd;
-	int				count_hd; // 0 -> pas de hd, autre hd | Pab
+	int				fd_hd; // pab
+	char			*delim_hd; // pab
+	char			**buff_hd; // emir
+	bool			expand_hd; // pab
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -231,18 +226,20 @@ void		ft_expand_list(t_parser *parser, t_mnode **ml);
 /// parser_fill_list_cmd ///
 void		ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
 
-/// parser_fill_list_cmd ///
+/// parser_handle_redir ///
 void		ft_get_outfile(t_cmd *cmd, t_token *token);
 void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_handle_redir(t_parser *parser);
 
-/// parser_fill_list_cmd ///
-void		ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml);
+/// parser_handle_hd ///
+void		ft_get_hd(t_cmd *cmd, t_token *token);
+void		ft_handle_hd(t_parser *parser);
+
+/// parser_handle_cmd ///
+void		ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
 void		ft_handle_cmd(t_parser *parser, t_mnode **ml);
 
 /// parser_handle_quotes ///
-void		ft_get_outfile(t_cmd *cmd, t_token *token);
-void		ft_get_infile(t_cmd *cmd, t_token *token);
 void		ft_status_update_parser(bool *quote, bool *mark, bool *flag);
 bool		ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 
