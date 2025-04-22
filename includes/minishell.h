@@ -118,7 +118,7 @@ typedef	struct	s_cmd_test
 	int				hd_count; 
 	struct s_cmd_test	*prev;
 	struct s_cmd_test	*next;
-}				t_cmd_test;
+}				t_cmd_test;   // XXX
 
 typedef struct s_parser // local
 {
@@ -162,12 +162,12 @@ typedef struct s_mshell
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	t_cmd_test		*list_cmd_test; 
-	t_env			*env_list; // build_list
-	int				count_pipe; // pab
-	char			**env; // a suppr
-	char			**paths;
+	t_env			*env_list; 	// build_list
+	int				count_pipe;
+	char			**paths;			// XXX
+	char			**env; 				// XXX
 	int				exit_status;
+	t_cmd_test		*list_cmd_test; 	// XXX
 }					t_mshell;
 
 /// main ///
@@ -295,7 +295,7 @@ void		ft_free_ml(t_mnode **ml);
 
 /// utilities ///
 void		ft_error_exit(char *message);
-void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
+void		ft_init_mshell(t_mshell *mshell, char **env); //t_mnode **ml !
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
 void		ft_init_exec(t_exec *exec);
@@ -336,7 +336,7 @@ int		ft_env(t_mshell *mshell);
 void	ft_print_env_list(t_env *env_list);
 void    ft_env_minimal(t_mshell *mshell);
 
-void    ft_build_env_list(t_mshell   *mshell);
+void    ft_build_env_list(t_mshell   *mshell, char **env);
 
 
 // ft_exit

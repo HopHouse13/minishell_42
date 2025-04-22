@@ -13,7 +13,6 @@ void    ft_exe_built_in(t_mshell *mshell)
         printf("BI reconnu : \033[33mecho\033[0m\n");    
         //ft_echo();
     else if (ft_strcmp(cmd, "env") == 0)
-        //printf("BI reconnu : \033[33menv\033[0m\n");    
         ft_env(mshell);
     else if (ft_strcmp(cmd, "exit") == 0)
         printf("BI reconnu : \033[33mexit\033[0m\n");

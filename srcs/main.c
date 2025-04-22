@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 		mshell = ft_malloc_list(sizeof(t_mshell), &ml);
 		if (!mshell)
 			ft_error_exit("Error main ");
-		ft_init_mshell(mshell, env, &ml); // initialisation de tes les struct
+		ft_init_mshell(mshell, env); // initialisation de tes les struct ; &ml
 		ft_loop_mshell(mshell, &ml);      // minishell_loop
 		ft_free_ml(&ml);
 		rl_clear_history();
@@ -63,5 +63,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-
-////// specifier si cmd ou bi

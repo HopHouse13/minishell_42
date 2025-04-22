@@ -30,6 +30,7 @@
 
 void    ft_executer(t_mshell *mshell)
 {
+    //ft_env(mshell);
     if (mshell->list_token->token == BI)
         ft_exe_built_in(mshell);
     else
