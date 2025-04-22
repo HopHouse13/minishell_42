@@ -45,37 +45,70 @@
 
 
     //---------------
-/*
+
 int ft_export(t_mshell *mshell)
 {
-    t_cmd *cmd;
-    cmd = mshell->list_cmd;
+    //t_cmd   *cmd;
+    //cmd = mshell->list_cmd;
     
-
-
-
-
-
     ft_add_var(mshell);
-   
+
+     
 
 
     return (1);
 }
 
-void    ft_add_var(t_mshell *s_mshell)
+void    ft_add_var(t_mshell *mshell)
 {
+    //fonction qui ajoute un noeud a la liste chainee (t_env *env_list)
+
     t_env   *new_node;
     t_env   *last;
+    t_cmd    *list_cmd;
 
-    while (mshell->)
+    list_cmd = mshell->list_cmd;
+    
+    int i;
 
-
-
-
-
+    i = 1;
+    while (list_cmd->cmd[i])
+    {
+        ft_add_node_env(mshell,);
+        i++;
+    }
 
 
 }
 
-*/
+
+void    ft_add_node_env(t_mshell *mshell, char *cmd)
+{
+    char    **key_value;
+    t_env   *new_node;
+
+
+    if (ft_isequal(cmd))
+        key_value = ft_split(cmd, '=');
+    
+    new_node = malloc(sizeof(t_env));
+    if (!new_node)
+        return ;
+    new_node->key = ft_strdup(key_value[0]);
+
+
+}
+
+int ft_isequal(char *str)
+{
+    int i;
+    i = 0;
+
+    while (str[i])
+    {
+        if (str[i] == '=')
+            return (1);
+        i++;
+    }
+    return (0);
+}
