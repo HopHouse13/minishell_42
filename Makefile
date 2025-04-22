@@ -2,11 +2,6 @@
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/23 17:02:37 by ubuntu            #+#    #+#              #
-#    Updated: 2025/04/22 19:06:54 by pbret            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +38,20 @@ SRCS		= srcs/main.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
 			srcs/utilities/init.c \
-			srcs/utilities/print.c
+			srcs/utilities/print.c \
+			srcs/exec/execution_cmd.c \
+			srcs/exec/ft_exe_builtins.c \
+			srcs/exec/pipe.c \
+			srcs/exec/redirect.c \
+			srcs/exec/test_init.c \
+			srcs/builtin/ft_cd.c \
+			srcs/builtin/ft_echo.c \
+			srcs/builtin/ft_env.c \
+			srcs/builtin/ft_exit.c \
+			srcs/builtin/ft_export.c \
+			srcs/builtin/ft_pwd.c \
+			srcs/builtin/ft_unset.c
+
 		
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc

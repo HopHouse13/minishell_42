@@ -3,10 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/22 19:36:01 by pbret            ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +32,6 @@ const char	*ft_get_name_type(t_type type)
 	const char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
 								"APPEND", "F_IN", "F_OUT", "F_APP",
 								"DELIM", "CMD", "BI", "ARG", "END"};
-	
 	if ( type >= ELEM && type <=END)
 		return (type_tab[type]);
 	return ("INVALID_TYPE");

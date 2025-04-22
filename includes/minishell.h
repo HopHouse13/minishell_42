@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/22 19:21:40 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/18 18:10:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +23,14 @@
 # include <stdbool.h>           // boolien
 # include <stdio.h>             // printf (pour la phase de dev.); dprintf
 # include <stdlib.h>            // exit ; getenv ;
+
+# include <unistd.h>			// get
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
-#include <fcntl.h>				// open;
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <fcntl.h>				// open;
+
 
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin
@@ -117,12 +124,6 @@ typedef struct s_parser // local
 	int				exit_status;
 }					t_parser;
 
-typedef struct s_exec // local
-{
-	int				i;
-//	int				exit_status;
-}					t_exec;
-
 typedef struct s_mnode  		// noeud par la liste de malloc
 {
 	void			*ptr;
@@ -130,11 +131,20 @@ typedef struct s_mnode  		// noeud par la liste de malloc
 	struct s_mnode	*next;
 }					t_mnode;
 
+typedef	struct s_env
+{
+	char	*key;
+	char	*value;
+	struct s_env	*prev;
+	struct s_env	*next;
+}		t_env;
+
 typedef struct s_mshell
 {
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
+	t_env			*env_list; // build_list
 	int				count_pipe; // pab
 	char			**env;
 	char			**paths;
@@ -268,7 +278,7 @@ void		ft_free_ml(t_mnode **ml);
 
 /// utilities ///
 void		ft_error_exit(char *message);
-void		ft_init_mshell(t_mshell *mshell, char **env, t_mnode **ml);
+void		ft_init_mshell(t_mshell *mshell, char **env); // **ml
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
 void		ft_init_exec(t_exec *exec);
@@ -279,5 +289,46 @@ void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
 void		ft_print_list_cmd(t_cmd *head);
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+// exec
+void    ft_executer(t_mshell *mshell);
+
+void    ft_forker_test(t_mshell *mshell);
+void	ft_forker(t_mshell *mshell);
+
+void    ft_exe_built_in(t_mshell *mshell);
+
+t_cmd_test		*test_cmd_init(void);
+t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
+
+t_cmd    		*cmd_init(void);
+t_mshell    	*cmd_remplissage(t_mshell *mshell);
+
+// BUILTINS
+
+// ft_cd
+
+// ft_echo
+
+// ft_env
+int		ft_env(t_mshell *mshell);
+void	ft_print_env_list(t_env *env_list);
+void    ft_env_minimal(t_mshell *mshell);
+
+void    ft_build_env_list(t_mshell   *mshell);
+
+
+// ft_exit
+
+// ft_export
+int		ft_export(t_mshell *mshell);
+
+
+// ft_pwd
+
+// ft_unset
 
 #endif	
