@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_clear_elem.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/13 19:59:59 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/23 20:03:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ bool	ft_char_saved(t_parser *parser, char *str, int i)
 
 // PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
 // faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles.
-char	*ft_remove_escape_char(t_parser *parser, char *str, t_mnode **ml)
-{
+char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
+{//printf("[[%s]]\n", str);
 	int		i;
 	int		j;
 	size_t	count_save;
@@ -70,6 +70,9 @@ char	*ft_remove_escape_char(t_parser *parser, char *str, t_mnode **ml)
 	return (str_clear);
 }
 
+// on remove les quotes et escape char par tout sauf dans les DELIM
+// j'ai besoin d'avoir l'info (expand ou pas dans HD)
+// les DELIM seront clear apres avoir stocke l'info lors la crea. de la cmd_list
 void	ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml)
 {
 	t_token	*tmp;
@@ -77,7 +80,8 @@ void	ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml)
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		tmp->elem = ft_remove_escape_char(parser,  tmp->elem, ml);
+		if (tmp->token != DELIM)
+			tmp->elem = ft_rm_quotes_and_esc(parser, tmp->elem, ml);
 		tmp = tmp->next;
 	}
 }

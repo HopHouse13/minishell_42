@@ -3,7 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
+/*   Updated: 2025/04/23 20:30:15 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +57,13 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	}
 }
 
-void	ft_print_list_cmd(t_cmd *head) // A SUPP
+void	ft_print_list_cmd(t_mshell *mshell) // A SUPP
 {
     t_cmd	*tmp;
 	int		counter;
 	
 	counter = 1;
-	tmp = head;
+	tmp = mshell->list_cmd;
 	if (tmp)
 	{
 		ft_printf("\n\t******************* list_cmd *********************\n\n");
@@ -68,11 +71,13 @@ void	ft_print_list_cmd(t_cmd *head) // A SUPP
     	{
 			printf("\n\t\t\t--- NODE Nº %d ---\n\n", counter++);
 			ft_print_double_tab(tmp->cmd);
-			printf("\t\tINFILE\t\t->\t[%d]\n", tmp->infile);
-			printf("\t\tOUTFILE\t\t->\t[%d]\n", tmp->outfile);
+			printf("\t\tFD_INFILE\t->\t[%d]\n", tmp->fd_in);
+			printf("\t\tFD_OUTFILE\t->\t[%d]\n", tmp->fd_out);
 			printf("\t\tFD_HD\t\t->\t[%d]\n", tmp->fd_hd);
 			printf("\t\tDELIM_HD\t->\t[%s]\n", tmp->delim_hd);
+			printf("\t\tEXPAND_HD?\t->\t[%d]\n", tmp->expand_hd);
     	    tmp = tmp->next;
     	}
+		printf("\n\n\t\tNOMBRE_DE_PIPE\t->\t[%d]\n\n",mshell->count_pipe);
 	}
 }

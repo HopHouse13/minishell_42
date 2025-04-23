@@ -98,8 +98,8 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
-	int				infile;
-	int				outfile;
+	int				fd_in;
+	int				fd_out;
 	int				fd_hd; // pab
 	char			*delim_hd; // pab
 	char			**buff_hd; // emir
@@ -216,7 +216,7 @@ void		ft_clear_and_expand(t_parser *parser, t_mnode **ml);
 /// parser_clear_elem ///
 bool		ft_char_saved(t_parser *parser, char *str, int i);
 void		ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml);
-char		*ft_remove_escape_char(t_parser *parser, char *str, t_mnode **ml);
+char		*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml);
 
 /// parser_markers_expand ///
 int			ft_find_end_var(char *str, int i);
@@ -241,7 +241,7 @@ void		ft_handle_redir(t_parser *parser);
 
 /// parser_handle_hd ///
 void		ft_get_hd(t_cmd *cmd, t_token *token);
-void		ft_handle_hd(t_parser *parser);
+void		ft_handle_hd(t_parser *parser, t_mnode **ml);
 
 /// parser_handle_cmd ///
 void		ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
@@ -277,16 +277,13 @@ void		ft_free_ml(t_mnode **ml);
 /// utilities ///
 void		ft_error_exit(char *message);
 void		ft_init_mshell(t_mshell *mshell, char **env); // **ml
-void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
-void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
-
 
 /// utilities_print ///
 void		ft_print_input_clean(char *line);
 void		ft_print_double_tab(char **tab);
 void		ft_print_list_token(t_token *head);
 const char	*ft_get_name_type(t_type type);
-void		ft_print_list_cmd(t_cmd *head);
+void		ft_print_list_cmd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 

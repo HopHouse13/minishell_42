@@ -3,42 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_hd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/22 19:23:02 by pbret            ###   ########.fr       */
+/*   Updated: 2025/04/23 20:03:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_get_hd(t_cmd *cmd, t_token *token)
+void	ft_get_hd(t_cmd *lt_cmd, t_token *lt_token)
 {
-	if (cmd->fd_hd != -1)
-		close(cmd->fd_hd);
-	cmd->fd_hd = open(token->elem, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (cmd->fd_hd == -1)
+	if (lt_cmd->fd_hd != -1)
+		close(lt_cmd->fd_hd);
+	lt_cmd->fd_hd = open(lt_token->elem, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (lt_cmd->fd_hd == -1)
 	{
-		perror(token->elem);
+		perror(lt_token->elem);
 		//exit_status = 1;
 	}
-	cmd->delim_hd = token->elem;
+	lt_cmd->delim_hd = lt_token->elem;
 }
 
-
-void	ft_handle_hd(t_parser *parser)
+bool	ft_srch_quotes(char *elem)
 {
-	t_token	*list_token;
-	t_cmd	*list_cmd;
-	
-	list_token = parser->list_token;
-	list_cmd = parser->list_cmd;
-	while (list_token->token != END)
+	int	i;
+
+	i = -1;
+	while (elem[++i])
 	{
-		if (list_token->token == PIPE)
-			list_cmd = list_cmd->next;
-		else if (list_token->token == DELIM)
-			ft_get_hd(list_cmd, list_token);
-		list_token = list_token->next; 
+		if (elem[i] == '\'' || elem[i] == '\"')
+			return(true);
+	}
+	return (false);
+}
+
+// ft_srch_quotes check si il u a au moins une quotes dansle DELIM
+// si il y en a, je stock l'info dans expand_hd et ft_rm... les retire
+void	ft_handle_hd(t_parser *parser, t_mnode **ml)
+{
+	t_token	*lt_token;
+	t_cmd	*lt_cmd;
+	
+	lt_token = parser->list_token;
+	lt_cmd = parser->list_cmd;
+	while (lt_token->token != END)
+	{
+		if (lt_token->token == PIPE)
+			lt_cmd = lt_cmd->next;
+		else if (lt_token->token == DELIM)
+		{
+			lt_cmd->expand_hd = ft_srch_quotes(lt_token->elem);
+			lt_token->elem = ft_rm_quotes_and_esc(parser, lt_token->elem, ml);
+			ft_get_hd(lt_cmd, lt_token);
+		}
+		lt_token = lt_token->next; 
 	}
 }

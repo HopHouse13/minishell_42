@@ -22,7 +22,7 @@ void	ft_print_env_list(t_env *env_list)
     return ;
 }
 
-void    ft_build_env_list(t_mshell   *mshell, char **env)
+void    ft_build_env_list(t_mshell *mshell, char **env)
 {
     int		i;
 	char	**key_value;

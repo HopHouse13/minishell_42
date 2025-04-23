@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/18 18:11:42 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/23 20:26:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 			if (mshell->list_token)
 			{
 				mshell->list_cmd = ft_parser( mshell, mshell->list_token, ml);
-				ft_print_list_cmd(mshell->list_cmd); // ASUPP
-				printf("\n\tnbr de pipe %d\n\n", mshell->count_pipe);
-				//if (mshell->exec->list_cmd)
-		  	}
-	    	ft_executer(mshell);
+				ft_print_list_cmd(mshell); // ASUPP
+				if (mshell->list_cmd)
+					ft_executer(mshell);
+			}
 		}
 	}
 }

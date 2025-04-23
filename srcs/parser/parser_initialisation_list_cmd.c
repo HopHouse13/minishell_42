@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation_list_cmd.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 16:38:08 by ubuntu            #+#    #+#             */
+/*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
+/*   Updated: 2025/04/23 19:48:40 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +15,8 @@
 void	ft_init_node_values(t_cmd *new_elem)
 {
 	new_elem->cmd = NULL;
-	new_elem->infile = -1;
-	new_elem->outfile = -1;
+	new_elem->fd_in = -1;
+	new_elem->fd_out = -1;
 	new_elem->fd_hd = -1;
 	new_elem->delim_hd = NULL;
 	new_elem->buff_hd = NULL;

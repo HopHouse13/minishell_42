@@ -13,7 +13,7 @@ void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml)
 {
 	ft_handle_redir(parser);
 	ft_handle_cmd(parser, ml);
-	ft_handle_hd(parser);
+	ft_handle_hd(parser, ml);
 }
 
 // bash-5.1$ cat infile 
