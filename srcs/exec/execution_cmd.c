@@ -30,7 +30,6 @@
 
 void    ft_executer(t_mshell *mshell)
 {
-    //ft_env(mshell);
     if (mshell->list_token->token == BI)
         ft_exe_built_in(mshell);
     else
@@ -87,11 +86,11 @@ void    ft_forker_test(t_mshell *mshell)
     
     //   ----- SIMULATION INPUT
     
-    mshell->list_cmd_test = test_cmd_init();
-    mshell = cmd_remplissage_test(mshell);
+    mshell->list_cmd = cmd_init();
+    mshell = cmd_remplissage(mshell);
 
     //   ------
-    t_cmd_test *cmd_node = mshell->list_cmd_test->next;
+    t_cmd *cmd_node = mshell->list_cmd->next;
     
     while(cmd_node)
     {
@@ -139,8 +138,8 @@ void    ft_forker(t_mshell *mshell)
     
     //   ----- SIMULATION INPUT
     
-    mshell->list_cmd_test = test_cmd_init();
-    mshell = cmd_remplissage_test(mshell);
+    mshell->list_cmd = cmd_init();
+    mshell = cmd_remplissage(mshell);
 
     //   ------
     t_cmd *cmd_node = mshell->list_cmd->next;

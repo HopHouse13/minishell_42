@@ -20,7 +20,7 @@ void	ft_init_mshell(t_mshell *mshell, char **env)
 	mshell->count_pipe = 0;
 	mshell->exit_status = 0;
 	ft_build_env_list(mshell, env); // ! ml !!
-	mshell->paths = NULL;
+	//mshell->paths = NULL;
 	//ft_build_path(mshell, ml);
 }
 

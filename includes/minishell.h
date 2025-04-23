@@ -151,22 +151,20 @@ typedef struct s_mnode  		// noeud par la liste de malloc
 
 typedef	struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
-}		t_env;
+}					t_env;
 
 typedef struct s_mshell
 {
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	t_env			*env_list; 	// build_list
+	t_env			*env_list;
 	int				count_pipe;
 	int				exit_status;
-	char			**paths;			// XXX
-	t_cmd_test		*list_cmd_test; 	// XXX
 }					t_mshell;
 
 /// main ///
@@ -346,7 +344,7 @@ char	*get_env_list(t_mshell *mshell);
 void	ft_add_var(t_mshell *mshell);
 void	ft_add_node_env(t_mshell *mshell, char *cmd);
 int		ft_isequal(char *str);
-
+void	ft_free_tab(char **tab);
 
 // ft_pwd
 

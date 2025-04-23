@@ -20,8 +20,8 @@ void    ft_exe_built_in(t_mshell *mshell)
         printf("BI reconnu : \033[33mexit\033[0m\n");
         //ft_exit();
     else if (ft_strcmp(cmd, "export") == 0)
-        printf("BI reconnu : \033[33mexport\033[0m\n");    
-        //ft_export(mshell);
+        ft_export(mshell);
+    //printf("BI reconnu : \033[33mexport\033[0m\n");    
     else if (ft_strcmp(cmd, "pwd") == 0)
         printf("BI reconnu : \033[33pwd\033[0m\n");    
         //ft_pwd();

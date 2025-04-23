@@ -45,16 +45,16 @@
 
 
     //---------------
-/*
+
 int ft_export(t_mshell *mshell)
 {
     //t_cmd   *cmd;
     //cmd = mshell->list_cmd;
     
-    ft_add_var(mshell);
-
-     
-
+    //if (!cmd[1])
+    //  print_sort(mshell);
+    //else
+        ft_add_var(mshell);
 
     return (1);
 }
@@ -63,8 +63,8 @@ void    ft_add_var(t_mshell *mshell)
 {
     //fonction qui ajoute un noeud a la liste chainee (t_env *env_list)
 
-    t_env   *new_node;
-    t_env   *last;
+    //t_env   *new_node;
+    //t_env   *last;
     t_cmd    *list_cmd;
 
     list_cmd = mshell->list_cmd;
@@ -78,23 +78,65 @@ void    ft_add_var(t_mshell *mshell)
         i++;
     }
 
-
 } // suite de passage par reference pour update automaique des var env ?
-
 
 void    ft_add_node_env(t_mshell *mshell, char *cmd)
 {
     char    **key_value;
+    t_env   *tmp;
     t_env   *new_node;
 
-
     if (ft_isequal(cmd))
+    {
         key_value = ft_split(cmd, '=');
-    
+        if (!key_value || !key_value[0])
+            return ;
+    }
+
+    // Chercher si la variable existe déjà
+    tmp = mshell->env_list;
+    while (tmp)
+    {
+        if (ft_strcmp(tmp->key, key_value[0]) == 0)
+        {
+            free(tmp->value);
+            if (key_value[1])
+                tmp->value = ft_strdup(key_value[1]);
+            else
+                tmp->value = ft_strdup("");
+            tmp->value = key_value[1] ? ft_strdup(key_value[1]) : ft_strdup("");
+            ft_free_tab(key_value);
+            return ;
+        }
+        tmp = tmp->next;
+    } // ft_isable
+
+
+    ////////////////
     new_node = malloc(sizeof(t_env));
     if (!new_node)
         return ;
     new_node->key = ft_strdup(key_value[0]);
+    if (key_value[1])
+        new_node->value = ft_strdup(key_value[1]);
+    else
+        new_node->value = ft_strdup("");
+    new_node->next = NULL;
+    new_node->prev = NULL;
+
+    // Ajouter à la fin de la liste env_list
+    if (!mshell->env_list)
+        mshell->env_list = new_node;
+    else
+    {
+        tmp = mshell->env_list;
+        while (tmp->next)
+            tmp = tmp->next;
+        tmp->next = new_node;
+        new_node->prev = tmp;
+    } //ft_isable ??
+
+    ft_free_tab(key_value);
 
 
 }
@@ -112,4 +154,13 @@ int ft_isequal(char *str)
     }
     return (0);
 }
-*/
+
+
+void    ft_free_tab(char **tab)
+{
+    int i = 0;
+    while (tab[i])
+        free(tab[i++]);
+    free(tab);
+}
+
