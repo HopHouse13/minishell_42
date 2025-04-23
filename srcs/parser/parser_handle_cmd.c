@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:40:52 by pab               #+#    #+#             */
-/*   Updated: 2025/04/17 15:41:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/22 17:07:16 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml)
 	list_cmd->cmd[i] = NULL;
 }
 
-void	ft_handle_cmd(t_parser *parser, t_mnode **ml)
+	void	ft_handle_cmd(t_parser *parser, t_mnode **ml)
 {
 	t_token	*list_token;
 	t_cmd	*list_cmd;
