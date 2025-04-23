@@ -63,8 +63,6 @@ void    ft_add_var(t_mshell *mshell)
 {
     //fonction qui ajoute un noeud a la liste chainee (t_env *env_list)
 
-    //t_env   *new_node;
-    //t_env   *last;
     t_cmd    *list_cmd;
 
     list_cmd = mshell->list_cmd;
