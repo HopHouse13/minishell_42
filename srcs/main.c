@@ -31,10 +31,9 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 				mshell->list_cmd = ft_parser( mshell, mshell->list_token, ml);
 				ft_print_list_cmd(mshell->list_cmd); // ASUPP
 				printf("\n\tnbr de pipe %d\n\n", mshell->count_pipe);
-			// 	/* if (mshell->exec->list_cmd)
-		  }
-	    ft_executer(mshell);
-			}
+				//if (mshell->exec->list_cmd)
+		  	}
+	    	ft_executer(mshell);
 		}
 	}
 }

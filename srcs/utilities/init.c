@@ -19,8 +19,8 @@ void	ft_init_mshell(t_mshell *mshell, char **env)
 	mshell->list_cmd = NULL;
 	mshell->count_pipe = 0;
 	mshell->exit_status = 0;
-	ft_build_env_list(mshell); // version def avec env
-	mshell->paths = NULL;
+	ft_build_env_list(mshell, env); // version def avec env
+	//mshell->paths = NULL;
 	// ft_build_path(mshell, ml);
 }
 

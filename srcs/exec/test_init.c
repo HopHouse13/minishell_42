@@ -1,25 +1,5 @@
 #include "../../includes/minishell.h"
 
-t_cmd_test    *test_cmd_init(void)
-{
-    //creation d'une liste chainée test qui servira a envoyer les data à une autre fonction pour servir de test
-    t_cmd_test *test;
-
-    test = malloc(sizeof(t_cmd_test));
-    if (!test)
-        return (NULL);
-    test->cmd = NULL;
-    //test->redir = NULL;
-    //test->squote = false;
-    //test->dquote = false;
-    test->hd_count = 0;
-    test->hd = NULL;
-    test->prev = NULL;
-    test->next = NULL;
-
-    return (test);
-}
-
 t_cmd    *cmd_init(void)
 {
     //creation d'une liste chainée test qui servira a envoyer les data à une autre fonction pour servir de test
@@ -29,17 +9,11 @@ t_cmd    *cmd_init(void)
     if (!test)
         return (NULL);
     test->cmd = NULL;
-    //test->redir = NULL;
-    //test->squote = false;
-    //test->dquote = false;
-    test->count_hd = 0;
-    test->hd = NULL;
     test->prev = NULL;
     test->next = NULL;
-
     return (test);
 }
-
+/*
 t_mshell    *cmd_remplissage_test(t_mshell *mshell)
 {
     // pour test cd ; adresse Scoutshell : /Users/em/Desktop/42/Projets/Rank3/Scooutshell
@@ -88,7 +62,7 @@ t_mshell    *cmd_remplissage_test(t_mshell *mshell)
         while (m < args_nb)    
             printf("Ajout commande : %s\n",new_node->cmd[m++]);
         
-        /*
+        
         new_node->redir = NULL;
         new_node->squote = false;
         new_node->dquote = false;
@@ -96,14 +70,14 @@ t_mshell    *cmd_remplissage_test(t_mshell *mshell)
         new_node->hd = NULL;
         new_node->prev = current;
         new_node->next = NULL;
-        */
+        
         current->next = new_node;
         current = new_node;
         i_cmd++;
     }
     return (mshell);
 }
-
+*/
 
 
 t_mshell    *cmd_remplissage(t_mshell *mshell)

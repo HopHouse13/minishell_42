@@ -30,6 +30,7 @@
 
 void    ft_executer(t_mshell *mshell)
 {
+    //ft_env(mshell);
     if (mshell->list_token->token == BI)
         ft_exe_built_in(mshell);
     else
@@ -78,6 +79,7 @@ void    ft_executer(t_mshell *mshell)
     EXECUTION 
 */
 
+/*
 void    ft_forker_test(t_mshell *mshell)
 {
     //mshell->env = test_env_init("defaut"); //"defaut" ou "vide" (env -i) 
@@ -117,7 +119,7 @@ void    ft_forker_test(t_mshell *mshell)
 
 
             //EXECUTION (manque chemin relatif)
-            if(execve(cmd_node->cmd[0], cmd_node->cmd, mshell->env) == -1)
+            if(execve(cmd_node->cmd[0], cmd_node->cmd, NULL) == -1)
             {
                 perror("Execve child \n");
                 exit(EXIT_FAILURE);
@@ -128,7 +130,7 @@ void    ft_forker_test(t_mshell *mshell)
         cmd_node = cmd_node->next;
     }
 } 
-
+*/
 
 void    ft_forker(t_mshell *mshell)
 {
@@ -138,8 +140,8 @@ void    ft_forker(t_mshell *mshell)
     
     //   ----- SIMULATION INPUT
     
-    mshell->list_cmd_test = test_cmd_init();
-    mshell = cmd_remplissage_test(mshell);
+    //mshell->list_cmd = cmd_init();
+    //mshell = cmd_remplissage(mshell);
 
     //   ------
     t_cmd *cmd_node = mshell->list_cmd->next;
@@ -169,7 +171,7 @@ void    ft_forker(t_mshell *mshell)
 
 
             //EXECUTION (manque chemin relatif)
-            if(execve(cmd_node->cmd[0], cmd_node->cmd, mshell->env) == -1)
+            if(execve(cmd_node->cmd[0], cmd_node->cmd, NULL) == -1)
             {
                 perror("Execve child \n");
                 exit(EXIT_FAILURE);

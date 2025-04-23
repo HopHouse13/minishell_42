@@ -113,7 +113,7 @@ typedef struct s_parser // local
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	char			**env;
+	//char			**env;
 	bool			simple_q;
 	bool			double_q;
 	bool			flag_q;
@@ -137,7 +137,7 @@ typedef	struct s_env
 	char	*value;
 	struct s_env	*prev;
 	struct s_env	*next;
-}		t_env;
+}					t_env;
 
 typedef struct s_mshell
 {
@@ -145,9 +145,7 @@ typedef struct s_mshell
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	t_env			*env_list; // build_list
-	int				count_pipe; // pab
-	char			**env;
-	char			**paths;
+	int				count_pipe;
 	int				exit_status;
 }					t_mshell;
 
@@ -281,7 +279,7 @@ void		ft_error_exit(char *message);
 void		ft_init_mshell(t_mshell *mshell, char **env); // **ml
 void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
 void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
-void		ft_init_exec(t_exec *exec);
+
 
 /// utilities_print ///
 void		ft_print_input_clean(char *line);
@@ -301,7 +299,6 @@ void	ft_forker(t_mshell *mshell);
 
 void    ft_exe_built_in(t_mshell *mshell);
 
-t_cmd_test		*test_cmd_init(void);
 t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
 
 t_cmd    		*cmd_init(void);
@@ -318,14 +315,17 @@ int		ft_env(t_mshell *mshell);
 void	ft_print_env_list(t_env *env_list);
 void    ft_env_minimal(t_mshell *mshell);
 
-void    ft_build_env_list(t_mshell   *mshell);
+void    ft_build_env_list(t_mshell   *mshell, char **env);
 
 
 // ft_exit
 
 // ft_export
 int		ft_export(t_mshell *mshell);
-
+char	*get_env_list(t_mshell *mshell);
+void	ft_add_var(t_mshell *mshell);
+void	ft_add_node_env(t_mshell *mshell, char *cmd);
+int		ft_isequal(char *str);
 
 // ft_pwd
 

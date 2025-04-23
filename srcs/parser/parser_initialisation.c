@@ -14,10 +14,11 @@
 
 void	ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token)
 {
+	(void)mshell;
 	parser->i = -1;
 	parser->list_token = list_token;
 	parser->list_cmd = NULL;
-	parser->env = mshell->env;
+	//parser->env = mshell->env;
 	parser->simple_q = OUT;
 	parser->double_q = OUT;
 	parser->flag_q = OUT;
