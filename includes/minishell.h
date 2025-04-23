@@ -343,6 +343,7 @@ void    ft_build_env_list(t_mshell   *mshell, char **env);
 // ft_export
 int		ft_export(t_mshell *mshell);
 char	*get_env_list(t_mshell *mshell);
+void	ft_add_var(t_mshell *mshell);
 void	ft_add_node_env(t_mshell *mshell, char *cmd);
 int		ft_isequal(char *str);
 

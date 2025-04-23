@@ -118,7 +118,7 @@ void    ft_forker_test(t_mshell *mshell)
 
 
             //EXECUTION (manque chemin relatif)
-            if(execve(cmd_node->cmd[0], cmd_node->cmd, mshell->env) == -1)
+            if(execve(cmd_node->cmd[0], cmd_node->cmd, NULL) == -1)
             {
                 perror("Execve child \n");
                 exit(EXIT_FAILURE);
@@ -170,7 +170,7 @@ void    ft_forker(t_mshell *mshell)
 
 
             //EXECUTION (manque chemin relatif)
-            if(execve(cmd_node->cmd[0], cmd_node->cmd, mshell->env) == -1)
+            if(execve(cmd_node->cmd[0], cmd_node->cmd, NULL) == -1)
             {
                 perror("Execve child \n");
                 exit(EXIT_FAILURE);

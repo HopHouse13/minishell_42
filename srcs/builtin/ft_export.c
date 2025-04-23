@@ -45,7 +45,7 @@
 
 
     //---------------
-
+/*
 int ft_export(t_mshell *mshell)
 {
     //t_cmd   *cmd;
@@ -74,12 +74,12 @@ void    ft_add_var(t_mshell *mshell)
     i = 1;
     while (list_cmd->cmd[i])
     {
-        ft_add_node_env(mshell,);
+        ft_add_node_env(mshell, list_cmd->cmd[i]);
         i++;
     }
 
 
-}
+} // suite de passage par reference pour update automaique des var env ?
 
 
 void    ft_add_node_env(t_mshell *mshell, char *cmd)
@@ -112,3 +112,4 @@ int ft_isequal(char *str)
     }
     return (0);
 }
+*/
