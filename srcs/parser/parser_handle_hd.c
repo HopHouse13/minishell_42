@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/23 20:03:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/24 20:33:40 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_handle_hd(t_parser *parser, t_mnode **ml)
 			lt_cmd->expand_hd = ft_srch_quotes(lt_token->elem);
 			lt_token->elem = ft_rm_quotes_and_esc(parser, lt_token->elem, ml);
 			ft_get_hd(lt_cmd, lt_token);
+			ft_heredoc(lt_cmd, ml);
 		}
 		lt_token = lt_token->next; 
 	}

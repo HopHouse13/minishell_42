@@ -44,6 +44,8 @@ SRCS		= srcs/main.c \
 			srcs/exec/pipe.c \
 			srcs/exec/redirect.c \
 			srcs/exec/test_init.c \
+			srcs/exec/exec_heredoc.c \
+			srcs/exec/exec_utilities.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/ft_echo.c \
 			srcs/builtin/ft_env.c \

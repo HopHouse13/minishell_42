@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/04/23 20:30:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/24 20:04:59 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_print_double_tab(char **tab)
 	}
 }
 
-const char	*ft_get_name_type(t_type type)
+char	*ft_get_name_type(t_type type)
 {
-	const char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
+	char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
 								"APPEND", "F_IN", "F_OUT", "F_APP",
 								"DELIM", "CMD", "BI", "ARG", "END"};
 	if ( type >= ELEM && type <=END)

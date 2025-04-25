@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/16 15:10:12 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/24 20:15:53 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml)
 	char	*str_merge;
 	
 	str_merge = NULL;
-	before = ft_substr_ml(str, 0, parser->start - 2, ml);
-	after = ft_substr_ml(str, parser->end + 1, ft_strlen(str), ml);
+	before = ft_substr_ml(str, 0, parser->start -2, ml);
+	after = ft_substr_ml(str, parser->end +1, ft_strlen(str), ml);
 	if (ev_exp[0] == '\"' || ev_exp[0] == '\'')
 		str_merge = ft_strjoin_ml(before, ft_strjoin_ml("", after, ml), ml);
 	else if (ev_exp[0] == '\\')
@@ -44,8 +44,8 @@ char	*ft_merge(char *str, char *ev_exp, t_parser *parser, t_mnode **ml)
 		str_merge = ft_invalid(str, ev_exp, parser, ml);
 	else
 	{	
-		before = ft_substr_ml(str, 0, parser->start - 2, ml); // -2 car on veut une len et pas un indexe donc +1 pour passer d'un indexe a une len ET comme [start] = 'H' $[HOME]; [start-3] = carac devant $ DONC -3 + 1 = -2
-		after = ft_substr_ml(str, parser->end + 1, ft_strlen(str), ml);
+		before = ft_substr_ml(str, 0, parser->start -2, ml); // -2 car on veut une len et pas un indexe donc +1 pour passer d'un indexe a une len ET comme [start] = 'H' $[HOME]; [start-3] = carac devant $ DONC -3 + 1 = -2
+		after = ft_substr_ml(str, parser->end +1, ft_strlen(str), ml);
 		str_merge = ft_strjoin_ml(before, ft_strjoin_ml(ev_exp, after, ml), ml);
 	}
 	return (str_merge);
@@ -57,15 +57,15 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	char	*ev_ptr;
 	char	*ev_expanded;
 	
-	parser->start = i + 2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
+	parser->start = i +2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
 	if (elem[parser->start] == '?')
 	{
-		parser->end = parser->start + 1;
+		parser->end = parser->start +1;
 		// return (ft_itoa_ml(exit_status)); // dernier exit status
 	}
 	if (!ft_isalpha(elem[parser->start]) && elem[parser->start] != '_')
 	{
-		parser->end = parser->start + 1; // maybe useless need check
+		parser->end = parser->start +1;
 		return (ft_substr_ml(elem, parser->start, 1, ml));
 	}
 	parser->end = parser->start;
