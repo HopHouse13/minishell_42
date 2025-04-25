@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 17:10:06 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/25 18:28:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
 	else
 		ev_expanded = NULL; // renvoie le signal qu'il faut stopper le processus d'expand et continuer a analyser les char suivants
-	printf("\n\n>>>>> [%s]\n\n", ev_expanded);
 	return (ev_expanded);
 }
 
@@ -73,7 +72,7 @@ char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml)
 			}
 		}
 	}
-	return (ft_strdup_ml(line, ml)); // obligation de renvoyer un char* different avec l'initiale(line) car on le free jsute apres dans ft_heredoc
+	return (line); // <<<<<<<<<<<<<<<<<<<<<<<<<< ici ft_strdup
 }
 // if (line == NULL)
 // {
@@ -84,7 +83,7 @@ char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml)
 // }
 void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 {
-	t_hd	exp;
+	t_hd		exp;
 	char		*line;
 	char		*tmp;
 	
@@ -95,14 +94,17 @@ void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 			break; // voir le commantaire au dessus
 		if (!ft_strcmp(line, cmd->delim_hd))
 			break ;
-		tmp = line;
 		if (cmd->expand_hd && ft_found_dollar_active(line))
+		{
+			tmp = line; // pas obliger de faire un tmp, en renvoyant tjs une char* different du depart
 			line = ft_expand_elem_hd(line, &exp, ml);
-		free(tmp);
-		tmp = NULL;
-		printf("\n\n>>>>> line final [%s]\n\n", line); // ASUPP
+			free(tmp);
+			tmp = NULL;
+		}
+		printf("\n\n>>>>> line final [%s]\n\n\n", line); // ASUPP
 		write(cmd->fd_hd, line, ft_strlen(line));
-		write(cmd->fd_hd, "\n", 1);
+		if (ft_return_to_line(line))
+			write(cmd->fd_hd, "\n", 1);
 		ft_free_one_node_ml(line, ml);
 	}
 	close(cmd->fd_hd);
