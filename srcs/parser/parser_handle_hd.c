@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/24 20:33:40 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/25 14:28:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ bool	ft_srch_quotes(char *elem)
 	while (elem[++i])
 	{
 		if (elem[i] == '\'' || elem[i] == '\"')
-			return(true);
+			return(false);
 	}
-	return (false);
+	return (true);
 }
 
 // ft_srch_quotes check si il u a au moins une quotes dansle DELIM

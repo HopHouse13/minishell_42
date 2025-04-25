@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/24 20:31:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/25 12:18:13 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 		}
 	}
 }
-
+// truc a tester : avoir une $VAR dans une $VAR faut-il expand la 2eme? (endehors du heredoc)
 int	main(int ac, char **av, char **env)
 {
 	

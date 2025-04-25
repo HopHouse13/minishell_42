@@ -6,52 +6,25 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 02:13:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/25 17:10:06 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_ko_exp_hd(char *line, char *ev_exp, t_exp_hd *exp, t_mnode **ml)
+char	*ft_merge_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml)
 {
 	char	*before;
 	char	*after;
-	char	*middle;
 	char	*str_merge;
 	
-	str_merge = NULL;
 	before = ft_substr_ml(line, 0, exp->start -1, ml);
-	after = ft_substr_ml(line, exp->end + 1, ft_strlen(line), ml);
-	if (ev_exp[0] == '\"' || ev_exp[0] == '\'')
-		str_merge = ft_strjoin_ml(before, ft_strjoin_ml("", after, ml), ml);
-	else if (ev_exp[0] == '\\')
-		str_merge = ft_strjoin_ml(before, ft_strjoin_ml("$", after, ml), ml);
-	else
-	{
-		middle = ft_strjoin_ml("$", ev_exp, ml);
-		str_merge = ft_strjoin_ml(before, ft_strjoin_ml(middle, after, ml), ml); // probleme
-	}
+	after = ft_substr_ml(line, exp->end, ft_strlen(line), ml);
+	str_merge = ft_strjoin_ml(before, ft_strjoin_ml(ev_exp, after, ml), ml);
 	return (str_merge);
 }
 
-char	*ft_merge_hd(char *line, char *ev_exp, t_exp_hd *exp, t_mnode **ml)
-{
-	char	*before;
-	char	*after;
-	char	*str_merge;
-	
-	if (!ft_isalpha(line[exp->start]) && line[exp->start] != '_')
-		str_merge = ft_ko_exp_hd(line, ev_exp, exp, ml);
-	else
-	{	
-		before = ft_substr_ml(line, 0, exp->start -1, ml);
-		after = ft_substr_ml(line, exp->end, ft_strlen(line), ml);
-		str_merge = ft_strjoin_ml(before, ft_strjoin_ml(ev_exp, after, ml), ml);
-	}
-	return (str_merge);
-}
-
-char	*ft_expand_hd(char *line, t_exp_hd *exp, t_mnode **ml)
+char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml)
 {	
 	char	*ev_name;
 	char	*ev_ptr;
@@ -65,7 +38,7 @@ char	*ft_expand_hd(char *line, t_exp_hd *exp, t_mnode **ml)
 		// return (ft_itoa_ml(exit_status)); // dernier exit status
 	}
 	if (!ft_isalpha(line[exp->start]) && line[exp->start] != '_')
-		return (ft_substr_ml(line, exp->start, 1, ml));
+		return (NULL);
 	exp->end = exp->start;
 	while (ft_isalnum(line[exp->end]) || line[exp->end] == '_')
 		exp->end++;
@@ -74,15 +47,18 @@ char	*ft_expand_hd(char *line, t_exp_hd *exp, t_mnode **ml)
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
 	else
-		ev_expanded = ft_strdup_ml("", ml);
+		ev_expanded = NULL; // renvoie le signal qu'il faut stopper le processus d'expand et continuer a analyser les char suivants
+	printf("\n\n>>>>> [%s]\n\n", ev_expanded);
 	return (ev_expanded);
 }
 
-char	*ft_expand_elem_hd(char *line, t_exp_hd *exp, t_mnode **ml)
+char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml)
 {
 	int	i;
 	char	*ev_exp;
 	
+	exp->start = 0;
+	exp->end = 0;
 	i = -1;
 	while (line[++i])
 	{
@@ -90,34 +66,41 @@ char	*ft_expand_elem_hd(char *line, t_exp_hd *exp, t_mnode **ml)
 		{
 			exp->start = i +1;
 			ev_exp = ft_expand_hd(line, exp, ml);
-			line = ft_merge_hd(line, ev_exp, exp, ml);
-			i = -1;
+			if (ev_exp)
+			{	
+				line = ft_merge_hd(line, ev_exp, exp, ml);
+				i =  i + (ft_strlen(ev_exp) -1);
+			}
 		}
 	}
-	return (line);
+	return (ft_strdup_ml(line, ml)); // obligation de renvoyer un char* different avec l'initiale(line) car on le free jsute apres dans ft_heredoc
 }
-// si $VAR le no est valid mais elle ne'existe pas -> faut affichier le dollar et son nom texto (pas rien comme endehors du heredoc)
+// if (line == NULL)
+// {
+// 	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `", 2);
+// 	ft_putstr_fd(cmd->delim_hd, 2);
+// 	ft_putstr_fd("')\n", 2);
+// 	break ;
+// }
 void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 {
-	t_exp_hd	exp;
+	t_hd	exp;
 	char		*line;
 	char		*tmp;
 	
-	/* exp.start = 0;
-	exp.end = 0; */       // voir si c'est utlise ou pas
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break;
+			break; // voir le commantaire au dessus
 		if (!ft_strcmp(line, cmd->delim_hd))
 			break ;
+		tmp = line;
 		if (cmd->expand_hd && ft_found_dollar_active(line))
-		{
-			tmp = line;
 			line = ft_expand_elem_hd(line, &exp, ml);
-			free(tmp);
-		}
+		free(tmp);
+		tmp = NULL;
+		printf("\n\n>>>>> line final [%s]\n\n", line); // ASUPP
 		write(cmd->fd_hd, line, ft_strlen(line));
 		write(cmd->fd_hd, "\n", 1);
 		ft_free_one_node_ml(line, ml);
@@ -130,3 +113,15 @@ void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 
 // quand $VAR valide mais n'hexiste pas, ca fait ligne vide alors qu'il faudrait affichier tout brut ($hello -> $hello)
 // quand $VAR invalide, ca fait buguer voir ligne 32 dans ko_exp_hd
+
+// NOTE HEREDOC
+
+// Qu'un niveau d'expand:
+// si une $VAR expanded dans le heredoc, a une autre $VAR dedans, la 2eme ne doit pas etre expanded mais affichee brute.
+// WARNING par contre elle doit l'etre endehors d'un heredoc.
+
+// Une seule regles pour les KO:
+// si $VAR invalid ou valid mais n'hexiste pas -> print brut
+
+// Zero regles pour les quotes:
+// toutes les quotes sont print bruts

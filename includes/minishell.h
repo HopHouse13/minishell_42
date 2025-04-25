@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 01:42:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/25 17:00:05 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,17 @@ typedef struct s_mnode  		// noeud par la liste de malloc
 
 typedef	struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
 
-typedef struct s_exp_hd
+typedef struct s_hd
 {
-	char			*line;
 	int				start;
 	int				end;
-}					t_exp_hd;
+}					t_hd;
 
 typedef struct s_mshell
 {
@@ -334,14 +333,15 @@ int		ft_isequal(char *str);
 // ft_unset
 
 /// exec_heredoc ///
-char	*ft_ko_exp_hd(char *line, char *ev_exp, t_exp_hd *exp, t_mnode **ml);
-char	*ft_merge_hd(char *line, char *ev_exp, t_exp_hd *exp, t_mnode **ml);
-char	*ft_expand_hd(char *line, t_exp_hd *exp, t_mnode **ml);
-char	*ft_expand_elem_hd(char *line, t_exp_hd *exp, t_mnode **ml);
+char	*ft_ko_exp_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml);
+char	*ft_merge_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml);
+char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml);
+char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml);
 void	ft_heredoc(t_cmd *cmd, t_mnode **ml);
 
 /// exec_utilities ///
 bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
+bool	ft_return_to_line(char *line);
 
 #endif	
