@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:59:48 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 18:25:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/26 17:39:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	ft_found_dollar_active(char *str)
 	return (false);
 }
 
-bool	ft_return_to_line(char *line)
+bool	ft_escape_last_char(char *line)
 {
 	int	i;
 
@@ -44,8 +44,8 @@ bool	ft_return_to_line(char *line)
 		continue;
 	i--;
 	if (line[i] == '\\' && !ft_effect_escape_hd(line, i))
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 // faut supprimer le \ de fin
 // et uniquement celui la

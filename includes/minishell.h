@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 17:00:05 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/26 17:39:12 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,15 +333,15 @@ int		ft_isequal(char *str);
 // ft_unset
 
 /// exec_heredoc ///
-char	*ft_ko_exp_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml);
-char	*ft_merge_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml);
-char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml);
-char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml);
+char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml);
+char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml);
+char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml);
+void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml);
 void	ft_heredoc(t_cmd *cmd, t_mnode **ml);
 
 /// exec_utilities ///
 bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
-bool	ft_return_to_line(char *line);
+bool	ft_escape_last_char(char *line);
 
 #endif	

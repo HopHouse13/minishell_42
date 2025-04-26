@@ -6,25 +6,25 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/04/25 18:28:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/26 17:46:58 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_merge_hd(char *line, char *ev_exp, t_hd *exp, t_mnode **ml)
+char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml)
 {
 	char	*before;
 	char	*after;
 	char	*str_merge;
 	
-	before = ft_substr_ml(line, 0, exp->start -1, ml);
-	after = ft_substr_ml(line, exp->end, ft_strlen(line), ml);
+	before = ft_substr_ml(line, 0, hd->start -1, ml);
+	after = ft_substr_ml(line, hd->end, ft_strlen(line), ml);
 	str_merge = ft_strjoin_ml(before, ft_strjoin_ml(ev_exp, after, ml), ml);
 	return (str_merge);
 }
 
-char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml)
+char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml)
 {	
 	char	*ev_name;
 	char	*ev_ptr;
@@ -32,17 +32,17 @@ char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml)
 	
 	/* if (line[exp->start] == '\0')
 		return (ft_strdup_ml("$", ml)); */ // voir si c'est utilse ou pas
-	if (line[exp->start] == '?')
+	if (line[hd->start] == '?')
 	{
-		exp->end = exp->start + 1;
+		hd->end = hd->start + 1;
 		// return (ft_itoa_ml(exit_status)); // dernier exit status
 	}
-	if (!ft_isalpha(line[exp->start]) && line[exp->start] != '_')
+	if (!ft_isalpha(line[hd->start]) && line[hd->start] != '_')
 		return (NULL);
-	exp->end = exp->start;
-	while (ft_isalnum(line[exp->end]) || line[exp->end] == '_')
-		exp->end++;
-	ev_name = ft_substr_ml(line, exp->start, exp->end - exp->start, ml);
+	hd->end = hd->start;
+	while (ft_isalnum(line[hd->end]) || line[hd->end] == '_')
+		hd->end++;
+	ev_name = ft_substr_ml(line, hd->start, hd->end - hd->start, ml);
 	ev_ptr = getenv(ev_name);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
@@ -51,28 +51,53 @@ char	*ft_expand_hd(char *line, t_hd *exp, t_mnode **ml)
 	return (ev_expanded);
 }
 
-char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml)
+char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
 {
 	int	i;
 	char	*ev_exp;
 	
-	exp->start = 0;
-	exp->end = 0;
+	hd->start = 0;
+	hd->end = 0;
 	i = -1;
 	while (line[++i])
 	{
 		if (line[i] == '$')
 		{
-			exp->start = i +1;
-			ev_exp = ft_expand_hd(line, exp, ml);
+			hd->start = i +1;
+			ev_exp = ft_expand_ev_hd(line, hd, ml);
 			if (ev_exp)
 			{	
-				line = ft_merge_hd(line, ev_exp, exp, ml);
+				line = ft_merge_hd(line, ev_exp, hd, ml);
 				i =  i + (ft_strlen(ev_exp) -1);
 			}
 		}
 	}
 	return (line); // <<<<<<<<<<<<<<<<<<<<<<<<<< ici ft_strdup
+}
+
+/* void	ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
+{
+	char		*tmp;
+	
+	tmp = *line; // pas obliger de faire un tmp, en renvoyant tjs une char* different du depart
+	*line = ft_expand_hd(line, hd, ml);
+	free(tmp);
+	tmp = NULL;
+} */
+
+void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml)
+{
+	if (ft_escape_last_char(line)) // si  '\' est a la fin de line, fait l'enlever + pas de retour de ligne
+	{
+		line = ft_substr_ml(line, 0, ft_strlen(line) -1, ml);
+		write(cmd->fd_hd, line, ft_strlen(line));
+	}
+	else
+	{
+		write(cmd->fd_hd, line, ft_strlen(line));
+		write(cmd->fd_hd, "\n", 1);
+	}
+	printf("\n>>>>> result [%s]\n\n\n", line); // ASUPP
 }
 // if (line == NULL)
 // {
@@ -83,28 +108,22 @@ char	*ft_expand_elem_hd(char *line, t_hd *exp, t_mnode **ml)
 // }
 void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 {
-	t_hd		exp;
+	t_hd		hd;
+	char		*value_rdl;
 	char		*line;
-	char		*tmp;
 	
 	while (1)
 	{
-		line = readline("> ");
-		if (line == NULL)
+		value_rdl = readline("> ");
+		if (value_rdl == NULL)
 			break; // voir le commantaire au dessus
-		if (!ft_strcmp(line, cmd->delim_hd))
+		if (!ft_strcmp(value_rdl, cmd->delim_hd))
 			break ;
+		line = ft_strdup_ml(value_rdl, ml);
+		free(value_rdl);
 		if (cmd->expand_hd && ft_found_dollar_active(line))
-		{
-			tmp = line; // pas obliger de faire un tmp, en renvoyant tjs une char* different du depart
-			line = ft_expand_elem_hd(line, &exp, ml);
-			free(tmp);
-			tmp = NULL;
-		}
-		printf("\n\n>>>>> line final [%s]\n\n\n", line); // ASUPP
-		write(cmd->fd_hd, line, ft_strlen(line));
-		if (ft_return_to_line(line))
-			write(cmd->fd_hd, "\n", 1);
+			line = ft_expand_hd(line, &hd, ml);
+		ft_put_in_hd(line, cmd, ml);	
 		ft_free_one_node_ml(line, ml);
 	}
 	close(cmd->fd_hd);
