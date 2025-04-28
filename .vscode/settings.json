@@ -1,7 +1,7 @@
 {
 	"files.associations": {
-		"libft.h": "c",
 		"minishell.h": "c",
-		"random": "c"
+		"libft.h": "c",
+		"cmath": "c"
 	}
 }

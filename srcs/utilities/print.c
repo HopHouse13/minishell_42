@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 12:18:54 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/18 19:01:09 by pab              ###   ########.fr       */
+/*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
+/*   Updated: 2025/04/24 20:04:59 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ void	ft_print_double_tab(char **tab)
 	if(tab)
 	{
 		while (tab[++i])
-			printf("\t\tELEM nº%d\t->\t%s\n", i, tab[i]);
+			printf("\t\tELEM Nº %d\t->\t%s\n", i, tab[i]);
 	}
 }
 
-const char	*ft_get_name_type(t_type type)
+char	*ft_get_name_type(t_type type)
 {
-	const char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
+	char *type_tab[] = { "ELEM", "PIPE", "R_IN", "R_OUT", "HD",
 								"APPEND", "F_IN", "F_OUT", "F_APP",
 								"DELIM", "CMD", "BI", "ARG", "END"};
-	
-	if (type >= ELEM && type <=END)
+	if ( type >= ELEM && type <=END)
 		return (type_tab[type]);
 	return ("INVALID_TYPE");
 }
@@ -58,23 +57,27 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	}
 }
 
-void	ft_print_list_cmd(t_cmd *head) // A SUPP
+void	ft_print_list_cmd(t_mshell *mshell) // A SUPP
 {
     t_cmd	*tmp;
 	int		counter;
 	
 	counter = 1;
-	tmp = head;
+	tmp = mshell->list_cmd;
 	if (tmp)
 	{
 		ft_printf("\n\t******************* list_cmd *********************\n\n");
     	while (tmp != NULL)
     	{
-			printf("\n\t\t\t--- NODE nº%d ---\n\n", counter++);
+			printf("\n\t\t\t--- NODE Nº %d ---\n\n", counter++);
 			ft_print_double_tab(tmp->cmd);
-			printf("\n\t\tINFILE\t\t->\t[%d]", tmp->infile);
-			printf("\n\t\tOUTFILE\t\t->\t[%d]\n", tmp->outfile);
+			printf("\t\tFD_INFILE\t->\t[%d]\n", tmp->fd_in);
+			printf("\t\tFD_OUTFILE\t->\t[%d]\n", tmp->fd_out);
+			printf("\t\tFD_HD\t\t->\t[%d]\n", tmp->fd_hd);
+			printf("\t\tDELIM_HD\t->\t[%s]\n", tmp->delim_hd);
+			printf("\t\tEXPAND_HD?\t->\t[%d]\n", tmp->expand_hd);
     	    tmp = tmp->next;
     	}
+		printf("\n\n\t\tNOMBRE_DE_PIPE\t->\t[%d]\n\n",mshell->count_pipe);
 	}
 }

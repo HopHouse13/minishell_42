@@ -1,5 +1,0 @@
-Ceci est un test
-Le mot magique est ici
-Une autre ligne avec mot dedans
-Rien d'important ici
-Encore une ligne avec mot

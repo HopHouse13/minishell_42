@@ -30,12 +30,13 @@
 
 void    ft_executer(t_mshell *mshell)
 {
+    //ft_env(mshell);
     if (mshell->list_token->token == BI)
-        ft_exe_built_in(mshell);
+    	printf("c'est un built in\n");/*  ft_exe_built_in(mshell); */
     else
     {
         printf("Pas un BI, c'est une commande basique : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
-        ft_forker(mshell);
+		//ft_forker(mshell);
     }
      
     //ft_forker_test(mshell); // no pipe
@@ -78,6 +79,7 @@ void    ft_executer(t_mshell *mshell)
     EXECUTION 
 */
 
+/*
 void    ft_forker_test(t_mshell *mshell)
 {
     //mshell->env = test_env_init("defaut"); //"defaut" ou "vide" (env -i) 
@@ -182,7 +184,6 @@ void    ft_forker(t_mshell *mshell)
 } 
 
 
-/*
 void    ft_redirect(t_mshell mshell)
 {
     // Redirection d'entrée
@@ -197,5 +198,4 @@ void    ft_redirect(t_mshell mshell)
             dup2(outfile, STDOUT_FILENO);
             close(outfile);
         }
-}
-*/
+}*/

@@ -9,11 +9,10 @@ t_cmd    *cmd_init(void)
     if (!test)
         return (NULL);
     test->cmd = NULL;
-    test->count_hd = 0;
-    test->hd = NULL;
+/*     test->count_hd = 0;
+    test->hd = NULL; */
     test->prev = NULL;
     test->next = NULL;
-
     return (test);
 }
 

@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/17 16:56:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/04/23 20:47:36 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t----------------------REDIR------------------------\n");
 	bool	flag = false;
 	lexer->i = -1;
@@ -29,8 +29,6 @@
 				if (input[lexer->i] == input[lexer->i + 1])
 					lexer->i++;
 			}
-			else if (input[lexer->i] == '<' || input[lexer->i] == '>')
-				return (false);
 			else
 				flag = false;
 		}
@@ -38,7 +36,7 @@
 	return (true);
 }
 
-bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
+/* bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t-----------------------PIPE------------------------\n");
 	bool	pipe;
 
@@ -95,8 +93,8 @@ bool	ft_validate_operators(t_lexer *lexer, char *input)
 	if (ft_control_character_valid(lexer, input) == false)
 		return (printf("false_carac\n"), false);// erreur a gerer
 	/* if (ft_control_pipe_valid(lexer, input) == false)
-		return (printf("false_operators\n"), false);// erreur a gerer
+		return (printf("false_operators\n"), false);// erreur a gerer */
 	if (ft_control_redir_valid(lexer, input) == false)
-		return (printf("false_redir\n"), false);// erreur a gerer */
+		return (printf("false_redir\n"), false);// erreur a gerer
 	return (true);
 }

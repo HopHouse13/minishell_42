@@ -46,7 +46,7 @@
 
     //---------------
 
-int ft_export(t_mshell *mshell)
+/* int ft_export(t_mshell *mshell)
 {
     //t_cmd   *cmd;
     //cmd = mshell->list_cmd;
@@ -109,6 +109,7 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
         tmp = tmp->next;
     } // ft_isable
 
+} // suite de passage par reference pour update automaique des var env ?
 
     ////////////////
     new_node = malloc(sizeof(t_env));
@@ -136,6 +137,14 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
 
     ft_free_tab(key_value);
 
+    if (ft_isequal(cmd))
+        key_value = ft_split(cmd, '=');
+    
+    new_node = malloc(sizeof(t_env));
+    if (!new_node)
+        return ;
+    new_node->key = ft_strdup(key_value[0]);
+
 
 }
 
@@ -161,4 +170,4 @@ void    ft_free_tab(char **tab)
         free(tab[i++]);
     free(tab);
 }
-
+ */
