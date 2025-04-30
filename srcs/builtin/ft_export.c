@@ -46,7 +46,7 @@
 
     //---------------
 
-/* int ft_export(t_mshell *mshell)
+int ft_export(t_mshell *mshell)
 {
     //t_cmd   *cmd;
     //cmd = mshell->list_cmd;
@@ -75,8 +75,7 @@ void    ft_add_var(t_mshell *mshell)
         ft_add_node_env(mshell, list_cmd->cmd[i]);
         i++;
     }
-
-} // suite de passage par reference pour update automaique des var env ?
+}
 
 void    ft_add_node_env(t_mshell *mshell, char *cmd)
 {
@@ -84,13 +83,16 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
     t_env   *tmp;
     t_env   *new_node;
 
+    
+    key_value = ft_split_var(cmd);
+    /*
     if (ft_isequal(cmd))
     {
         key_value = ft_split(cmd, '=');
         if (!key_value || !key_value[0])
             return ;
     }
-
+    */
     // Chercher si la variable existe déjà
     tmp = mshell->env_list;
     while (tmp)
@@ -98,18 +100,20 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
         if (ft_strcmp(tmp->key, key_value[0]) == 0)
         {
             free(tmp->value);
+            /*if (key_value[1])
+                tmp->value = ft_strdup(key_value[1]);
+            else
+                tmp->value = ft_strdup("");*/
             if (key_value[1])
                 tmp->value = ft_strdup(key_value[1]);
             else
                 tmp->value = ft_strdup("");
-            tmp->value = key_value[1] ? ft_strdup(key_value[1]) : ft_strdup("");
             ft_free_tab(key_value);
             return ;
         }
         tmp = tmp->next;
     } // ft_isable
 
-} // suite de passage par reference pour update automaique des var env ?
 
     ////////////////
     new_node = malloc(sizeof(t_env));
@@ -148,6 +152,7 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
 
 }
 
+
 int ft_isequal(char *str)
 {
     int i;
@@ -162,6 +167,18 @@ int ft_isequal(char *str)
     return (0);
 }
 
+char **ft_split_var(char *cmd)
+{
+    char    **key_value;
+
+    if (ft_isequal(cmd))
+    {
+        key_value = ft_split(cmd, '=');
+        if (!key_value || !key_value[0])
+            return NULL;
+    }
+    return (key_value);
+}
 
 void    ft_free_tab(char **tab)
 {
@@ -170,4 +187,4 @@ void    ft_free_tab(char **tab)
         free(tab[i++]);
     free(tab);
 }
- */
+
