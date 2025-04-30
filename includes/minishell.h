@@ -336,6 +336,8 @@ void    ft_env_minimal(t_mshell *mshell);
 void    ft_build_env_list(t_mshell   *mshell, char **env);
 
 
+char	**ft_split_var(char *cmd);
+
 // ft_exit
 
 // ft_export
