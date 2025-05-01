@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 13:28:09 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 18:24:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml)
 	return (str_merge);
 }
 
-char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml)
+char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 {	
 	char	*ev_name;
 	char	*ev_ptr;
@@ -43,7 +43,7 @@ char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml)
 	while (ft_isalnum(line[hd->end]) || line[hd->end] == '_')
 		hd->end++;
 	ev_name = ft_substr_ml(line, hd->start, hd->end - hd->start, ml);
-	ev_ptr = getenv(ev_name);
+	ev_ptr = ft_get_env(ev_name, mshell->env_list);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
 	else
@@ -51,7 +51,7 @@ char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml)
 	return (ev_expanded);
 }
 
-char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
+char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 {
 	int	i;
 	char	*ev_exp;
@@ -64,7 +64,7 @@ char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
 		if (line[i] == '$')
 		{
 			hd->start = i +1;
-			ev_exp = ft_expand_ev_hd(line, hd, ml);
+			ev_exp = ft_expand_ev_hd(mshell, line, hd, ml);
 			if (ev_exp)
 			{	
 				line = ft_merge_hd(line, ev_exp, hd, ml);
@@ -96,7 +96,7 @@ void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml)
 // 	ft_putstr_fd("')\n", 2);
 // 	break ;
 // }
-void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
+void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml)
 {
 	t_hd		hd;
 	char		*value_rdl;
@@ -112,7 +112,7 @@ void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 		line = ft_strdup_ml(value_rdl, ml);
 		free(value_rdl);
 		if (cmd->expand_hd && ft_found_dollar_active(line))
-			line = ft_expand_hd(line, &hd, ml);
+			line = ft_expand_hd(mshell, line, &hd, ml);
 		ft_put_in_hd(line, cmd, ml);	
 		ft_free_one_node_ml(line, ml);
 	}
@@ -137,3 +137,16 @@ void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 // Zero regles pour les quotes:
 // toutes les quotes sont print bruts
 
+char	*ft_get_env(char *key, t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(key, tmp->key))
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}

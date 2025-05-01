@@ -12,13 +12,13 @@
 t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 {
 	t_parser	parser;
-	
-	ft_init_parser(mshell, &parser, list_token);
-	ft_clear_and_expand(&parser, ml);
+
+	ft_init_parser(&parser, list_token);
+	ft_clear_and_expand(mshell, &parser, ml);
 	if (ft_valid_syntax(&parser))
 	{printf("\n\n\tSUCCESS: COMMANDE VALIDE\n\n\n");
 		ft_init_list_cmd(&parser, ml);
-		ft_fill_list_cmd(&parser, ml);
+		ft_fill_list_cmd(mshell, &parser, ml);
 		mshell->count_pipe = ft_count_pipe(&parser);
 		return (parser.list_cmd);
 	}

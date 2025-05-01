@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/04/28 23:29:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 18:23:05 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,19 @@ typedef	struct	s_cmd_test
 	struct s_cmd_test	*next;
 }				t_cmd_test;   // XXX
 
+typedef	struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*prev;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_parser // local
 {
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	//char			**env;
 	bool			simple_q;
 	bool			double_q;
 	bool			flag_q;
@@ -139,14 +146,6 @@ typedef struct s_mnode  		// noeud par la liste de malloc
 	size_t			size;
 	struct s_mnode	*next;
 }					t_mnode;
-
-typedef	struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*prev;
-	struct s_env	*next;
-}					t_env;
 
 typedef struct s_hd
 {
@@ -211,7 +210,7 @@ t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml);
 
 /// parser_initilisation ///
-void	ft_init_parser(t_mshell *mshell, t_parser *parser, t_token *list_token);
+void	ft_init_parser(t_parser *parser, t_token *list_token);
 
 /// parser_valid_syntax ///
 bool	ft_valid_pipes(t_parser *parser);
@@ -226,7 +225,7 @@ void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void	ft_init_node_values(t_cmd *new_elem);
 
 /// parser_expand_and_ckeanup ///
-void	ft_clear_and_expand(t_parser *parser, t_mnode **ml);
+void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_clear_elem ///
 bool	ft_char_saved(t_parser *parser, char *str, int i);
@@ -242,12 +241,12 @@ void	ft_mark_expand(t_parser *parser, t_mnode **ml);
 /// parser_expand ///
 char	*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
 char	*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
-char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml);
-void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml);
-void	ft_expand_list(t_parser *parser, t_mnode **ml);
+char	*ft_expand(t_mshell *ms, char *elem, int i, t_parser *parser, t_mnode **ml);
+void	ft_expand_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml);
+void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
-void	ft_fill_list_cmd(t_parser *parser, t_mnode **ml);
+void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_handle_redir ///
 void	ft_get_outfile(t_cmd *cmd, t_token *token);
@@ -256,7 +255,7 @@ void	ft_handle_redir(t_parser *parser);
 
 /// parser_handle_hd ///
 void	ft_get_hd(t_cmd *cmd, t_token *token);
-void	ft_handle_hd(t_parser *parser, t_mnode **ml);
+void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_handle_cmd ///
 void	ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
@@ -351,10 +350,11 @@ void	ft_free_tab(char **tab);
 
 /// exec_heredoc ///
 char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml);
-char	*ft_expand_ev_hd(char *line, t_hd *hd, t_mnode **ml);
-char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml);
+char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
+char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
 void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml);
-void	ft_heredoc(t_cmd *cmd, t_mnode **ml);
+void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml);
+char	*ft_get_env(char *key, t_env *env);
 
 /// exec_utilities ///
 bool	ft_effect_escape_hd(char *str, int i);

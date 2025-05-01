@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/25 14:28:35 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 18:17:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	ft_srch_quotes(char *elem)
 
 // ft_srch_quotes check si il u a au moins une quotes dansle DELIM
 // si il y en a, je stock l'info dans expand_hd et ft_rm... les retire
-void	ft_handle_hd(t_parser *parser, t_mnode **ml)
+void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {
 	t_token	*lt_token;
 	t_cmd	*lt_cmd;
@@ -56,7 +56,7 @@ void	ft_handle_hd(t_parser *parser, t_mnode **ml)
 			lt_cmd->expand_hd = ft_srch_quotes(lt_token->elem);
 			lt_token->elem = ft_rm_quotes_and_esc(parser, lt_token->elem, ml);
 			ft_get_hd(lt_cmd, lt_token);
-			ft_heredoc(lt_cmd, ml);
+			ft_heredoc(mshell, lt_cmd, ml);
 		}
 		lt_token = lt_token->next; 
 	}
