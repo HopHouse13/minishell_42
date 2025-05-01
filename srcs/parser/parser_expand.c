@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 16:57:57 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 19:27:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char	*ft_merge(char *str, char *ev_exp, t_parser *parser, t_mnode **ml)
 	return (str_merge);
 }
 
-char	*ft_expand(t_mshell *ms, char *elem, int i, t_parser *parser, t_mnode **ml)
+char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 {
 	char	*ev_name;
 	char	*ev_ptr;
 	char	*ev_expanded;
 	
-	parser->start = i +2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
+	parser->start = parser->i +2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
 	if (elem[parser->start] == '?')
 	{
 		parser->end = parser->start +1;
@@ -81,21 +81,20 @@ char	*ft_expand(t_mshell *ms, char *elem, int i, t_parser *parser, t_mnode **ml)
 	return (ev_expanded);
 }
 
-void	ft_expand_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml)
+void	ft_exp_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml)
 {
-	int		i;
 	char	*ev_exp;
 	
-	i = -1;
-	while (tmp->elem[++i])
+	parser->i = -1;
+	while (tmp->elem[++parser->i])
 	{
 		
-		if (tmp->elem[i] == '$' && tmp->elem[i +1] == '[')
+		if (tmp->elem[parser->i] == '$' && tmp->elem[parser->i +1] == '[')
 		{
-			ev_exp = ft_expand(ms, tmp->elem, i, parser, ml);
+			ev_exp = ft_expand(ms, tmp->elem, parser, ml);
 			printf("\tEXPANDED : %s\n", ev_exp);
 			tmp->elem = ft_merge(tmp->elem, ev_exp, parser, ml);
-			i = -1;
+			parser->i = -1;
 		}
 	}
 }
@@ -107,7 +106,7 @@ void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		ft_expand_elem(mshell, tmp, parser, ml);
+		ft_exp_elem(mshell, tmp, parser, ml);
 		printf("\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}

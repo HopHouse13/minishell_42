@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 18:23:05 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 20:01:47 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,8 @@ void	ft_mark_expand(t_parser *parser, t_mnode **ml);
 /// parser_expand ///
 char	*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
 char	*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
-char	*ft_expand(t_mshell *ms, char *elem, int i, t_parser *parser, t_mnode **ml);
-void	ft_expand_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml);
+char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml);
+void	ft_exp_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml);
 void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_fill_list_cmd ///
