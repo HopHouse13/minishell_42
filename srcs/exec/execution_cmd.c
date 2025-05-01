@@ -32,8 +32,11 @@ void    ft_executer(t_mshell *mshell)
 {
     //ft_env(mshell);
     if (mshell->list_token->token == BI)
-    	printf("c'est un built in\n");/*  ft_exe_built_in(mshell); */
-    else
+    {
+		printf("c'est un built in\n");
+		ft_exe_built_in(mshell);
+	}
+	else
     {
         printf("Pas un BI, c'est une commande basique : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
 		//ft_forker(mshell);

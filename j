@@ -1,2 +1,0 @@
-bonjour
-/home/pab

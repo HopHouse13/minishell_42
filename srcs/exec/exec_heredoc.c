@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/04/26 17:46:58 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 13:28:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,8 @@ char	*ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
 			}
 		}
 	}
-	return (line); // <<<<<<<<<<<<<<<<<<<<<<<<<< ici ft_strdup
+	return (line);
 }
-
-/* void	ft_expand_hd(char *line, t_hd *hd, t_mnode **ml)
-{
-	char		*tmp;
-	
-	tmp = *line; // pas obliger de faire un tmp, en renvoyant tjs une char* different du depart
-	*line = ft_expand_hd(line, hd, ml);
-	free(tmp);
-	tmp = NULL;
-} */
 
 void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml)
 {
@@ -146,3 +136,4 @@ void	ft_heredoc(t_cmd *cmd, t_mnode **ml)
 
 // Zero regles pour les quotes:
 // toutes les quotes sont print bruts
+
