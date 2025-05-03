@@ -35,9 +35,9 @@ void    ft_build_env_list(t_mshell *mshell, char **env)
 		key_value = ft_split(env[i], '=');
 		if (!key_value || !key_value[0])
 		{
-			//free ?
+			//free ? a la fin pr
 			i++;
-		}
+		} // substr
 		new_node = malloc(sizeof(t_env)); // ! free & ml !!
 		if (!new_node)
 			return ;

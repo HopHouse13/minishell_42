@@ -7,7 +7,6 @@ void    ft_exe_built_in(t_mshell *mshell)
     //BI_list = {"cd", "echo", "env", "exit", "pwd", "export", "unset"};
     char *cmd;
     cmd = mshell->list_cmd->cmd[0];
-
     if (ft_strcmp(cmd, "cd") == 0)
         printf("BI reconnu : \033[33mcd\033[0m\n");    
         //ft_cd(mshell);
@@ -32,6 +31,5 @@ void    ft_exe_built_in(t_mshell *mshell)
         printf("commande differente de 'BI' : \033[31m%s\033[0m\n", cmd);
     //if (mshell)
     //ft_build_env_list(mshell);
-
     return ;
 }
