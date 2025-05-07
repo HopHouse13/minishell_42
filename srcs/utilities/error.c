@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/29 15:44:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/07 15:59:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,8 @@ void	ft_error_exit(char *message)
 //         exit(EXIT_FAILURE);       // exit seulement si erreur fatale
 //     return (1);                   // sinon retour d’un code d’erreur
 // }
+
+void	ft_sys_error(int )
+{
+	
+}

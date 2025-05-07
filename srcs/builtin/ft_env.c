@@ -71,19 +71,3 @@ void    ft_env_minimal(t_mshell *mshell)
 }
 */
 
-/*
-char    **check_env(char **envp)
-{
-    char *path;
-
-    path = getenv("PATH");
-
-    if (!path)
-    {
-        //path = env_mini (pwd, shell lvl & '_')
-        //mallocking en cas de env -i 
-        // ** TO DO ** (voir strat avec Pab)
-    }
-    return (envp);
-}
-*/
