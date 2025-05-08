@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/28 23:19:45 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/08 19:36:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 	while (1)
 	// peut etre changer la condition pour une variable stock dans la struct mshell et qui change d'etat pour sortir de minishell. (crtl+D ou exit)
 	{
-		// ft_signal(); // je sais pas encore comment gerer ca
+		// ft_signal(1); // je sais pas encore comment gerer ca
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			break ;
 		else
 		{
+			//ft_signal(2)
 			add_history(mshell->input);
 			mshell->list_token = ft_lexer(mshell->input, ml);
 			ft_print_list_token(mshell->list_token); //ASUPP

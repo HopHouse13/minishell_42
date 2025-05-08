@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 20:01:47 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/08 19:42:15 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define IN 1
 # define OUT 0
 
-extern int		exit_status; //variable glob.pour obtenir le dernier exit_code.
+extern int		exit_code; //variable glob.pour obtenir le dernier exit_code.
 typedef enum e_type
 {
 	ELEM,
