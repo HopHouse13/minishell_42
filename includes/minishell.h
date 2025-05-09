@@ -302,6 +302,9 @@ t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
 t_cmd    		*cmd_init(void);
 t_mshell    	*cmd_remplissage(t_mshell *mshell);
 
+int		ft_piper(t_mshell *mshell);
+
+
 // BUILTINS
 
 // ft_cd
@@ -322,7 +325,7 @@ char	**ft_split_var(char *cmd);
 
 // ft_export
 int		ft_export(t_mshell *mshell);
-char	*get_env_list(t_mshell *mshell);
+//char	*get_env_list(t_mshell *mshell);
 void	ft_add_var(t_mshell *mshell);
 void	ft_add_node_env(t_mshell *mshell, char *cmd);
 int		ft_isequal(char *str);

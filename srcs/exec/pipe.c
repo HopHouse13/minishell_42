@@ -1,26 +1,6 @@
 #include "../../includes/minishell.h" 
 
 /*
-void    pipe(void)
-{
-    int fd_entry; // arguments ??
-    int fd_exit; // argmument ?? 
-
-    int fd[2];
-
-    if (pipe(fd) == -1)
-    {
-        perror("error pipe ");
-        exit(EXIT_FAILURE);
-    }
-    //fork_entry;
-    //fork_exit;
-    // établir strategie / lien avec redirect()  
-    close(fd[0]);
-    close(fd[1]);
-    wait(NULL);
-}
-
 void    ft_forker(char **av, int *fd)
 {
     // refaire un systeme avec les redirection 
@@ -63,6 +43,85 @@ void	redirect_arg(char *av_arg, int fd, char *location)
 	return ;
 }
 */
+
+int ft_piper(t_mshell *mshell)
+{
+    t_cmd   *cmd = mshell->list_cmd;
+    int pipe_fd[2];
+    pid_t   pid1;
+    //pid_t   pid2;
+    //int     status;
+
+    // redirection
+    // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
+    while (cmd)
+    {
+        if (cmd->next && pipe(pipe_fd) == -1)
+        {
+            perror("Probleme pipe");
+            exit(1);
+        }
+        // fork
+        pid1 = fork();
+        if (pid1 == -1)
+        {
+            perror("fork failed");
+            exit(1);
+        }
+        if (pid1 == 0)
+        {
+            dup2(pipe_fd[1], STDOUT_FILENO);
+            close(pipe_fd[0]);
+            close(pipe_fd[1]);
+    
+            // avec access ; code 127 'command not found'
+            if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
+	        {
+		        perror ("Execve 1");
+		        exit (127); // commande found but not executable
+            }
+        }
+        // comment recuperer l'exit_code du processus enfant = waitpid() ?
+        wait(NULL);
+        
+        //waitpid(pid1, &status, 0);
+        /*
+        pid2 = fork();
+        if (pid2 == -1)
+        {
+            perror("fork failed");
+            exit(1);
+        }
+        if (pid2 == 0)
+        {
+            dup2(pipe_fd[0], STDIN_FILENO);
+            close(pipe_fd[1]);
+            close(pipe_fd[0]);
+
+            // avec access ; code 127 'command not found'
+            if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
+            {
+                perror ("Execve 2");
+                exit (126); // commande found but not executable
+            }
+        }
+        */
+	    cmd = cmd->next;
+    }
+	/* ---- inspi GPT ----
+	// Attente des enfants
+	while (wait(&status) > 0)
+		;
+
+	// Récupère le code du dernier
+	if (WIFEXITED(status))
+		mshell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		mshell->exit_status = 128 + WTERMSIG(status);
+    
+	*/
+	return (0);
+}
 
 
 int ft_ispath(char *str)

@@ -16,7 +16,6 @@
         créer un pipe temporaire
         écrire dedans
         rediriger stdin de la commande vers le read-end du pipe
-    - check env
     
     - check pipe
     - - créer n-1 pipe
@@ -33,105 +32,29 @@ void    ft_executer(t_mshell *mshell)
     int token;
     
     token = mshell->list_token->token;
-    if (token == BI)
-		ft_exe_built_in(mshell);
-    else if (token == HD)
+    if (mshell->count_pipe)
     {
-        printf("HereDoc par la\n");
-        
+        printf("bonne detection du pipe et entree dans piper\n");
+        ft_piper(mshell);
     }
-    
-	else
+    else if (token == CMD)
     {
         printf("\033[31mCommande basique\033[0m : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
 		//ft_forker(mshell);
         //ft_forker_test(mshell); // no pipe
     }
-    
-    if (mshell->list_token->token == PIPE)
+    if (token == BI)
     {
-        ft_piper(mshell);
+		ft_exe_built_in(mshell);
     }
-    
-
+    if (token == HD)
+    {
+        printf("HereDoc par la\n");
+    }
     //redirect(mshell); // dans le parent ou dans l'enfant ?
-    printf("fin de l'exec.\n");
+    printf("\033[31mfin de l'exec.\033[0m\n");
 }
 
-int ft_piper(t_mshell *mshell)
-{
-    // pipe
-    int pipe_fd[2];
-    pid_t   pid1;
-    pid_t   pid2;
-
-    if (pipe(pipe_fd) == -1)
-    {
-        perror("Probleme pipe");
-        exit(1);
-    }
-
-    // redirection
-    // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
-
-    // fork
-    pid1 = fork();
-    if (pid1 == -1)
-    {
-        perror("fork failed");
-        exit(1);
-    }
-    if (pid1 == 0)
-    {
-        dup2(pipe_fd[1], STDOUT_FILENO);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-    
-        // avec access ; code 127 'command not found'
-        if (execve (cmd_path, cmd_args, NULL) == -1)
-	    {
-		    perror ("Error_Execve ");	
-		    exit (126); // commande found but not executable
-        }
-    }
-// comment recuperer l'exit_code du processus enfant = waitpid() ?
-
-    pid1 = fork();
-    if (pid1 == -1)
-    {
-        perror("fork failed");
-        exit(1);
-    }
-    if (pid1 == 0)
-    {
-        dup2(pipe_fd[1], STDOUT_FILENO);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-
-        // avec access ; code 127 'command not found'
-        if (execve (cmd_path, cmd_args, NULL) == -1)
-        {
-            perror ("Error_Execve ");	
-            exit (126); // commande found but not executable
-        }
-    }
-
-
-
-}
-
-//if (BI && !(mshell->token->PIPE)) // relou, simplification avec precision dans t_cmd ?
-    //{
-        //ft_check_hd
-            /*
-                read_tempo
-                pipe
-                ecriture a travers pipes.
-                rediriger stdin de la commande. vers le read-end. du pipe
-            */
-        //ft_redirect ?
-        //ft_exe_built_in(mshell);
-//}
 
 /*
 void	redirect_arg(char *av_arg, int fd, char *location)
@@ -155,8 +78,20 @@ void	redirect_arg(char *av_arg, int fd, char *location)
 */
 
 
-// _________ _________________________ ________________________ _________ __ //
 
+//ft_check_hd
+        /*
+            read_tempo
+            pipe
+            ecriture a travers pipes.
+            rediriger stdin de la commande. vers le read-end. du pipe
+        */
+//ft_redirect ?
+//ft_exe_built_in(mshell);
+
+
+
+// _________ _________________________ ________________________ _________ __ //
 /*
     FORK
     REDIRECTION
