@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/04/24 20:15:53 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/07 13:01:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char	*ft_merge(char *str, char *ev_exp, t_parser *parser, t_mnode **ml)
 	return (str_merge);
 }
 
-char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
+char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 {
 	char	*ev_name;
 	char	*ev_ptr;
 	char	*ev_expanded;
 	
-	parser->start = i +2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
+	parser->start = parser->i +2; // pour arriver a la 1er carac du nom. ex : $[HOME] i = $ ; i+2 = H
 	if (elem[parser->start] == '?')
 	{
 		parser->end = parser->start +1;
@@ -73,7 +73,7 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 		parser->end++;
 	ev_name = ft_substr_ml(elem, parser->start, parser->end - parser->start, ml); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
 	printf("\tVAR_NAME : %s\n", ev_name);
-	ev_ptr = getenv(ev_name); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
+	ev_ptr = ft_get_env(ev_name, ms->env_list); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);
 	else
@@ -81,33 +81,32 @@ char	*ft_expand(char *elem, int i, t_parser *parser, t_mnode **ml)
 	return (ev_expanded);
 }
 
-void	ft_expand_elem(t_token *tmp, t_parser *parser, t_mnode **ml)
+void	ft_exp_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml)
 {
-	int		i;
 	char	*ev_exp;
 	
-	i = -1;
-	while (tmp->elem[++i])
+	parser->i = -1;
+	while (tmp->elem[++parser->i])
 	{
 		
-		if (tmp->elem[i] == '$' && tmp->elem[i +1] == '[')
+		if (tmp->elem[parser->i] == '$' && tmp->elem[parser->i +1] == '[')
 		{
-			ev_exp = ft_expand(tmp->elem, i, parser, ml);
+			ev_exp = ft_expand(ms, tmp->elem, parser, ml);
 			printf("\tEXPANDED : %s\n", ev_exp);
 			tmp->elem = ft_merge(tmp->elem, ev_exp, parser, ml);
-			i = -1;
+			parser->i = -1;
 		}
 	}
 }
 
-void	ft_expand_list(t_parser *parser, t_mnode **ml)
+void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {
 	t_token *tmp;
 	
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		ft_expand_elem(tmp, parser, ml);
+		ft_exp_elem(mshell, tmp, parser, ml);
 		printf("\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}

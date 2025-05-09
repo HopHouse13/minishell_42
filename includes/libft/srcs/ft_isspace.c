@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/09 12:51:46 by pab              ###   ########.fr       */
+/*   Created: 2025/05/09 16:54:20 by pab               #+#    #+#             */
+/*   Updated: 2025/05/09 18:43:23 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	ft_init_mshell(t_mshell *mshell, char **env)
+int	ft_isspace(char c)
 {
-	mshell->input = NULL;
-	mshell->list_token = NULL;
-	mshell->list_cmd = NULL;
-	mshell->count_pipe = 0;
-	mshell->env_list = NULL;
-	ft_build_env_list(mshell, env);
-	//exit_code = 0;
+	if ((c > 8 && c < 14) || c == 32)
+		return (1);
+	return (0);
 }

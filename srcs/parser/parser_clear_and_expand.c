@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/04/18 19:03:53 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/01 16:46:49 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 //										-> dans simple_q : conservation totale
 //										-> a l'exterieur : disparition total car actif pour tout
 
-void	ft_clear_and_expand(t_parser *parser, t_mnode **ml)
+void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {	ft_printf("\n\t|||||||||||||||||| expand_&_clear ||||||||||||||||||||\n\n");
 	
 	ft_printf("\n\t********************** markers *************************\n");
@@ -40,6 +40,6 @@ void	ft_clear_and_expand(t_parser *parser, t_mnode **ml)
 	ft_print_list_token(parser->list_token); // ASUPP
 
 	ft_printf("\n\t********************** expand **************************\n");
-	ft_expand_list(parser, ml);
+	ft_expand_list(mshell, parser, ml);
 	ft_print_list_token(parser->list_token); // ASUPP
 }

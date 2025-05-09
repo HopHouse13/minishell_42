@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pbret <pbret@student.42.fr>                +#+  +:+       +#+         #
+#    By: pab <pab@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 16:53:10 by pbret             #+#    #+#              #
-#    Updated: 2025/03/05 12:30:49 by pbret            ###   ########.fr        #
+#    Updated: 2025/05/09 17:11:18 by pab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS		= srcs/ft_bzero.c srcs/ft_isalnum.c srcs/ft_isalpha.c \
 			srcs/ft_lstlast_bonus.c srcs/ft_lstadd_back_bonus.c\
 			srcs/ft_lstdelone_bonus.c srcs/ft_lstclear_bonus.c \
 			srcs/ft_lstiter_bonus.c srcs/ft_lstmap_bonus.c \
-			srcs/ft_strncpy.c srcs/ft_strcmp.c \
+			srcs/ft_strncpy.c srcs/ft_strcmp.c srcs/ft_isspace.c \
 						
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc

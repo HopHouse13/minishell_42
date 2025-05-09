@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/04/23 19:48:40 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 19:39:14 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_node_values(t_cmd *new_elem)
 	new_elem->fd_out = -1;
 	new_elem->fd_hd = -1;
 	new_elem->delim_hd = NULL;
-	new_elem->buff_hd = NULL;
+	//new_elem->buff_hd = NULL;
 	new_elem->expand_hd = false;
 	new_elem->next = NULL;
 }

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/09 12:51:46 by pab              ###   ########.fr       */
+/*   Created: 2025/05/09 12:53:07 by pab               #+#    #+#             */
+/*   Updated: 2025/05/09 17:20:05 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_mshell(t_mshell *mshell, char **env)
+bool	ft_empty_line(char *input)
 {
-	mshell->input = NULL;
-	mshell->list_token = NULL;
-	mshell->list_cmd = NULL;
-	mshell->count_pipe = 0;
-	mshell->env_list = NULL;
-	ft_build_env_list(mshell, env);
-	//exit_code = 0;
+	int	i;
+	
+	i = 0;
+	while (input[i] && ft_isspace(input[i]))
+		i++;
+	if (i == ft_strlen(input))
+		return (true);
+	return (false);
 }
