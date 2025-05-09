@@ -30,20 +30,97 @@
 
 void    ft_executer(t_mshell *mshell)
 {
-    //ft_env(mshell);
-    if (mshell->list_token->token == BI)
-    {
-		printf("c'est un built in\n");
+    int token;
+    
+    token = mshell->list_token->token;
+    if (token == BI)
 		ft_exe_built_in(mshell);
-	}
+    else if (token == HD)
+    {
+        printf("HereDoc par la\n");
+        
+    }
+    
 	else
     {
-        printf("Pas un BI, c'est une commande basique : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
+        printf("\033[31mCommande basique\033[0m : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
 		//ft_forker(mshell);
+        //ft_forker_test(mshell); // no pipe
     }
-     
-    //ft_forker_test(mshell); // no pipe
-    //if (BI && !(mshell->token->PIPE)) // relou, simplification avec precision dans t_cmd ?
+    
+    if (mshell->list_token->token == PIPE)
+    {
+        ft_piper(mshell);
+    }
+    
+
+    //redirect(mshell); // dans le parent ou dans l'enfant ?
+    printf("fin de l'exec.\n");
+}
+
+int ft_piper(t_mshell *mshell)
+{
+    // pipe
+    int pipe_fd[2];
+    pid_t   pid1;
+    pid_t   pid2;
+
+    if (pipe(pipe_fd) == -1)
+    {
+        perror("Probleme pipe");
+        exit(1);
+    }
+
+    // redirection
+    // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
+
+    // fork
+    pid1 = fork();
+    if (pid1 == -1)
+    {
+        perror("fork failed");
+        exit(1);
+    }
+    if (pid1 == 0)
+    {
+        dup2(pipe_fd[1], STDOUT_FILENO);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+    
+        // avec access ; code 127 'command not found'
+        if (execve (cmd_path, cmd_args, NULL) == -1)
+	    {
+		    perror ("Error_Execve ");	
+		    exit (126); // commande found but not executable
+        }
+    }
+// comment recuperer l'exit_code du processus enfant = waitpid() ?
+
+    pid1 = fork();
+    if (pid1 == -1)
+    {
+        perror("fork failed");
+        exit(1);
+    }
+    if (pid1 == 0)
+    {
+        dup2(pipe_fd[1], STDOUT_FILENO);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+
+        // avec access ; code 127 'command not found'
+        if (execve (cmd_path, cmd_args, NULL) == -1)
+        {
+            perror ("Error_Execve ");	
+            exit (126); // commande found but not executable
+        }
+    }
+
+
+
+}
+
+//if (BI && !(mshell->token->PIPE)) // relou, simplification avec precision dans t_cmd ?
     //{
         //ft_check_hd
             /*
@@ -54,24 +131,28 @@ void    ft_executer(t_mshell *mshell)
             */
         //ft_redirect ?
         //ft_exe_built_in(mshell);
-    //}
+//}
 
-    //redirect(mshell); // dans le parent ou dans l'enfant ?
-    printf("fin de l'exec.\n");
+/*
+void	redirect_arg(char *av_arg, int fd, char *location)
+{
+	int	fd_open;
+
+	fd_open = 0;
+	if (!ft_strncmp (location, "in", 2))
+		fd_open = open (av_arg, O_RDONLY);
+	else if (!ft_strncmp (location, "out", 3))
+		fd_open = open (av_arg, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd_open == -1)
+	{
+		perror("Bruh acces file : ");
+		exit(1);
+	}
+	dup2 (fd_open, fd);
+	close (fd_open);
+	return ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
 // _________ _________________________ ________________________ _________ __ //

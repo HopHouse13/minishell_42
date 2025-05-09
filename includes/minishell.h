@@ -105,17 +105,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef	struct	s_cmd_test
-{
-	char			**cmd;
-	int				infile;
-	int				outfile;
-	//t_hd			*hd;
-	int				hd_count; 
-	struct s_cmd_test	*prev;
-	struct s_cmd_test	*next;
-}				t_cmd_test;   // XXX
-
 typedef	struct s_env
 {
 	char			*key;
