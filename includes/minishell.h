@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/08 19:42:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 19:41:58 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_cmd
 	int				fd_out;
 	int				fd_hd; // pab
 	char			*delim_hd; // pab
-	char			**buff_hd; // emir
 	bool			expand_hd; // pab
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
@@ -137,7 +136,6 @@ typedef struct s_parser // local
 	int				start;
 	int				end;
 	bool			mark_b;
-	int				exit_status;
 }					t_parser;
 
 typedef struct s_mnode  		// noeud par la liste de malloc
@@ -160,7 +158,6 @@ typedef struct s_mshell
 	t_cmd			*list_cmd;
 	t_env			*env_list; // build_list
 	int				count_pipe;
-	int				exit_status;
 }					t_mshell;
 
 /// main ///
@@ -170,7 +167,7 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// lexer ///
-t_token	*ft_lexer(char *input, t_mnode **ml);
+t_token	*ft_lexer(t_mshell *mshell, t_mnode **ml);
 
 /// lexer_initialisation ///
 void	ft_init_lexer(t_lexer *lexer);
@@ -266,8 +263,6 @@ void	ft_status_update_parser(bool *quote, bool *mark, bool *flag);
 bool	ft_inside_quotes_parser(t_parser *parser, char *str, int i);
 
 /// parser_utilities ///
-/* bool		ft_cmds(char *cmd);
-char		*ft_find_next_cmd(t_token *tmp); */
 bool	ft_effect_escape_parser(t_parser *parser, char *str, int i);
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
@@ -285,14 +280,14 @@ char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
 char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mnode **ml);
+void	ft_free_env(t_env **env_list);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
-void		ft_error_exit(char *message);
-void		ft_init_mshell(t_mshell *mshell, char **env); //t_mnode **ml !
-// void		ft_build_env(t_mshell *mshell, char **env,  t_mnode **ml);
-// void		ft_build_path(t_mshell *mshell,  t_mnode **ml);
+void	ft_error_exit(char *message);
+void	ft_init_mshell(t_mshell *mshell, char **env); //t_mnode **ml !
+bool	ft_empty_line(char *input);
 // void		ft_init_exec(t_exec *exec);
 
 /// utilities_print ///
@@ -328,7 +323,7 @@ t_mshell    	*cmd_remplissage(t_mshell *mshell);
 int		ft_env(t_mshell *mshell);
 void	ft_print_env_list(t_env *env_list);
 void    ft_env_minimal(t_mshell *mshell);
-
+char	*ft_get_env(char *key, t_env *env);
 void    ft_build_env_list(t_mshell   *mshell, char **env);
 
 
@@ -354,7 +349,6 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
 char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
 void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml);
 void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml);
-char	*ft_get_env(char *key, t_env *env);
 
 /// exec_utilities ///
 bool	ft_effect_escape_hd(char *str, int i);

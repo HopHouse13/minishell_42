@@ -11,15 +11,27 @@ int ft_env(t_mshell *mshell)
 void	ft_print_env_list(t_env *env_list)
 {
 	if (!env_list)
-	{
 		printf("BRUHHH\n");
-	}
 	while (env_list)
 	{
 		printf("\033[33m%s\033[0m=\033[34m%s\033[0m\n", env_list->key, env_list->value);
 		env_list = env_list->next;
 	}
     return ;
+}
+
+char	*ft_get_env(char *key, t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(key, tmp->key))
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 
 void    ft_build_env_list(t_mshell *mshell, char **env)
@@ -53,10 +65,7 @@ void    ft_build_env_list(t_mshell *mshell, char **env)
 		else
 			last->next = new_node;
 		last = new_node;
-		free(key_value[0]);
-		if (key_value[1])
-			free(key_value[1]);
-		free(key_value);
+		ft_free_tab(key_value);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 18:24:35 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 11:00:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,3 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml)
 
 // Zero regles pour les quotes:
 // toutes les quotes sont print bruts
-
-char	*ft_get_env(char *key, t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if (!ft_strcmp(key, tmp->key))
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}

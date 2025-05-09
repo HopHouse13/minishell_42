@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/01 15:35:59 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 12:51:56 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_init_parser(t_parser *parser, t_token *list_token)
 	parser->start = -1;
 	parser->end = -1;
 	parser->mark_b = OUT;
-	parser->exit_status = -1;
 }
 
 

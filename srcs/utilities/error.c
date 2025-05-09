@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/08 19:51:47 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 18:41:12 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_error_exit(char *message, int exit_code )
+void	ft_error_exit(char *message/* , int exit_code */ )
 {
 	perror(message);
 	exit(EXIT_FAILURE);

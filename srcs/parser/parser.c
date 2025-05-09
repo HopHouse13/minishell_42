@@ -19,7 +19,9 @@ t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
 	{printf("\n\n\tSUCCESS: COMMANDE VALIDE\n\n\n");
 		ft_init_list_cmd(&parser, ml);
 		ft_fill_list_cmd(mshell, &parser, ml);
+		mshell->list_cmd = parser.list_cmd;
 		mshell->count_pipe = ft_count_pipe(&parser);
+		ft_print_list_cmd(mshell); // ASUPP
 		return (parser.list_cmd);
 	}
 	printf("\n\n\t\tFAILURE : TAPE MIEUX LOOSER\n\n\n");

@@ -39,6 +39,7 @@ SRCS		= srcs/main.c \
 			srcs/utilities/error.c \
 			srcs/utilities/init.c \
 			srcs/utilities/print.c \
+			srcs/utilities/utilities.c \
 			srcs/exec/execution_cmd.c \
 			srcs/exec/ft_exe_builtins.c \
 			srcs/exec/pipe.c \
