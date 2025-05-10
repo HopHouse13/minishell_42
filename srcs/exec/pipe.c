@@ -46,17 +46,15 @@ void	redirect_arg(char *av_arg, int fd, char *location)
 
 int ft_piper(t_mshell *mshell)
 {
-    t_cmd   *cmd = mshell->list_cmd;
-    int pipe_fd[2];
-    pid_t   pid1;
+	t_cmd   *cmd = mshell->list_cmd;
+	int pipe_fd[2];
+	pid_t   pid1;
+	int prev_fd;
 
-    int prev_fd;
-
-    prev_fd = -1;
+	prev_fd = -1;
     //pid_t   pid2;
     //int     status;
 
-    // redirection
     // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
     while (cmd)
     {
@@ -65,74 +63,60 @@ int ft_piper(t_mshell *mshell)
             perror("Probleme pipe");
             exit(1);
         }
-        // fork
-        pid1 = fork();
+
+		pid1 = fork(); // ofrk
         if (pid1 == -1)
-        {
-            perror("fork failed");
-            exit(1);
-        }
-        if (pid1 == 0)
-        {
-            if (prev_fd == -1)
-            {
-                dup2(prev_fd, STDIN_FILENO);
-                close(prev_fd);
-            }
+		{
+			perror("fork failed");
+			exit(1);
+		}
+		if (pid1 == 0)
+		{
+			if (prev_fd != -1) //redir IN si 2eme com. // init a -1
+			{
+				dup2(prev_fd, STDIN_FILENO);
+				close(prev_fd);
+			}
+			if (cmd->next)  //redir sortie
+			{
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[0]);
+				close(pipe_fd[1]);
+			}
+			// avec access ; code 127 'command not found'
+			if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
+			{
+				perror ("Execve 1");
+				exit (127); // commande found bcleaut not executable
+			}
+		}
 
-            if (cmd->next)
-            {
-                close(pipe_fd[0]); // ferme lecture
-                dup2(pipe_fd[1], STDOUT_FILENO);
-                close(pipe_fd[1]);
-            }
+		if (prev_fd != -1) // si on est sur cmd[1+]
+			close(prev_fd); // ferme lecture
+		if (cmd->next) // si yq une cmd qui suit
+			close(pipe_fd[1]); //ferme l'ecriture
 
+		if (cmd->next != NULL) //si ya une commande suivante
+			prev_fd = pipe_fd[0];
+		else
+			prev_fd = -1;
+		// comment recuperer l'exit_code du processus enfant = waitpid() ?
+		//waitpid(pid1, &status, 0);
+		cmd = cmd->next;
+	}
 
-            // avec access ; code 127 'command not found'
-            if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
-	        {
-		        perror ("Execve 1");
-		        exit (127); // commande found but not executable
-            }
-        }
-        // comment recuperer l'exit_code du processus enfant = waitpid() ?
-        wait(NULL);
-        
-        //waitpid(pid1, &status, 0);
-        /*
-        pid2 = fork();
-        if (pid2 == -1)
-        {
-            perror("fork failed");
-            exit(1);
-        }
-        if (pid2 == 0)
-        {
-            dup2(pipe_fd[0], STDIN_FILENO);
-            close(pipe_fd[1]);
-            close(pipe_fd[0]);
-
-            // avec access ; code 127 'command not found'
-            if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
-            {
-                perror ("Execve 2");
-                exit (126); // commande found but not executable
-            }
-        }
-        */
-	    cmd = cmd->next;
-    }
-	/* ---- inspi GPT ----
-	// Attente des enfants
-	while (wait(&status) > 0)
+	while (wait(NULL) > 0)
 		;
 
+	//wait(NULL);
+	//wait(NULL);
+	//wait(NULL);
+	/* ---- inspi GPT ----
 	// Récupère le code du dernier
 	if (WIFEXITED(status))
 		mshell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		mshell->exit_status = 128 + WTERMSIG(status);
-    
 	*/
 	return (0);
 }
