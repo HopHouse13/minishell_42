@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/09 19:41:58 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/10 22:19:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define IN 1
 # define OUT 0
 
-extern int		exit_code; //variable glob.pour obtenir le dernier exit_code.
+extern int		g_exit_code; //variable glob.pour obtenir le dernier exit_code.
 typedef enum e_type
 {
 	ELEM,
@@ -156,14 +156,14 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// lexer ///
-t_token	*ft_lexer(t_mshell *mshell, t_mnode **ml);
+int		ft_lexer(t_mshell *mshell, t_mnode **ml);
 
 /// lexer_initialisation ///
 void	ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
 void	ft_define_token_redir(t_lexer *lexer);
-void	ft_build_list_token(t_lexer *lexer, t_mnode **ml);
+void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
 void	ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
@@ -193,7 +193,7 @@ t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// parser ///
-t_cmd	*ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml);
+int		ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml);
 
 /// parser_initilisation ///
 void	ft_init_parser(t_parser *parser, t_token *list_token);
@@ -263,6 +263,7 @@ void	*ft_malloc_list(size_t size, t_mnode **ml);
 void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml);
 void 	ft_add_ml(void *ptr, size_t size, t_mnode **ml);
 void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
+char	*ft_itoa_ml(int n, t_mnode **ml);
 char	**ft_split_ml(char const *s, char c, t_mnode **ml);
 char	*ft_strdup_ml(const char *s_src, t_mnode **ml);
 char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
@@ -275,7 +276,7 @@ void	ft_free_env(t_env **env_list);
 
 /// utilities ///
 void	ft_error_exit(char *message);
-void	ft_init_mshell(t_mshell *mshell, char **env); //t_mnode **ml !
+void	ft_init_mshell(t_mshell **mshell, char **env); //t_mnode **ml !
 bool	ft_empty_line(char *input);
 // void		ft_init_exec(t_exec *exec);
 

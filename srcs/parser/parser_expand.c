@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/07 13:01:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/10 22:25:37 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*ft_merge(char *str, char *ev_exp, t_parser *parser, t_mnode **ml)
 	char	*after;
 	char	*str_merge;
 	
-	if (!ft_isalpha(str[parser->start]) && str[parser->start] != '_')
+	if (!ft_isalpha(str[parser->start]) && str[parser->start] != '_'
+			&& str[parser->start] != '?') //exit_code - besoin qu'il soit traite comme une VAR STD
 		str_merge = ft_invalid(str, ev_exp, parser, ml);
 	else
 	{	
@@ -61,7 +62,7 @@ char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 	if (elem[parser->start] == '?')
 	{
 		parser->end = parser->start +1;
-		// return (ft_itoa_ml(exit_status)); // dernier exit status
+		return (ft_itoa_ml(g_exit_code, ml));
 	}
 	if (!ft_isalpha(elem[parser->start]) && elem[parser->start] != '_')
 	{
@@ -72,7 +73,7 @@ char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 	while (elem[parser->end] && elem[parser->end] != ']')
 		parser->end++;
 	ev_name = ft_substr_ml(elem, parser->start, parser->end - parser->start, ml); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
-	printf("\tVAR_NAME : %s\n", ev_name);
+	printf("\tVAR_NAME : %s\n", ev_name); // ASUPP
 	ev_ptr = ft_get_env(ev_name, ms->env_list); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(ev_ptr, ml);

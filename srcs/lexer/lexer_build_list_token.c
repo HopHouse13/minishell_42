@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/18 19:05:16 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/10 20:27:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 	tmp->next = new_elem;
 }
 
-void ft_build_list_token(t_lexer *lexer, t_mnode **ml)
+void ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
 {
 	int start;
 
@@ -129,7 +129,6 @@ void ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 			lexer->j++;		
 			lexer->i++;
 		}
-		//printf("\tline: [%s]\tstart: [%d]\tlen : [%d]\n", lexer->input_clear, start, lexer->j);
 		ft_add_node(lexer, ft_substr_ml(lexer->input_clear, start, lexer->j, ml), ml);
 		lexer->j = 0;
 		if (lexer->input_clear[lexer->i] == ' ')
@@ -137,5 +136,5 @@ void ft_build_list_token(t_lexer *lexer, t_mnode **ml)
 	}
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
-	// ft_clear_empty_node(parser, ml); // A FAIRE uniquement pour le '\' isole
+	mshell->list_token = lexer->list_token;
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/09 19:32:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/10 21:41:00 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_get_hd(t_cmd *lt_cmd, t_token *lt_token)
 {
 	if (lt_cmd->fd_hd != -1)
 		close(lt_cmd->fd_hd);
-	lt_cmd->fd_hd = open("heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	lt_cmd->fd_hd = open("heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (lt_cmd->fd_hd == -1)
 	{
 		perror("heredoc");

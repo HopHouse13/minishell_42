@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/09 11:00:35 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/10 22:25:16 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 		return (ft_strdup_ml("$", ml)); */ // voir si c'est utilse ou pas
 	if (line[hd->start] == '?')
 	{
-		hd->end = hd->start + 1;
-		// return (ft_itoa_ml(exit_status)); // dernier exit status
+		hd->end = hd->start +1;
+		return (ft_itoa_ml(g_exit_code, ml));
 	}
 	if (!ft_isalpha(line[hd->start]) && line[hd->start] != '_')
 		return (NULL);

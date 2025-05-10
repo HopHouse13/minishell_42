@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/04/09 17:00:45 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/10 17:39:43 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ void	*ft_malloc_list(size_t size, t_mnode **ml)
 	
 	ptr = malloc(size);
 	if (!ptr)
-	{
-		perror("allocation failed ");
-		//ft_free tout tout
-		exit(EXIT_FAILURE);
-	}
+		return (NULL) ;// ft_fatal_error("message a trouver", 1);
 	ft_add_ml(ptr, size, ml);
 	return (ptr);
 }
@@ -70,14 +66,10 @@ void	*ft_malloc_list(size_t size, t_mnode **ml)
 void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml)
 {
 	void	*ptr;
-	
+
 	ptr = ft_calloc(nb, size_type);
 	if (!ptr)
-	{
-		perror("allocation failed ");
-		//ft_free tout tout
-		exit(EXIT_FAILURE);
-	}
+		return (NULL) ;// ft_fatal_error("message a trouver", 1);
 	ft_add_ml(ptr, nb * size_type, ml);
 	return (ptr);
 }
