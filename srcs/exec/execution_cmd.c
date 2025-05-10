@@ -16,7 +16,6 @@
         créer un pipe temporaire
         écrire dedans
         rediriger stdin de la commande vers le read-end du pipe
-    - check env
     
     - check pipe
     - - créer n-1 pipe
@@ -30,52 +29,69 @@
 
 void    ft_executer(t_mshell *mshell)
 {
-    //ft_env(mshell);
-    if (mshell->list_token->token == BI)
+    int token;
+    
+    token = mshell->list_token->token;
+    if (mshell->count_pipe)
     {
-		printf("c'est un built in\n");
-		ft_exe_built_in(mshell);
-	}
-	else
-    {
-        printf("Pas un BI, c'est une commande basique : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
-		//ft_forker(mshell);
+        printf("bonne detection du pipe et entree dans piper\n");
+        ft_piper(mshell);
     }
-     
-    //ft_forker_test(mshell); // no pipe
-    //if (BI && !(mshell->token->PIPE)) // relou, simplification avec precision dans t_cmd ?
-    //{
-        //ft_check_hd
-            /*
-                read_tempo
-                pipe
-                ecriture a travers pipes.
-                rediriger stdin de la commande. vers le read-end. du pipe
-            */
-        //ft_redirect ?
-        //ft_exe_built_in(mshell);
-    //}
-
+    else if (token == CMD)
+    {
+        printf("\033[31mCommande basique\033[0m : \033[33m%s\033[0m\n",mshell->list_cmd->cmd[0]);
+		//ft_forker(mshell);
+        //ft_forker_test(mshell); // no pipe
+    }
+    if (token == BI)
+    {
+		ft_exe_built_in(mshell);
+    }
+    if (token == HD)
+    {
+        printf("HereDoc par la\n");
+    }
     //redirect(mshell); // dans le parent ou dans l'enfant ?
-    printf("fin de l'exec.\n");
+    printf("\033[31mfin de l'exec.\033[0m\n");
 }
 
 
+/*
+void	redirect_arg(char *av_arg, int fd, char *location)
+{
+	int	fd_open;
+
+	fd_open = 0;
+	if (!ft_strncmp (location, "in", 2))
+		fd_open = open (av_arg, O_RDONLY);
+	else if (!ft_strncmp (location, "out", 3))
+		fd_open = open (av_arg, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd_open == -1)
+	{
+		perror("Bruh acces file : ");
+		exit(1);
+	}
+	dup2 (fd_open, fd);
+	close (fd_open);
+	return ;
+}
+*/
 
 
 
-
-
-
-
-
-
-
+//ft_check_hd
+        /*
+            read_tempo
+            pipe
+            ecriture a travers pipes.
+            rediriger stdin de la commande. vers le read-end. du pipe
+        */
+//ft_redirect ?
+//ft_exe_built_in(mshell);
 
 
 
 // _________ _________________________ ________________________ _________ __ //
-
 /*
     FORK
     REDIRECTION

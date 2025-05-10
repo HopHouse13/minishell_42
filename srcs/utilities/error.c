@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/29 15:44:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/09 18:41:12 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_error_exit(char *message)
+void	ft_error_exit(char *message/* , int exit_code */ )
 {
 	perror(message);
 	exit(EXIT_FAILURE);
@@ -35,3 +35,14 @@ void	ft_error_exit(char *message)
 //         exit(EXIT_FAILURE);       // exit seulement si erreur fatale
 //     return (1);                   // sinon retour d’un code d’erreur
 // }
+
+
+
+void	ft_sys_error(int )
+{
+	
+}
+
+
+// EXIT_CODE:
+// 2 : builtin, malloc
