@@ -49,6 +49,10 @@ int ft_piper(t_mshell *mshell)
     t_cmd   *cmd = mshell->list_cmd;
     int pipe_fd[2];
     pid_t   pid1;
+
+    int prev_fd;
+
+    prev_fd = -1;
     //pid_t   pid2;
     //int     status;
 
@@ -70,10 +74,20 @@ int ft_piper(t_mshell *mshell)
         }
         if (pid1 == 0)
         {
-            dup2(pipe_fd[1], STDOUT_FILENO);
-            close(pipe_fd[0]);
-            close(pipe_fd[1]);
-    
+            if (prev_fd == -1)
+            {
+                dup2(prev_fd, STDIN_FILENO);
+                close(prev_fd);
+            }
+
+            if (cmd->next)
+            {
+                close(pipe_fd[0]); // ferme lecture
+                dup2(pipe_fd[1], STDOUT_FILENO);
+                close(pipe_fd[1]);
+            }
+
+
             // avec access ; code 127 'command not found'
             if (execve (cmd->cmd[0], cmd->cmd, NULL) == -1)
 	        {
