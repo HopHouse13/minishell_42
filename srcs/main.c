@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
+void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml, char **envp)
 {
 	while (1)
 	{
@@ -32,7 +32,7 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 			ft_parser(mshell, mshell->list_token, ml); // renvoie un cmd_list useless
 			if (!mshell->list_cmd)
 				continue ;
-			ft_executer(mshell);
+			ft_executer(mshell, envp);
 		}
 	}
 }
@@ -40,7 +40,6 @@ void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml)
 // truc a tester : avoir une $VAR dans une $VAR faut-il expand la 2eme? (endehors du heredoc)
 int	main(int ac, char **av, char **env)
 {
-	
 	t_mshell	*mshell;
 	t_mnode		*ml;
 
@@ -52,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		if (!mshell)
 			ft_error_exit("Error main ");
 		ft_init_mshell(mshell, env);
-		ft_loop_mshell(mshell, &ml);
+		ft_loop_mshell(mshell, &ml, env);
 		ft_free_ml(&ml); // a voir
 		rl_clear_history();
 		ft_free_env(&mshell->env_list);

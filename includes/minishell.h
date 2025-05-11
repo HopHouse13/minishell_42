@@ -151,7 +151,7 @@ typedef struct s_mshell
 
 /// main ///
 int		main(int ac, char **av, char **env);
-void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
+void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml, char **envp);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -298,7 +298,7 @@ void	ft_redir_out(t_mshell *mshell);
 // exec
 void    ft_executer(t_mshell *mshell, char **envp);
 
-void	ft_build_path(t_mshell *mshell, char **envp);
+
 
 //void    ft_forker_test(t_mshell *mshell);
 
@@ -362,6 +362,18 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
+void	ft_build_path(t_mshell *mshell);
+void	ft_build_cmd_path(t_mshell *mshell);
 
 
-#endif	
+// exp
+	// modif 
+// ft_loop_mshell(mshell,&ml);
+// ft_executer (mshell)
+
+void	printf_tab(char **str);
+void	ft_path_makeur(t_mshell *mshell, char **path_tab);
+
+
+
+#endif

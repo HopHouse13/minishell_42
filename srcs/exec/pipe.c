@@ -130,12 +130,12 @@ void    ft_forker(t_mshell *mshell)
     pid_t pid;
     
     //   ----- SIMULATION INPUT
-    
+    /*
     mshell->list_cmd = cmd_init();
     mshell = cmd_remplissage(mshell);
-
+	*/
     //   ------
-    t_cmd *cmd_node = mshell->list_cmd->next;
+    t_cmd *cmd_node = mshell->list_cmd;
     
     while(cmd_node)
     {
