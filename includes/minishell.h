@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/11 20:30:01 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 22:43:29 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_lexer // local
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
+	bool			builtin;
 	int				fd_in;
 	int				fd_out;
 	int				fd_hd;
@@ -306,7 +307,7 @@ void	ft_redir_out(t_mshell *mshell);
 
 
 // exec
-void    ft_executer(t_mshell *mshell, char **envp);
+void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml);
 
 
 
@@ -370,8 +371,8 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
-void	ft_build_path(t_mshell *mshell);
-void	ft_build_cmd_path(t_mshell *mshell);
+void	ft_build_path(t_mshell *mshell, t_mnode **ml);
+void	ft_build_cmd_path(t_mshell *mshell, t_mnode **ml);
 
 
 // exp
@@ -379,8 +380,7 @@ void	ft_build_cmd_path(t_mshell *mshell);
 // ft_loop_mshell(mshell,&ml);
 // ft_executer (mshell)
 
-void	printf_tab(char **str);
-void	ft_path_makeur(t_mshell *mshell, char **path_tab);
+void	ft_path_makeur(t_mshell *mshell, char **path_tab, t_mnode **ml);
 
 
 

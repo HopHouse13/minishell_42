@@ -6,17 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/11 20:03:24 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 22:44:51 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int			g_exit_code;
-
-
-
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -42,7 +38,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (ft_parser(mshell, &ml))
 				continue ;
-			ft_executer(mshell, env);
+			//ft_executer(mshell, env, &ml);
 		}
 	}
 	rl_clear_history();

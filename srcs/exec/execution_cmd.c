@@ -26,13 +26,12 @@
     - execution cmd
 */
 
-void    ft_executer(t_mshell *mshell, char **envp)
+void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 {
 	int token;
 
 	token = mshell->list_token->token;
-	ft_build_path(mshell);
-
+	ft_build_path(mshell, ml);
 	if (mshell->list_cmd->fd_out != -1)
 	{
 		printf(MAGENTA"R_OUT detecte"RESET);
