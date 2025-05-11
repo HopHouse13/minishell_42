@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/11 17:39:09 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 01:09:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml)
 	(*mshell)->qts = malloc(sizeof(t_qts));
 	if (!(*mshell)->qts)
 		return ;
-	(*mshell)->input_buff = NULL;	
 	(*mshell)->input = NULL;
 	(*mshell)->list_token = NULL;
 	(*mshell)->list_cmd = NULL;

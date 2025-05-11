@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/11 22:43:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 01:09:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ typedef struct s_hd
 
 typedef struct s_mshell
 {	
-	char			*input_buff;
 	char			*input;
 	t_qts			*qts;
 	t_token			*list_token;
@@ -282,8 +281,8 @@ void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml);
 bool	ft_empty_line(char *input);
 
 /// handle_input ///
-bool	ft_open_input(t_mshell **mshell, char *input);
-void	ft_handle_close_input(t_mshell **mshell, t_mnode **ml);
+bool	ft_open_input(t_mshell *mshell, char *input);
+void	ft_handle_input(t_mshell *mshell, t_mnode **ml);
 
 /// handle_quotes ///
 void	ft_status_update_qts(bool *quote, bool *mark, bool *flag);
