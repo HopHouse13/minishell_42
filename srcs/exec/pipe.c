@@ -119,6 +119,7 @@ void    ft_forker(t_mshell *mshell, char **envp)
             //EXECUTION
             if(execve(cmd_node->cmd[0], cmd_node->cmd, envp) == -1)
             {
+				
                 perror("Execve child \n");
                 exit(EXIT_FAILURE);
             }

@@ -55,6 +55,7 @@ void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 	{
 		printf("HereDoc par la\n");
 	}
+	//wait(NULL);
 	printf(RED "\n[INFO] Fin Exec."RESET"\n");
 }
 
