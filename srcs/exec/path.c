@@ -19,7 +19,7 @@ void	ft_build_cmd_path(t_mshell *mshell)
 
 	path_env = ft_strdup(ft_get_env("PATH", mshell->env_list));
 	path_tab = ft_split(path_env, ':');
-	//printf_tab(path_tab);
+	//t_print_double_tab(path_tab);
 	ft_path_makeur(mshell, path_tab); // Ajout '/' + 'cmd' --> Path
 	free(path_env);
 	ft_free_tab(path_tab);
