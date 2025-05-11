@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/23 20:03:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 19:06:49 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	ft_char_saved(t_parser *parser, char *str, int i)
 	}
 	else if (str[i] == '\'' || str[i] == '\"')
 	{
-		if (parser->mark_q || ft_effect_escape_parser(parser, str ,i))
+		if (parser->mark_q)
 			return (true);
 		return (false);
 	}
@@ -43,7 +43,7 @@ bool	ft_char_saved(t_parser *parser, char *str, int i)
 // PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
 // faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles.
 char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
-{//printf("[[%s]]\n", str);
+{
 	int		i;
 	int		j;
 	size_t	count_save;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_argv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:09:53 by p0ulp1            #+#    #+#             */
-/*   Updated: 2025/01/30 10:28:14 by phautena         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:11:56 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_path(t_data **data)
+void		set_path(t_data **data)
 {
 	int		cmd_n;
 	t_cmd	*cmd_temp;

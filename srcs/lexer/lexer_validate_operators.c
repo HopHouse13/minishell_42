@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/23 20:47:36 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 19:55:53 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_control_redir_valid(t_lexer *lexer, char *input)
+bool	ft_redir_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t----------------------REDIR------------------------\n");
 	bool	flag = false;
 	lexer->i = -1;
@@ -36,29 +36,7 @@ bool	ft_control_redir_valid(t_lexer *lexer, char *input)
 	return (true);
 }
 
-/* bool	ft_control_pipe_valid(t_lexer *lexer, char *input)
-{printf("\n\n\t-----------------------PIPE------------------------\n");
-	bool	pipe;
-
-	pipe = false;
-	lexer->i = -1;
-	while (input[++lexer->i])
-	{
-		if (!ft_inside_quotes_lexer(lexer, input, lexer->i)
-			&& !ft_effect_escape_lexer(lexer, input, lexer->i))
-		{
-			if (input[lexer->i] != ' ' && ft_valid_character(input[lexer->i])) // si tu rencontres autre chose qu'un espace et que c'est pas un invalide_carac(notament un pipe) -> reset pipe
-					pipe = false;
-			else if (input[lexer->i] == '|' && pipe == false) // si tu rencontres un pipe et qu c'est un pipe non consecutif
-				pipe = true;
-			else if (pipe == true && !ft_valid_character(input[lexer->i])) // si t'as deja croise un pipe et que tu rencontres un invalide_carac(pipe notament)
-				return (false);
-		}
-	}
-	return (true);
-} */
-
-bool	ft_control_character_valid(t_lexer *lexer, char *input)
+bool	ft_character_valid(t_lexer *lexer, char *input)
 {printf("\n\n\t--------------------CARAC_VALID--------------------\n");
 	char	c;
 
@@ -76,25 +54,23 @@ bool	ft_control_character_valid(t_lexer *lexer, char *input)
 	return (true);
 }
 	
-bool	ft_control_quotes_valid(t_lexer *lexer, char *input)
-{printf("\n\n\t--------------------QUOTES-------------------------\n");
-	lexer->i = -1;
-	while (input[++lexer->i])
-		ft_inside_quotes_lexer(lexer, input, lexer->i);
-	if (lexer->simple_q == IN || lexer->double_q == IN)
-		return (false);
-	return (true);
-}
+// bool	ft_quotes_valid(t_lexer *lexer, char *input)
+// {printf("\n\n\t--------------------QUOTES-------------------------\n");
+// 	lexer->i = -1;
+// 	while (input[++lexer->i])
+// 		ft_inside_quotes_lexer(lexer, input, lexer->i);
+// 	if (lexer->simple_q == IN || lexer->double_q == IN)
+// 		return (false);
+// 	return (true);
+// }
 
 bool	ft_validate_operators(t_lexer *lexer, char *input)
 {
-	if (ft_control_quotes_valid(lexer, input) == false)
-		return (printf("false_quote\n"), false);// erreur a gerer
-	if (ft_control_character_valid(lexer, input) == false)
+	// if (!ft_quotes_valid(lexer, input))
+	// 	return (printf("false_quote\n"), false);// erreur a gerer
+	if (!ft_character_valid(lexer, input))
 		return (printf("false_carac\n"), false);// erreur a gerer
-	/* if (ft_control_pipe_valid(lexer, input) == false)
-		return (printf("false_operators\n"), false);// erreur a gerer */
-	if (ft_control_redir_valid(lexer, input) == false)
+	if (!ft_redir_valid(lexer, input))
 		return (printf("false_redir\n"), false);// erreur a gerer
 	return (true);
 }

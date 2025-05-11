@@ -9,11 +9,11 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_parser(t_mshell *mshell, t_token *list_token, t_mnode **ml)
+int	ft_parser(t_mshell *mshell, t_mnode **ml)
 {
 	t_parser	parser;
 
-	ft_init_parser(&parser, list_token);
+	ft_init_parser(&parser, mshell->list_token);
 	ft_clear_and_expand(mshell, &parser, ml);
 	if (!ft_valid_syntax(&parser))
 		return (1); // a gerer

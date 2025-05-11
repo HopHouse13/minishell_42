@@ -32,12 +32,14 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser_utilities.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \
-			srcs/malloc/malloc_itoa.c \
+			srcs/malloc/malloc_itoa_ml.c \
 			srcs/malloc/malloc_split_ml.c \
 			srcs/malloc/malloc_strdup_ml.c \
 			srcs/malloc/malloc_strjoin_ml.c \
 			srcs/malloc/malloc_substr_ml.c \
 			srcs/utilities/error.c \
+			srcs/utilities/handle_input.c \
+			srcs/utilities/handle_quotes.c \
 			srcs/utilities/init.c \
 			srcs/utilities/print.c \
 			srcs/utilities/utilities.c \

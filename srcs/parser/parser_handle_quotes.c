@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_quotes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:17:37 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/13 16:34:38 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/11 18:48:34 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ bool	ft_inside_quotes_parser(t_parser *parser, char *str, int i)
 			ft_status_update_parser(&parser->double_q,
 			&parser->mark_q, &parser->flag_q);
 	}
-	// printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", parser->simple_q, parser->double_q, parser->mark_q, str[i]);
+	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", parser->simple_q, parser->double_q, parser->mark_q, str[i]);
 	return (parser->mark_q);
 }
