@@ -61,7 +61,7 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 		else if (str[i] == '\"' && qts->simple_q == OUT)
 			ft_status_update_qts(&qts->double_q, &qts->mark_q, &qts->flag_q);
 	}
-	//printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", qts->simple_q, qts->double_q, qts->mark_q, str[i]);
+	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", qts->simple_q, qts->double_q, qts->mark_q, str[i]);
 	return (qts->mark_q);
 }
 

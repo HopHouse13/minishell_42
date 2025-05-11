@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/11 20:10:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 20:30:01 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,10 @@ void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
 void	ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
 /// lexer_operateurs_valid ///
-bool	ft_validate_operators(t_lexer *lexer, char *input);
-bool	ft_quotes_valid(t_lexer *lexer, char *input);
-bool	ft_character_valid(t_lexer *lexer, char *input);
+// bool	ft_quotes_valid(t_lexer *lexer, char *input);
+bool	ft_validate_operators(t_mshell *mshell, t_lexer *lexer, char *input);
+bool	ft_character_valid(t_mshell *mshell, t_lexer *lexer, char *input);
+bool	ft_redir_valid(t_mshell *mshell, t_lexer *lexer, char *input);
 
 /// lexer_cleaning_input ///
 void	ft_handle_space(t_lexer *lexer, char *input, t_mnode **ml);

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:41:55 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/10 20:33:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/11 20:24:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_lexer(t_mshell *mshell, t_mnode **ml)
 	t_lexer	lexer;
 
 	ft_init_lexer(&lexer);
-	if (!ft_validate_operators(&lexer, mshell->input))
+	if (!ft_validate_operators(mshell, &lexer, mshell->input))
 		return (1); // erreur a gerer
 	ft_input_one_space(&lexer, mshell->input, ml);
 	ft_build_list_token(mshell, &lexer, ml);
