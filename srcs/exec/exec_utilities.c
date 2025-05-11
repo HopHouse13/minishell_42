@@ -73,3 +73,14 @@ int ft_check_path_access(char *cmd)
 
     return (1);
 }
+
+void	printf_tab(char **str) //Pour affichage debug tab A CLEAN pour rendu !
+{
+	int	i = 0;
+
+	while (str[i])
+	{
+		printf("%s \t",str[i]);
+		i++;
+	}
+}

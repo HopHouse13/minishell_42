@@ -84,23 +84,15 @@ typedef struct s_lexer // local
 	bool			mark_q;
 	bool			cmd_in_pipe;
 }					t_lexer;
-/*
-typedef struct s_redir
-{
-	t_type			token; // pab
-	char			*file; // pab
-	struct s_redir	*prev;
-	struct s_redir	*next;
-}					t_redir;
-*/
+
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
 	int				fd_in;
 	int				fd_out;
-	int				fd_hd; // pab
-	char			*delim_hd; // pab
-	bool			expand_hd; // pab
+	int				fd_hd;
+	char			*delim_hd;
+	bool			expand_hd;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -145,7 +137,7 @@ typedef struct s_mshell
 	char			*input;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	t_env			*env_list; // build_list
+	t_env			*env_list;
 	int				count_pipe;
 }					t_mshell;
 
@@ -312,15 +304,13 @@ t_mshell    	*cmd_remplissage(t_mshell *mshell);
 
 
 // pipe.c
-int		ft_piper(t_mshell *mshell);
-
-void	ft_forker(t_mshell *mshell);
-
+int		ft_piper(t_mshell *mshell, char **envp);
+void	ft_forker(t_mshell *mshell, char **envp);
 
 // BUILTINS
 
 // ft_cd
-
+int		ft_cd(t_mshell *mshell);
 // ft_echo
 
 // ft_env

@@ -22,7 +22,27 @@ void    redirect(t_mshell instructions)
 
     //dup2(fd_open, fd);
     //close
+}
+*/
 
+/*
+void	redirect_arg(char *av_arg, int fd, char *location)
+{
+	int	fd_open;
+
+	fd_open = 0;
+	if (!ft_strncmp (location, "in", 2))
+		fd_open = open (av_arg, O_RDONLY);
+	else if (!ft_strncmp (location, "out", 3))
+		fd_open = open (av_arg, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd_open == -1)
+	{
+		perror("Bruh acces file : ");
+		exit(1);
+	}
+	dup2 (fd_open, fd);
+	close (fd_open);
+	return ;
 }
 */
 
@@ -36,18 +56,20 @@ void	ft_redir(t_mshell *mshell)
 
 void    ft_redir_case(t_mshell *mshell) //(infile,outfile?)
 {
-	t_type token;
+	int token;
 
 	token = mshell->list_token->token;
     //if (token == R_IN)
     //    redirect_in (infile);
     if (token == R_OUT)
+	{
+		printf(MAGENTA"R_OUT detecte"RESET);
         ft_redir_out (mshell);
-    //else if (token == ">>")
+	}
+	//else if (token == ">>")
     //    redirect_out_app (src,dest);
     //else if (token == "<<")
     //    redirect_hd (src, dest);
-
 }
 
 void	ft_redir_out (t_mshell *mshell)
@@ -80,23 +102,5 @@ void    redirect_in(, char *infile)
     dup2 (fd_open, fd);
     close (fd_open);
     return ;
-}
-*/
-
-/*
-void    redirect_out_app(char *outfile)
-{
-     int fd_open;
-
-    fd_open = open (outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    if (fd_open == -1)
-    {
-        perror ("Pas pu ouvrir le fichier : ");
-        exit (1);
-    }
-    dup2 (fd_open, fd);
-    close (fd_open);
-    return ;
-
 }
 */
