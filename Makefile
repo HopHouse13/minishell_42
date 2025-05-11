@@ -50,6 +50,7 @@ SRCS		= srcs/main.c \
 			srcs/exec/test_init.c \
 			srcs/exec/exec_heredoc.c \
 			srcs/exec/exec_utilities.c \
+			srcs/exec/path.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/ft_echo.c \
 			srcs/builtin/ft_env.c \
@@ -58,7 +59,6 @@ SRCS		= srcs/main.c \
 			srcs/builtin/ft_pwd.c \
 			srcs/builtin/ft_unset.c
 
-		
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= cc
 RM			= rm -rf
