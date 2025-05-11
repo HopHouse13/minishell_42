@@ -10,10 +10,6 @@ void    redirect(t_mshell instructions)
             // - - types (<, >, >>, <<)
             // - - nombre ?
             // - - spe << : delimiter ?
-
-
-  
-
      
     if (hd)
         redirection_hd()
@@ -27,29 +23,49 @@ void    redirect(t_mshell instructions)
     //dup2(fd_open, fd);
     //close
 
-
-
 }
+*/
 
-void    redirect_case(fd, tokken) //(infile,outfile?)
+void	ft_redir(t_mshell *mshell)
 {
-    if (tokken == "<")
-        redirect_in (infile);
-    else if (tokken == ">")
-        redirect_out_trunc (outfile);
-    else if (tokken == ">>")
-        redirect_out_app (src,dest);
-    else if (tokken == "<<")
-        redirect_hd (src, dest); 
+	// differencier les redirection selon le cas operateur ou pipe ?
+	// redir ft_redir_pipe ?
+	ft_redir_case(mshell);
 
 }
 
+void    ft_redir_case(t_mshell *mshell) //(infile,outfile?)
+{
+	t_type token;
+
+	token = mshell->list_token->token;
+    //if (token == R_IN)
+    //    redirect_in (infile);
+    if (token == R_OUT)
+        ft_redir_out (mshell);
+    //else if (token == ">>")
+    //    redirect_out_app (src,dest);
+    //else if (token == "<<")
+    //    redirect_hd (src, dest);
+
+}
+
+void	ft_redir_out (t_mshell *mshell)
+{
+	int	fd_out;
+
+	fd_out = mshell->list_cmd->fd_out;
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd_out);
+}
+
+/*
 void    redirect_in(, char *infile)
 {
     
     Open un fd (open);
     change les fd de rediction I/O (dup2) ; 2 cas :
-        - Redirecition Input
+        - Redirection Input
         - Redirection Output
     referme proprement(close)
     
@@ -65,23 +81,9 @@ void    redirect_in(, char *infile)
     close (fd_open);
     return ;
 }
+*/
 
-void    redirect_out_trunc(char *outfile)
-{
-    int fd_open;
-
-    fd_open = open (outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd_open == -1)
-    {
-        perror ("Pas pu ouvrir le fichier : ");
-        exit (1);
-    }
-    dup2 (fd_open, fd);
-    close (fd_open);
-    return ;
-
-}
-
+/*
 void    redirect_out_app(char *outfile)
 {
      int fd_open;
@@ -95,18 +97,6 @@ void    redirect_out_app(char *outfile)
     dup2 (fd_open, fd);
     close (fd_open);
     return ;
-
-}
-
-void    redirect_hd(src, dest)
-{
-    int fd_open;
-    
-    //heredoc comportement ici,
-    //redirection input cmd depuis file tempo 
-    //revoir les regles de prio & delimiter
-    fd_open
-
 
 }
 */

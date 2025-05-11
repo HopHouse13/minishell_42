@@ -84,7 +84,7 @@ typedef struct s_lexer // local
 	bool			mark_q;
 	bool			cmd_in_pipe;
 }					t_lexer;
-
+/*
 typedef struct s_redir
 {
 	t_type			token; // pab
@@ -92,7 +92,7 @@ typedef struct s_redir
 	struct s_redir	*prev;
 	struct s_redir	*next;
 }					t_redir;
-
+*/
 typedef struct s_cmd
 {
 	char			**cmd; //ELEM
@@ -288,21 +288,33 @@ void	ft_print_list_cmd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// redirections
+
+void	ft_redir(t_mshell *mshell);
+void	ft_redir_case(t_mshell *mshell);
+void	ft_redir_out(t_mshell *mshell);
+
 
 // exec
-void    ft_executer(t_mshell *mshell);
+void    ft_executer(t_mshell *mshell, char **envp);
 
-void    ft_forker_test(t_mshell *mshell);
-void	ft_forker(t_mshell *mshell);
+void	ft_build_path(t_mshell *mshell, char **envp);
+
+//void    ft_forker_test(t_mshell *mshell);
+
 
 void    ft_exe_built_in(t_mshell *mshell);
 
-t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
+//t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
 
 t_cmd    		*cmd_init(void);
 t_mshell    	*cmd_remplissage(t_mshell *mshell);
 
+
+// pipe.c
 int		ft_piper(t_mshell *mshell);
+
+void	ft_forker(t_mshell *mshell);
 
 
 // BUILTINS
@@ -317,7 +329,6 @@ void	ft_print_env_list(t_env *env_list);
 void    ft_env_minimal(t_mshell *mshell);
 char	*ft_get_env(char *key, t_env *env);
 void    ft_build_env_list(t_mshell   *mshell, char **env);
-
 
 char	**ft_split_var(char *cmd);
 
@@ -346,5 +357,11 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml);
 bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
 bool	ft_escape_last_char(char *line);
+
+
+int		ft_ispath(char *str);
+int		ft_check_path_access(char *cmd);
+
+
 
 #endif	

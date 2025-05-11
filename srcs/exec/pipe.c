@@ -107,10 +107,10 @@ int ft_piper(t_mshell *mshell)
 
 	while (wait(NULL) > 0)
 		;
+	//wait(NULL);
+	//wait(NULL);
+	//wait(NULL);
 
-	//wait(NULL);
-	//wait(NULL);
-	//wait(NULL);
 	/* ---- inspi GPT ----
 	// Récupère le code du dernier
 	if (WIFEXITED(status))
@@ -122,26 +122,54 @@ int ft_piper(t_mshell *mshell)
 }
 
 
-int ft_ispath(char *str)
+
+void    ft_forker(t_mshell *mshell)
 {
-    int i;
+    //mshell->env = test_env_init("defaut"); //"defaut" ou "vide" (env -i) 
+
+    pid_t pid;
     
-    i = 0;
-    while(str[i])
+    //   ----- SIMULATION INPUT
+    
+    mshell->list_cmd = cmd_init();
+    mshell = cmd_remplissage(mshell);
+
+    //   ------
+    t_cmd *cmd_node = mshell->list_cmd->next;
+    
+    while(cmd_node)
     {
-        if (str[i] == '/')
-            return (1);
-        i++;
+        pid = fork();
+        if (pid == 0)
+        {
+            //SECURITE
+            if (!cmd_node || !cmd_node->cmd || !cmd_node->cmd[0])
+            {
+                printf("Commande vide !\n");
+                exit(EXIT_FAILURE);
+            }
+
+
+            //DEBUG
+            printf("Commande en cours : ");
+            int i = 0;
+            while(cmd_node->cmd[i])
+            {
+                printf("\033[33m%s \033[0m", cmd_node->cmd[i]);
+                i++;
+            }
+            printf("\n");
+
+
+            //EXECUTION (manque chemin relatif)
+            if(execve(cmd_node->cmd[0], cmd_node->cmd, NULL) == -1)
+            {
+                perror("Execve child \n");
+                exit(EXIT_FAILURE);
+            }
+        }
+        else 
+            wait(NULL);
+        cmd_node = cmd_node->next;
     }
-    return (0);
-}
-
-int ft_check_path(char *cmd)
-{
-    if (access(cmd, F_OK) == -1) // + X_OK pour verif droit d'execution
-        exit(127); // commande not found
-    if (access(cmd, X_OK) == -1)
-        exit(126); // pas executable
-
-    return (1);
 }

@@ -50,3 +50,26 @@ bool	ft_escape_last_char(char *line)
 // faut supprimer le \ de fin
 // et uniquement celui la
 
+int ft_ispath(char *str)
+{
+    int i;
+    
+    i = 0;
+    while(str[i])
+    {
+        if (str[i] == '/')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int ft_check_path_access(char *cmd)
+{
+    if (access(cmd, F_OK) == -1) // + X_OK pour verif droit d'execution
+        exit(127); // commande not found
+    if (access(cmd, X_OK) == -1)
+        exit(126); // pas executable
+
+    return (1);
+}
