@@ -97,16 +97,17 @@ int ft_piper(t_mshell *mshell, char **envp)
     //pid_t   pid2;
     //int     status;
 
+	// mshell->count_pipe;
+	//ft_check_path_access(cmd[0]);_
     // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
     while (cmd)
     {
-		mshell->count_pipe;
         if (cmd->next && pipe(pipe_fd) == -1)
         {
             perror("Probleme pipe");
             exit(1);
         }
-		pid = fork(); // fork
+		pid = fork(); // fork child ; total fd pipe = x2
         if (pid == -1)
 		{
 			perror("fork failed");
@@ -114,13 +115,26 @@ int ft_piper(t_mshell *mshell, char **envp)
 		}
 		if (pid == 0)
 		{
-			if (prev_fd != -1) // sous entendu fd next
-			{
-				//ft_redir_pipe(mshell, pipe_fd);
-				ft_pipe_read(mshell, pipe_fd[0]); // redirection IN ==> P_L
-				ft_pipe_write(mshell, pipe_fd[1]); // redirection OUT ==> P_W
-			}
+			//si prev == -1 --> fd_in = stdin;
+
+
+			//ft_pipe_write(mshell, pipe_fd[1]); // redirection OUT actuelle==> P_W
+			//ft_pipe_read(mshell, pipe_fd[0]); // redirection IN next cmd ==> P_L
+			
+			// if (prev_fd != -1) // sous entendu fd next
+			// {
+			// 	//ft_redir_pipe(mshell, pipe_fd);
+			// }
 			// avec access ; code 127 'command not found'
+			
+			//cmd->fd_in = pipe_fd[0];
+			if (prev_fd != -1)
+				ft_redir_in(mshell);
+
+			//cmd->fd_out = pipe_fd[1];
+			if (cmd->next)
+				ft_redir_pipe_write(mshell, pipe_fd);
+				//ft_redir_out(mshell);
 			if (execve (cmd->cmd[0], cmd->cmd, envp) == -1)
 			{
 				perror ("Execve 1");
@@ -132,9 +146,10 @@ int ft_piper(t_mshell *mshell, char **envp)
 		if (prev_fd != -1)     // si on est sur cmd[1+]
 			close(prev_fd);    // ferme lecture
 		if (cmd->next)         // si yq une cmd qui suit
+		{
 			close(pipe_fd[1]); //ferme l'ecriture
-		if (cmd->next != NULL) //si ya une commande suivante
 			prev_fd = pipe_fd[0];
+		}
 		else
 			prev_fd = -1;
 		// comment recuperer l'exit_code du processus enfant = waitpid() ?
@@ -148,9 +163,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 
 
 
-
-
-
+//prevoir que si les pipes fail , on close les fd ouverts ??
 
 
 void	ft_forker(t_mshell *mshell, char **envp)
@@ -159,14 +172,13 @@ void	ft_forker(t_mshell *mshell, char **envp)
 	pid_t	pid;
 	t_cmd	*cmd_node = mshell->list_cmd;
 
+
+	//ft_check_path_access(list->cmd[0])
 	while(cmd_node)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			// if (cmd_node->fd_out != -1)
-			// {
-			// }
 			//SECURITE
 			if (!cmd_node || !cmd_node->cmd || !cmd_node->cmd[0])
 			{

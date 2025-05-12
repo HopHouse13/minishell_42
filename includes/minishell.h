@@ -308,6 +308,11 @@ void	ft_redir_out(t_mshell *mshell);
 void	ft_redir_in(t_mshell *mshell);
 void	ft_redir_hd(t_mshell *s_mshell);
 
+void	ft_redir_pipe_read(t_mshell *mshell, int *pipe_fd);
+void	ft_redir_pipe_write(t_mshell *mshell, int *pipe_fd);
+
+
+
 // pipe.c
 void	ft_forker(t_mshell *mshell, char **envp);
 int		ft_piper(t_mshell *mshell, char **envp);
