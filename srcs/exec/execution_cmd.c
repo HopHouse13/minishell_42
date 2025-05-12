@@ -33,7 +33,11 @@ void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 	// printf(RED"On entre dans l'exe ?"RESET"\n");
 	token = mshell->list_token->token;
 	cmd = mshell->list_cmd;
-	ft_build_path(mshell, ml);
+	while (cmd)
+	{
+		ft_build_path(mshell, ml);
+		cmd = cmd->next;
+	}
 	if (mshell->count_pipe)
 	{
 		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");

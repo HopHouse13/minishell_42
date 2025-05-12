@@ -88,11 +88,11 @@ int ft_piper(t_mshell *mshell, char **envp)
 int ft_piper(t_mshell *mshell, char **envp)
 {
 	pid_t   pid;
-	t_cmd   *cmd;
+	t_cmd   *cmd_node;
 	int		pipe_fd[2];
 	int		prev_fd;
 
-	cmd = mshell->list_cmd;
+	cmd_node = mshell->list_cmd;
 	prev_fd = -1;
     //pid_t   pid2;
     //int     status;
@@ -100,9 +100,9 @@ int ft_piper(t_mshell *mshell, char **envp)
 	// mshell->count_pipe;
 	//ft_check_path_access(cmd[0]);_
     // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
-    while (cmd)
+    while (cmd_node)
     {
-        if (cmd->next && pipe(pipe_fd) == -1)
+        if (cmd_node->next && pipe(pipe_fd) == -1)
         {
             perror("Probleme pipe");
             exit(1);
@@ -128,14 +128,34 @@ int ft_piper(t_mshell *mshell, char **envp)
 			// avec access ; code 127 'command not found'
 			
 			//cmd->fd_in = pipe_fd[0];
+
+			/*
 			if (prev_fd != -1)
 				ft_redir_in(mshell);
 
 			//cmd->fd_out = pipe_fd[1];
 			if (cmd->next)
-				ft_redir_pipe_write(mshell, pipe_fd);
+			{
+				//close (pipe_fd[0]);
+				dup2 (pipe_fd[1], STDOUT_FILENO);
+				close (pipe_fd[1]);
+			}
+
+			*/
+				//ft_redir_pipe_write(mshell, pipe_fd);
 				//ft_redir_out(mshell);
-			if (execve (cmd->cmd[0], cmd->cmd, envp) == -1)
+
+			//DEBUG -- PRINT
+			printf(CYAN "\n[INFO] Commande en cours : "RESET);
+			int i = 0;
+			while(cmd_node->cmd[i])
+			{
+				printf(YELLOW" %s"RESET, cmd_node->cmd[i]);
+				i++;
+			}
+			printf("\n");
+			// printf("commande en cours : %s",cmd->cmd[0]);
+			if (execve (cmd_node->cmd[0], cmd_node->cmd, envp) == -1)
 			{
 				perror ("Execve 1");
 				exit (127); // commande found bcleaut not executable
@@ -145,7 +165,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 		printf("[INFO] Pipe Count : %i\n", mshell->count_pipe);
 		if (prev_fd != -1)     // si on est sur cmd[1+]
 			close(prev_fd);    // ferme lecture
-		if (cmd->next)         // si yq une cmd qui suit
+		if (cmd_node->next)         // si yq une cmd qui suit
 		{
 			close(pipe_fd[1]); //ferme l'ecriture
 			prev_fd = pipe_fd[0];
@@ -153,7 +173,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 		else
 			prev_fd = -1;
 		// comment recuperer l'exit_code du processus enfant = waitpid() ?
-		cmd = cmd->next;
+		cmd_node = cmd_node->next;
 	}
 
 	while (wait(NULL) > 0)
@@ -171,7 +191,6 @@ void	ft_forker(t_mshell *mshell, char **envp)
 	//mshell->env = test_env_init("defaut"); //"defaut" ou "vide" (env -i) 
 	pid_t	pid;
 	t_cmd	*cmd_node = mshell->list_cmd;
-
 
 	//ft_check_path_access(list->cmd[0])
 	while(cmd_node)
