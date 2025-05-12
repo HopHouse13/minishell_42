@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (ft_parser(mshell, &ml))
 				continue ;
-			//ft_executer(mshell, env, &ml);
+			ft_executer(mshell, env, &ml);
 		}
 	}
 	rl_clear_history();

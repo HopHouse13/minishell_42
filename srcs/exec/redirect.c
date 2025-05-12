@@ -56,14 +56,14 @@ void	ft_redir(t_mshell *mshell)
 
 void    ft_redir_case(t_mshell *mshell) //(infile,outfile?)
 {
-	int token;
+	t_cmd *redir;
 
-	token = mshell->list_token->token;
+	redir = mshell->list_cmd;
     //if (token == R_IN)
     //    redirect_in (infile);
-    if (token == R_OUT)
+    if (redir->fd_out != -1)
 	{
-		printf(MAGENTA"R_OUT detecte"RESET);
+		printf(MAGENTA"[INFO] R_OUT detectee ; passage dans ft_redir_case"RESET);
         ft_redir_out (mshell);
 	}
 	//else if (token == ">>")
