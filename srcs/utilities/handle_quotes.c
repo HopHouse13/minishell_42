@@ -12,18 +12,20 @@
 
 #include "../../includes/minishell.h"
 
+void	ft_apply_delay(bool *quote, bool *delay)
+{
+	*quote = OUT;
+	*delay = false;
+}
 
 // Met à jour l'état d'un type de guillemet (simple ou double).
 // Si le guillemet est ouvert, il est fermé et le marqueur est mis à OUT.
 // S'il est fermé, il est ouvert et le marqueur est mis à OUT seulement si
 // aucun autre guillemet n'était déjà actif.
-void	ft_status_update_qts(bool *quote, bool *mark, bool *flag)
+void	ft_stt_up(bool *quote, bool *mark, bool *flag, bool *delay)
 {
 	if (*quote == IN)
-	{
-		*quote = OUT;
-		*mark = OUT;
-	}	
+		*delay = true;	
 	else 
 	{
 		*quote = IN;
@@ -48,19 +50,22 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 		qts->double_q = OUT;
 		qts->flag_q = OUT;
 		qts->mark_q = OUT;
+		qts->delay_sq = false;
+		qts->delay_dq = false;
 	}
+	if (qts->delay_sq)
+		ft_apply_delay(&qts->simple_q, &qts->delay_sq);
+	if (qts->delay_dq)
+		ft_apply_delay(&qts->double_q, &qts->delay_dq);
 	if (qts->flag_q == IN)
 	{
 		qts->flag_q = OUT;
 		qts->mark_q = IN;
 	}
-	if (!ft_effect_escape(qts, str, i))
-	{
-		if (str[i] == '\'' && qts->double_q == OUT)
-			ft_status_update_qts(&qts->simple_q, &qts->mark_q, &qts->flag_q);
-		else if (str[i] == '\"' && qts->simple_q == OUT)
-			ft_status_update_qts(&qts->double_q, &qts->mark_q, &qts->flag_q);
-	}
+	if (str[i] == '\'' && qts->double_q == OUT && !ft_effect_esc(qts, str, i))
+		ft_stt_up(&qts->simple_q, &qts->mark_q, &qts->flag_q, &qts->delay_sq);
+	if (str[i] == '\"' && qts->simple_q == OUT && !ft_effect_esc(qts, str, i))
+		ft_stt_up(&qts->double_q, &qts->mark_q, &qts->flag_q, &qts->delay_dq);
 	printf("\tsimple_q: %d\tdouble_q: %d\tmark_q: %d\tchar [%c]\n", qts->simple_q, qts->double_q, qts->mark_q, str[i]);
 	return (qts->mark_q);
 }
@@ -71,7 +76,7 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 // [\] pas d'effet dans simple quote
 // dans double quotes pas d'effet sauf avec ["][\][$]
 // false (0) -> pas d'effet ; true (1) -> effet
-bool	ft_effect_escape(t_qts *qts, char *str, int i)
+bool	ft_effect_esc(t_qts *qts, char *str, int i)
 {
 	bool	on_off;
 	
@@ -79,7 +84,7 @@ bool	ft_effect_escape(t_qts *qts, char *str, int i)
 	if((qts->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
 		|| qts->simple_q)
 		return (on_off);
-	while (--i>= 0 && str[i] == '\\')
+	while (--i >= 0 && str[i] == '\\')
 		on_off = !on_off;
 	return (on_off);
 }

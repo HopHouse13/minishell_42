@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/11 22:44:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 01:26:25 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ int	main(int ac, char **av, char **env)
 		// ft_signal(1); // je sais pas encore comment gerer ca
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
-			break ; // sort de minishell car probleme de readline
+			break ;
 		else
 		{
 			//ft_signal(2)
+			ft_handle_input(mshell, &ml);
 			if (ft_empty_line(mshell->input))
 				continue ;
-			if (ft_open_input(&mshell, mshell->input))
-				ft_handle_close_input(&mshell, &ml);
-			add_history(mshell->input);
 			if (ft_lexer(mshell, &ml))
 				continue ;
 			if (ft_parser(mshell, &ml))

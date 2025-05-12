@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_markers_expand.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/13 18:39:59 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/12 03:30:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,18 @@ char	*ft_insert_marker(char *str, int i, t_mnode **ml)
 	return (result);
 }
 
-char	*ft_marker(char *str, t_type token, t_parser *parser, t_mnode **ml)
+char	*ft_marker(t_mshell *msh, t_token *tmp, t_parser *parser, t_mnode **ml)
 {
 	int		i;
-
+	char	*str;
+	
+	str = tmp->elem;
 	i = -1;
 	while (str[++i])
 	{
-		ft_inside_quotes_parser(parser, str, i);
-		if (str[i] == '$' && parser->simple_q == OUT && token != DELIM
-			&& (i == 0 || !ft_effect_escape_parser(parser, str, i))
+		ft_status_qts(msh->qts, str, i);
+		if (str[i] == '$' && parser->simple_q == OUT && tmp->token != DELIM
+			&& (i == 0 || !ft_effect_esc(msh->qts, str, i))
 			&& !ft_inside_brackets(parser, str, i))
 		{
 			str = ft_insert_marker(str, ++i, ml);
@@ -65,14 +67,14 @@ char	*ft_marker(char *str, t_type token, t_parser *parser, t_mnode **ml)
 	return (str);	
 }
 
-void	ft_mark_expand(t_parser *parser, t_mnode **ml)
+void	ft_mark_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {
 	t_token	*tmp;
 	
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		tmp->elem = ft_marker(tmp->elem, tmp->token, parser, ml);
+		tmp->elem = ft_marker(mshell, tmp, parser, ml);
 		tmp = tmp->next;
 	}
 }

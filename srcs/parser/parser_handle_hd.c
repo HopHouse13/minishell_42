@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/10 21:41:00 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 02:22:47 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 		else if (lt_token->token == DELIM)
 		{
 			lt_cmd->expand_hd = ft_srch_quotes(lt_token->elem);
-			lt_token->elem = ft_rm_quotes_and_esc(parser, lt_token->elem, ml);
+			lt_token->elem = ft_remove(mshell, parser, lt_token->elem, ml);
 			ft_get_hd(lt_cmd, lt_token);
 			ft_heredoc(mshell, lt_cmd, ml);
 		}

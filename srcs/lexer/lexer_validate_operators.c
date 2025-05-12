@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:15:24 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/11 20:30:37 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 03:30:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_redir_valid(t_mshell *mshell, t_lexer *lexer, char *input)
 	while (input[++lexer->i])
 	{
 		if (!ft_status_qts(mshell->qts, input, lexer->i)
-			&& !ft_effect_escape(mshell->qts, input, lexer->i))
+			&& !ft_effect_esc(mshell->qts, input, lexer->i))
 		{
 			if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
 			{
@@ -45,7 +45,7 @@ bool	ft_character_valid(t_mshell *mshell, t_lexer *lexer, char *input)
 	{
 		c = input[lexer->i];
 		if (!ft_status_qts(mshell->qts, input, lexer->i)
-			&& !ft_effect_escape(mshell->qts, input, lexer->i))// pour eviter d'interdir n'importe quel caractere car dans des quotes ou il a le caractere d'echappement juste avant.
+			&& !ft_effect_esc(mshell->qts, input, lexer->i))// pour eviter d'interdir n'importe quel caractere car dans des quotes ou il a le caractere d'echappement juste avant.
 			if (c == '{' || c == '}' || c == '[' || c == ']' || c == '(' || c == ')'
 				|| c == ';' || c == '&' || c == '#'
 				|| (lexer->i == ft_strlen(input) - 1 && c == '\\'))
