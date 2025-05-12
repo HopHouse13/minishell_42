@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 22:21:45 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 22:35:07 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int		main(int ac, char **av, char **env);
 int		ft_lexer(t_mshell *mshell, t_mnode **ml);
 
 /// lexer_initialisation ///
-void	ft_init_lexer(char *wild_line, t_lexer *lexer);
+void	ft_init_lexer(t_lexer *lexer);
 
 /// lexer_build_list_token ///
 void	ft_define_token_redir(t_lexer *lexer);
