@@ -36,7 +36,7 @@ void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 	ft_build_path(mshell, ml);
 	if (mshell->count_pipe)
 	{
-		printf(CYAN "\n[INFO] Pipe" RESET"\n");
+		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
 		ft_piper(mshell, envp);
 	}
 	else if (cmd->cmd && !mshell->count_pipe)

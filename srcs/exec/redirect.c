@@ -111,21 +111,52 @@ void	ft_pipe_read(t_mshell *mshell, int pipe_read) // redir stdout --> P_W
 	int	fd_in;
 	
 	printf(MAGENTA"[INFO] Redirection IN"RESET"\n");
-	fd_in = mshell->list_cmd->fd_in;
-	if (fd_in == -1)
-		fd_in = STDIN_FILENO;
+	fd_in = mshell->list_cmd->next->fd_in;
+	//if (fd_in == -1)
+	//	fd_in = STDIN_FILENO;
 	dup2 (pipe_read, fd_in);
 	close (pipe_read);
 }
 
 void	ft_pipe_write(t_mshell *mshell, int pipe_write) //redir. stdIN --> P_L
 {
-	int	fd_out;
-	
+	// int	fd_out;s
+	t_cmd	*cmd;
+
 	printf(MAGENTA"[INFO] Redirection OUT"RESET"\n");
-	fd_out = mshell->list_cmd->fd_out;
-	if (fd_out == -1)
-		fd_out = STDOUT_FILENO;
-	dup2 (pipe_write, fd_out);
-	close (pipe_write);
+	cmd = mshell->list_cmd;
+	if (!cmd->next && cmd->fd_out == -1)
+		cmd->fd_out = STDOUT_FILENO;
+	else
+	{
+		//cmd->fd_out = pipe_write;
+		dup2 (pipe_write, cmd->fd_out);
+		close (pipe_write);
+	}
 }
+
+void	ft_redir_pipe_write(t_mshell *mshell, int *pipe_fd)
+{
+	int	fd_out;
+
+	fd_out = mshell->list_cmd->fd_out;
+	if (mshell->list_cmd->fd_out != -1) 
+	{
+		close(pipe_fd[0]);
+		dup2(pipe_fd[1], fd_out);
+		close(pipe_fd[1]);
+	}
+	else
+	{
+		close (pipe_fd[0]);
+		dup2 (pipe_fd[1], STDOUT_FILENO);
+		close (pipe_fd[1]);
+	}
+}
+/*
+void	ft_redir_pipe_read(t_mshell *mshell, int *pipe_fd)
+{
+	close (pipe_fd[1]);
+	dup2 (pipe_fd[0], STDIN_FILENO);
+	close (pipe_fd[0]);
+}*/
