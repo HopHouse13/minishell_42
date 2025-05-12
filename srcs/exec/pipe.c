@@ -86,21 +86,19 @@ void    ft_forker(t_mshell *mshell, char **envp)
     pid_t	pid;
     t_cmd	*cmd_node = mshell->list_cmd;
 	
-	// -------
-	int	token;
-
-	token = mshell->list_token->token;
-	if (token == R_OUT)
-	{
-		printf(MAGENTA"R_OUT detecte"RESET);
-		//ft_redir(mshell);
-	}
-	// -------
 	while(cmd_node)
     {
+
+
         pid = fork();
         if (pid == 0)
         {
+
+			if (cmd_node->fd_out != -1)
+			{
+				ft_redir(mshell); 
+				printf(MAGENTA"Redirection terminee ; passage dans ft_executer"RESET);
+			}
             //SECURITE
             if (!cmd_node || !cmd_node->cmd || !cmd_node->cmd[0])
             {
@@ -112,7 +110,7 @@ void    ft_forker(t_mshell *mshell, char **envp)
             int i = 0;
             while(cmd_node->cmd[i])
             {
-                printf(YELLOW"%s"RESET, cmd_node->cmd[i]);
+                printf(YELLOW" %s"RESET, cmd_node->cmd[i]);
                 i++;
             }
             printf("\n");
