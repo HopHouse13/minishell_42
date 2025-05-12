@@ -6,24 +6,24 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/11 19:06:49 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 03:44:26 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_char_saved(t_parser *parser, char *str, int i)
+bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 {
 	if (ft_inside_brackets(parser, str, i)
 		|| (i >= 2 && str[i -1] == ']' && str[i -2] == '\\'))
 		return (true);
 	if ( str[i] == '\\')
 	{
-		if (parser->simple_q)
+		if (mshell->qts->simple_q)
 			return (true);
-		if (ft_effect_escape_parser(parser, str , i))
+		if (ft_effect_esc(mshell->qts, str, i))
 			return (true);
-		if (parser->double_q)
+		if (mshell->qts->double_q)
 		{
 			if (str[i + 1] == '\\' || str[i + 1] == '$' || str[i + 1] == '\"')
 				return (false);
@@ -33,7 +33,7 @@ bool	ft_char_saved(t_parser *parser, char *str, int i)
 	}
 	else if (str[i] == '\'' || str[i] == '\"')
 	{
-		if (parser->mark_q)
+		if (mshell->qts->mark_q /* || (i > 0 && str[i -1] != '\\') */)
 			return (true);
 		return (false);
 	}
@@ -42,7 +42,7 @@ bool	ft_char_saved(t_parser *parser, char *str, int i)
 
 // PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
 // faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles.
-char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
+char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str, t_mnode **ml)
 {
 	int		i;
 	int		j;
@@ -53,8 +53,8 @@ char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
 	count_save = 0;
 	while (str[++i])
 	{
-		ft_inside_quotes_parser(parser, str, i);
-		if (ft_char_saved(parser, str, i))
+		ft_status_qts(mshell->qts, str, i);
+		if (ft_char_saved(mshell, parser, str, i))
 			count_save++;
 	}
 	str_clear = ft_malloc_list(sizeof(char) * count_save + 1, ml);
@@ -62,8 +62,8 @@ char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
 	j = 0;
 	while (str[++i])
 	{
-		ft_inside_quotes_parser(parser, str, i);
-		if (ft_char_saved(parser, str, i))
+		ft_status_qts(mshell->qts, str, i);
+		if (ft_char_saved(mshell, parser, str, i))
 			str_clear[j++] = str[i];
 	}
 	str_clear[j] = '\0';
@@ -73,7 +73,7 @@ char	*ft_rm_quotes_and_esc(t_parser *parser, char *str, t_mnode **ml)
 // on remove les quotes et escape char par tout sauf dans les DELIM
 // j'ai besoin d'avoir l'info (expand ou pas dans HD)
 // les DELIM seront clear apres avoir stocke l'info lors la crea. de la cmd_list
-void	ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml)
+void	ft_clear_elems(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {
 	t_token	*tmp;
 	
@@ -81,7 +81,7 @@ void	ft_clear_escape_char_and_quotes(t_parser *parser, t_mnode **ml)
 	while (tmp && tmp->token != END)
 	{
 		if (tmp->token != DELIM)
-			tmp->elem = ft_rm_quotes_and_esc(parser, tmp->elem, ml);
+			tmp->elem = ft_remove(mshell, parser, tmp->elem, ml);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:34:58 by pab               #+#    #+#             */
-/*   Updated: 2025/05/01 16:46:49 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 02:09:12 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 {	ft_printf("\n\t|||||||||||||||||| expand_&_clear ||||||||||||||||||||\n\n");
 	
 	ft_printf("\n\t********************** markers *************************\n");
-	ft_mark_expand(parser, ml);
+	ft_mark_expand(mshell, parser, ml);
 	ft_print_list_token(parser->list_token); // ASUPP
 	
 	ft_printf("\n\t************ clear_escape_char_and_quotes **************\n");
-	ft_clear_escape_char_and_quotes(parser, ml);
+	ft_clear_elems(mshell, parser, ml);
 	ft_print_list_token(parser->list_token); // ASUPP
 
 	ft_printf("\n\t********************** expand **************************\n");

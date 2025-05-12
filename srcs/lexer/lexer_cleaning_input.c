@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/18 18:51:25 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 03:30:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,23 @@ void	ft_put_pipe(t_lexer *lexer)
 	lexer->wild_input[++lexer->j] = ' ';
 }
 
-void	ft_input_one_space(t_lexer *lexer, char *input, t_mnode **ml)
+void	ft_input_one_space(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 {printf("\n\n\t----------------------INPUT------------------------\n");
 	lexer->i = 0;
-	while (input && lexer->i < SIZE_LINE && input[lexer->i])
+	while (mshell->input && lexer->i < SIZE_LINE && mshell->input[lexer->i])
 	{
-		if (ft_inside_quotes_lexer(lexer, input, lexer->i) || 
-			ft_effect_escape_lexer(lexer, input, lexer->i))
-			lexer->wild_input[++lexer->j] = input[lexer->i];
+		if (ft_status_qts(mshell->qts, mshell->input, lexer->i)
+			|| ft_effect_esc(mshell->qts, mshell->input, lexer->i))
+			lexer->wild_input[++lexer->j] = mshell->input[lexer->i];
 		else
 		{
-			if (input[lexer->i] == '|')
+			if (mshell->input[lexer->i] == '|')
 				ft_put_pipe(lexer);
-			else if ((input[lexer->i] == '<' || input[lexer->i] == '>'))
-				ft_put_redirection(lexer, input);
+			else if ((mshell->input[lexer->i] == '<' 
+					|| mshell->input[lexer->i] == '>'))
+				ft_put_redirection(lexer, mshell->input);
 			else 
-				lexer->wild_input[++lexer->j] = input[lexer->i];
+				lexer->wild_input[++lexer->j] = mshell->input[lexer->i];
 		}
 		lexer->i++;
 	}
