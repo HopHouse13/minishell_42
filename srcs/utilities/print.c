@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/09 17:34:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 21:42:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_print_input_clean(char *line)
 {
-	ft_printf("\n\t******************** input_clear *********************\n\n");
-	ft_printf("\tline : [%s]\n\n", line);
+	ft_printf("\n\n\tline : [%s]\n\n", line);
 }
 
 void	ft_print_double_tab(char **tab)
@@ -45,16 +44,16 @@ void	ft_print_list_token(t_token *head) // A SUPP
     t_token	*tmp;
 	
 	tmp = head;
-	if (tmp)
+	if (!tmp)
+		return ;
+	ft_printf("\n\t\t\t*** LIST_ELEMENTS ***\n\n");
+	while (tmp)
 	{
-		ft_printf("\n\n\t\t\t --- list_token --- \n\n");
-    	while (tmp)
-    	{
-    	    printf("\tToken: [%s]\t\tType: [%s]\n\n", tmp->elem,
-			ft_get_name_type(tmp->token));
-    	    tmp = tmp->next;
-    	}
-	}
+	    printf("\t\tElement [ %s ]		Token [ %s ]\n\n", tmp->elem,
+		ft_get_name_type(tmp->token));
+        tmp = tmp->next;
+    }
+
 }
 
 void	ft_print_list_cmd(t_mshell *mshell) // A SUPP
@@ -71,6 +70,7 @@ void	ft_print_list_cmd(t_mshell *mshell) // A SUPP
     	{
 			printf("\n\t\t\t--- NODE Nº %d ---\n\n", counter++);
 			ft_print_double_tab(tmp->cmd);
+			printf("\t\tBUILTIN?\t->\t[%d]\n", tmp->builtin);
 			printf("\t\tFD_INFILE\t->\t[%d]\n", tmp->fd_in);
 			printf("\t\tFD_OUTFILE\t->\t[%d]\n", tmp->fd_out);
 			printf("\t\tFD_HD\t\t->\t[%d]\n", tmp->fd_hd);

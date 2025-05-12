@@ -10,7 +10,7 @@
 #include "../../includes/minishell.h"
 
 int	ft_parser(t_mshell *mshell, t_mnode **ml)
-{
+{printf("\n\t|||||||||||||||||||||| PARSER |||||||||||||||||||||||\n\n");
 	t_parser	parser;
 
 	ft_init_parser(&parser, mshell->list_token);

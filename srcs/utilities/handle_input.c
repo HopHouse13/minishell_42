@@ -6,20 +6,20 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 01:24:14 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 20:54:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_open_input(t_mshell *mshell, char *input)
-{printf("\n\n\t--------------------INPUT_OPEN--------------------\n");
+{printf("\n\t-------------------- INPUT_OPEN ---------------------\n");
 	int	i;
 	
 	i = -1;
 	while (input[++i])
 		ft_status_qts(mshell->qts, input, i);
-	if (mshell->qts->simple_q == IN || mshell->qts->double_q == IN)
+	if (mshell->qts->in_q == IN)
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 03:44:26 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 20:30:41 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 		return (true);
 	if ( str[i] == '\\')
 	{
-		if (mshell->qts->simple_q)
+		if (mshell->qts->spl_q)
 			return (true);
 		if (ft_effect_esc(mshell->qts, str, i))
 			return (true);
-		if (mshell->qts->double_q)
+		if (mshell->qts->dbl_q)
 		{
 			if (str[i + 1] == '\\' || str[i + 1] == '$' || str[i + 1] == '\"')
 				return (false);
@@ -33,7 +33,7 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 	}
 	else if (str[i] == '\'' || str[i] == '\"')
 	{
-		if (mshell->qts->mark_q /* || (i > 0 && str[i -1] != '\\') */)
+		if (mshell->qts->in_q || ft_effect_esc(mshell->qts, str, i))
 			return (true);
 		return (false);
 	}

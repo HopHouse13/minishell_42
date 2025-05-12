@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 03:30:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 22:07:14 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_marker(t_mshell *msh, t_token *tmp, t_parser *parser, t_mnode **ml)
 	while (str[++i])
 	{
 		ft_status_qts(msh->qts, str, i);
-		if (str[i] == '$' && parser->simple_q == OUT && tmp->token != DELIM
+		if (str[i] == '$' && msh->qts->spl_q == OUT && tmp->token != DELIM
 			&& (i == 0 || !ft_effect_esc(msh->qts, str, i))
 			&& !ft_inside_brackets(parser, str, i))
 		{

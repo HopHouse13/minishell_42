@@ -14,7 +14,6 @@ SRCS		= srcs/main.c \
 			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer_cleaning_input.c \
 			srcs/lexer/lexer_build_list_token.c \
-			srcs/lexer/lexer_handle_quotes.c \
 			srcs/lexer/lexer_utilities.c \
 			srcs/parser/parser.c \
 			srcs/parser/parser_initialisation.c \
@@ -28,7 +27,6 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser_handle_hd.c \
 			srcs/parser/parser_handle_redir.c \
 			srcs/parser/parser_fill_list_cmd.c \
-			srcs/parser/parser_handle_quotes.c \
 			srcs/parser/parser_utilities.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \

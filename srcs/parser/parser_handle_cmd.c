@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:14:40 by pab               #+#    #+#             */
-/*   Updated: 2025/04/24 10:14:44 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 22:03:29 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 void	ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml)
 {
-	t_token	*start;
+	t_token	*tmp;
 	int		count_str;
-	int		i;	
+	int		i;
 	
-	start = list_token;
+	tmp = list_token;
 	count_str = 0;
-	while (start->token != PIPE && start->token != END)
+	while (tmp->token != PIPE && tmp->token != END)
 	{
-		if (start->token == CMD || start->token == BI || start->token == ARG)
+		if (tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
 			count_str++;
-		start = start->next;
+		tmp = tmp->next;
 	}
 	list_cmd->cmd = ft_malloc_list(sizeof(char *) * (count_str + 1), ml);
-	start = list_token;
+	tmp = list_token;
 	i = 0;
 	while (i < count_str)
 	{
-		if (start->token == CMD || start->token == BI || start->token == ARG)
-			list_cmd->cmd[i++] = start->elem;
-		start = start->next;
+		if (tmp->token == BI)
+			list_cmd->builtin = true;
+		if (tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
+			list_cmd->cmd[i++] = tmp->elem;
+		tmp = tmp->next;
 	}
 	list_cmd->cmd[i] = NULL;
 }

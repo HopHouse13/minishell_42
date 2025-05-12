@@ -17,17 +17,3 @@ void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 	mshell->list_cmd = parser->list_cmd;
 
 }
-
-// bash-5.1$ cat infile 
-// bonjour Paul
-// salut Jo!
-// 42 est un etablissement genial !!!
-
-
-// bash-5.1$ < infile grep 'o'|wc -l>outfile
-
-// bash-5.1$ < in"file" grep 'o' | wc -l > outfile
-
-// < ; "infile" grep 'o' ; | ; wc -l ; > ; outfile
-// cat ; < ; Makefile
-// ../..//../

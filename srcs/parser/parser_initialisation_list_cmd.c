@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/05/09 19:39:14 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 21:34:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 void	ft_init_node_values(t_cmd *new_elem)
 {
 	new_elem->cmd = NULL;
+	new_elem->builtin = false;
 	new_elem->fd_in = -1;
 	new_elem->fd_out = -1;
 	new_elem->fd_hd = -1;
 	new_elem->delim_hd = NULL;
-	//new_elem->buff_hd = NULL;
 	new_elem->expand_hd = false;
+	new_elem->prev = NULL;
 	new_elem->next = NULL;
 }
 
 void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml)
 {
 	t_cmd	*first_node;
+
 	first_node = ft_malloc_list(sizeof(t_cmd), ml);
 	if (!first_node)
 	{
@@ -42,7 +44,7 @@ void	ft_add_node_cmd(t_parser *parser, t_mnode **ml)
 {
 	t_cmd	*tmp;
 	t_cmd	*new_elem;
-	
+
 	if (!parser->list_cmd)
 		ft_init_head_list_cmd(&(parser->list_cmd), ml);
 	else
