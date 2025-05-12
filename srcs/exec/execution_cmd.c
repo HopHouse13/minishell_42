@@ -28,28 +28,20 @@
 
 void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 {
-	int token;
+	int 	token;
 	t_cmd	*cmd;
-
-
 	// printf(RED"On entre dans l'exe ?"RESET"\n");
 	token = mshell->list_token->token;
 	cmd = mshell->list_cmd;
 	ft_build_path(mshell, ml);
-	/*printf(RED"On sors de build_path ?"RESET"\n");
-	if (cmd->fd_out != -1)
-	{
-		ft_redir(mshell); 
-		printf(MAGENTA"Redirection terminee ; passage dans ft_executer"RESET);
-	}*/
 	if (mshell->count_pipe)
 	{
-		printf(CYAN "\n[INFO] Bonne detection Pipe" RESET"\n");
+		printf(CYAN "\n[INFO] Pipe" RESET"\n");
 		ft_piper(mshell, envp);
 	}
 	else if (cmd->cmd && !mshell->count_pipe)
 	{
-		printf(CYAN "\n[INFO] Commande basique :"RESET YELLOW"%s"RESET"\n",mshell->list_cmd->cmd[0]);
+		printf(CYAN "\n[INFO] Commande unique :"RESET YELLOW" %s"RESET"\n",mshell->list_cmd->cmd[0]);
 		ft_forker(mshell, envp);
 	}
 	if (token == BI)

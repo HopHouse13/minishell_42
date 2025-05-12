@@ -303,31 +303,28 @@ void	ft_print_list_cmd(t_mshell *mshell);
 // redirections
 
 void	ft_redir(t_mshell *mshell);
-void	ft_redir_case(t_mshell *mshell);
+//void	ft_redir_case(t_mshell *mshell);
 void	ft_redir_out(t_mshell *mshell);
+void	ft_redir_in(t_mshell *mshell);
+void	ft_redir_hd(t_mshell *s_mshell);
 
+// pipe.c
+void	ft_forker(t_mshell *mshell, char **envp);
+int		ft_piper(t_mshell *mshell, char **envp);
+void	ft_pipe_read(t_mshell *mshell, int pipe_read);
+void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 // exec
 void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml);
 
+//t_mshell	*cmd_remplissage_test(t_mshell *mshell);
 
+t_cmd			*cmd_init(void);
+t_mshell		*cmd_remplissage(t_mshell *mshell);
 
-//void    ft_forker_test(t_mshell *mshell);
-
-
-void    ft_exe_built_in(t_mshell *mshell);
-
-//t_mshell    	*cmd_remplissage_test(t_mshell *mshell);
-
-t_cmd    		*cmd_init(void);
-t_mshell    	*cmd_remplissage(t_mshell *mshell);
-
-
-// pipe.c
-int		ft_piper(t_mshell *mshell, char **envp);
-void	ft_forker(t_mshell *mshell, char **envp);
 
 // BUILTINS
+void	ft_exe_built_in(t_mshell *mshell);
 
 // ft_cd
 int		ft_cd(t_mshell *mshell);
@@ -336,9 +333,9 @@ int		ft_cd(t_mshell *mshell);
 // ft_env
 int		ft_env(t_mshell *mshell);
 void	ft_print_env_list(t_env *env_list);
-void    ft_env_minimal(t_mshell *mshell);
+void	ft_env_minimal(t_mshell *mshell);
 char	*ft_get_env(char *key, t_env *env);
-void    ft_build_env_list(t_mshell   *mshell, char **env);
+void	ft_build_env_list(t_mshell   *mshell, char **env);
 
 char	**ft_split_var(char *cmd);
 
@@ -368,7 +365,6 @@ bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
 bool	ft_escape_last_char(char *line);
 
-
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
@@ -382,7 +378,6 @@ void	ft_build_cmd_path(t_mshell *mshell, t_mnode **ml);
 // ft_executer (mshell)
 
 void	ft_path_makeur(t_mshell *mshell, char **path_tab, t_mnode **ml);
-
 
 
 #endif
