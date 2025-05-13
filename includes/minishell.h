@@ -373,8 +373,9 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
-void	ft_build_path(t_mshell *mshell, t_mnode **ml);
-void	ft_build_cmd_path(t_mshell *mshell, t_mnode **ml);
+void	ft_build_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
+void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
+void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml);
 
 
 // exp
@@ -382,7 +383,6 @@ void	ft_build_cmd_path(t_mshell *mshell, t_mnode **ml);
 // ft_loop_mshell(mshell,&ml);
 // ft_executer (mshell)
 
-void	ft_path_makeur(t_mshell *mshell, char **path_tab, t_mnode **ml);
 
 
 #endif
