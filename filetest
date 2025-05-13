@@ -1,0 +1,33 @@
+filetest
+heredoc.txt
+includes
+Makefile
+minishell
+minishell_paul
+NOTES.txt
+obj_minishell
+
+error 1
+readline.supp
+srcs
+
+
+eror 2
+
+Makefile
+minishell
+minishell_paul
+NOTES.txt
+obj_minishell
+
+
+error3
+
+Makefile
+minishell
+minishell_paul
+NOTES.txt
+obj_minishell
+
+
+pat
