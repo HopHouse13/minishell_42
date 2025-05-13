@@ -29,23 +29,23 @@
 void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 {
 	int 	token;
-	t_cmd	*cmd;
+	t_cmd	*list_cmd;
 	// printf(RED"On entre dans l'exe ?"RESET"\n");
 	token = mshell->list_token->token;
-	cmd = mshell->list_cmd;
-	while (cmd)
+	list_cmd = mshell->list_cmd;
+	while (list_cmd)
 	{
-		ft_build_path(mshell, ml);
-		cmd = cmd->next;
+		ft_build_path(list_cmd, mshell->env_list, ml);
+		list_cmd = list_cmd->next;
 	}
 	if (mshell->count_pipe)
 	{
 		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
 		ft_piper(mshell, envp);
 	}
-	else if (cmd->cmd && !mshell->count_pipe)
+	else if (list_cmd->cmd && !mshell->count_pipe)
 	{
-		printf(CYAN "\n[INFO] Commande unique :"RESET YELLOW" %s"RESET"\n",mshell->list_cmd->cmd[0]);
+		printf(CYAN "\n[INFO] Commande unique :"RESET YELLOW" %s"RESET"\n", list_cmd->cmd[0]);
 		ft_forker(mshell, envp);
 	}
 	if (token == BI)
