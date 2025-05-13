@@ -75,7 +75,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 	//wait(NULL);
 	//wait(NULL);
 
-	// ---- inspi GPT ----
+	// 
 	// Récupère le code du dernier
 	if (WIFEXITED(status))
 		mshell->exit_status = WEXITSTATUS(status);
@@ -98,7 +98,7 @@ int ft_piper(t_mshell *mshell, char **envp)
     //int     status;
 
 	// mshell->count_pipe;
-	//ft_check_path_access(cmd[0]);_
+	//ft_check_path_access(cmd[0]);
     // prendre une fonction et la rendre agnostique pour pouvoir rediriger constement le 'in' et le 'out'
     while (cmd_node)
     {
@@ -115,24 +115,21 @@ int ft_piper(t_mshell *mshell, char **envp)
 		}
 		if (pid == 0)
 		{
-			//si prev == -1 --> fd_in = stdin;
-
+			//si prev_fd == -1 --> fd_in = stdin;
 
 			//ft_pipe_write(mshell, pipe_fd[1]); // redirection OUT actuelle==> P_W
 			//ft_pipe_read(mshell, pipe_fd[0]); // redirection IN next cmd ==> P_L
-			
+
 			// if (prev_fd != -1) // sous entendu fd next
 			// {
 			// 	//ft_redir_pipe(mshell, pipe_fd);
 			// }
 			// avec access ; code 127 'command not found'
-			
-			//cmd->fd_in = pipe_fd[0];
 
+			//cmd->fd_in = pipe_fd[0];
 			/*
 			if (prev_fd != -1)
 				ft_redir_in(mshell);
-
 			//cmd->fd_out = pipe_fd[1];
 			if (cmd->next)
 			{
@@ -140,7 +137,6 @@ int ft_piper(t_mshell *mshell, char **envp)
 				dup2 (pipe_fd[1], STDOUT_FILENO);
 				close (pipe_fd[1]);
 			}
-
 			*/
 				//ft_redir_pipe_write(mshell, pipe_fd);
 				//ft_redir_out(mshell);
