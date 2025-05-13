@@ -33,11 +33,15 @@ void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
 	// printf(RED"On entre dans l'exe ?"RESET"\n");
 	token = mshell->list_token->token;
 	list_cmd = mshell->list_cmd;
-	while (list_cmd)
-	{
-		ft_build_path(list_cmd, mshell->env_list, ml);
-		list_cmd = list_cmd->next;
-	}
+	ft_build_path(list_cmd, mshell->env_list, ml);
+	// while (list_cmd != NULL)
+	// {
+	// 	printf("commande recuperee ; %s\n",list_cmd->cmd[0]);
+	// 	if (list_cmd->next)
+	// 		list_cmd = list_cmd->next;
+	// 	else
+	// 		break;
+	// }
 	if (mshell->count_pipe)
 	{
 		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
