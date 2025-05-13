@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 03:40:55 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 22:35:07 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,19 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_lexer // local
+typedef struct s_lexer
 {
 	char			wild_input[SIZE_LINE];
 	char			*input_clear;
 	t_token			*list_token;
 	int				i;
 	int				j;
-	bool			simple_q;
-	bool			double_q;
-	bool			flag_q;
-	bool			mark_q;
 	bool			cmd_in_pipe;
 }					t_lexer;
 
 typedef struct s_cmd
 {
-	char			**cmd; //ELEM
+	char			**cmd;
 	bool			builtin;
 	int				fd_in;
 	int				fd_out;
@@ -111,10 +107,6 @@ typedef struct s_parser // local
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	bool			simple_q;
-	bool			double_q;
-	bool			flag_q;
-	bool			mark_q;
 	int				start;
 	int				end;
 	bool			mark_b;
@@ -122,15 +114,15 @@ typedef struct s_parser // local
 
 typedef struct s_qts
 {
-	bool			simple_q;	// État des guillemets simples
-	bool			double_q;	// État des guillemets doubles
-	bool			flag_q;		// Flag indiquant si une quote est ouvert
-	bool			mark_q;		// Mark pour savoir si on est à l'intérieur des quotes
-	bool			delay_sq;	// retarde le chagement d'etat simple quote
-	bool			delay_dq;	// retarde le chagement d'etat double quote
-}   t_qts;
+	bool			spl_q;	// État des guillemets simples
+	bool			dbl_q;	// État des guillemets doubles
+	bool			in_q;		// Mark pour savoir si on est à l'intérieur des quotes
+	bool			delay_in;	// retarde le chagement d'etat d'entree
+	bool			delay_out;	// retarde le chagement d'etat de sortie
 
-typedef struct s_mnode  		// noeud par la liste de malloc
+}					t_qts;
+
+typedef struct s_mnode
 {
 	void			*ptr;
 	size_t			size;
@@ -155,7 +147,6 @@ typedef struct s_mshell
 
 /// main ///
 int		main(int ac, char **av, char **env);
-// void	ft_loop_mshell(t_mshell *mshell, t_mnode **ml);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -188,7 +179,6 @@ void	ft_input_one_space(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 // void	ft_status_update_lexer(bool *quote, bool *mark, bool *flag);
 
 /// lexer_utilities ///
-bool	ft_effect_escape_lexer(t_lexer *lexer, char *str, int i);
 void	ft_init_line(char *virgin_line);
 bool	ft_valid_character(char c);
 t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
@@ -238,8 +228,8 @@ void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 
 /// parser_handle_redir ///
-void	ft_get_outfile(t_cmd *cmd, t_token *token);
-void	ft_get_infile(t_cmd *cmd, t_token *token);
+void	ft_get_fd_outfile(t_cmd *lt_cmd, t_token *lt_token);
+void	ft_get_fd_infile(t_cmd *cmd, t_token *token);
 void	ft_handle_redir(t_parser *parser);
 
 /// parser_handle_hd ///
@@ -250,12 +240,7 @@ void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
 void	ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
 void	ft_handle_cmd(t_parser *parser, t_mnode **ml);
 
-/// parser_handle_quotes ///
-void	ft_status_update_parser(bool *quote, bool *mark, bool *flag);
-bool	ft_inside_quotes_parser(t_parser *parser, char *str, int i);
-
 /// parser_utilities ///
-bool	ft_effect_escape_parser(t_parser *parser, char *str, int i);
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
 

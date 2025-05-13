@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/11 18:28:57 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 22:08:31 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 // [\] pas d'effet dans simple quote
 // dans double quotes pas d'effet sauf avec ["][\][$]
 // false (0) -> pas d'effet ; true (1) -> effet
-bool	ft_effect_escape_parser(t_parser *parser, char *str, int i)
-{
-	bool	on_off;
-
-	on_off = false;
-	if((parser->double_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
-	|| parser->simple_q)
-		return (on_off);
-	while (--i>= 0 && str[i] == '\\')
-		on_off = !on_off;
-	return (on_off);
-}
 
 bool	ft_inside_brackets(t_parser *parser, char *str, int i)
 {

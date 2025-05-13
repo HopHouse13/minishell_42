@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 03:30:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/12 20:52:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_put_pipe(t_lexer *lexer)
 }
 
 void	ft_input_one_space(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
-{printf("\n\n\t----------------------INPUT------------------------\n");
+{printf("\n\n\t--------------------- ONE_SPACE ---------------------\n");
 	lexer->i = 0;
 	while (mshell->input && lexer->i < SIZE_LINE && mshell->input[lexer->i])
 	{
