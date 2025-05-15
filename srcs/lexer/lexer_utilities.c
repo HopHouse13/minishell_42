@@ -6,27 +6,37 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 21:48:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/15 22:44:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Si le nombre de changement d'etat de on_off est:
-// impair	-> 	pas d'effet
-// pair		->	effet
-// [\] pas d'effet dans simple quote
-// dans double quotes pas d'effet sauf avec ["][\][$]
-// false (0) -> pas d'effet ; true (1) -> effet
-
-void	ft_init_line(char *virgin_line) // remplir le tab de caracteres de '\0'
+void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 {
 	int	i;
-
-	i = -1;
-	while (++i < SIZE_LINE)
-		virgin_line[i] = '\0';
-	return ;
+	int count;
+	
+	i = 0;
+	count = 0 ;
+	while (mshell->input && mshell->input[i])
+	{
+		if (ft_status_qts(mshell->qts, mshell->input, i)
+			|| ft_effect_esc(mshell->qts, mshell->input, i))
+			count++;
+		else
+		{
+			if (mshell->input[i] == '|')
+				count = count +3;
+			else if ((mshell->input[i] == '<' || mshell->input[i] == '>'))
+				count = count +3;
+			else 
+				count++;
+		}
+		i++;
+	}
+	count = count +3; // le space + ';' + '\0' rajoute a la fin de whild_input
+	lexer->wild_input = ft_calloc_list(count, sizeof (char), ml);
 }
 
 bool	ft_valid_character(char c)

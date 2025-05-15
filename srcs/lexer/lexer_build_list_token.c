@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/10 20:27:17 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/15 22:51:22 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,23 +116,25 @@ void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 
 void ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
 {
+	int	i;
+	int	j;
 	int start;
 
-	lexer->i = 0;
-	lexer->j = 0; // len de la sous chaine
+	i = 0;
+	j = 0; // len de la sous chaine
 	start = 0;	  // debut de la sous chaine
-	while (lexer->input_clear[lexer->i])
+	while (lexer->clear_input[i])
 	{
-		start = lexer->i;
-		while (lexer->input_clear[lexer->i] && lexer->input_clear[lexer->i] != ' ')
-		{
-			lexer->j++;		
-			lexer->i++;
+		start = i;
+		while (lexer->clear_input[i] && lexer->clear_input[i] != ' ')
+		{	
+			j++;		
+			i++;
 		}
-		ft_add_node(lexer, ft_substr_ml(lexer->input_clear, start, lexer->j, ml), ml);
-		lexer->j = 0;
-		if (lexer->input_clear[lexer->i] == ' ')
-			lexer->i++;
+		ft_add_node(lexer, ft_substr_ml(lexer->clear_input, start, j, ml), ml);
+		j = 0;
+		if (lexer->clear_input[i] == ' ')
+			i++;
 	}
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
