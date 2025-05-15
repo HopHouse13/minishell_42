@@ -55,7 +55,8 @@ SRCS		= srcs/main.c \
 			srcs/builtin/ft_exit.c \
 			srcs/builtin/ft_export.c \
 			srcs/builtin/ft_pwd.c \
-			srcs/builtin/ft_unset.c
+			srcs/builtin/ft_unset.c \
+			srcs/builtin/builtin_utilities.c
 
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -67,29 +68,29 @@ PRINTF_AR	= ./includes/printf/printf.a
 
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 			@mkdir -p $(@D)
-			$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) $(CFLAGS) -c $< -o $@
 			
 all:		$(NAME)
 			
 $(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline
+			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
 $(LIBFT_AR):
-			make -sC ./includes/libft
+			@make -sC ./includes/libft
 
 $(PRINTF_AR):
-			make -sC ./includes/printf
+			@make -sC ./includes/printf
 
 clean:
-			make clean -sC ./includes/libft
-			make clean -sC ./includes/printf
+			@make clean -sC ./includes/libft
+			@make clean -sC ./includes/printf
 			$(RM) $(OBJ_DIR)
 			@echo "\033[36m""Répertoire $(OBJ_DIR) supprimé.""\033[0m"
 
 fclean:		clean
-			$(RM) $(LIBFT_AR)
-			$(RM) $(PRINTF_AR)
+			@$(RM) $(LIBFT_AR)
+			@$(RM) $(PRINTF_AR)
 			$(RM) $(NAME)
 			@echo "\033[36m""Exécutable $(NAME) supprimé.""\033[0m"
 

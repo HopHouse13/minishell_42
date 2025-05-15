@@ -14,7 +14,7 @@ void	ft_print_env_list(t_env *env_list)
 		printf("BRUHHH\n");
 	while (env_list)
 	{
-		printf("\033[33m%s\033[0m=\033[34m%s\033[0m\n", env_list->key, env_list->value);
+		printf(BLUE"%s="RESET GREEN"%s"RESET"\n", env_list->key, env_list->value);
 		env_list = env_list->next;
 	}
     return ;

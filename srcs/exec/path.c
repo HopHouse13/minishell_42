@@ -17,7 +17,7 @@ void	ft_build_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
 void	ft_build_cmd_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
 {
 	char	*path_env;
-	char	**path_tab;	
+	char	**path_tab;
 
 	path_env = ft_strdup_ml(ft_get_env("PATH", env_list), ml);
 	path_tab = ft_split_ml(path_env, ':', ml);

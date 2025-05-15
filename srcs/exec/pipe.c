@@ -135,7 +135,7 @@ void	ft_forker(t_mshell *mshell, char **envp)
 				exit(EXIT_FAILURE);
 			}
 			//DEBUG -- PRINT
-			printf(CYAN "\n[INFO] Commande en cours : "RESET);
+			printf(CYAN "\n[INFO] Commande en cours : "RESET"");
 			int i = 0;
 			while(cmd_node->cmd[i])
 			{

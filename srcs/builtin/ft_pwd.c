@@ -1,22 +1,15 @@
 #include "../../includes/minishell.h"
 
-//Distinction cwd & pwd 
-//cwd : pour obtenir value pour env
-//pwd : print le wd 
-/*
-char	*ft_cwd_init(char *buff)
+int	ft_pwd(t_mshell *mshell, t_mnode **ml)
 {
-	//printf() + getcwd()	
-	//PATH_MAX = constante dans limits.h
-	//4096 = Linux ; 1024 = MacOs
+	char	*pwd;
 
-    if (getcwd(buff,sizeof(buff)== NULL))
+	pwd = ft_strdup_ml(get_value(mshell, "PWD"), ml);
+    if (!pwd)
     {
-        printf("sizeof cwd : %lu\nlen cwd : %lu\n", sizeof(buff),strlen(buff));
         perror("PWD = NULL\n");
-        return (NULL);
+		exit (1);
     }
     else
-        return (buff);
+        return (printf("%s", pwd));
 }
-*/

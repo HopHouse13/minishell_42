@@ -314,10 +314,11 @@ t_mshell		*cmd_remplissage(t_mshell *mshell);
 
 
 // BUILTINS
-void	ft_exe_built_in(t_mshell *mshell);
+void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml);
 
 // ft_cd
 int		ft_cd(t_mshell *mshell);
+char	*get_value(t_mshell *mshell, char *key);
 // ft_echo
 
 // ft_env
@@ -340,6 +341,8 @@ int		ft_isequal(char *str);
 void	ft_free_tab(char **tab);
 
 // ft_pwd
+int	ft_pwd(t_mshell *mshell, t_mnode **ml);
+
 
 // ft_unset
 
