@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 22:35:07 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/13 18:19:25 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <string.h>
 # include <fcntl.h>				// open;
 
+#define BLINK "\033[5m"			// a supp
 # define RESET "\033[0m"		// a supprimer si non besoin
 # define BLACK "\033[30m"		// a supprimer si non besoin
 # define RED "\033[31m"			// a supprimer si non besoin
