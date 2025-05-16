@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/15 22:52:47 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 19:46:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdbool.h>           // boolien
 # include <stdio.h>             // printf (pour la phase de dev.); dprintf
 # include <stdlib.h>            // exit ; getenv ;
-
 # include <unistd.h>			// get
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 # include <sys/types.h>
@@ -153,19 +152,13 @@ int		main(int ac, char **av, char **env);
 int		ft_lexer(t_mshell *mshell, t_mnode **ml);
 
 /// lexer_initialisation ///
-void ft_init_lexer(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
+void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 
 /// lexer_build_list_token ///
 void	ft_define_token_redir(t_lexer *lexer);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
 void	ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
-
-/// lexer_operateurs_valid ///
-// bool	ft_quotes_valid(t_lexer *lexer, char *input);
-bool	ft_validate_operators(t_mshell *mshell, char *input);
-bool	ft_character_valid(t_mshell *mshell, char *input);
-bool	ft_redir_valid(t_mshell *mshell, char *input);
 
 /// lexer_cleaning_input ///
 int		ft_count_char(char *line);
@@ -174,13 +167,10 @@ void	ft_put_redirection(t_lexer *lexer, char *input);
 void	ft_put_pipe(t_lexer *lexer);
 void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 
-// /// lexer_handle_quotes ///
-// bool	ft_inside_quotes_lexer(t_lexer *lexer, char *str, int i);
-// void	ft_status_update_lexer(bool *quote, bool *mark, bool *flag);
-
 /// lexer_utilities ///
+bool	ft_character_valid(t_mshell *mshell, char *input, t_mnode **ml);
 void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
-bool	ft_valid_character(char c);
+bool	ft_invalid_character(char c);
 t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -263,9 +253,12 @@ void	ft_free_env(t_env **env_list);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
-void	ft_error_exit(char *message);
 void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml);
 bool	ft_empty_line(char *input);
+
+/// errors ///
+char	*ft_build_err_mess(char *message, char *elem, t_mnode **ml);
+bool	ft_err(char *message,char *elem, int exit_code, t_mnode **ml);
 
 /// handle_input ///
 bool	ft_open_input(t_mshell *mshell, char *input);

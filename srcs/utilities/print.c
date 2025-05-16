@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/15 15:21:43 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 14:01:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	ft_printf("\n\t\t\t*** LIST_ELEMENTS ***\n\n");
 	while (tmp)
 	{
-	    printf("\t\tElement [ %s ]		Token [ %s ]\n\n", tmp->elem,
+	    printf("\t\tElem [ %s ]\tToken [ %s ]\n\n", tmp->elem,
 		ft_get_name_type(tmp->token));
         tmp = tmp->next;
     }
@@ -60,7 +60,7 @@ void	ft_print_header_list_cmd(void)
 {
 	printf(CYAN"\t╔═════════════════════════════════════════════════╗\n");
 	printf("\t║\t\t\t\t\t\t  ║\n");
-	printf(GREEN"\t\t\t    \033[1m[ LIST_CMD ]\n");
+	printf(GREEN"\t\t\t   \033[1m[ LIST_CMD ]\n");
 	printf(MAGENTA"\t║\t\t\t\t\t\t  ║\n");
 	printf("\t╚═════════════════════════════════════════════════╝\n%s", RESET);
 }

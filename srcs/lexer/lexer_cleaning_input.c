@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/15 22:51:22 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 19:48:00 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ void	ft_build_clear_input(t_lexer *lexer, char *wild_input, t_mnode **ml)
 
 void	ft_put_redirection(t_lexer *lexer, char *input)
 {
-	if (lexer->i > 0 && input[lexer->i -1] != input[lexer->i])
+	if ((lexer->i > 0 && input[lexer->i -1] != input[lexer->i])
+		|| (lexer->i > 1 && input[lexer->i -1] == input[lexer->i]
+		&& input[lexer->i -2] == input[lexer->i]))
 		lexer->wild_input[++lexer->j] = ' ';
 	if (input[lexer->i] == '<')
-	lexer->wild_input[++lexer->j] = '<';
+		lexer->wild_input[++lexer->j] = '<';
 	else if (input[lexer->i] == '>')
 		lexer->wild_input[++lexer->j] = '>';
 	if (input[lexer->i +1] && input[lexer->i +1] != input[lexer->i])
@@ -110,7 +112,7 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 	}
 	lexer->wild_input[++lexer->j] = ' ';
 	lexer->wild_input[++lexer->j] = ';';
-	lexer->wild_input[++lexer->j] = '\0'; // pas oublie car calloc mais je prefere
+	// lexer->wild_input[++lexer->j] = '\0'; // pas oublige car calloc mais je prefere
 	ft_build_clear_input(lexer, lexer->wild_input, ml);
 	ft_print_input_clean(lexer->clear_input); // ASUPP
 }

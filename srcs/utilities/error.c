@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/10 17:38:26 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 15:44:53 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*ft_build_err_mess(char *message, char *elem, t_mnode **ml)
+{
+	char	*mess;
+
+	mess = NULL;
+	mess = ft_strjoin_ml("minishell: ", ft_strjoin_ml(message, " « ", ml), ml);
+	mess = ft_strjoin_ml(mess, ft_strjoin_ml(elem," »\n", ml), ml);
+	return (mess);
+}
+
+bool	ft_err(char *message, char *elem, int exit_code, t_mnode **ml)
+{
+	ft_putstr_fd(ft_build_err_mess(message, elem, ml), 2);
+	g_exit_code = exit_code;
+	ft_free_ml(ml);
+	return (false);
+}
 
 // void	ft_fatal_error(char *message, int exit_code)
 // {
@@ -25,9 +43,6 @@
 // si errno est non null -> afficher son message
 // sinon ecrire dans errno puis l'afficher
 
-
-
-
 // exemple gpt
 // int handle_sys_error(t_minishell *sh, const char *context_msg, int exit_flag)
 // {
@@ -38,13 +53,10 @@
 //     return (1);                   // sinon retour d’un code d’erreur
 // }
 
-
-
 // void	ft_sys_error(int )
 // {
-	
-// }
 
+// }
 
 // EXIT_CODE:
 // 2 : builtin, malloc

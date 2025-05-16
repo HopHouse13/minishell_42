@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/10 22:25:16 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 14:23:24 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml)
 		write(cmd->fd_hd, line, ft_strlen(line));
 		write(cmd->fd_hd, "\n", 1);
 	}
-	printf("\n>>>>> result [%s]\n\n\n", line); // ASUPP
+	//printf("\n>>>>> result [%s]\n\n\n", line); // ASUPP
 }
 // if (line == NULL)
 // {

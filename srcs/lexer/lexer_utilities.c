@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/15 22:44:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/16 19:45:12 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	ft_character_valid(t_mshell *mshell, char *input, t_mnode **ml)
+{
+	printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
+	int i;
+	char c;
+
+	i = -1;
+	while (input[++i])
+	{
+		c = input[i];
+		if (!ft_status_qts(mshell->qts, input, i)
+		&& !ft_effect_esc(mshell->qts, input, i)
+		&& (ft_invalid_character(c)
+		|| (i == ft_strlen(input) - 1 && c == '\\')))
+		{
+			ft_err("erreur de syntaxe près du symbole inattendu", &c, 258, ml);
+			return (false);
+		}
+	}
+	return (true);
+}
 
 void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 {
@@ -39,11 +61,12 @@ void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 	lexer->wild_input = ft_calloc_list(count, sizeof (char), ml);
 }
 
-bool	ft_valid_character(char c)
+bool	ft_invalid_character(char c)
 {
-	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
-		return (false);
-	return (true);
+	if (c == '{' || c == '}' || c == '[' || c == ']' || c == '('
+		|| c == ')' || c == ';' || c == '&' || c == '#')
+		return (true);
+	return (false);
 }
 
 t_type	ft_builtin_or_cmd( t_lexer *lexer, char *elem)

@@ -164,10 +164,12 @@ char **ft_split_var(char *cmd)
 
     if (ft_isequal(cmd))
     {
-        key_value = ft_split(cmd, '=');
+		key_value = ft_split(cmd, '=');
         if (!key_value || !key_value[0])
-            return NULL;
+		return NULL;
     }
+	else
+		key_value = NULL; // probleme de compilation -> si le if est false, key_value est pas initialise
     return (key_value);
 }
 
