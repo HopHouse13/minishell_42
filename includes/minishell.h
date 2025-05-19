@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/16 19:46:06 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/19 17:05:11 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,13 @@ void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
 
 /// lexer_build_list_token ///
 void	ft_define_token_redir(t_lexer *lexer);
+void	ft_init_head(t_token **lt_token, char *lm, t_mshell *ms, t_mnode **ml);
+void	ft_add_node(t_lexer *lexer, char *elem, t_mshell *mshell, t_mnode **ml);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
-void	ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml);
-void	ft_init_head_list_token(t_token **list, char *elem, t_mnode **ml);
 
 /// lexer_cleaning_input ///
 int		ft_count_char(char *line);
-void	ft_build_clear_input(t_lexer *lexer, char *input, t_mnode **ml);
+void	ft_make_input(t_lexer *lexer, char *input, t_mshell *ms, t_mnode **ml);
 void	ft_put_redirection(t_lexer *lexer, char *input);
 void	ft_put_pipe(t_lexer *lexer);
 void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
@@ -237,14 +237,14 @@ int		ft_count_pipe(t_parser *parser);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// malloc ///
-void	*ft_malloc_list(size_t size, t_mnode **ml);
-void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml);
-void 	ft_add_ml(void *ptr, size_t size, t_mnode **ml);
-void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
-char	*ft_itoa_ml(int n, t_mnode **ml);
+void	*ft_malloc_list(size_t size, t_mshell *mshell, t_mnode **ml);
+void	*ft_calloc_list(size_t nb, size_t s_type, t_mshell *ms, t_mnode **ml);
+void 	ft_add_ml(void *ptr, size_t size, t_mshell *mshell, t_mnode **ml);
+void	ft_init_head_list_ml(void *ptr, size_t size, t_mshell *ms, t_mnode **ml);
+char	*ft_itoa_ml(int n, t_mshell *mshell, t_mnode **ml);
 char	**ft_split_ml(char const *s, char c, t_mnode **ml);
-char	*ft_strdup_ml(const char *s_src, t_mnode **ml);
-char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml);
+char	*ft_strdup_ml(const char *s_src, t_mshell *mshell, t_mnode **ml);
+char	*ft_strjoin_ml(char *s1, char *s2, t_mshell *mshell, t_mnode **ml);
 char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mnode **ml);

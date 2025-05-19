@@ -14,7 +14,7 @@ void	ft_build_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
 	return ;
 }
 
-void	ft_build_cmd_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
+void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml)
 {
 	char	*path_env;
 	char	**path_tab;

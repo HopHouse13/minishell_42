@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/10 22:25:37 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/19 16:57:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 	if (elem[parser->start] == '?')
 	{
 		parser->end = parser->start +1;
-		return (ft_itoa_ml(g_exit_code, ml));
+		return (ft_itoa_ml(g_exit_code, ms, ml));
 	}
 	if (!ft_isalpha(elem[parser->start]) && elem[parser->start] != '_')
 	{
@@ -76,9 +76,9 @@ char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml)
 	printf("\tVAR_NAME : %s\n", ev_name); // ASUPP
 	ev_ptr = ft_get_env(ev_name, ms->env_list); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
 	if (ev_ptr)
-		ev_expanded = ft_strdup_ml(ev_ptr, ml);
+		ev_expanded = ft_strdup_ml(ev_ptr, ms, ml);
 	else
-		ev_expanded = ft_strdup_ml("", ml);
+		ev_expanded = ft_strdup_ml("", ms, ml);
 	return (ev_expanded);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/16 15:44:53 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/19 16:08:30 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ bool	ft_err(char *message, char *elem, int exit_code, t_mnode **ml)
 	g_exit_code = exit_code;
 	ft_free_ml(ml);
 	return (false);
+}
+
+bool	ft_mem_err(/* char *message, char *elem, int exit_code, */ t_mnode **ml)
+{
+	exit_code = 2;
+	perror();
+	ft_free_env();
+	ft_free_ml(ml);
+	exit (exit_code);
 }
 
 // void	ft_fatal_error(char *message, int exit_code)

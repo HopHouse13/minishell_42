@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/16 19:48:00 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/19 16:35:58 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,28 @@ int	ft_count_char(char *line)
 	return (count);
 }
 
-void	ft_build_clear_input(t_lexer *lexer, char *wild_input, t_mnode **ml)
+void	ft_make_input(t_lexer *lexer, char *w_input, t_mshell *ms, t_mnode **ml)
 {
 	bool	in_space;
 	
 	lexer->clear_input = ft_malloc_list(sizeof(char) *
-							ft_count_char(wild_input) + 1, ml);
+							ft_count_char(w_input) + 1, ms, ml);
 	lexer->i = 0;
 	lexer->j = 0;
 	in_space = false;
-	while (wild_input[lexer->i] == ' ')
+	while (w_input[lexer->i] == ' ')
 		lexer->i++;
-	while (wild_input[lexer->i])
+	while (w_input[lexer->i])
 	{
-		if (wild_input[lexer->i] != ' ')
+		if (w_input[lexer->i] != ' ')
 		{
 			in_space = false;
-			lexer->clear_input[lexer->j++] = wild_input[lexer->i];
+			lexer->clear_input[lexer->j++] = w_input[lexer->i];
 		}
-		else if (wild_input[lexer->i] == ' ' && in_space == false)
+		else if (w_input[lexer->i] == ' ' && in_space == false)
 		{
 			in_space = true;
-			lexer->clear_input[lexer->j++] = wild_input[lexer->i];
+			lexer->clear_input[lexer->j++] = w_input[lexer->i];
 		}
 		lexer->i++;
 	}
@@ -113,6 +113,6 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 	lexer->wild_input[++lexer->j] = ' ';
 	lexer->wild_input[++lexer->j] = ';';
 	// lexer->wild_input[++lexer->j] = '\0'; // pas oublige car calloc mais je prefere
-	ft_build_clear_input(lexer, lexer->wild_input, ml);
+	ft_make_input(lexer, lexer->wild_input, mshell, ml);
 	ft_print_input_clean(lexer->clear_input); // ASUPP
 }

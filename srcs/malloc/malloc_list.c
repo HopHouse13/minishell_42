@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/10 17:39:43 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/19 16:53:02 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
+void ft_init_head_list_ml(void *ptr, size_t size, t_mshell *ms, t_mnode **ml)
 {
 	t_mnode *first_node;
 
-	first_node = ft_malloc_list(sizeof(t_mnode), ml);
+	first_node = ft_malloc_list(sizeof(t_mnode), ms, ml); // JE CROIS QUE C'EST UN MALLOC SIMPLE A FAIRE ICI
 	if (!first_node)
 	{
 		perror("initialization list ");
 		ft_free_ml(ml);
-		return ;
+		return;
 	}
 	first_node->ptr = ptr;
 	first_node->size = size;
@@ -29,49 +29,47 @@ void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
 	*ml = first_node;
 }
 
-void	ft_add_ml(void *ptr, size_t size, t_mnode **ml)
+void ft_add_ml(void *ptr, size_t size, t_mshell *mshell, t_mnode **ml)
 {
 	t_mnode *new_node;
-	
+
 	if (ml == NULL)
 	{
-		ft_init_head_list_ml(ptr, size, ml);
-		return ;
+		ft_init_head_list_ml(ptr, size, mshell, ml);
+		return;
 	}
 	new_node = malloc(sizeof(t_mnode));
 	if (!new_node)
 	{
 		free(ptr);
 		perror("allocation failed ");
-		//ft_free tout tout
+		// ft_free tout tout
 		exit(EXIT_FAILURE);
 	}
 	new_node->ptr = ptr;
 	new_node->size = size;
 	new_node->next = *ml;
-	*ml = new_node;	
+	*ml = new_node;
 }
 
-void	*ft_malloc_list(size_t size, t_mnode **ml)
+void *ft_malloc_list(size_t size, t_mshell *mshell, t_mnode **ml)
 {
-	void	*ptr;
-	
+	void *ptr;
+
 	ptr = malloc(size);
 	if (!ptr)
-		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, size, ml);
+		ft_mem_err();
+	ft_add_ml(ptr, size, mshell, ml);
 	return (ptr);
 }
 
-void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml)
+void *ft_calloc_list(size_t nb, size_t s_type, t_mshell *ms, t_mnode **ml)
 {
-	void	*ptr;
+	void *ptr;
 
-	ptr = ft_calloc(nb, size_type);
+	ptr = ft_calloc(nb, s_type);
 	if (!ptr)
-		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, nb * size_type, ml);
+		ft_mem_err();
+	ft_add_ml(ptr, nb * s_type, ms, ml);
 	return (ptr);
 }
-
-

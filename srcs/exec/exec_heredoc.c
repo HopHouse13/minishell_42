@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/16 14:23:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/19 17:03:51 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 	char	*ev_expanded;
 	
 	/* if (line[exp->start] == '\0')
-		return (ft_strdup_ml("$", ml)); */ // voir si c'est utilse ou pas
+		return (ft_strdup_ml("$", mshell, ml)); */ // voir si c'est utilse ou pas
 	if (line[hd->start] == '?')
 	{
 		hd->end = hd->start +1;
-		return (ft_itoa_ml(g_exit_code, ml));
+		return (ft_itoa_ml(g_exit_code, mshell, ml));
 	}
 	if (!ft_isalpha(line[hd->start]) && line[hd->start] != '_')
 		return (NULL);
@@ -45,7 +45,7 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 	ev_name = ft_substr_ml(line, hd->start, hd->end - hd->start, ml);
 	ev_ptr = ft_get_env(ev_name, mshell->env_list);
 	if (ev_ptr)
-		ev_expanded = ft_strdup_ml(ev_ptr, ml);
+		ev_expanded = ft_strdup_ml(ev_ptr, mshell, ml);
 	else
 		ev_expanded = NULL; // renvoie le signal qu'il faut stopper le processus d'expand et continuer a analyser les char suivants
 	return (ev_expanded);
@@ -67,7 +67,7 @@ char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml)
 			ev_exp = ft_expand_ev_hd(mshell, line, hd, ml);
 			if (ev_exp)
 			{	
-				line = ft_merge_hd(line, ev_exp, hd, ml);
+				line = ft_merge_hd(line, ev_exp, hd, mshell, ml);
 				i =  i + (ft_strlen(ev_exp) -1);
 			}
 		}
@@ -109,7 +109,7 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml)
 			break; // voir le commantaire au dessus
 		if (!ft_strcmp(value_rdl, cmd->delim_hd))
 			break ;
-		line = ft_strdup_ml(value_rdl, ml);
+		line = ft_strdup_ml(value_rdl, mshell, ml);
 		free(value_rdl);
 		if (cmd->expand_hd && ft_found_dollar_active(line))
 			line = ft_expand_hd(mshell, line, &hd, ml);

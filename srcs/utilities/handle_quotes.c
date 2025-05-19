@@ -36,6 +36,7 @@ void	ft_swipe(bool *quote, bool *status, bool *delay_in, bool *delay_out)
 		*delay_out = true;
 	}
 }
+
 void	ft_delay(t_qts *qts)
 {
 	if (qts->delay_in)
@@ -63,7 +64,7 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 		ft_swipe(&qts->spl_q, &qts->in_q, &qts->delay_in, &qts->delay_out);
 	else if (str[i] == '\"' && qts->spl_q == OUT && !ft_effect_esc(qts, str, i))
 		ft_swipe(&qts->dbl_q, &qts->in_q, &qts->delay_in, &qts->delay_out);
-	// printf("\tsimple  %d\tdouble  %d\tin_q  %d\t\t[ %c ]\n", qts->spl_q, qts->dbl_q, qts->in_q, str[i]);
+	printf("\tsimple  %d\tdouble  %d\tin_q  %d\t\t[ %c ]\n", qts->spl_q, qts->dbl_q, qts->in_q, str[i]);
 	return (qts->in_q);
 }
 

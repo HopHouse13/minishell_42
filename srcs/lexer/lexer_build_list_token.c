@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/15 22:51:22 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/19 16:28:57 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_define_token_elem(t_lexer *lexer)
+void	ft_define_token_elem(t_lexer *lexer)
 {
 	t_token *tmp;
 
@@ -40,7 +40,7 @@ void ft_define_token_elem(t_lexer *lexer)
 	}
 }
 
-void ft_define_token_redir(t_lexer *lexer)
+void	ft_define_token_redir(t_lexer *lexer)
 {
 	t_token *tmp;
 
@@ -69,35 +69,35 @@ void ft_define_token_redir(t_lexer *lexer)
 	}
 }
 
-void ft_init_head_list_token(t_token **list_token, char *elem, t_mnode **ml)
+void	ft_init_head(t_token **lt_token, char *lm, t_mshell *ms, t_mnode **ml)
 {
 	t_token *first_node;
 
-	first_node = ft_malloc_list(sizeof(t_token), ml);
+	first_node = ft_malloc_list(sizeof(t_token), ms, ml);
 	if (!first_node)
 	{
 		perror("initialization list ");
 		// ft_master_free(list_token);
 		return;
 	}
-	first_node->elem = elem;
+	first_node->elem = lm;
 	first_node->token = -1;
 	first_node->prev = NULL;
 	first_node->next = NULL;
-	*list_token = first_node;
+	*lt_token = first_node;
 }
 
-void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
+void	ft_add_node(t_lexer *lexer, char *elem, t_mshell *mshell, t_mnode **ml)
 {
 	t_token *tmp;
 	t_token *new_elem;
 
 	if (!lexer->list_token)
 	{
-		ft_init_head_list_token(&(lexer->list_token), elem, ml);
+		ft_init_head(&(lexer->list_token), elem, mshell, ml);
 		return;
 	}
-	new_elem = ft_malloc_list(sizeof(t_token), ml);
+	new_elem = ft_malloc_list(sizeof(t_token),mshell,  ml);
 	if (!new_elem)
 	{
 		perror("initialization list ");
@@ -114,7 +114,7 @@ void ft_add_node(t_lexer *lexer, char *elem, t_mnode **ml)
 	tmp->next = new_elem;
 }
 
-void ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
+void	ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
 {
 	int	i;
 	int	j;
@@ -131,7 +131,8 @@ void ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
 			j++;		
 			i++;
 		}
-		ft_add_node(lexer, ft_substr_ml(lexer->clear_input, start, j, ml), ml);
+		ft_add_node(lexer, 
+					ft_substr_ml(lexer->clear_input, start, j, ml), mshell, ml);
 		j = 0;
 		if (lexer->clear_input[i] == ' ')
 			i++;
