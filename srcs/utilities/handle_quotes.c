@@ -12,6 +12,18 @@
 
 #include "../../includes/minishell.h"
 
+bool	ft_effect_esc(t_qts *qts, char *str, int i)
+{
+	bool	on_off;
+	
+	on_off = false;
+	if((qts->dbl_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
+		|| qts->spl_q)
+		return (on_off);
+	while (--i >= 0 && str[i] == '\\')
+		on_off = !on_off;
+	return (on_off);
+}
 
 // Reset l'état des quotes
 void	init_qts(t_qts *qts)
@@ -132,15 +144,3 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 // [\] pas d'effet dans simple quote
 // dans double quotes pas d'effet sauf avec ["][\][$]
 // false (0) -> pas d'effet ; true (1) -> effet
-bool	ft_effect_esc(t_qts *qts, char *str, int i)
-{
-	bool	on_off;
-	
-	on_off = false;
-	if((qts->dbl_q && str[i] != '\"' && str[i] != '\\' && str[i] != '$')
-		|| qts->spl_q)
-		return (on_off);
-	while (--i >= 0 && str[i] == '\\')
-		on_off = !on_off;
-	return (on_off);
-}

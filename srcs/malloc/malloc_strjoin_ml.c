@@ -6,19 +6,21 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:31:19 by pab               #+#    #+#             */
-/*   Updated: 2025/04/09 13:26:27 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/20 15:52:18 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_strjoin_ml(char const *s1, char const *s2, t_mnode **ml)
+char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
-	
+	int		total_len;
 	char	*dest;
-	dest = ft_malloc_list(sizeof(char) * (ft_strlen(s1)+ft_strlen(s2) + 1), ml);
+
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	dest = ft_malloc_list(mshell, sizeof(char) * (total_len +1));
 	if (!dest)
 		return (NULL);
 	i = 0;

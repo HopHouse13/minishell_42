@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/16 19:45:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/20 17:13:34 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_character_valid(t_mshell *mshell, char *input, t_mnode **ml)
+bool	ft_character_valid(t_mshell *mshell, char *input)
 {
 	printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
 	int i;
@@ -27,14 +27,15 @@ bool	ft_character_valid(t_mshell *mshell, char *input, t_mnode **ml)
 		&& (ft_invalid_character(c)
 		|| (i == ft_strlen(input) - 1 && c == '\\')))
 		{
-			ft_err("erreur de syntaxe près du symbole inattendu", &c, 258, ml);
+			ft_err("erreur de syntaxe près du symbole inattendu",
+					&c, 258, mshell->ml);
 			return (false);
 		}
 	}
 	return (true);
 }
 
-void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
+void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer)
 {
 	int	i;
 	int count;
@@ -58,7 +59,7 @@ void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 		i++;
 	}
 	count = count +3; // le space + ';' + '\0' rajoute a la fin de whild_input
-	lexer->wild_input = ft_calloc_list(count, sizeof (char), ml);
+	lexer->wild_input = ft_calloc_list(mshell, count, sizeof (char));
 }
 
 bool	ft_invalid_character(char c)

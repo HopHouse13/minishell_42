@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:14:40 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 22:03:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 13:48:42 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml)
+void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd)
 {
 	t_token	*tmp;
 	int		count_str;
@@ -26,7 +26,7 @@ void	ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml)
 			count_str++;
 		tmp = tmp->next;
 	}
-	list_cmd->cmd = ft_malloc_list(sizeof(char *) * (count_str + 1), ml);
+	list_cmd->cmd = ft_malloc_list(mshell, sizeof(char *) * (count_str + 1));
 	tmp = list_token;
 	i = 0;
 	while (i < count_str)
@@ -40,21 +40,21 @@ void	ft_build_cmd_tab(t_token *list_token, t_cmd *list_cmd, t_mnode **ml)
 	list_cmd->cmd[i] = NULL;
 }
 
-void	ft_handle_cmd(t_parser *parser, t_mnode **ml)
+void	ft_handle_cmd(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*list_token;
 	t_cmd	*list_cmd;
 	
 	list_token = parser->list_token;
 	list_cmd = parser->list_cmd;
-	ft_build_cmd_tab(list_token, list_cmd, ml);
+	ft_make_cmd_tab(mshell, list_token, list_cmd);
 	while (list_token->token != END)
 	{
 		if (list_token->token == PIPE)
 		{
 			list_cmd = list_cmd->next;
 			list_token = list_token->next;
-			ft_build_cmd_tab(list_token, list_cmd, ml);
+			ft_make_cmd_tab(mshell, list_token, list_cmd);
 		}
 		else
 			list_token = list_token->next;

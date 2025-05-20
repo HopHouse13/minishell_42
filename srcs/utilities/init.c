@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 01:09:35 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 10:59:19 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml)
+void	ft_init_mshell(t_mshell **mshell, char **env)
 {
 	*mshell = malloc(sizeof(t_mshell));
 	if (!mshell)
@@ -26,6 +26,6 @@ void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml)
 	(*mshell)->count_pipe = 0;
 	(*mshell)->env_list = NULL;
 	ft_build_env_list(*mshell, env);
-	*ml = NULL;
+	// *ml = NULL;
 	g_exit_code = 0;
 }

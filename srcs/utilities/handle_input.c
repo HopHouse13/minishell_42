@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 20:54:03 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 16:58:05 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,26 @@ bool	ft_open_input(t_mshell *mshell, char *input)
 	return (false);
 }
 
-void	ft_handle_input(t_mshell *mshell, t_mnode **ml)
+void	ft_handle_input(t_mshell *mshell)
 {
-	char *input_buffer;
+	char *input_buff;
 	
 	if (mshell->input[0] == '\0') //evite de l'ajouter dans l'historique
 		return ;
 	if (ft_open_input(mshell, mshell->input))
 	{
-		input_buffer = ft_strdup_ml("\0", ml);
+		input_buff = ft_strdup_ml(mshell, "\0");
 		while(1)
 		{
-			input_buffer = ft_strjoin_ml(input_buffer, mshell->input, ml);
-			input_buffer = ft_strjoin_ml(input_buffer, "\n", ml);
-			if (!ft_open_input(mshell, input_buffer))
+			input_buff = ft_strjoin_ml(mshell, input_buff, mshell->input);
+			input_buff = ft_strjoin_ml(mshell, input_buff, "\n");
+			if (!ft_open_input(mshell, input_buff))
 				break ;
 			free(mshell->input);
 			mshell->input = NULL;
 			mshell->input = readline("> ");
 		}
-		mshell->input = ft_strdup_ml(input_buffer, ml);
+		mshell->input = ft_strdup_ml(mshell, input_buff);
 	}
 	add_history(mshell->input);
 }

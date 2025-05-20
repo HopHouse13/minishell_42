@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/10 17:39:43 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 16:02:09 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
 {
 	t_mnode *first_node;
 
-	first_node = ft_malloc_list(sizeof(t_mnode), ml);
+	first_node = malloc(sizeof(t_mnode));
 	if (!first_node)
 	{
 		perror("initialization list ");
@@ -52,26 +52,24 @@ void	ft_add_ml(void *ptr, size_t size, t_mnode **ml)
 	*ml = new_node;	
 }
 
-void	*ft_malloc_list(size_t size, t_mnode **ml)
+void	*ft_malloc_list(t_mshell *mshell, size_t size)
 {
 	void	*ptr;
 	
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, size, ml);
+	ft_add_ml(ptr, size, mshell->ml);
 	return (ptr);
 }
 
-void	*ft_calloc_list(size_t nb, size_t size_type, t_mnode **ml)
+void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type)
 {
 	void	*ptr;
 
 	ptr = ft_calloc(nb, size_type);
 	if (!ptr)
 		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, nb * size_type, ml);
+	ft_add_ml(ptr, nb * size_type, mshell->ml);
 	return (ptr);
 }
-
-

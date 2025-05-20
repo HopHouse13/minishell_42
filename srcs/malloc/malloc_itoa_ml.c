@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_itoa.c                                      :+:      :+:    :+:   */
+/*   malloc_itoa_ml.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:14:29 by pab               #+#    #+#             */
-/*   Updated: 2025/05/11 10:36:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 15:49:34 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	count_size(long int n)
 	return (i);
 }
 
-char	*ft_itoa_ml(int n, t_mnode **ml)
+char	*ft_itoa_ml(t_mshell *mshell, int n)
 {
 	long int	nb;
 	size_t		count;
@@ -39,7 +39,7 @@ char	*ft_itoa_ml(int n, t_mnode **ml)
 	count = count_size(nb);
 	if (n < 0)
 		count++;
-	str = ft_malloc_list(sizeof(char) * count +1, ml);
+	str = ft_malloc_list(mshell, sizeof(char) * count +1);
 	if (!str)
 		return (NULL);
 	str[count] = '\0';

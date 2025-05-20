@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/16 19:48:00 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/20 17:09:59 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	ft_count_char(char *line)
 	return (count);
 }
 
-void	ft_build_clear_input(t_lexer *lexer, char *wild_input, t_mnode **ml)
+void	ft_make_clear_input(t_mshell *mshell, t_lexer *lexer, char *wild_input)
 {
 	bool	in_space;
 	
-	lexer->clear_input = ft_malloc_list(sizeof(char) *
-							ft_count_char(wild_input) + 1, ml);
+	lexer->clear_input = ft_malloc_list(mshell, sizeof(char) *
+							ft_count_char(wild_input) +1);
 	lexer->i = 0;
 	lexer->j = 0;
 	in_space = false;
@@ -90,7 +90,7 @@ void	ft_put_pipe(t_lexer *lexer)
 	lexer->wild_input[++lexer->j] = ' ';
 }
 
-void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
+void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
 {printf("\n\n\t--------------------- ONE_SPACE ---------------------\n");
 	lexer->i = 0;
 	while (mshell->input && mshell->input[lexer->i])
@@ -113,6 +113,6 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml)
 	lexer->wild_input[++lexer->j] = ' ';
 	lexer->wild_input[++lexer->j] = ';';
 	// lexer->wild_input[++lexer->j] = '\0'; // pas oublige car calloc mais je prefere
-	ft_build_clear_input(lexer, lexer->wild_input, ml);
+	ft_make_clear_input(mshell, lexer, lexer->wild_input);
 	ft_print_input_clean(lexer->clear_input); // ASUPP
 }
