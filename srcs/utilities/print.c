@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/16 14:01:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 15:17:14 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_double_tab(char **tab)
 	if(tab)
 	{
 		while (tab[++i])
-			printf("\t\tELEM Nº %d\t->\t%s\n", i, tab[i]);
+			printf("\t\tELEM Nº %d\t->\t[ %s ]\n", i, tab[i]);
 	}
 }
 
@@ -79,7 +79,7 @@ void	ft_print_list_cmd(t_mshell *mshell)
 	{
 		printf(GREEN"\n\t\t\t\033[1m--- NODE Nº %d ---\n\n", counter++);
 		ft_print_double_tab(tmp->cmd);
-		printf("\t\tBUILTIN?\t->\t[ %d ]\n", tmp->builtin);
+		printf("\n\t\tBUILTIN?\t->\t[ %d ]\n", tmp->builtin);
 		printf("\t\tFD_INFILE\t->\t[ %d ]\n", tmp->fd_in);
 		printf("\t\tFD_OUTFILE\t->\t[ %d ]\n", tmp->fd_out);
 		printf("\t\tFD_HD\t\t->\t[ %d ]\n", tmp->fd_hd);

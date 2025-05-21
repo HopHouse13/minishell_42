@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/19 16:28:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:21:57 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,41 +69,29 @@ void	ft_define_token_redir(t_lexer *lexer)
 	}
 }
 
-void	ft_init_head(t_token **lt_token, char *lm, t_mshell *ms, t_mnode **ml)
+void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem)
 {
 	t_token *first_node;
 
-	first_node = ft_malloc_list(sizeof(t_token), ms, ml);
-	if (!first_node)
-	{
-		perror("initialization list ");
-		// ft_master_free(list_token);
-		return;
-	}
-	first_node->elem = lm;
+	first_node = ft_malloc_list(mshell, sizeof(t_token));
+	first_node->elem = elem;
 	first_node->token = -1;
 	first_node->prev = NULL;
 	first_node->next = NULL;
-	*lt_token = first_node;
+	*list_t = first_node;
 }
 
-void	ft_add_node(t_lexer *lexer, char *elem, t_mshell *mshell, t_mnode **ml)
+void	ft_add_node( t_mshell *mshell, t_lexer *lexer, char *elem)
 {
 	t_token *tmp;
 	t_token *new_elem;
 
 	if (!lexer->list_token)
 	{
-		ft_init_head(&(lexer->list_token), elem, mshell, ml);
-		return;
+		ft_init_head_list_token(mshell, &(lexer->list_token), elem);
+		return ;
 	}
-	new_elem = ft_malloc_list(sizeof(t_token),mshell,  ml);
-	if (!new_elem)
-	{
-		perror("initialization list ");
-		// ft_master_free(list);
-		return;
-	}
+	new_elem = ft_malloc_list(mshell, sizeof(t_token));
 	tmp = lexer->list_token;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
@@ -114,25 +102,25 @@ void	ft_add_node(t_lexer *lexer, char *elem, t_mshell *mshell, t_mnode **ml)
 	tmp->next = new_elem;
 }
 
-void	ft_build_list_token(t_mshell * mshell, t_lexer *lexer, t_mnode **ml)
+void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 {
 	int	i;
 	int	j;
-	int start;
+	int srt;
 
 	i = 0;
-	j = 0; // len de la sous chaine
-	start = 0;	  // debut de la sous chaine
+	j = 0;		// len de la sous chaine
+	srt = 0;	// debut de la sous chaine
 	while (lexer->clear_input[i])
 	{
-		start = i;
+		srt = i;
 		while (lexer->clear_input[i] && lexer->clear_input[i] != ' ')
 		{	
 			j++;		
 			i++;
 		}
-		ft_add_node(lexer, 
-					ft_substr_ml(lexer->clear_input, start, j, ml), mshell, ml);
+		ft_add_node(mshell, lexer, ft_substr_ml(mshell, lexer->clear_input, srt,
+					j));
 		j = 0;
 		if (lexer->clear_input[i] == ' ')
 			i++;

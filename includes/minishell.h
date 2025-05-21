@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/19 17:05:11 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:20:00 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_parser // local
 	int				i;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
-	int				start;
+	int				srt;
 	int				end;
 	bool			mark_b;
 }					t_parser;
@@ -140,6 +140,7 @@ typedef struct s_mshell
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	t_env			*env_list;
+	t_mnode			*ml;	
 	int				count_pipe;
 }					t_mshell;
 
@@ -149,34 +150,35 @@ int		main(int ac, char **av, char **env);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// lexer ///
-int		ft_lexer(t_mshell *mshell, t_mnode **ml);
+int		ft_lexer(t_mshell *mshell);
 
 /// lexer_initialisation ///
-void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
+void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
 
 /// lexer_build_list_token ///
+void	ft_define_token_elem(t_lexer *lexer);
 void	ft_define_token_redir(t_lexer *lexer);
-void	ft_init_head(t_token **lt_token, char *lm, t_mshell *ms, t_mnode **ml);
-void	ft_add_node(t_lexer *lexer, char *elem, t_mshell *mshell, t_mnode **ml);
-void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
+void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem);
+void	ft_add_node(t_mshell *mshell, t_lexer *lexer, char *elem);
+void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer);
 
 /// lexer_cleaning_input ///
 int		ft_count_char(char *line);
-void	ft_make_input(t_lexer *lexer, char *input, t_mshell *ms, t_mnode **ml);
+void	ft_make_clear_input(t_mshell *mshell, t_lexer *lexer, char *wild_input);
 void	ft_put_redirection(t_lexer *lexer, char *input);
 void	ft_put_pipe(t_lexer *lexer);
-void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
+void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer);
 
 /// lexer_utilities ///
-bool	ft_character_valid(t_mshell *mshell, char *input, t_mnode **ml);
-void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer, t_mnode **ml);
+bool	ft_character_valid(t_mshell *mshell, char *input);
+void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer);
 bool	ft_invalid_character(char c);
 t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 /// parser ///
-int		ft_parser(t_mshell *mshell, t_mnode **ml);
+int		ft_parser(t_mshell *mshell);
 
 /// parser_initilisation ///
 void	ft_init_parser(t_parser *parser, t_token *list_token);
@@ -188,34 +190,34 @@ bool	ft_valid_redirs(t_parser *parser);
 bool	ft_valid_syntax(t_parser *parser);
 
 /// parser_initialisation_list_cmd ///
-void	ft_init_list_cmd(t_parser *parser, t_mnode **ml);
-void	ft_add_node_cmd(t_parser *parser, t_mnode **ml);
-void	ft_init_head_list_cmd(t_cmd **list_cmd, t_mnode **ml);
 void	ft_init_node_values(t_cmd *new_elem);
+void	ft_init_head_list_cmd(t_mshell *mshell, t_cmd **list_cmd);
+void	ft_add_node_cmd(t_mshell *mshell, t_parser *parser);
+void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser);
 
 /// parser_expand_and_ckeanup ///
-void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml);
+void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser);
 
 /// parser_clear_elem ///
 bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i);
-void	ft_clear_elems(t_mshell *mshell, t_parser *parser, t_mnode **ml);
-char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str, t_mnode **ml);
+char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str);
+void	ft_clear_elems(t_mshell *mshell, t_parser *parser);
 
 /// parser_markers_expand ///
 int		ft_find_end_var(char *str, int i);
-char	*ft_insert_marker(char *str, int i, t_mnode **ml);
-char	*ft_marker(t_mshell *msh, t_token *tmp, t_parser *parser, t_mnode **ml);
-void	ft_mark_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml);
+char	*ft_insert_marker(t_mshell *mshell, char *str, int i);
+char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser);
+void	ft_mark_expand(t_mshell *mshell, t_parser *parser);
 
 /// parser_expand ///
-char	*ft_invalid(char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
-char	*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
-char	*ft_expand(t_mshell *ms, char *elem, t_parser *parser, t_mnode **ml);
-void	ft_exp_elem(t_mshell *ms, t_token *tmp, t_parser *parser, t_mnode **ml);
-void	ft_expand_list(t_mshell *mshell, t_parser *parser, t_mnode **ml);
+char	*ft_inval(t_mshell *ms, char *str, char *ev_exp, t_parser *parser);
+char	*ft_merge(t_mshell *ms, char *str, char *exp, t_parser *parser);
+char	*ft_expand(t_mshell *mshell, char *elem, t_parser *parser);
+void	ft_exp_elem(t_mshell *mshell, t_token *tmp, t_parser *parser);
+void	ft_expand_list(t_mshell *mshell, t_parser *parser);
 
 /// parser_fill_list_cmd ///
-void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
+void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser);
 
 /// parser_handle_redir ///
 void	ft_get_fd_outfile(t_cmd *lt_cmd, t_token *lt_token);
@@ -224,11 +226,11 @@ void	ft_handle_redir(t_parser *parser);
 
 /// parser_handle_hd ///
 void	ft_get_hd(t_cmd *cmd, t_token *token);
-void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_mnode **ml);
+void	ft_handle_hd(t_mshell *mshell, t_parser *parser);
 
 /// parser_handle_cmd ///
-void	ft_build_cmd_tab(t_token *list_toke, t_cmd *list_cmd, t_mnode **ml);
-void	ft_handle_cmd(t_parser *parser, t_mnode **ml);
+void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd);
+void	ft_handle_cmd(t_mshell *mshell, t_parser *parser);
 
 /// parser_utilities ///
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
@@ -237,37 +239,38 @@ int		ft_count_pipe(t_parser *parser);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// malloc ///
-void	*ft_malloc_list(size_t size, t_mshell *mshell, t_mnode **ml);
-void	*ft_calloc_list(size_t nb, size_t s_type, t_mshell *ms, t_mnode **ml);
-void 	ft_add_ml(void *ptr, size_t size, t_mshell *mshell, t_mnode **ml);
-void	ft_init_head_list_ml(void *ptr, size_t size, t_mshell *ms, t_mnode **ml);
-char	*ft_itoa_ml(int n, t_mshell *mshell, t_mnode **ml);
-char	**ft_split_ml(char const *s, char c, t_mnode **ml);
-char	*ft_strdup_ml(const char *s_src, t_mshell *mshell, t_mnode **ml);
-char	*ft_strjoin_ml(char *s1, char *s2, t_mshell *mshell, t_mnode **ml);
-char	*ft_substr_ml(char const *s_src, int start, int len, t_mnode **ml);
+void	*ft_malloc_list(t_mshell *mshell, size_t size);
+void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type);
+void	ft_init_head_list_ml(t_mshell *mshell, void *ptr, size_t size);
+void 	ft_add_ml(t_mshell *mshell, void *ptr, size_t size);
+char	*ft_itoa_ml(t_mshell *mshell, int n);
+char	**ft_split_ml(t_mshell *mshell, char *s, char c);
+char	*ft_strdup_ml(t_mshell *mshell, char *s_src);
+char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2);
+char	*ft_substr_ml(t_mshell *mshell, char *s_src, int start, int len);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
-void	ft_free_ml(t_mnode **ml);
+void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env **env_list);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
-void	ft_init_mshell(t_mshell **mshell, char **env, t_mnode **ml);
+void	ft_init_mshell(t_mshell **mshell/* , char **env */);
 bool	ft_empty_line(char *input);
 
 /// errors ///
-char	*ft_build_err_mess(char *message, char *elem, t_mnode **ml);
-bool	ft_err(char *message,char *elem, int exit_code, t_mnode **ml);
+char	*ft_build_err_mess(t_mshell *ms, char *message, char *elem);
+bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code);
 
 /// handle_input ///
 bool	ft_open_input(t_mshell *mshell, char *input);
-void	ft_handle_input(t_mshell *mshell, t_mnode **ml);
+void	ft_handle_input(t_mshell *mshell);
 
 /// handle_quotes ///
-void	ft_stt_up(bool *quote, bool *mark, bool *flag, bool *delay);
-bool	ft_status_qts(t_qts *qts, char *str, int i);
 bool	ft_effect_esc(t_qts *qts, char *str, int i);
+void	ft_swipe(bool *quote, bool *status, bool *delay_in, bool *delay_out);
+void	ft_delay(t_qts *qts);
+bool	ft_status_qts(t_qts *qts, char *str, int i);
 
 /// print ///
 void	ft_print_input_clean(char *line);
@@ -340,11 +343,11 @@ int	ft_pwd(t_mshell *mshell, t_mnode **ml);
 // ft_unset
 
 /// exec_heredoc ///
-char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml);
-char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
-char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd, t_mnode **ml);
-void	ft_put_in_hd(char *line, t_cmd *cmd, t_mnode **ml);
-void	ft_heredoc(t_mshell *mshell, t_cmd *cmd, t_mnode **ml);
+char	*ft_merge_hd(t_mshell *mshell, char *line, char *ev_exp, t_hd *hd);
+char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd);
+char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd);
+void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd);
+void	ft_heredoc(t_mshell *mshell, t_cmd *cmd);
 
 /// exec_utilities ///
 bool	ft_effect_escape_hd(char *str, int i);

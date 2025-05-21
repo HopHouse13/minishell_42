@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/05/19 16:20:52 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:22:52 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,25 @@ void ft_init_node_values(t_cmd *new_elem)
 	new_elem->next = NULL;
 }
 
-void ft_init_head_list_list_cmd(t_cmd **list_cmd, t_mnode **ml)
+void	ft_init_head_list_cmd(t_mshell *mshell, t_cmd **list_cmd)
 {
 	t_cmd *first_node;
 
-	first_node = ft_malloc_list(sizeof(t_cmd), ml);
-	if (!first_node)
-	{
-		perror("initialization list ");
-		// ft_master_free(list_cmd);
-		return;
-	}
+	first_node = ft_malloc_list(mshell, sizeof(t_cmd));
 	ft_init_node_values(first_node);
 	*list_cmd = first_node;
 }
 
-void ft_add_node_cmd(t_parser *parser, t_mnode **ml)
+void	ft_add_node_cmd(t_mshell *mshell, t_parser *parser)
 {
 	t_cmd *tmp;
 	t_cmd *new_elem;
 
 	if (!parser->list_cmd)
-		ft_init_head_list_list_cmd(&(parser->list_cmd), ml);
+		ft_init_head_list_cmd(mshell, &(parser->list_cmd));
 	else
 	{
-		new_elem = ft_malloc_list(sizeof(t_cmd), ml);
-		if (!new_elem)
-		{
-			perror("initialization list ");
-			ft_free_ml(ml);
-			return;
-		}
+		new_elem = ft_malloc_list(mshell, sizeof (t_cmd));
 		tmp = parser->list_cmd;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
@@ -65,16 +53,16 @@ void ft_add_node_cmd(t_parser *parser, t_mnode **ml)
 	}
 }
 
-void ft_init_list_cmd(t_parser *parser, t_mnode **ml)
+void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser)
 {
 	t_token *tmp;
 
 	tmp = parser->list_token;
-	ft_add_node_cmd(parser, ml);
+	ft_add_node_cmd(mshell, parser);
 	while (tmp)
 	{
 		if (tmp->token == PIPE)
-			ft_add_node_cmd(parser, ml);
+		ft_add_node_cmd(mshell, parser);
 		tmp = tmp->next;
 	}
 }

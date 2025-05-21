@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_clear_elem.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 20:30:41 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 14:04:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 
 // PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
 // faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles.
-char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str, t_mnode **ml)
+char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 {
 	int		i;
 	int		j;
@@ -57,7 +57,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str, t_mnode **ml)
 		if (ft_char_saved(mshell, parser, str, i))
 			count_save++;
 	}
-	str_clear = ft_malloc_list(sizeof(char) * count_save + 1, ml);
+	str_clear = ft_malloc_list(mshell, sizeof(char) * count_save + 1);
 	i = -1;
 	j = 0;
 	while (str[++i])
@@ -73,7 +73,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str, t_mnode **ml)
 // on remove les quotes et escape char par tout sauf dans les DELIM
 // j'ai besoin d'avoir l'info (expand ou pas dans HD)
 // les DELIM seront clear apres avoir stocke l'info lors la crea. de la cmd_list
-void	ft_clear_elems(t_mshell *mshell, t_parser *parser, t_mnode **ml)
+void	ft_clear_elems(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*tmp;
 	
@@ -81,7 +81,7 @@ void	ft_clear_elems(t_mshell *mshell, t_parser *parser, t_mnode **ml)
 	while (tmp && tmp->token != END)
 	{
 		if (tmp->token != DELIM)
-			tmp->elem = ft_remove(mshell, parser, tmp->elem, ml);
+			tmp->elem = ft_remove(mshell, parser, tmp->elem);
 		tmp = tmp->next;
 	}
 }
