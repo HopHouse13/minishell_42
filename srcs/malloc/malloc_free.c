@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/09 12:29:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/21 17:12:57 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ void	ft_free_env(t_env **env_list)
 	env_list = NULL;
 }
 
-void	ft_free_ml(t_mnode **ml)
+void	ft_free_ml(t_mshell *mshell)
 {
 	t_mnode	*tmp;
-
-	if (ml == NULL || *ml == NULL)
+	
+	if (!mshell->ml)
 		return ;
-	while (*ml)																								
+	while (mshell->ml)																								
 	{
-		tmp = (*ml)->next;
-		free((*ml)->ptr);
-		free(*ml);
-		*ml = tmp;
+		tmp = mshell->ml->next;
+		free(mshell->ml->ptr);
+		free(mshell->ml);
+		mshell->ml = tmp;
 	}
-	*ml = NULL;
-	ml = NULL; // utilse ???
+	free(mshell->ml);
+	mshell->ml = NULL;
 }
 
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml)
@@ -51,7 +51,7 @@ void	ft_free_one_node_ml(void *ptr, t_mnode **ml)
 	t_mnode	*tmp;
 	t_mnode	*prev;
 	
-	if (!ml || !*ml)
+	if (!ml)
 		return ;
 	tmp = *ml;
 	prev = NULL;

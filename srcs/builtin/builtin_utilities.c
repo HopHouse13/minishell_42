@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+// #include "../../includes/minishell.h"
 
 /*
 char *ft_get_env_value(t_mshell *mshell, char *key)

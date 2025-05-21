@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_markers_expand.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/12 22:07:14 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/20 17:31:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_find_end_var(char *str, int i)
 	return (i + 1);
 }
 
-char	*ft_insert_marker(char *str, int i, t_mnode **ml)
+char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
 {
 	char	*result;
 	int		j;
@@ -31,7 +31,7 @@ char	*ft_insert_marker(char *str, int i, t_mnode **ml)
 	end_name = 0;
 	end_name = ft_find_end_var(str, i);
 	printf("\tvalue end : %d\n\n", end_name);
-	result = ft_calloc_list(ft_strlen(str) + 3, sizeof(char), ml);
+	result = ft_calloc_list(mshell, ft_strlen(str) + 3, sizeof(char));
 	j = 0;
 	k = 0;
 	while (str[j])
@@ -46,7 +46,7 @@ char	*ft_insert_marker(char *str, int i, t_mnode **ml)
 	return (result);
 }
 
-char	*ft_marker(t_mshell *msh, t_token *tmp, t_parser *parser, t_mnode **ml)
+char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 {
 	int		i;
 	char	*str;
@@ -55,26 +55,28 @@ char	*ft_marker(t_mshell *msh, t_token *tmp, t_parser *parser, t_mnode **ml)
 	i = -1;
 	while (str[++i])
 	{
-		ft_status_qts(msh->qts, str, i);
-		if (str[i] == '$' && msh->qts->spl_q == OUT && tmp->token != DELIM
-			&& (i == 0 || !ft_effect_esc(msh->qts, str, i))
+		ft_status_qts(mshell->qts, str, i);
+		if (str[i] == '$'
+			&& mshell->qts->spl_q == OUT
+			&& tmp->token != DELIM
+			&& (i == 0 || !ft_effect_esc(mshell->qts, str, i))
 			&& !ft_inside_brackets(parser, str, i))
 		{
-			str = ft_insert_marker(str, ++i, ml);
+			str = ft_insert_marker(mshell, str, ++i);
 			i++;
 		}
 	}
 	return (str);	
 }
 
-void	ft_mark_expand(t_mshell *mshell, t_parser *parser, t_mnode **ml)
+void	ft_mark_expand(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*tmp;
 	
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{
-		tmp->elem = ft_marker(mshell, tmp, parser, ml);
+		tmp->elem = ft_marker(mshell, tmp, parser);
 		tmp = tmp->next;
 	}
 }

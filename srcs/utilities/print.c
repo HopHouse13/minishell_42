@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 21:42:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/21 15:17:14 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_double_tab(char **tab)
 	if(tab)
 	{
 		while (tab[++i])
-			printf("\t\tELEM Nº %d\t->\t%s\n", i, tab[i]);
+			printf("\t\tELEM Nº %d\t->\t[ %s ]\n", i, tab[i]);
 	}
 }
 
@@ -49,35 +49,44 @@ void	ft_print_list_token(t_token *head) // A SUPP
 	ft_printf("\n\t\t\t*** LIST_ELEMENTS ***\n\n");
 	while (tmp)
 	{
-	    printf("\t\tElement [ %s ]		Token [ %s ]\n\n", tmp->elem,
+	    printf("\t\tElem [ %s ]\tToken [ %s ]\n\n", tmp->elem,
 		ft_get_name_type(tmp->token));
         tmp = tmp->next;
     }
 
 }
 
-void	ft_print_list_cmd(t_mshell *mshell) // A SUPP
+void	ft_print_header_list_cmd(void)
 {
-    t_cmd	*tmp;
+	printf(CYAN"\t╔═════════════════════════════════════════════════╗\n");
+	printf("\t║\t\t\t\t\t\t  ║\n");
+	printf(GREEN"\t\t\t   \033[1m[ LIST_CMD ]\n");
+	printf(MAGENTA"\t║\t\t\t\t\t\t  ║\n");
+	printf("\t╚═════════════════════════════════════════════════╝\n%s", RESET);
+}
+
+void	ft_print_list_cmd(t_mshell *mshell)
+{
+	t_cmd	*tmp;
 	int		counter;
 	
 	counter = 1;
 	tmp = mshell->list_cmd;
-	if (tmp)
+	if (!tmp)
+		return ;
+	ft_print_header_list_cmd();
+	while (tmp != NULL)
 	{
-		ft_printf("\n\t******************* list_cmd *********************\n\n");
-    	while (tmp != NULL)
-    	{
-			printf("\n\t\t\t--- NODE Nº %d ---\n\n", counter++);
-			ft_print_double_tab(tmp->cmd);
-			printf("\t\tBUILTIN?\t->\t[%d]\n", tmp->builtin);
-			printf("\t\tFD_INFILE\t->\t[%d]\n", tmp->fd_in);
-			printf("\t\tFD_OUTFILE\t->\t[%d]\n", tmp->fd_out);
-			printf("\t\tFD_HD\t\t->\t[%d]\n", tmp->fd_hd);
-			printf("\t\tDELIM_HD\t->\t[%s]\n", tmp->delim_hd);
-			printf("\t\tEXPAND_HD?\t->\t[%d]\n", tmp->expand_hd);
-    	    tmp = tmp->next;
-    	}
-		printf("\n\n\t\tNOMBRE_DE_PIPE\t->\t[%d]\n\n",mshell->count_pipe);
+		printf(GREEN"\n\t\t\t\033[1m--- NODE Nº %d ---\n\n", counter++);
+		ft_print_double_tab(tmp->cmd);
+		printf("\n\t\tBUILTIN?\t->\t[ %d ]\n", tmp->builtin);
+		printf("\t\tFD_INFILE\t->\t[ %d ]\n", tmp->fd_in);
+		printf("\t\tFD_OUTFILE\t->\t[ %d ]\n", tmp->fd_out);
+		printf("\t\tFD_HD\t\t->\t[ %d ]\n", tmp->fd_hd);
+		printf("\t\tDELIM_HD\t->\t[ %s ]\n", tmp->delim_hd);
+		printf("\t\tEXPAND_HD?\t->\t[ %d ]\n%s", tmp->expand_hd, RESET);
+		tmp = tmp->next;
+		printf(CYAN"\n\t\t══════════════════════════════════\n");
+		printf(MAGENTA"\t\t══════════════════════════════════\n%s", RESET);
 	}
 }

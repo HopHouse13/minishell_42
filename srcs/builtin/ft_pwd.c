@@ -1,8 +1,8 @@
-#include "../../includes/minishell.h"
+// #include "../../includes/minishell.h"
 
-int	ft_pwd(t_mshell *mshell, t_mnode **ml)
-{
-	char	*pwd;
+// int	ft_pwd(t_mshell *mshell, t_mnode **ml)
+// {
+// 	char	*pwd;
 
 	pwd = ft_strdup_ml(ft_get_env_value(mshell, "PWD"), ml);
     if (!pwd)

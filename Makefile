@@ -11,7 +11,6 @@ OBJ_DIR 	= obj_$(NAME)
 SRCS		= srcs/main.c \
 			srcs/lexer/lexer.c \
 			srcs/lexer/lexer_initialisation.c \
-			srcs/lexer/lexer_validate_operators.c \
 			srcs/lexer/lexer_cleaning_input.c \
 			srcs/lexer/lexer_build_list_token.c \
 			srcs/lexer/lexer_utilities.c \

@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h" 
+// #include "../../includes/minishell.h" 
 
 //BI_list = {"cd", "echo", "env", "exit", "pwd", "export", "unset"};
 void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml)

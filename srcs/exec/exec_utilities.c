@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:59:48 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 19:17:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/15 23:00:25 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	ft_escape_last_char(char *line)
 	while (line[++i])
 		continue;
 	i--;
-	if (line[i] == '\\' && !ft_effect_escape_hd(line, i))
+	if (i > 0 && line[i] == '\\' && !ft_effect_escape_hd(line, i))
 		return (true);
 	return (false);
 }
