@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/21 17:25:27 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:49:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type)
 
 	ptr = ft_calloc(nb, size_type);
 	if (!ptr)
-		return (NULL) ;// ft_fatal_error("message a trouver", 1);
+		ft_mem_err() ;// ft_fatal_error("message a trouver", 1);
 	ft_add_ml(mshell, ptr, nb * size_type);
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/21 17:25:48 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:51:07 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code)
 	return (false);
 }
 
-// bool	ft_mem_err(/* char *message, char *elem, int exit_code, */ t_mnode **ml)
-// {
-// 	exit_code = 2;
-// 	perror();
-// 	ft_free_env();
-// 	ft_free_ml(ml);
-// 	exit (exit_code);
-// }
+bool	ft_mem_err(t_mshell *mshell)
+{
+	g_exit_code = 2;
+	perror();
+	ft_free_env(mshell->env_list);
+	ft_free_ml(mshell);
+	exit (g_exit_code);
+}
 
 // void	ft_fatal_error(char *message, int exit_code)
 // {

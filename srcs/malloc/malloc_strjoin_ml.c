@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:31:19 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:22:45 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:29:15 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2)
 {
-	int		total_len;
 	size_t	i;
 	size_t	j;
 	int		total_len;
