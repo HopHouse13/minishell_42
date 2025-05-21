@@ -54,28 +54,26 @@ void	ft_create_env_node(t_mshell *mshell, char **key_value)
 
 	tmp = mshell->env_list;
 	new_node = malloc(sizeof(t_env));
-    if (!new_node)
-        return ;
-    new_node->key = ft_strdup(key_value[0]);
-    if (key_value[1])
-        new_node->value = ft_strdup(key_value[1]);
-    else
-        new_node->value = ft_strdup("");
-    new_node->next = NULL;
-    new_node->prev = NULL;
+	if (!new_node)
+		return ;
+	new_node->key = ft_strdup(key_value[0]);
+	if (key_value[1])
+		new_node->value = ft_strdup(key_value[1]);
+	else
+		new_node->value = ft_strdup("");
+	new_node->next = NULL;
+	new_node->prev = NULL;
 
-    if (!mshell->env_list)
-        mshell->env_list = new_node;
-    else
-    {
-        // tmp = mshell->env_list;
-        while (tmp->next)
-            tmp = tmp->next;
-        tmp->next = new_node;
-        new_node->prev = tmp;
-    } //ft_isable ??
-
-    //ft_free_tab(key_value);
+	if (!mshell->env_list)
+		mshell->env_list = new_node;
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_node;
+		new_node->prev = tmp;
+	}
+	//ft_free_tab(key_value);
 }
 
 void	ft_change_env_value(t_env *env, char **key_value)
