@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/20 17:02:08 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 16:53:50 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct s_mshell
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	t_env			*env_list;
-	t_mnode			**ml;	
+	t_mnode			*ml;	
 	int				count_pipe;
 }					t_mshell;
 
@@ -159,7 +159,7 @@ void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
 void	ft_define_token_elem(t_lexer *lexer);
 void	ft_define_token_redir(t_lexer *lexer);
 void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem);
-void	ft_add_node( t_mshell *mshell, t_lexer *lexer, char *elem);
+void	ft_add_node(t_mshell *mshell, t_lexer *lexer, char *elem);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer);
 
 /// lexer_cleaning_input ///
@@ -210,10 +210,10 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser);
 void	ft_mark_expand(t_mshell *mshell, t_parser *parser);
 
 /// parser_expand ///
-char	*ft_invalid( char *str, char *ev_exp, t_parser *parser, t_mnode **ml);
-char	*ft_merge(char *str, char *exp, t_parser *parser, t_mnode **ml);
+char	*ft_inval(t_mshell *ms, char *str, char *ev_exp, t_parser *parser);
+char	*ft_merge(t_mshell *ms, char *str, char *exp, t_parser *parser);
 char	*ft_expand(t_mshell *mshell, char *elem, t_parser *parser);
-void	ft_exp_elem(t_mshell *ms, t_token *tmp, t_parser *parser);
+void	ft_exp_elem(t_mshell *mshell, t_token *tmp, t_parser *parser);
 void	ft_expand_list(t_mshell *mshell, t_parser *parser);
 
 /// parser_fill_list_cmd ///
@@ -241,26 +241,26 @@ int		ft_count_pipe(t_parser *parser);
 /// malloc ///
 void	*ft_malloc_list(t_mshell *mshell, size_t size);
 void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type);
-void 	ft_add_ml(void *ptr, size_t size, t_mnode **ml);
-void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml);
+void	ft_init_head_list_ml(t_mshell *mshell, void *ptr, size_t size);
+void 	ft_add_ml(t_mshell *mshell, void *ptr, size_t size);
 char	*ft_itoa_ml(t_mshell *mshell, int n);
 char	**ft_split_ml(t_mshell *mshell, char *s, char c);
 char	*ft_strdup_ml(t_mshell *mshell, char *s_src);
 char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2);
 char	*ft_substr_ml(t_mshell *mshell, char *s_src, int start, int len);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
-void	ft_free_ml(t_mnode **ml);
+void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env **env_list);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 /// utilities ///
-void	ft_init_mshell(t_mshell **mshell, char **env);
+void	ft_init_mshell(t_mshell **mshell/* , char **env */);
 bool	ft_empty_line(char *input);
 
 /// errors ///
-char	*ft_build_err_mess(char *message, char *elem, t_mnode **ml);
-bool	ft_err(char *message,char *elem, int exit_code, t_mnode **ml);
+char	*ft_build_err_mess(t_mshell *ms, char *message, char *elem);
+bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code);
 
 /// handle_input ///
 bool	ft_open_input(t_mshell *mshell, char *input);

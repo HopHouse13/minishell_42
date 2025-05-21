@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/20 16:02:09 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 16:57:46 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
+void	ft_init_head_list_ml(t_mshell *mshell, void *ptr, size_t size)
 {
 	t_mnode *first_node;
 
@@ -20,24 +20,23 @@ void	ft_init_head_list_ml(void *ptr, size_t size, t_mnode **ml)
 	if (!first_node)
 	{
 		perror("initialization list ");
-		ft_free_ml(ml);
+		ft_free_ml(mshell);
 		return ;
 	}
 	first_node->ptr = ptr;
 	first_node->size = size;
 	first_node->next = NULL;
-	*ml = first_node;
+	mshell->ml = first_node;
 }
 
-void	ft_add_ml(void *ptr, size_t size, t_mnode **ml)
+void	ft_add_ml(t_mshell *mshell, void *ptr, size_t size)
 {
 	t_mnode *new_node;
 	
-	if (ml == NULL)
+	if (mshell->ml == NULL)
+		ft_init_head_list_ml(mshell, ptr, size);
+	else
 	{
-		ft_init_head_list_ml(ptr, size, ml);
-		return ;
-	}
 	new_node = malloc(sizeof(t_mnode));
 	if (!new_node)
 	{
@@ -48,8 +47,9 @@ void	ft_add_ml(void *ptr, size_t size, t_mnode **ml)
 	}
 	new_node->ptr = ptr;
 	new_node->size = size;
-	new_node->next = *ml;
-	*ml = new_node;	
+	new_node->next = mshell->ml;
+	mshell->ml = new_node;
+	}
 }
 
 void	*ft_malloc_list(t_mshell *mshell, size_t size)
@@ -59,7 +59,7 @@ void	*ft_malloc_list(t_mshell *mshell, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, size, mshell->ml);
+	ft_add_ml(mshell, ptr, size);
 	return (ptr);
 }
 
@@ -70,6 +70,6 @@ void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type)
 	ptr = ft_calloc(nb, size_type);
 	if (!ptr)
 		return (NULL) ;// ft_fatal_error("message a trouver", 1);
-	ft_add_ml(ptr, nb * size_type, mshell->ml);
+	ft_add_ml(mshell, ptr, nb * size_type);
 	return (ptr);
 }

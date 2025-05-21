@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 16:47:58 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 14:38:50 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int			g_exit_code;
 
 int	main(int ac, char **av, char **env)
-{
+{ env = NULL; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_mshell	*mshell;
 	// t_mnode		*ml;
 
-	ft_init_mshell(&mshell, env);
+	ft_init_mshell(&mshell/* , env */);
 	while (ac && av)
 	{
 		// ft_signal(1); // je sais pas encore comment gerer ca
@@ -40,7 +40,7 @@ int	main(int ac, char **av, char **env)
 		}
 	}
 	rl_clear_history();
-	ft_free_ml(mshell->ml); // a voir
+	ft_free_ml(mshell); // a voir
 	ft_free_env(&mshell->env_list);
 	free((*mshell).qts);
 	free(mshell);

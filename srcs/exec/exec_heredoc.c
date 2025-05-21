@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/20 16:13:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 17:08:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd)
 	while (ft_isalnum(line[hd->end]) || line[hd->end] == '_')
 		hd->end++;
 	ev_name = ft_substr_ml(mshell, line, hd->start, hd->end - hd->start);
-	ev_ptr = ft_get_env(ev_name, mshell->env_list);
+	//ev_ptr = ft_get_env(ev_name, mshell->env_list);
+	ev_ptr = getenv(ev_name); // ASUPP
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
 	else
@@ -114,7 +115,7 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 		if (cmd->expand_hd && ft_found_dollar_active(line))
 			line = ft_expand_hd(mshell, line, &hd);
 		ft_put_in_hd(mshell, line, cmd);	
-		ft_free_one_node_ml(line, mshell->ml);
+		ft_free_one_node_ml(line, &mshell->ml);
 	}
 	close(cmd->fd_hd);
 	cmd->fd_hd = -1;

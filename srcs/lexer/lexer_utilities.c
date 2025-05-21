@@ -6,13 +6,13 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 17:13:34 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 13:11:43 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_character_valid(t_mshell *mshell, char *input)
+bool	ft_character_valid(t_mshell *ms, char *input)
 {
 	printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
 	int i;
@@ -22,13 +22,12 @@ bool	ft_character_valid(t_mshell *mshell, char *input)
 	while (input[++i])
 	{
 		c = input[i];
-		if (!ft_status_qts(mshell->qts, input, i)
-		&& !ft_effect_esc(mshell->qts, input, i)
+		if (!ft_status_qts(ms->qts, input, i)
+		&& !ft_effect_esc(ms->qts, input, i)
 		&& (ft_invalid_character(c)
 		|| (i == ft_strlen(input) - 1 && c == '\\')))
 		{
-			ft_err("erreur de syntaxe près du symbole inattendu",
-					&c, 258, mshell->ml);
+			ft_err(ms, "erreur de syntaxe près du symbole inattendu", &c, 258);
 			return (false);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/20 17:15:26 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 14:51:12 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**ft_split_ml(t_mshell *mshell, char *s, char c)
 		{
 			tab_tab[w] = ft_alloue_copy_word(mshell, s, first_carac, i);
 			if (!tab_tab[w])
-				return (ft_free_ml(mshell->ml), NULL);
+				return (ft_free_ml(mshell), NULL);
 			first_carac = -1;
 			w++;
 		}

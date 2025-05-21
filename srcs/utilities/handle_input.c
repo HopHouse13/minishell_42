@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/20 16:58:05 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/21 15:13:30 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_open_input(t_mshell *mshell, char *input)
 	i = -1;
 	while (input[++i])
 		ft_status_qts(mshell->qts, input, i);
-	if (mshell->qts->in_q == IN)
+	if (mshell->qts->spl_q || mshell->qts->dbl_q)
 		return (true);
 	return (false);
 }
