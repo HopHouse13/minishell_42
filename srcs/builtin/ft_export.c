@@ -35,8 +35,8 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
             return ;
 	if (!ft_check_env_key(mshell->env_list, key_value))
 	{
-		printf(CYAN"[INFO]Creation new Env variable"RESET"\n");
-		ft_create_env_node(mshell, key_value);
+	   printf(CYAN"[INFO]Creation new Env variable"RESET"\n");
+	   ft_create_env_node(mshell, key_value);
 	}
 	else
 	{
@@ -54,26 +54,28 @@ void	ft_create_env_node(t_mshell *mshell, char **key_value)
 
 	tmp = mshell->env_list;
 	new_node = malloc(sizeof(t_env));
-	if (!new_node)
-		return ;
-	new_node->key = ft_strdup(key_value[0]);
-	if (key_value[1])
-		new_node->value = ft_strdup(key_value[1]);
-	else
-		new_node->value = ft_strdup("");
-	new_node->next = NULL;
-	new_node->prev = NULL;
+    if (!new_node)
+        return ;
+    new_node->key = ft_strdup(key_value[0]);
+    if (key_value[1])
+        new_node->value = ft_strdup(key_value[1]);
+    else
+        new_node->value = ft_strdup("");
+    new_node->next = NULL;
+    new_node->prev = NULL;
 
-	if (!mshell->env_list)
-		mshell->env_list = new_node;
-	else
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_node;
-		new_node->prev = tmp;
-	}
-	//ft_free_tab(key_value);
+    if (!mshell->env_list)
+        mshell->env_list = new_node;
+    else
+    {
+        // tmp = mshell->env_list;
+        while (tmp->next)
+            tmp = tmp->next;
+        tmp->next = new_node;
+        new_node->prev = tmp;
+    } //ft_isable ??
+
+    //ft_free_tab(key_value);
 }
 
 void	ft_change_env_value(t_env *env, char **key_value)
@@ -94,7 +96,16 @@ void	ft_change_env_value(t_env *env, char **key_value)
     }
 }
 
-
+int	ft_check_env_key(t_env *env, char **key_value)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->key, key_value[0]) == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}
 
 int ft_isequal(char *str)
 {
