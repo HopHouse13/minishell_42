@@ -314,37 +314,61 @@ t_mshell		*cmd_remplissage(t_mshell *mshell);
 
 
 // BUILTINS
-void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml);
 
+// ft_env_utilities
+char	*ft_get_env_value(t_mshell *mshell, char *key);
+char	*ft_get_env(char *key, t_env *env);
+
+void	ft_print_env_list(t_env *env_list);
+
+
+// builtin_utilities
+
+
+
+
+void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml);
 // ft_cd
 int		ft_cd(t_mshell *mshell);
-char	*get_value(t_mshell *mshell, char *key);
-// ft_echo
+	// ft_echo
+//int		ft_echo();
 
-// ft_env
+	// ft_env
 int		ft_env(t_mshell *mshell);
-void	ft_print_env_list(t_env *env_list);
 void	ft_env_minimal(t_mshell *mshell);
-char	*ft_get_env(char *key, t_env *env);
 void	ft_build_env_list(t_mshell   *mshell, char **env);
 
 char	**ft_split_var(char *cmd);
 
-// ft_exit
+//update_env();
 
-// ft_export
+	// ft_exit
+int ft_exit(t_cmd *cmd);
+	// ft_export
 int		ft_export(t_mshell *mshell);
-//char	*get_env_list(t_mshell *mshell);
+
 void	ft_add_var(t_mshell *mshell);
 void	ft_add_node_env(t_mshell *mshell, char *cmd);
 int		ft_isequal(char *str);
 void	ft_free_tab(char **tab);
 
-// ft_pwd
-int	ft_pwd(t_mshell *mshell, t_mnode **ml);
+int		ft_check_env_key(t_env *env, char **key_value);
+void	ft_change_env_value (t_env *env, char **key_value);
+void	ft_create_env_node(t_mshell *mshell, char **key_value);	
 
 
-// ft_unset
+void	ft_swap_env(t_env *a, t_env *b);
+void	ft_print_sorted_env(t_env *env);
+
+
+	// ft_pwd
+
+int		ft_pwd(t_mshell *mshell, t_mnode **ml);
+
+
+	// ft_unset
+int		ft_unset(t_mshell *mshell);
+void	ft_remove_env_node(t_env *env_list, char *key);
 
 /// exec_heredoc ///
 char	*ft_merge_hd(char *line, char *ev_exp, t_hd *hd, t_mnode **ml);
@@ -365,11 +389,6 @@ void	ft_build_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
 void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
 void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml);
 
-
-// exp
-	// modif 
-// ft_loop_mshell(mshell,&ml);
-// ft_executer (mshell)
 
 
 

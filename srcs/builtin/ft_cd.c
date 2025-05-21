@@ -9,7 +9,7 @@ int ft_cd(t_mshell *mshell)
 	cmd_node = mshell->list_cmd;
     if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
     {
-        home = get_value(mshell, "HOME");
+        home = ft_get_env_value(mshell, "HOME");
         if (!home || chdir(home) == -1)
         {
             perror("cd: HOME absent\n");
@@ -26,6 +26,7 @@ int ft_cd(t_mshell *mshell)
     }
 
 	//update env / pwd a faire !
+	//update _ pour cmd
     return (1);
 }
 

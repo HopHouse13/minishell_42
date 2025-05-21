@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
-char *get_value(t_mshell *mshell, char *key)
+/*
+char *ft_get_env_value(t_mshell *mshell, char *key)
 {
 	t_env	*env;
 
@@ -14,3 +15,4 @@ char *get_value(t_mshell *mshell, char *key)
 	}
 	return (NULL);
 }
+*/
