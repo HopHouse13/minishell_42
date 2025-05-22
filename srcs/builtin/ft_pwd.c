@@ -4,12 +4,12 @@
 // {
 // 	char	*pwd;
 
-// 	pwd = ft_strdup_ml(get_value(mshell, "PWD"), ml);
-//     if (!pwd)
-//     {
-//         perror("PWD = NULL\n");
-// 		exit (1);
-//     }
-//     else
-//         return (printf("%s", pwd));
-// }
+	pwd = ft_strdup_ml(ft_get_env_value(mshell, "PWD"), ml);
+    if (!pwd)
+    {
+        perror("PWD = NULL\n");
+		exit (1);
+    }
+    else
+        return (printf("%s", pwd));
+}

@@ -55,7 +55,8 @@ SRCS		= srcs/main.c \
 			srcs/builtin/ft_export.c \
 			srcs/builtin/ft_pwd.c \
 			srcs/builtin/ft_unset.c \
-			srcs/builtin/builtin_utilities.c
+			srcs/builtin/builtin_utilities.c \
+			srcs/builtin/env_utilities.c
 
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -67,12 +68,12 @@ PRINTF_AR	= ./includes/printf/printf.a
 
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 			@mkdir -p $(@D)
-			@$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) -g $(CFLAGS) -c $< -o $@
 			
 all:		$(NAME)
 			
 $(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline
+			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline -g 
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
 $(LIBFT_AR):

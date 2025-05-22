@@ -1,45 +1,23 @@
 // #include "../../includes/minishell.h" 
 
-// int ft_env(t_mshell *mshell)
-// {
-//     //if (mshell->env_list == NULL)
-//         //ft_env_minimal(mshell->env_list);
-//     ft_print_env_list(mshell->env_list);
-//     return (1);
-// }
+int ft_env(t_mshell *mshell)
+{
+    //if (mshell->env_list == NULL)
+        //ft_env_minimal(mshell->env_list);
+    ft_print_env_list(mshell->env_list);
+    return (1);
+}
 
-// void	ft_print_env_list(t_env *env_list)
-// {
-// 	if (!env_list)
-// 		printf("BRUHHH\n");
-// 	while (env_list)
-// 	{
-// 		printf(BLUE"%s="RESET GREEN"%s"RESET"\n", env_list->key, env_list->value);
-// 		env_list = env_list->next;
-// 	}
-//     return ;
-// }
 
-// char	*ft_get_env(char *key, t_env *env)
-// {
-// 	t_env	*tmp;
 
-// 	tmp = env;
-// 	while (tmp)
-// 	{
-// 		if (!ft_strcmp(key, tmp->key))
-// 			return (tmp->value);
-// 		tmp = tmp->next;
-// 	}
-// 	return (NULL);
-// }
 
-// void    ft_build_env_list(t_mshell *mshell, char **env)
-// {
-//     int		i;
-// 	char	**key_value;
-// 	t_env	*new_node;
-// 	t_env	*last = NULL;
+
+void    ft_build_env_list(t_mshell *mshell, char **env)
+{
+    int		i;
+	char	**key_value;
+	t_env	*new_node;
+	t_env	*last = NULL;
 
 // 	i = 0;
 //     while (env[i])
