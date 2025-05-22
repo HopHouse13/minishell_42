@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/21 17:51:07 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/22 17:32:08 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code)
 	return (false);
 }
 
-bool	ft_mem_err(t_mshell *mshell)
+void	ft_mem_err(t_mshell *mshell)
 {
-	g_exit_code = 2;
-	perror();
+	g_exit_code = 1; // ou ENOMEM == 12
+	perror("malloc: ");
 	ft_free_env(mshell->env_list);
 	ft_free_ml(mshell);
+	free((*mshell).qts);
+	free(mshell);
 	exit (g_exit_code);
 }
 
