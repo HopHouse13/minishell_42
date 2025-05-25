@@ -96,17 +96,6 @@ void	ft_change_env_value(t_env *env, char **key_value)
     }
 }
 
-int	ft_check_env_key(t_env *env, char **key_value)
-{
-	while (env)
-	{
-		if (ft_strcmp(env->key, key_value[0]) == 0)
-			return (1);
-		env = env->next;
-	}
-	return (0);
-}
-
 int ft_isequal(char *str)
 {
     int i;

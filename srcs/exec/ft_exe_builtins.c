@@ -1,7 +1,7 @@
-// #include "../../includes/minishell.h" 
+#include "../../includes/minishell.h" 
 
 //BI_list = {"cd", "echo", "env", "exit", "pwd", "export", "unset"};
-void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml)
+void	ft_exe_built_in(t_mshell *mshell)
 {
 	char	*cmd;
 	cmd = mshell->list_cmd->cmd[0];
@@ -12,8 +12,8 @@ void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml)
 	}
 	else if (ft_strcmp(cmd, "echo") == 0)
 	{
-		printf(CYAN"[INFO] BI : "RESET YELLOW"cd"RESET"\n");
-		//ft_echo();
+		printf(CYAN"[INFO] BI : "RESET YELLOW"echo"RESET"\n");
+		ft_echo(mshell);
 	}    
 	else if (ft_strcmp(cmd, "env") == 0)
 	{
@@ -22,7 +22,7 @@ void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml)
 	}
 	else if (ft_strcmp(cmd, "exit") == 0)
 	{
-		printf("BI : "YELLOW"exit"RESET"\n");
+		printf(CYAN"[INFO] BI : "RESET YELLOW"exit"RESET"\n");
 		ft_exit(mshell->list_cmd);
 	}
 	else if (ft_strcmp(cmd, "export") == 0)
@@ -31,13 +31,11 @@ void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml)
 		ft_export(mshell);
 	}    
 	else if (ft_strcmp(cmd, "pwd") == 0)
-		ft_pwd(mshell, ml);    
+		ft_pwd(mshell);    
 	else if (ft_strcmp(cmd, "unset") == 0)
 	{
 		printf(CYAN"[INFO] BI : "RESET YELLOW"unset"RESET"\n");
 		ft_unset(mshell);
 	}
-	else
-		printf("commande differente de 'BI' : \033[31m%s\033[0m\n", cmd);
 	return ;
 }

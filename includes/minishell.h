@@ -27,7 +27,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <string.h>
-# include <fcntl.h>				// open;
+# include <fcntl.h>				// open;	
+# include <signal.h>
 
 #define BLINK "\033[5m"			// a supp
 # define RESET "\033[0m"		// a supprimer si non besoin
@@ -301,7 +302,7 @@ void	ft_pipe_read(t_mshell *mshell, int pipe_read);
 void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 // exec
-void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml);
+void	ft_executer(t_mshell *mshell, char **envp);
 
 //t_mshell	*cmd_remplissage_test(t_mshell *mshell);
 
@@ -323,11 +324,11 @@ void	ft_print_env_list(t_env *env_list);
 
 
 
-void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml);
+void	ft_exe_built_in(t_mshell *mshell);
 // ft_cd
 int		ft_cd(t_mshell *mshell);
 	// ft_echo
-//int		ft_echo();
+int		ft_echo(t_mshell *mshell);
 
 	// ft_env
 int		ft_env(t_mshell *mshell);
@@ -359,7 +360,7 @@ void	ft_print_sorted_env(t_env *env);
 
 	// ft_pwd
 
-int		ft_pwd(t_mshell *mshell, t_mnode **ml);
+int		ft_pwd(t_mshell *mshell);
 
 
 	// ft_unset
@@ -381,11 +382,18 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
-void	ft_build_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
-void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
-void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml);
+void	ft_build_path(t_mshell *mshell);
+void	ft_build_cmd_path(t_mshell *mshell);
+void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 
+
+
+// signals
+
+void	ft_handle_signals(void);
+void	handle_sig_int(int num);
+void	setup_child_signals(void);
 
 
 #endif

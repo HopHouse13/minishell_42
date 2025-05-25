@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **env)
 	ft_init_mshell(&mshell/* , env */);
 	while (ac && av)
 	{
+		ft_handle_signals();
 		// ft_signal(1); // je sais pas encore comment gerer ca
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
@@ -36,7 +37,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (ft_parser(mshell))
 				continue ;
-			//ft_executer(mshell, env, &ml);
+			ft_executer(mshell, env);
 		}
 	}
 	rl_clear_history();

@@ -1,9 +1,9 @@
-// #include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-// int ft_cd(t_mshell *mshell)
-// {
-//     char    *home;
-// 	t_cmd	*cmd_node;
+int	ft_cd(t_mshell *mshell)
+{
+    char    *home;
+ 	t_cmd	*cmd_node;
 	
 	printf(CYAN"[INFO] BI : "RESET YELLOW"cd2"RESET"\n");
 	cmd_node = mshell->list_cmd;
