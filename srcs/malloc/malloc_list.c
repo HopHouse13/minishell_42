@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:54:23 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/21 17:49:08 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/23 12:57:22 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	ft_init_head_list_ml(t_mshell *mshell, void *ptr, size_t size)
 
 	first_node = malloc(sizeof(t_mnode));
 	if (!first_node)
-	{
-		perror("initialization list ");
-		ft_free_ml(mshell);
-		return ;
-	}
+		ft_mem_err(mshell);
 	first_node->ptr = ptr;
 	first_node->size = size;
 	first_node->next = NULL;
@@ -39,12 +35,7 @@ void	ft_add_ml(t_mshell *mshell, void *ptr, size_t size)
 	{
 	new_node = malloc(sizeof(t_mnode));
 	if (!new_node)
-	{
-		free(ptr);
-		perror("allocation failed ");
-		// ft_free tout tout
-		exit(EXIT_FAILURE);
-	}
+		ft_mem_err(mshell);
 	new_node->ptr = ptr;
 	new_node->size = size;
 	new_node->next = mshell->ml;
@@ -58,7 +49,7 @@ void	*ft_malloc_list(t_mshell *mshell, size_t size)
 
 	ptr = malloc(size);
 	if (!ptr)
-		return (NULL) ;// ft_fatal_error("message a trouver", 1);
+		ft_mem_err(mshell);
 	ft_add_ml(mshell, ptr, size);
 	return (ptr);
 }
@@ -69,7 +60,7 @@ void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type)
 
 	ptr = ft_calloc(nb, size_type);
 	if (!ptr)
-		ft_mem_err() ;// ft_fatal_error("message a trouver", 1);
+		ft_mem_err(mshell);
 	ft_add_ml(mshell, ptr, nb * size_type);
 	return (ptr);
 }

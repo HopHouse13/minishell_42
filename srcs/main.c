@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/22 17:33:13 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/23 12:55:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			g_exit_code;
 
 int	main(int ac, char **av, char **env)
-{
+{(void)env; //ASUPPPPPPPPPPPPP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_mshell	*mshell;
 
 	ft_init_mshell(&mshell/* , env */);
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (ft_parser(mshell))
 				continue ;
-			//ft_executer(mshell, env, &ml);
+			// ft_executer(mshell, env, &ml);
 		}
 	}
 	rl_clear_history();

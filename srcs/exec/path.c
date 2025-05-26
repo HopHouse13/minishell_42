@@ -1,11 +1,11 @@
-// #include "../../includes/minishell.h" 
+#include "../../includes/minishell.h" 
 
-// void	ft_build_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
+// void	ft_build_path(t_mshell *mshell, t_cmd *list_cmd, t_env *env_list)
 // {
 // 	while (list_cmd)
 // 	{	
 // 		if (!ft_ispath(list_cmd->cmd[0]))
-// 			ft_build_cmd_path(list_cmd, env_list, ml);
+// 			ft_build_cmd_path(mshell, list_cmd, env_list);
 // 		if (list_cmd->next)
 // 			list_cmd = list_cmd->next;
 // 		else

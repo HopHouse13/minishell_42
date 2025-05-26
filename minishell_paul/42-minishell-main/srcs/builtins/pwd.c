@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbailly <pbailly@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 23:00:14 by pbailly           #+#    #+#             */
-/*   Updated: 2024/12/19 23:24:26 by pbailly          ###   ########.fr       */
+/*   Updated: 2025/05/23 12:46:21 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_mshell *mshell)
 {
 	char	*pwd;
 

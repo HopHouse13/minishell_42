@@ -1,23 +1,23 @@
 // #include "../../includes/minishell.h" 
 
-int ft_env(t_mshell *mshell)
-{
-    //if (mshell->env_list == NULL)
-        //ft_env_minimal(mshell->env_list);
-    ft_print_env_list(mshell->env_list);
-    return (1);
-}
+// int ft_env(t_mshell *mshell)
+// {
+//     //if (mshell->env_list == NULL)
+//         //ft_env_minimal(mshell->env_list);
+//     ft_print_env_list(mshell->env_list);
+//     return (1);
+// }
 
 
 
 
 
-void    ft_build_env_list(t_mshell *mshell, char **env)
-{
-    int		i;
-	char	**key_value;
-	t_env	*new_node;
-	t_env	*last = NULL;
+// void    ft_build_env_list(t_mshell *mshell, char **env)
+// {
+//     int		i;
+// 	char	**key_value;
+// 	t_env	*new_node;
+// 	t_env	*last = NULL;
 
 // 	i = 0;
 //     while (env[i])

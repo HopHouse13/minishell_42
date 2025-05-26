@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/22 17:33:22 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/23 13:23:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	ft_init_mshell(t_mshell **mshell/* , char **env */)
 {
 	*mshell = malloc(sizeof(t_mshell));
 	if (!mshell)
-		return ; //ft_error_exit("Error main "); // mauvaise fonction, a faire
+		ft_mem_err((*mshell));
 	(*mshell)->qts = malloc(sizeof(t_qts));
 	if (!(*mshell)->qts)
-		return ;
+		ft_mem_err((*mshell));
 	// (*mshell)->ml = malloc(sizeof(t_mnode *));
 	// if (!(*mshell)->ml)
-	// 	return ;
+	//	ft_mem_err(mshell);
 	// *(*mshell)->ml = NULL;
 	(*mshell)->ml = NULL;
 	(*mshell)->input = NULL;

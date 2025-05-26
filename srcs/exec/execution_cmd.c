@@ -26,7 +26,7 @@
     - execution cmd
 */
 
-// void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml)
+// void	ft_executer(t_mshell *mshell, char **envp)
 // {
 // 	t_cmd	*list_cmd;
 	
@@ -34,9 +34,9 @@
 // 	if (list_cmd->builtin)
 // 	{
 // 		printf (CYAN "\n [INFO] Commande BuiltIn :"RESET YELLOW " %s"RESET"\n", list_cmd->cmd[0]);
-// 		ft_exe_built_in(mshell, ml);
+// 		ft_exe_built_in(mshell);
 // 	}
-// 	ft_build_path(list_cmd, mshell->env_list, ml);
+// 	ft_build_path(mshell, list_cmd);
 // 	if (mshell->count_pipe)
 // 	{
 // 		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");

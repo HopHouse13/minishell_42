@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:20:00 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 17:55:44 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ bool	ft_empty_line(char *input);
 /// errors ///
 char	*ft_build_err_mess(t_mshell *ms, char *message, char *elem);
 bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code);
+void	ft_mem_err(t_mshell *mshell);
 
 /// handle_input ///
 bool	ft_open_input(t_mshell *mshell, char *input);
@@ -301,7 +302,7 @@ void	ft_pipe_read(t_mshell *mshell, int pipe_read);
 void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 // exec
-void	ft_executer(t_mshell *mshell, char **envp, t_mnode **ml);
+void	ft_executer(t_mshell *mshell, char **env);
 
 //t_mshell	*cmd_remplissage_test(t_mshell *mshell);
 
@@ -323,7 +324,7 @@ void	ft_print_env_list(t_env *env_list);
 
 
 
-void	ft_exe_built_in(t_mshell *mshell, t_mnode **ml);
+void	ft_exe_built_in(t_mshell *mshell);
 // ft_cd
 int		ft_cd(t_mshell *mshell);
 	// ft_echo
@@ -359,7 +360,7 @@ void	ft_print_sorted_env(t_env *env);
 
 	// ft_pwd
 
-int		ft_pwd(t_mshell *mshell, t_mnode **ml);
+void	ft_pwd(t_mshell *mshell);
 
 
 	// ft_unset
@@ -381,11 +382,8 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
-void	ft_build_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
+void	ft_build_path(t_cmd *list_cmd, t_env *env_list);
 void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
 void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml);
-
-
-
 
 #endif

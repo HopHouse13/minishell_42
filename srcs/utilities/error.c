@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/22 17:32:08 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/23 13:21:59 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_mem_err(t_mshell *mshell)
 {
 	g_exit_code = 1; // ou ENOMEM == 12
 	perror("malloc: ");
-	ft_free_env(mshell->env_list);
+	ft_free_env(&mshell->env_list);
 	ft_free_ml(mshell);
 	free((*mshell).qts);
 	free(mshell);
