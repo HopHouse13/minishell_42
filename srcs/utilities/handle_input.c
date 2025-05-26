@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:19:50 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 20:37:56 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_open_input(t_mshell *mshell, char *input)
-{printf("\n\t-------------------- INPUT_OPEN ---------------------\n");
+{
 	int	i;
-	
+
+	printf("\n\t-------------------- INPUT_OPEN ---------------------\n");
 	i = -1;
 	while (input[++i])
 		ft_status_qts(mshell->qts, input, i);
@@ -26,14 +27,14 @@ bool	ft_open_input(t_mshell *mshell, char *input)
 
 void	ft_handle_input(t_mshell *mshell)
 {
-	char *input_buff;
-	
-	if (mshell->input[0] == '\0') //evite de l'ajouter dans l'historique
+	char	*input_buff;
+
+	if (mshell->input[0] == '\0')
 		return ;
 	if (ft_open_input(mshell, mshell->input))
 	{
 		input_buff = ft_strdup_ml(mshell, "\0");
-		while(1)
+		while (1)
 		{
 			input_buff = ft_strjoin_ml(mshell, input_buff, mshell->input);
 			input_buff = ft_strjoin_ml(mshell, input_buff, "\n");

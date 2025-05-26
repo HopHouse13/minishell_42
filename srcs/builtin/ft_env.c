@@ -8,10 +8,6 @@
 //     return (1);
 // }
 
-
-
-
-
 // void    ft_build_env_list(t_mshell *mshell, char **env)
 // {
 //     int		i;
@@ -47,7 +43,6 @@
 // 		i++;
 // 	}
 // }
-
 
 // /*
 // void    ft_env_minimal(t_mshell *mshell)

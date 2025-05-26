@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 19:17:34 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 20:19:15 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 # define MINISHELL_H
 
 /// STD_HEADERS ///
-# include	<unistd.h>			// get
-# include	<errno.h>             // liste des erreurs errno.
-# include	<readline/history.h>  // gere l'historique des commandes (non vide)
-# include	<readline/readline.h> // declare la fonction readline.
-# include	<stdbool.h>           // boolien
-# include	<stdio.h>             // printf (pour la phase de dev.); dprintf
-# include	<stdlib.h>            // exit ; getenv ;
-# include	<sys/errno.h>         // meilleur portabilite avec cette librairie.
-# include	<sys/types.h>
-# include	<sys/wait.h>
-# include	<string.h>
-# include	<fcntl.h>				// open;
+# include <unistd.h>			// get
+# include <errno.h>             // liste des erreurs errno.
+# include <readline/history.h>  // gere l'historique des commandes (non vide)
+# include <readline/readline.h> // declare la fonction readline.
+# include <stdbool.h>           // boolien
+# include <stdio.h>             // printf (pour la phase de dev.); dprintf
+# include <stdlib.h>            // exit ; getenv ;
+# include <sys/errno.h>         // meilleur portabilite avec cette librairie.
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <fcntl.h>				// open;
 
 /// MSHELL_HEADERS ///
-# include	"./structs.h"
-# include	"./font_style.h"
-# include	"./libft/includes/libft.h"
-# include	"./printf/includes/ft_printf.h"
+# include "./structs.h"
+# include "./font_style.h"
+# include "./libft/includes/libft.h"
+# include "./printf/includes/ft_printf.h"
 
-# define	IN	1
-# define	OUT	0
+# define IN		1
+# define OUT	0
 
-extern int		g_exit_code; //variable glob.pour obtenir le dernier exit_code.
+extern int	g_exit_code; //variable glob.pour obtenir le dernier exit_code.
 
 /// MAIN ///
 int		main(int ac, char **av, char **env);
@@ -47,12 +47,12 @@ int		main(int ac, char **av, char **env);
 int		ft_lexer(t_mshell *mshell);
 
 /// LEXER_INITIALISATION ///
-void 	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
+void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
 
 /// LEXER_BUILD_LIST_TOKEN ///
 void	ft_define_token_elem(t_lexer *lexer);
 void	ft_define_token_redir(t_lexer *lexer);
-void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem);
+void	ft_init_head_list_token(t_mshell *mshell, t_token **list_t, char *elem);
 void	ft_add_node(t_mshell *mshell, t_lexer *lexer, char *elem);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer);
 
@@ -136,7 +136,7 @@ int		ft_count_pipe(t_parser *parser);
 void	*ft_malloc_list(t_mshell *mshell, size_t size);
 void	*ft_calloc_list(t_mshell *mshell, size_t nb, size_t size_type);
 void	ft_init_head_list_ml(t_mshell *mshell, void *ptr, size_t size);
-void 	ft_add_ml(t_mshell *mshell, void *ptr, size_t size);
+void	ft_add_ml(t_mshell *mshell, void *ptr, size_t size);
 char	*ft_itoa_ml(t_mshell *mshell, int n);
 char	**ft_split_ml(t_mshell *mshell, char *s, char c);
 char	*ft_strdup_ml(t_mshell *mshell, char *s_src);
@@ -149,7 +149,7 @@ void	ft_free_env(t_env **env_list);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// UTILITIES ///
-void	ft_init_mshell(t_mshell **mshell/* , char **env */);
+void	ft_init_mshell(t_mshell **mshell, char **env);
 bool	ft_empty_line(char *input);
 
 /// ERRORS ///
@@ -168,7 +168,6 @@ void	ft_delay(t_qts *qts);
 bool	ft_status_qts(t_qts *qts, char *str, int i);
 
 /// PRINT ///
-void	ft_print_input_clean(char *line);
 void	ft_print_double_tab(char **tab);
 void	ft_print_list_token(t_token *head);
 char	*ft_get_name_type(t_type type);
@@ -187,8 +186,6 @@ void	ft_redir_hd(t_mshell *s_mshell);
 void	ft_redir_pipe_read(t_mshell *mshell, int *pipe_fd);
 void	ft_redir_pipe_write(t_mshell *mshell, int *pipe_fd);
 
-
-
 // pipe.c
 void	ft_forker(t_mshell *mshell, char **envp);
 int		ft_piper(t_mshell *mshell, char **envp);
@@ -197,14 +194,10 @@ void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 // exec
 void	ft_executer(t_mshell *mshell, char **env);
+t_cmd	*cmd_init(void);
+// t_mshell	*cmd_remplissage(t_mshell *mshell); // ???
 
-//t_mshell	*cmd_remplissage_test(t_mshell *mshell);
-
-t_cmd			*cmd_init(void);
-t_mshell		*cmd_remplissage(t_mshell *mshell);
-
-
-// BUILTINS
+/// BUILTINS ///
 
 // ft_env_utilities
 char	*ft_get_env_value(t_mshell *mshell, char *key);
@@ -212,30 +205,27 @@ char	*ft_get_env(char *key, t_env *env);
 
 void	ft_print_env_list(t_env *env_list);
 
-
 // builtin_utilities
-
-
-
-
 void	ft_exe_built_in(t_mshell *mshell);
+
 // ft_cd
 int		ft_cd(t_mshell *mshell);
-	// ft_echo
+
+// ft_echo
 //int		ft_echo();
 
-	// ft_env
+// ft_env
 int		ft_env(t_mshell *mshell);
 void	ft_env_minimal(t_mshell *mshell);
-void	ft_build_env_list(t_mshell   *mshell, char **env);
-
+void	ft_build_env_list(t_mshell *mshell, char **env);
 char	**ft_split_var(char *cmd);
 
 //update_env();
 
-	// ft_exit
-int ft_exit(t_cmd *cmd);
-	// ft_export
+// ft_exit
+int		ft_exit(t_cmd *cmd);
+
+// ft_export
 int		ft_export(t_mshell *mshell);
 
 void	ft_add_var(t_mshell *mshell);
@@ -244,20 +234,16 @@ int		ft_isequal(char *str);
 void	ft_free_tab(char **tab);
 
 int		ft_check_env_key(t_env *env, char **key_value);
-void	ft_change_env_value (t_env *env, char **key_value);
-void	ft_create_env_node(t_mshell *mshell, char **key_value);	
-
+void	ft_change_env_value(t_env *env, char **key_value);
+void	ft_create_env_node(t_mshell *mshell, char **key_value);
 
 void	ft_swap_env(t_env *a, t_env *b);
 void	ft_print_sorted_env(t_env *env);
 
-
-	// ft_pwd
-
+// ft_pwd
 void	ft_pwd(t_mshell *mshell);
 
-
-	// ft_unset
+// ft_unset
 int		ft_unset(t_mshell *mshell);
 void	ft_remove_env_node(t_env *env_list, char *key);
 

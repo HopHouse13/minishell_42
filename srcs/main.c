@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/23 12:55:09 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 19:50:54 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **env)
 {(void)env; //ASUPPPPPPPPPPPPP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	t_mshell	*mshell;
 
-	ft_init_mshell(&mshell/* , env */);
+	ft_init_mshell(&mshell, env);
 	while (ac && av)
 	{
 		// ft_signal(1); // je sais pas encore comment gerer ca

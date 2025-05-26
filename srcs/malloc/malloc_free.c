@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/21 17:12:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:50:32 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_env(t_env **env_list)
 	if (!env_list || !*env_list)
 		return ;
 	while (*env_list)
-	{                                                                                                                                                                                               
+	{
 		tmp = (*env_list)->next;
 		free((*env_list)->key);
 		free((*env_list)->value);
@@ -32,10 +32,10 @@ void	ft_free_env(t_env **env_list)
 void	ft_free_ml(t_mshell *mshell)
 {
 	t_mnode	*tmp;
-	
+
 	if (!mshell->ml)
 		return ;
-	while (mshell->ml)																								
+	while (mshell->ml)
 	{
 		tmp = mshell->ml->next;
 		free(mshell->ml->ptr);
@@ -50,7 +50,7 @@ void	ft_free_one_node_ml(void *ptr, t_mnode **ml)
 {
 	t_mnode	*tmp;
 	t_mnode	*prev;
-	
+
 	if (!ml)
 		return ;
 	tmp = *ml;

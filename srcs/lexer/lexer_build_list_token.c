@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/21 17:21:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:35:27 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_define_token_elem(t_lexer *lexer)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = lexer->list_token;
 	while (tmp->token != END)
@@ -23,13 +23,13 @@ void	ft_define_token_elem(t_lexer *lexer)
 			lexer->cmd_in_pipe = false;
 		if (tmp->token == ELEM)
 		{
-			if (tmp->prev && tmp->prev->token == R_IN) // <
+			if (tmp->prev && tmp->prev->token == R_IN)
 				tmp->token = F_IN;
-			else if (tmp->prev && tmp->prev->token == R_OUT) // >
+			else if (tmp->prev && tmp->prev->token == R_OUT)
 				tmp->token = F_OUT;
-			else if (tmp->prev && tmp->prev->token == APPEND) // >>
+			else if (tmp->prev && tmp->prev->token == APPEND)
 				tmp->token = F_APP;
-			else if (tmp->prev && tmp->prev->token == HD) // <<
+			else if (tmp->prev && tmp->prev->token == HD)
 				tmp->token = DELIM;
 			else if (tmp->token == ELEM && !lexer->cmd_in_pipe)
 				tmp->token = ft_builtin_or_cmd(lexer, tmp->elem);
@@ -42,7 +42,7 @@ void	ft_define_token_elem(t_lexer *lexer)
 
 void	ft_define_token_redir(t_lexer *lexer)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = lexer->list_token;
 	while (tmp)
@@ -71,7 +71,7 @@ void	ft_define_token_redir(t_lexer *lexer)
 
 void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem)
 {
-	t_token *first_node;
+	t_token	*first_node;
 
 	first_node = ft_malloc_list(mshell, sizeof(t_token));
 	first_node->elem = elem;
@@ -83,8 +83,8 @@ void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem)
 
 void	ft_add_node( t_mshell *mshell, t_lexer *lexer, char *elem)
 {
-	t_token *tmp;
-	t_token *new_elem;
+	t_token	*tmp;
+	t_token	*new_elem;
 
 	if (!lexer->list_token)
 	{
@@ -106,21 +106,21 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 {
 	int	i;
 	int	j;
-	int srt;
+	int	srt;
 
 	i = 0;
-	j = 0;		// len de la sous chaine
-	srt = 0;	// debut de la sous chaine
+	j = 0;
+	srt = 0;
 	while (lexer->clear_input[i])
 	{
 		srt = i;
 		while (lexer->clear_input[i] && lexer->clear_input[i] != ' ')
-		{	
-			j++;		
+		{
+			j++;
 			i++;
 		}
 		ft_add_node(mshell, lexer, ft_substr_ml(mshell, lexer->clear_input, srt,
-					j));
+				j));
 		j = 0;
 		if (lexer->clear_input[i] == ' ')
 			i++;

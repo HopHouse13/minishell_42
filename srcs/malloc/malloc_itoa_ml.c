@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_itoa_ml.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:14:29 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:22:24 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 22:01:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int count_size(long int n)
+static int	count_size(long int n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (n == 0)
@@ -29,11 +29,11 @@ static int count_size(long int n)
 	return (i);
 }
 
-char *ft_itoa_ml(t_mshell *mshell, int n)
+char	*ft_itoa_ml(t_mshell *mshell, int n)
 {
-	long int nb;
-	size_t count;
-	char *str;
+	long int	nb;
+	size_t		count;
+	char		*str;
 
 	nb = n;
 	count = count_size(nb);

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 19:17:49 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 19:56:59 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 typedef enum e_type
 {
 	ELEM,
-	PIPE,       // "|"
-	R_IN,   	// "<"
+	PIPE,		// "|"
+	R_IN,		// "<"
 	R_OUT,		// ">"
-	HD,         // "<<"
-	APPEND,     // ">>"
+	HD,			// "<<"
+	APPEND,		// ">>"
 	F_IN,		// fichier d'entree
 	F_OUT,		// ecrasement dans fichier
 	F_APP,		// rajout dans fichier
@@ -62,7 +62,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef	struct s_env
+typedef struct s_env
 {
 	char			*key;
 	char			*value;
@@ -84,7 +84,7 @@ typedef struct s_qts
 {
 	bool			spl_q;	// État des guillemets simples
 	bool			dbl_q;	// État des guillemets doubles
-	bool			in_q;		// Mark pour savoir si on est à l'intérieur des quotes
+	bool			in_q;		// Mark -> a l'intérieur des quotes
 	bool			delay_in;	// retarde le chagement d'etat d'entree
 	bool			delay_out;	// retarde le chagement d'etat de sortie
 }					t_qts;
@@ -103,7 +103,7 @@ typedef struct s_hd
 }					t_hd;
 
 typedef struct s_mshell
-{	
+{
 	char			*input;
 	t_qts			*qts;
 	t_token			*list_token;
@@ -112,5 +112,4 @@ typedef struct s_mshell
 	t_mnode			*ml;	
 	int				count_pipe;
 }					t_mshell;
-
 #endif

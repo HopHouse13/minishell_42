@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/21 17:24:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:42:37 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	ft_count_char(char *line)
 void	ft_make_clear_input(t_mshell *mshell, t_lexer *lexer, char *wild_input)
 {
 	bool	in_space;
-	
-	lexer->clear_input = ft_malloc_list(mshell, sizeof(char) *
-							ft_count_char(wild_input) +1);
+
+	lexer->clear_input = ft_malloc_list(mshell, sizeof(char)
+			* ft_count_char(wild_input) +1);
 	lexer->i = 0;
 	lexer->j = 0;
 	in_space = false;
@@ -72,7 +72,7 @@ void	ft_put_redirection(t_lexer *lexer, char *input)
 {
 	if ((lexer->i > 0 && input[lexer->i -1] != input[lexer->i])
 		|| (lexer->i > 1 && input[lexer->i -1] == input[lexer->i]
-		&& input[lexer->i -2] == input[lexer->i]))
+			&& input[lexer->i -2] == input[lexer->i]))
 		lexer->wild_input[++lexer->j] = ' ';
 	if (input[lexer->i] == '<')
 		lexer->wild_input[++lexer->j] = '<';
@@ -91,7 +91,8 @@ void	ft_put_pipe(t_lexer *lexer)
 }
 
 void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
-{printf("\n\n\t--------------------- ONE_SPACE ---------------------\n");
+{
+	printf("\n\n\t--------------------- ONE_SPACE ---------------------\n");
 	lexer->i = 0;
 	while (mshell->input && mshell->input[lexer->i])
 	{
@@ -102,17 +103,17 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
 		{
 			if (mshell->input[lexer->i] == '|')
 				ft_put_pipe(lexer);
-			else if ((mshell->input[lexer->i] == '<' 
+			else if ((mshell->input[lexer->i] == '<'
 					|| mshell->input[lexer->i] == '>'))
 				ft_put_redirection(lexer, mshell->input);
-			else 
+			else
 				lexer->wild_input[++lexer->j] = mshell->input[lexer->i];
 		}
 		lexer->i++;
 	}
 	lexer->wild_input[++lexer->j] = ' ';
 	lexer->wild_input[++lexer->j] = ';';
-	// lexer->wild_input[++lexer->j] = '\0'; // pas oublige car calloc mais je prefere
+	lexer->wild_input[++lexer->j] = '\0';
 	ft_make_clear_input(mshell, lexer, lexer->wild_input);
-	ft_print_input_clean(lexer->clear_input); // ASUPP
+	ft_printf("\n\n\tclear_line : [%s]\n\n", lexer->clear_input);
 }

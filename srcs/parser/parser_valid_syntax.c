@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/04/18 17:53:31 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 22:09:30 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	ft_valid_cmds(t_parser *parser)
 bool	ft_valid_redirs(t_parser *parser)
 {
 	t_token	*tmp;
-	
+
 	tmp = parser->list_token;
 	while (tmp->next && tmp->next->token != END)
 	{
@@ -80,14 +80,17 @@ bool	ft_valid_redirs(t_parser *parser)
 	return (true);
 }
 
-// on pourrait retourner tmp->elem du noeud ou il ya une erreur pour le message d'erreur a retourner. a voir.
+// on pourrait retourner tmp->elem du noeud ou il ya une erreur pour le message
+// d'erreur a retourner. a voir.
+// check si il y a un pipe en premier ou en dernier de l'input.
+// check si il y a plus d'une cmd par pipe.
+// Check si toutes les redir sont suivis du bon token.
 bool	ft_valid_syntax(t_parser *parser)
 {
-	if (!ft_valid_pipes(parser)) // check si il y a un pipe en premier ou en dernier de l'input.
-		return (printf("pipe_issue\n"), false);
-	if (!ft_valid_cmds(parser)) // check si il y a plus d'une cmd par pipe.
+	if (!ft_valid_pipes(parser))
+	if (!ft_valid_cmds(parser))
 		return (printf("cmds_issue\n"), false);
-	if (!ft_valid_redirs(parser))  // Check si toutes les redir sont suivis du bon token.
+	if (!ft_valid_redirs(parser))
 		return (printf("redir_issue\n"), false);
 	return (true);
 }

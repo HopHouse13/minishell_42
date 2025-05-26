@@ -6,24 +6,20 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/23 13:23:19 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 20:31:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_mshell(t_mshell **mshell/* , char **env */)
-{
+void	ft_init_mshell(t_mshell **mshell, char **env)
+{(void)env; // AAASSSUUUUUUUPPPPPPPP
 	*mshell = malloc(sizeof(t_mshell));
 	if (!mshell)
 		ft_mem_err((*mshell));
 	(*mshell)->qts = malloc(sizeof(t_qts));
 	if (!(*mshell)->qts)
 		ft_mem_err((*mshell));
-	// (*mshell)->ml = malloc(sizeof(t_mnode *));
-	// if (!(*mshell)->ml)
-	//	ft_mem_err(mshell);
-	// *(*mshell)->ml = NULL;
 	(*mshell)->ml = NULL;
 	(*mshell)->input = NULL;
 	(*mshell)->list_token = NULL;
