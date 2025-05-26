@@ -6,9 +6,12 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 18:15:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 19:17:49 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
 typedef enum e_type
 {
@@ -109,3 +112,5 @@ typedef struct s_mshell
 	t_mnode			*ml;	
 	int				count_pipe;
 }					t_mshell;
+
+#endif
