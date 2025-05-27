@@ -91,7 +91,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			setup_child_signals(); // Réinitialiser les signaux
+			//setup_child_signals(); // Réinitialiser les signaux
 			execve(cmd->cmd[0], cmd->cmd, envp);
 			perror("execve");
 			exit(127);

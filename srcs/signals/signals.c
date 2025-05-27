@@ -1,41 +1,58 @@
 #include "../../includes/minishell.h"
 
+// #include <signal.h>
 
 void handle_sig_int(int num)
 {
 	(void)num;
-	write(STDOUT_FILENO,"^CC\n",4);
 	rl_on_new_line(); // Informe readline qu'on est sur une nouvelle ligne
     rl_replace_line("", 0); // Efface le contenu de la ligne actuelle
+	write(STDOUT_FILENO,"^ACDC",5);
+	write(STDOUT_FILENO,"\n",1);
     rl_redisplay(); // Affiche le nouveau prompt
-
+	//glob error a 130;
 }
 
 void	ft_handle_signals(void)
 {
 	// int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
-	// ^C --> SIGINT
-	struct sigaction sa_int;
-	sa_int.sa_handler = &handle_sig_int;
-
-	sigaction (SIGINT, handle_sig_int);  // Ctrl+C
-	//sigaction(SIGINT, &sa_int, NULL);
 	
+	// ^C --> SIGINT
+	struct sigaction sigint;
+
+	sigint.sa_handler = &handle_sig_int;
+	sigemptyset(&sigint.sa_mask);
+	sigint.sa_flags = 0; // No special flags
+
+	sigaction (SIGINT, &sigint, NULL);  // Ctrl+C
 	
 	// ^/ --> SIGQUIT
     struct sigaction sa_quit;
     
-	sigaction(SIGQUIT, SIG_IGN);       // Ctrl+\ (Ignorer)v
-	//sigaction(SIGQUIT, &sa_quit, NULL);
+	sa_quit.sa_handler = SIG_IGN;            // Set handler to ignore the signal
+    sigemptyset(&sa_quit.sa_mask);           // Initialize and clear the signal mask
+    sa_quit.sa_flags = 0;                    // No special flags needed for ignoring
+
+	sigaction(SIGQUIT, &sa_quit, NULL);
+	
 	// ^D --> EOF
 
 }
 
-
-
+/*
+//reinit avance execve
 void	setup_child_signals(void)
 {
-    sigaction(SIGINT, SIG_DFL);  // Réinitialiser à comportement par défaut
-    sigaction(SIGQUIT, SIG_DFL); // Réinitialiser à comportement par défaut
-}
+	struct sigaction sa_quit;
+	struct sigaction sigint;
 
+	//sigint.sa_handler = &handle_sig_int;
+	//sigemptyset(&sigint.sa_mask);
+	//sigint.sa_flags = 0; // No special flags
+    
+	//sigaction(SIGINT, &sigint, NULL);  // Réinitialiser à comportement par défaut
+    //sigaction(SIGQUIT, SIG_DFL); // Réinitialiser à comportement par défaut
+    // SIG_IGN
+
+}
+*/
