@@ -34,19 +34,19 @@ void	ft_redir(t_mshell *mshell)
 	redir = mshell->list_cmd;
 	if (redir->fd_out != -1)
 	{
-		printf(MAGENTA"[INFO] Redirection OUT"RESET"\n");
+		printf(MAGEN"[INFO] Redirection OUT"RESET"\n");
 		ft_redir_out (mshell);
 	}
 	if (redir->fd_in != -1)
 	{
-		printf(MAGENTA"[INFO] Redirection IN"RESET"\n");
+		printf(MAGEN"[INFO] Redirection IN"RESET"\n");
 		ft_redir_in (mshell);
 	}
 	return ;
 	/*
 	if (redir->fd_hd != -1)
 	{
-		printf(MAGENTA"[INFO] FD_HD detectee"RESET"\n");
+		printf(MAGEN"[INFO] FD_HD detectee"RESET"\n");
 		ft_redir_hd(mshell);
 	}
 	*/
@@ -110,7 +110,7 @@ void	ft_pipe_read(t_mshell *mshell, int pipe_read) // redir stdout --> P_W
 {
 	int	fd_in;
 	
-	printf(MAGENTA"[INFO] Redirection IN"RESET"\n");
+	printf(MAGEN"[INFO] Redirection IN"RESET"\n");
 	fd_in = mshell->list_cmd->next->fd_in;
 	//if (fd_in == -1)
 	//	fd_in = STDIN_FILENO;
@@ -123,7 +123,7 @@ void	ft_pipe_write(t_mshell *mshell, int pipe_write) //redir. stdIN --> P_L
 	// int	fd_out;s
 	t_cmd	*cmd;
 
-	printf(MAGENTA"[INFO] [redir_pipe_write] Redirection OUT"RESET"\n");
+	printf(MAGEN"[INFO] [redir_pipe_write] Redirection OUT"RESET"\n");
 	cmd = mshell->list_cmd;
 	if (!cmd->next && cmd->fd_out == -1)
 		cmd->fd_out = STDOUT_FILENO;
@@ -140,7 +140,7 @@ void	ft_redir_pipe_write(t_mshell *mshell, int *pipe_fd)
 	int	fd_out;
 
 	//condition de gestion des extreme IN et OUT dns count+pipe via redir
-	printf(MAGENTA"[INFO] [redir_pipe_write] Redirection OUT"RESET"\n");
+	printf(MAGEN"[INFO] [redir_pipe_write] Redirection OUT"RESET"\n");
 	fd_out = mshell->list_cmd->fd_out;
 	if (mshell->list_cmd->fd_out != -1) 
 	{
@@ -160,7 +160,7 @@ void	ft_redir_pipe_read(t_mshell *mshell, int *pipe_fd)
 {
 	int	next_fd_in;
 
-	printf(MAGENTA"[INFO] [redir_pipe_write] Redirection IN"RESET"\n");
+	printf(MAGEN"[INFO] [redir_pipe_write] Redirection IN"RESET"\n");
 	next_fd_in = mshell->list_cmd->next->fd_in;
 	if (mshell->list_cmd->next->fd_in != -1)
 	{

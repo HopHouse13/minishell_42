@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:34:53 by pbret             #+#    #+#             */
-/*   Updated: 2025/03/01 21:59:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 19:25:21 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_nbr_words(char const *s, char c)
 {
 	long int		i;
-	int			nbr;
+	int				nbr;
 	int				same_carac;
 
 	i = 0;
@@ -27,7 +27,7 @@ static int	ft_nbr_words(char const *s, char c)
 		{
 			nbr++;
 			same_carac = 1;
-		}	
+		}
 		else if (s[i] == c)
 			same_carac = 0;
 		i++;

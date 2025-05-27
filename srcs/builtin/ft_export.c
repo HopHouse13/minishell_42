@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 15:14:27 by pab               #+#    #+#             */
+/*   Updated: 2025/05/27 15:14:28 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int ft_export(t_mshell *mshell)
@@ -44,7 +56,7 @@ void    ft_add_node_env(t_mshell *mshell, char *cmd)
 		ft_change_env_value(mshell->env_list, key_value);
 	}
 
-    ft_free_tab(key_value);
+    // ft_free_tab(key_value);
 }
 
 void	ft_create_env_node(t_mshell *mshell, char **key_value)
@@ -89,7 +101,7 @@ void	ft_change_env_value(t_env *env, char **key_value)
                 env->value = ft_strdup(key_value[1]);
             else
                 env->value = ft_strdup("");
-            ft_free_tab(key_value);
+            // ft_free_tab(key_value);
             return ;
         }
         env = env->next;

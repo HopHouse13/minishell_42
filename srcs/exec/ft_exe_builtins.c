@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exe_builtins.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 14:28:45 by pab               #+#    #+#             */
+/*   Updated: 2025/05/27 14:29:15 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h" 
 
 //BI_list = {"cd", "echo", "env", "exit", "pwd", "export", "unset"};
+
 void	ft_exe_built_in(t_mshell *mshell)
 {
 	char	*cmd;
@@ -13,7 +26,7 @@ void	ft_exe_built_in(t_mshell *mshell)
 	else if (ft_strcmp(cmd, "echo") == 0)
 	{
 		printf(CYAN"[INFO] BI : "RESET YELLOW"echo"RESET"\n");
-		ft_echo(mshell);
+		//ft_echo();
 	}    
 	else if (ft_strcmp(cmd, "env") == 0)
 	{

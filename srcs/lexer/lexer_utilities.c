@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/21 13:11:43 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:47:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 bool	ft_character_valid(t_mshell *ms, char *input)
 {
 	printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
-	int i;
-	char c;
+	int		i;
+	char	c;
 
 	i = -1;
 	while (input[++i])
 	{
 		c = input[i];
 		if (!ft_status_qts(ms->qts, input, i)
-		&& !ft_effect_esc(ms->qts, input, i)
-		&& (ft_invalid_character(c)
-		|| (i == ft_strlen(input) - 1 && c == '\\')))
+			&& !ft_effect_esc(ms->qts, input, i)
+			&& (ft_invalid_character(c)
+				|| (i == ft_strlen(input) - 1 && c == '\\')))
 		{
 			ft_err(ms, "erreur de syntaxe près du symbole inattendu", &c, 258);
 			return (false);
@@ -37,8 +37,8 @@ bool	ft_character_valid(t_mshell *ms, char *input)
 void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer)
 {
 	int	i;
-	int count;
-	
+	int	count;
+
 	i = 0;
 	count = 0 ;
 	while (mshell->input && mshell->input[i])
@@ -52,7 +52,7 @@ void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer)
 				count = count +3;
 			else if ((mshell->input[i] == '<' || mshell->input[i] == '>'))
 				count = count +3;
-			else 
+			else
 				count++;
 		}
 		i++;

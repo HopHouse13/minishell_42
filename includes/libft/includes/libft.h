@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:01:11 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/09 18:43:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 19:22:50 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_memcmp(const void *s1, const void *s2, size_t n);
 int			ft_atoi(const char *str);
 int			ft_lstsize(t_list *lst);
 int			ft_strcmp(const char *str1, const char *str2);
-	
+
 char		*ft_strchr(const char *str, int c);
 char		*ft_strrchr(const char *str, int c);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
@@ -76,4 +76,4 @@ size_t		ft_strlcat(char *dest, const char *src, size_t destsize);
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-#	endif
+#endif

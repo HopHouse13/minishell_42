@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
+/*   Updated: 2025/05/27 14:31:42 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	ft_cd(t_mshell *mshell)
@@ -5,7 +17,6 @@ int	ft_cd(t_mshell *mshell)
     char    *home;
  	t_cmd	*cmd_node;
 	
-	printf(CYAN"[INFO] BI : "RESET YELLOW"cd2"RESET"\n");
 	cmd_node = mshell->list_cmd;
     if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
     {
@@ -21,7 +32,7 @@ int	ft_cd(t_mshell *mshell)
         if (chdir(cmd_node->cmd[1]) == -1)
         {
             perror("cd");
-            return (0);
+            return (1);
         }
     }
 

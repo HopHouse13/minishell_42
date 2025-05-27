@@ -6,14 +6,14 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:05:16 by pbret             #+#    #+#             */
-/*   Updated: 2025/04/01 00:39:36 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/26 19:26:36 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
-{	
+{
 	size_t	i;
 	size_t	j;
 	char	*dest;

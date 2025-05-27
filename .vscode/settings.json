@@ -4,6 +4,7 @@
 		"libft.h": "c",
 		"cmath": "c",
 		"wait.h": "c",
-		"signal.h": "c"
+		"stdbool.h": "c",
+		"history.h": "c"
 	}
 }

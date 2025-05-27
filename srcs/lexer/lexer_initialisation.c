@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialisation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:41:17 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 11:02:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:43:55 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_init_lexer(t_mshell *mshell, t_lexer *lexer)
+void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer)
 {
 	lexer->wild_input = NULL;
 	ft_init_wild_input(mshell, lexer);

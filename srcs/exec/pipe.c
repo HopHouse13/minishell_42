@@ -1,59 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 15:56:05 by pab               #+#    #+#             */
+/*   Updated: 2025/05/27 16:53:19 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h" 
-
-/* v1
-int ft_piper(t_mshell *mshell, char **envp)
-{
-	pid_t   pid;
-	t_cmd   *cmd_node;
-	int		pipe_fd[2];
-
-	cmd_node = mshell->list_cmd;
-    while (cmd_node)
-    {
-        if (cmd_node->next && pipe(pipe_fd) == -1)
-        {
-            perror("Probleme pipe");
-            exit(1);
-        }
-		pid = fork(); // fork child ; total fd pipe = x2
-        if (pid == -1)
-		{
-			perror("fork failed");
-			exit(1);
-		}
-		if (pid == 0)
-		{
-			ft_redir_pipe_write(mshell, pipe_fd); // redirection OUT actuelle==> P_W
-			ft_redir_pipe_read(mshell, pipe_fd); // redirection IN next cmd ==> P_L
-
-			//DEBUG -- PRINT
-			printf(CYAN "\n[INFO] Commande en cours : "RESET);
-			int i = 0;
-			while(cmd_node->cmd[i])
-			{
-				printf(YELLOW" %s"RESET, cmd_node->cmd[i]);
-				i++;
-			}
-			printf("\n");
-
-			if (execve (cmd_node->cmd[0], cmd_node->cmd, envp) == -1)
-			{
-				perror ("Execve 1");
-				exit (127); // commande found bcleaut not executable
-			}
-		}
-		mshell->count_pipe--;
-		printf("[INFO] Pipe Count : %i\n", mshell->count_pipe);
-		wait(NULL);
-		cmd_node = cmd_node->next;
-	}
-
-	while (wait(NULL) > 0)
-		;
-	return (0);
-}
-*/
-
 
 // v3
 int ft_piper(t_mshell *mshell, char **envp)
@@ -91,7 +48,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			//setup_child_signals(); // Réinitialiser les signaux
+			// signal + maj '_'
 			execve(cmd->cmd[0], cmd->cmd, envp);
 			perror("execve");
 			exit(127);
@@ -149,6 +106,10 @@ void	ft_forker(t_mshell *mshell, char **envp)
 			if(execve(cmd_node->cmd[0], cmd_node->cmd, envp) == -1)
 			{
 				perror("Execve child \n");
+				ft_free_ml(mshell);
+				ft_free_env(mshell->env_list);
+				free((*mshell).qts);
+				free(mshell);
 				exit(EXIT_FAILURE);
 			}
 		}

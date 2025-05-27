@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_itoa_ml.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:14:29 by pab               #+#    #+#             */
-/*   Updated: 2025/05/20 15:49:34 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 22:01:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_itoa_ml(t_mshell *mshell, int n)
 	count = count_size(nb);
 	if (n < 0)
 		count++;
-	str = ft_malloc_list(mshell, sizeof(char) * count +1);
+	str = ft_malloc_list(mshell, sizeof(char) * count + 1);
 	if (!str)
 		return (NULL);
 	str[count] = '\0';

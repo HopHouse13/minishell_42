@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_split_ml.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:16:25 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/21 14:51:12 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/26 21:48:58 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	ft_nbr_words(char *s, char c)
 {
-	long int		i;
+	long int	i;
 	int			nbr;
-	int				same_carac;
+	int			same_carac;
 
 	i = 0;
 	nbr = 0;
@@ -27,7 +27,7 @@ static int	ft_nbr_words(char *s, char c)
 		{
 			nbr++;
 			same_carac = 1;
-		}	
+		}
 		else if (s[i] == c)
 			same_carac = 0;
 		i++;
@@ -52,20 +52,6 @@ static char	*ft_alloue_copy_word(t_mshell *mshell, char *s, int start, int end)
 	}
 	return (word);
 }
-
-/* static void	*ft_free_double_tab_tab(char **tab_tab, int w)
-{
-	int	i;
-
-	i = 0;
-	while (i < w)
-	{
-		free(tab_tab[i]);
-		i++;
-	}
-	free(tab_tab);
-	return (NULL);
-} */
 
 static void	ft_init(int *i, int *w, int *first_carac)
 {
