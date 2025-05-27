@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:21:13 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/27 15:18:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_expand(t_mshell *mshell, char *elem, t_parser *parser)
 	ev_name = ft_substr_ml(mshell, elem, parser->srt, parser->end -parser->srt); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
 	printf("\tVAR_NAME : %s\n", ev_name); // ASUPP
 	// ev_ptr = ft_get_env(ev_name, mshell->env_list); // voir comment gerer les variables d'env car je pense qu'il y a double actuellement
-	ev_ptr = getenv(ev_name); // ASUPP
+	ev_ptr = getenv(ev_name);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
 	else

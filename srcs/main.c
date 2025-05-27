@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/26 19:50:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/27 16:44:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (ft_parser(mshell))
 				continue ;
-			// ft_executer(mshell, env, &ml);
+			ft_executer(mshell, env);
 		}
 	}
 	rl_clear_history();
 	ft_free_ml(mshell); // a voir
-	ft_free_env(&mshell->env_list);
+	ft_free_env(mshell->env_list);
 	free((*mshell).qts);
 	free(mshell);
 }

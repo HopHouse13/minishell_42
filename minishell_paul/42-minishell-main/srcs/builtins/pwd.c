@@ -1,24 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 23:00:14 by pbailly           #+#    #+#             */
-/*   Updated: 2025/05/23 12:46:21 by pab              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+// #include "../../includes/minishell.h"
 
-void	ft_pwd(t_mshell *mshell)
-{
-	char	*pwd;
+// void	ft_pwd(t_mshell *mshell)
+// {
+// 	char	*pwd;
 
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		return ;
-	printf("%s\n", pwd);
-	free(pwd);
-}
+// 	pwd = getcwd(NULL, 0);
+// 	if (!pwd)
+// 		return ;
+// 	printf("%s\n", pwd);
+// 	free(pwd);
+// }

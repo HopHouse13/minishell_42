@@ -1,46 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 16:05:55 by pab               #+#    #+#             */
+/*   Updated: 2025/05/27 16:19:34 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h" 
 
-// void	ft_build_path(t_mshell *mshell, t_cmd *list_cmd, t_env *env_list)
-// {
-// 	while (list_cmd)
-// 	{	
-// 		if (!ft_ispath(list_cmd->cmd[0]))
-// 			ft_build_cmd_path(mshell, list_cmd, env_list);
-// 		if (list_cmd->next)
-// 			list_cmd = list_cmd->next;
-// 		else
-// 			break;
-// 	}
-// 	return ;
-// }
+void	ft_build_path(t_mshell *mshell)
+{
+	while (mshell->list_cmd)
+	{	
+		if (!ft_ispath(mshell->list_cmd->cmd[0]))
+			ft_build_cmd_path(mshell);
+		if (mshell->list_cmd->next)
+			mshell->list_cmd = mshell->list_cmd->next;
+		else
+			break;
+	}
+	return ;
+}
 
-// void	ft_build_cmd_path(t_cmd *list_cmd,t_env *env_list, t_mnode **ml)
-// {
-// 	char	*path_env;
-// 	char	**path_tab;
+void	ft_build_cmd_path(t_mshell *mshell)
+{
+	char	*path_env;
+	char	**path_tab;
 
-// 	path_env = ft_strdup_ml(ft_get_env("PATH", env_list), ml);
-// 	path_tab = ft_split_ml(path_env, ':', ml);
-// 	ft_path_makeur(list_cmd, path_tab, ml); // Ajout '/' + 'cmd' --> Path
-// }
+	path_env = ft_strdup_ml(mshell, ft_get_env("PATH", mshell->env_list));
+	path_tab = ft_split_ml(mshell, path_env, ':');
+	ft_path_makeur(mshell, path_tab); // Ajout '/' + 'cmd' --> Path
+}
 
-// void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml)
-// {
-// 	int		i;
-// 	char	*path;
-// 	char	**cmd;
+void	ft_path_makeur(t_mshell *mshell, char **path_tab)
+{
+	int		i;
+	char	*path;
+	char	**cmd;
 
-// 	cmd = list_cmd->cmd;
-// 	i = 0;
-// 	while (path_tab[i])
-// 	{
-// 		path = ft_strjoin_ml(ft_strjoin_ml(path_tab[i], "/", ml), cmd[0], ml);
-// 		if (access(path, F_OK | X_OK) == 0) //test + ajout a la liste chainee
-// 		{
-// 			cmd[0] = ft_strdup_ml(path, ml);
-// 			break;
-// 		}
-// 		i++;
-// 	}
-// 	return ;
-// }
+	cmd = mshell->list_cmd->cmd;
+	i = 0;
+	while (path_tab[i])
+	{
+		path = ft_strjoin_ml(mshell, ft_strjoin_ml(mshell, path_tab[i], "/"), cmd[0]);
+		if (access(path, F_OK | X_OK) == 0) //test + ajout a la liste chainee
+		{
+			cmd[0] = ft_strdup_ml(mshell, path);
+			break;
+		}
+		i++;
+	}
+	return ;
+}

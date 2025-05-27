@@ -6,25 +6,25 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/26 21:50:32 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/27 16:43:54 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_env(t_env **env_list)
+void	ft_free_env(t_env *env_list)
 {
 	t_env	*tmp;
 
-	if (!env_list || !*env_list)
+	if (!env_list)
 		return ;
-	while (*env_list)
+	while (env_list)
 	{
-		tmp = (*env_list)->next;
-		free((*env_list)->key);
-		free((*env_list)->value);
-		free(*env_list);
-		*env_list = tmp;
+		tmp = env_list->next;
+		free(env_list->key);
+		free(env_list->value);
+		free(env_list);
+		env_list = tmp;
 	}
 	env_list = NULL;
 }

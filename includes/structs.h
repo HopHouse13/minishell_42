@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 19:56:59 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/27 15:33:01 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ typedef struct s_mshell
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	t_env			*env_list;
-	t_mnode			*ml;	
+	t_mnode			*ml;
 	int				count_pipe;
+	int				shlvl;
+	char			*pwd;
 }					t_mshell;
 #endif

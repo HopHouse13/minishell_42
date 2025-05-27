@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 20:19:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/27 16:43:11 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2);
 char	*ft_substr_ml(t_mshell *mshell, char *s_src, int start, int len);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mshell *mshell);
-void	ft_free_env(t_env **env_list);
+void	ft_free_env(t_env *env_list);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -241,7 +241,7 @@ void	ft_swap_env(t_env *a, t_env *b);
 void	ft_print_sorted_env(t_env *env);
 
 // ft_pwd
-void	ft_pwd(t_mshell *mshell);
+int		ft_pwd(t_mshell *mshell);
 
 // ft_unset
 int		ft_unset(t_mshell *mshell);
@@ -262,8 +262,8 @@ bool	ft_escape_last_char(char *line);
 int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
-void	ft_build_path(t_cmd *list_cmd, t_env *env_list);
-void	ft_build_cmd_path(t_cmd *list_cmd, t_env *env_list, t_mnode **ml);
-void	ft_path_makeur(t_cmd *list_cmd, char **path_tab, t_mnode **ml);
+void	ft_build_path(t_mshell *mshell);
+void	ft_build_cmd_path(t_mshell *mshell);
+void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 #endif
