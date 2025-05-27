@@ -266,4 +266,11 @@ void	ft_build_path(t_mshell *mshell);
 void	ft_build_cmd_path(t_mshell *mshell);
 void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
+// signal
+
+void	handle_sig_int(int num);
+void	ft_handle_signals(void);
+
+
+
 #endif

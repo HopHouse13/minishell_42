@@ -5,11 +5,11 @@
 void handle_sig_int(int num)
 {
 	(void)num;
-	rl_on_new_line(); // Informe readline qu'on est sur une nouvelle ligne
-    rl_replace_line("", 0); // Efface le contenu de la ligne actuelle
-	write(STDOUT_FILENO,"^ACDC",5);
 	write(STDOUT_FILENO,"\n",1);
+    rl_replace_line("", 0); // Efface le contenu de la ligne actuelle
+	rl_on_new_line(); // Informe readline qu'on est sur une nouvelle ligne
     rl_redisplay(); // Affiche le nouveau prompt
+	//write(STDOUT_FILENO,"^C",2);
 	//glob error a 130;
 }
 

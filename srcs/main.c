@@ -21,8 +21,8 @@ int	main(int ac, char **av, char **env)
 	ft_init_mshell(&mshell, env);
 	while (ac && av)
 	{
-		ft_handle_signals();
 		// ft_signal(1); // je sais pas encore comment gerer ca
+		ft_handle_signals();
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			break ;

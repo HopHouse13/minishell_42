@@ -39,14 +39,18 @@ void	ft_print_env_list(t_env *env_list)
 	}
     return ;
 }
+
+
+
+
 // doublon : fonction deja dans le fichier "export.c"
-// int	ft_check_env_key(t_env *env, char **key_value)
-// {
-// 	while (env)
-// 	{
-// 		if (ft_strcmp(env->key, key_value[0]) == 0)
-// 			return (1);
-// 		env = env->next;
-// 	}
-// 	return (0);
-// }
+int	ft_check_env_key(t_env *env, char **key_value)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->key, key_value[0]) == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}
