@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 00:00:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:11:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	while (lexer->clear_input[i])
 	{
 		srt = i;
-		while (lexer->clear_input[i] && !ft_isspace(lexer->clear_input[i]))
+		while (lexer->clear_input[i] && !ft_msspace(lexer->clear_input[i]))
 		{printf("test\n");
 			j++;
 			i++;
 		}
 		ft_add(mshell, lexer, ft_substr_ml(mshell, lexer->clear_input, srt, j));
 		j = 0;
-		while (ft_isspace(lexer->clear_input[i]))
+		while (ft_msspace(lexer->clear_input[i]))
 			i++;
 	}
 	ft_define_token_redir(lexer);						

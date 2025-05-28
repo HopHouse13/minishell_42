@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/28 22:59:24 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:19:22 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	ft_free_env(t_env *env_list);
 /// UTILITIES ///
 void	ft_init_mshell(t_mshell **mshell, char **env);
 bool	ft_empty_line(char *input);
+int		ft_msspace(char c);
 
 /// ERRORS ///
 char	*ft_build_err_mess(t_mshell *ms, char *message, char *elem);
@@ -273,7 +274,5 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 void	handle_sig_int(int num);
 void	ft_handle_signals(void);
-
-
 
 #endif

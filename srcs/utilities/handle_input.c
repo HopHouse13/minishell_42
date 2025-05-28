@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/28 20:12:32 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:11:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	ft_pipe_last(t_mshell *mshell, char *input)
 			|| ft_effect_esc(&mshell->qts, input, i))
 			&& input[i] == '|')
 			pipe = true;
-		else if (!ft_isspace(input[i]))	
+		else if (!ft_msspace(input[i]))	
 			pipe = false;
 	}
 	return (pipe);

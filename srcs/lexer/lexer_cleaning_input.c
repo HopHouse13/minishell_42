@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/28 22:40:35 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:11:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	ft_count_char(char *line)
 	i = 0;
 	count = 0;
 	in_space = false;
-	while (ft_isspace(line[i]))
+	while (ft_msspace(line[i]))
 		i++;
 	while (line[i])
 	{
-		if (!ft_isspace(line[i]))
+		if (!ft_msspace(line[i]))
 		{
 			in_space = false;
 			count++;
 		}
-		else if (ft_isspace(line[i]) && !in_space)
+		else if (ft_msspace(line[i]) && !in_space)
 		{
 			in_space = true;
 			count++;
@@ -49,16 +49,16 @@ void	ft_make_clear_input(t_mshell *mshell, t_lexer *lexer, char *wild_input)
 	lexer->i = 0;
 	lexer->j = 0;
 	in_space = false;
-	while (ft_isspace(wild_input[lexer->i]))
+	while (ft_msspace(wild_input[lexer->i]))
 		lexer->i++;
 	while (wild_input[lexer->i])
 	{
-		if (!ft_isspace(wild_input[lexer->i]))
+		if (!ft_msspace(wild_input[lexer->i]))
 		{
 			in_space = false;
 			lexer->clear_input[lexer->j++] = wild_input[lexer->i];
 		}
-		else if (ft_isspace(wild_input[lexer->i]) && in_space == false)
+		else if (ft_msspace(wild_input[lexer->i]) && in_space == false)
 		{
 			in_space = true;
 			lexer->clear_input[lexer->j++] = wild_input[lexer->i];

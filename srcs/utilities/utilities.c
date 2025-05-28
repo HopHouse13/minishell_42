@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 12:53:07 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 00:07:20 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:11:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	ft_empty_line(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] && ft_isspace(input[i]))
+	while (input[i] && ft_msspace(input[i]))
 		i++;
 	if (i == ft_strlen(input))
 		return (true);
