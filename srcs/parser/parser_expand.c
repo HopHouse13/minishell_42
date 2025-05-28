@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 15:18:19 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/28 14:41:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,3 @@ void	ft_expand_list(t_mshell *mshell, t_parser *parser)
 		tmp = tmp->next;
 	}
 }
-
-// un probleme:
-// -> gestion du 1er caractere invalide -> bash interprete le $ et le caractere invalide literalement.
-// ex : $@HOME -> $@HOME	|	$\HOME -> $HOME (car le carac d'escape est supprimer a la fin)
-
-
-// bash-5.1$  echo $\HOME
-// $HOME
-// bash-5.1$  echo $"HOME"
-// HOME
-// bash-5.1$  echo $.HOME
-// $.HOME
-
-
-// autre probleme:
-// input -> $$ pas gerer

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 22:09:30 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/28 15:04:49 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ bool	ft_valid_redirs(t_parser *parser)
 // check si il y a un pipe en premier ou en dernier de l'input.
 // check si il y a plus d'une cmd par pipe.
 // Check si toutes les redir sont suivis du bon token.
-bool	ft_valid_syntax(t_parser *parser)
+bool	ft_valid_syntax( t_mshell *mshell, t_parser *parser)
 {
 	if (!ft_valid_pipes(parser))
+		ft_err(mshell," PROBLEME\n", "|", 1); // temporaire
 	if (!ft_valid_cmds(parser))
 		return (printf("cmds_issue\n"), false);
 	if (!ft_valid_redirs(parser))

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:56:05 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 16:53:19 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/28 12:43:43 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_forker(t_mshell *mshell, char **envp)
 				perror("Execve child \n");
 				ft_free_ml(mshell);
 				ft_free_env(mshell->env_list);
-				free((*mshell).qts);
+				// free((*mshell).qts);
 				free(mshell);
 				exit(EXIT_FAILURE);
 			}

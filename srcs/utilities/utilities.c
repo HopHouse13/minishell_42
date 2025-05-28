@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 12:53:07 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 21:32:44 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 00:07:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,11 @@ bool	ft_empty_line(char *input)
 	if (i == ft_strlen(input))
 		return (true);
 	return (false);
+}
+
+int	ft_msspace(char c)
+{
+	if ((c > 10 && c < 14) || c== 9 || c == 32)
+		return (1);
+	return (0);
 }

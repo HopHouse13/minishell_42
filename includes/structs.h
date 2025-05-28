@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 15:33:01 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/28 11:51:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_hd
 typedef struct s_mshell
 {
 	char			*input;
-	t_qts			*qts;
+	t_qts			qts;
 	t_token			*list_token;
 	t_cmd			*list_cmd;
 	t_env			*env_list;

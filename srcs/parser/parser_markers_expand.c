@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_markers_expand.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 17:31:06 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/28 12:39:23 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 	i = -1;
 	while (str[++i])
 	{
-		ft_status_qts(mshell->qts, str, i);
+		ft_status_qts(&mshell->qts, str, i);
 		if (str[i] == '$'
-			&& mshell->qts->spl_q == OUT
+			&& mshell->qts.spl_q == OUT
 			&& tmp->token != DELIM
-			&& (i == 0 || !ft_effect_esc(mshell->qts, str, i))
+			&& (i == 0 || !ft_effect_esc(&mshell->qts, str, i))
 			&& !ft_inside_brackets(parser, str, i))
 		{
 			str = ft_insert_marker(mshell, str, ++i);

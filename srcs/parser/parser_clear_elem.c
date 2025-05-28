@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_clear_elem.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 14:04:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/05/28 12:40:49 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 		return (true);
 	if ( str[i] == '\\')
 	{
-		if (mshell->qts->spl_q)
+		if (mshell->qts.spl_q)
 			return (true);
-		if (ft_effect_esc(mshell->qts, str, i))
+		if (ft_effect_esc(&mshell->qts, str, i))
 			return (true);
-		if (mshell->qts->dbl_q)
+		if (mshell->qts.dbl_q)
 		{
 			if (str[i + 1] == '\\' || str[i + 1] == '$' || str[i + 1] == '\"')
 				return (false);
@@ -33,7 +33,7 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 	}
 	else if (str[i] == '\'' || str[i] == '\"')
 	{
-		if (mshell->qts->in_q || ft_effect_esc(mshell->qts, str, i))
+		if (mshell->qts.in_q || ft_effect_esc(&mshell->qts, str, i))
 			return (true);
 		return (false);
 	}
@@ -53,7 +53,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 	count_save = 0;
 	while (str[++i])
 	{
-		ft_status_qts(mshell->qts, str, i);
+		ft_status_qts(&mshell->qts, str, i);
 		if (ft_char_saved(mshell, parser, str, i))
 			count_save++;
 	}
@@ -62,7 +62,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 	j = 0;
 	while (str[++i])
 	{
-		ft_status_qts(mshell->qts, str, i);
+		ft_status_qts(&mshell->qts, str, i);
 		if (ft_char_saved(mshell, parser, str, i))
 			str_clear[j++] = str[i];
 	}

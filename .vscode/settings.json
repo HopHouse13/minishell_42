@@ -5,6 +5,7 @@
 		"cmath": "c",
 		"wait.h": "c",
 		"stdbool.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"cstdlib": "c"
 	}
 }

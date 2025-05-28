@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 16:43:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/28 22:59:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
 void	ft_define_token_elem(t_lexer *lexer);
 void	ft_define_token_redir(t_lexer *lexer);
 void	ft_init_head_list_token(t_mshell *mshell, t_token **list_t, char *elem);
-void	ft_add_node(t_mshell *mshell, t_lexer *lexer, char *elem);
+void	ft_add(t_mshell *mshell, t_lexer *lexer, char *elem);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer);
 
 /// LEXER_CLEANING_INPUT ///
@@ -81,7 +81,7 @@ void	ft_init_parser(t_parser *parser, t_token *list_token);
 bool	ft_valid_pipes(t_parser *parser);
 bool	ft_valid_cmds(t_parser *parser);
 bool	ft_valid_redirs(t_parser *parser);
-bool	ft_valid_syntax(t_parser *parser);
+bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_INITIALISATION_LIST_CMD ///
 void	ft_init_node_values(t_cmd *new_elem);
@@ -142,6 +142,7 @@ char	**ft_split_ml(t_mshell *mshell, char *s, char c);
 char	*ft_strdup_ml(t_mshell *mshell, char *s_src);
 char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2);
 char	*ft_substr_ml(t_mshell *mshell, char *s_src, int start, int len);
+void	ft_exit_cleanly(t_mshell *mshell);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env *env_list);
@@ -158,7 +159,9 @@ bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code);
 void	ft_mem_err(t_mshell *mshell);
 
 /// HANDLE_INPUT ///
-bool	ft_open_input(t_mshell *mshell, char *input);
+bool	ft_pipe_last(t_mshell *mshell, char *input);
+bool	ft_open_quotes(t_mshell *mshell, char *input);
+bool	ft_incomplete_cmd(t_mshell *mshell, char *input);
 void	ft_handle_input(t_mshell *mshell);
 
 /// HANDLE_QUOTES ///

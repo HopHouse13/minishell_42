@@ -15,7 +15,7 @@ int	ft_parser(t_mshell *mshell)
 
 	ft_init_parser(&parser, mshell->list_token);
 	ft_clear_and_expand(mshell, &parser);
-	if (!ft_valid_syntax(&parser))
+	if (!ft_valid_syntax(mshell, &parser))
 		return (1); // a gerer
 	ft_init_list_cmd(mshell, &parser);
 	ft_fill_list_cmd(mshell, &parser);
