@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 00:11:19 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 01:18:27 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,3 +117,4 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
 	ft_make_clear_input(mshell, lexer, lexer->wild_input);
 	ft_printf("\n\n\tclear_line : [%s]\n\n", lexer->clear_input);
 }
+

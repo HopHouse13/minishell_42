@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/28 12:36:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 01:24:42 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer)
 bool	ft_invalid_character(char c)
 {
 	if (c == '{' || c == '}' || c == '[' || c == ']' || c == '('
-		|| c == ')' || c == ';' || c == '&' || c == '#')
+		|| c == ')' || c == ';' || c == '&' || c == '#' || c == '\n')
 		return (true);
 	return (false);
 }
