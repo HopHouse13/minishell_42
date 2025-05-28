@@ -103,6 +103,7 @@ void	ft_forker(t_mshell *mshell, char **envp)
 			printf("\n");
 			//EXECUTION
 			ft_redir(mshell);
+			ft_child_signals();
 			if(execve(cmd_node->cmd[0], cmd_node->cmd, envp) == -1)
 			{
 				perror("Execve child \n");

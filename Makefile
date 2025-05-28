@@ -77,6 +77,14 @@ $(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
 			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline -g 
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
+debug:		$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
+			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME)_debug -lreadline -g
+			@echo "\033[33m""Compilation de $(NAME)_debug (mode debug) est terminée!""\033[0m"
+
+leaks: debug # Ensure the debug executable is built before running Valgrind
+	    @echo "\033[33m""Lancement de Valgrind sur $(NAME) check leaks""\033[0m"
+	    valgrind --suppressions=readline.supp --trace-children=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)_debug
+
 $(LIBFT_AR):
 			@make -sC ./includes/libft
 

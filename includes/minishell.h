@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <fcntl.h>				// open;
+# include <signal.h>
 
 /// MSHELL_HEADERS ///
 # include "./structs.h"
@@ -270,6 +271,11 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 void	handle_sig_int(int num);
 void	ft_handle_signals(void);
+
+void ft_child_signals(void);
+
+void	ft_handle_eof(void);
+void	handle_sig_quit(int num);
 
 
 
