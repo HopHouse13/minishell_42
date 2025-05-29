@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/12 22:08:31 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 18:55:07 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,17 @@ int	ft_count_pipe(t_parser *parser)
 	}
 	return (count_pipe);
 }
+
+bool	ft_srch_quotes(char *elem)
+{
+	int	i;
+
+	i = -1;
+	while (elem[++i])
+	{
+		if (elem[i] == '\'' || elem[i] == '\"')
+			return(false);
+	}
+	return (true);
+}
+

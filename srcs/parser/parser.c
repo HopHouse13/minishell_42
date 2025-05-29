@@ -9,19 +9,20 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_parser(t_mshell *mshell)
+bool	ft_parser(t_mshell *mshell)
 {printf("\n\t|||||||||||||||||||||| PARSER |||||||||||||||||||||||\n\n");
 	t_parser	parser;
 
 	ft_init_parser(&parser, mshell->list_token);
 	ft_clear_and_expand(mshell, &parser);
 	if (!ft_valid_syntax(mshell, &parser))
-		return (1); // a gerer
+		return (false);
 	ft_init_list_cmd(mshell, &parser);
-	ft_fill_list_cmd(mshell, &parser);
+	if (!ft_fill_list_cmd(mshell, &parser))
+		return (false);
 	mshell->count_pipe = ft_count_pipe(&parser);
 	ft_print_list_cmd(mshell); // ASUPP
-	return (0);
+	return (true);
 
 }
 

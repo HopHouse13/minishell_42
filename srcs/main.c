@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 12:08:17 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 18:57:51 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	main(int ac, char **av, char **env)
 			ft_handle_input(mshell);
 			if (ft_empty_line(mshell->input))
 				continue ;
-			if (ft_lexer(mshell))
+			if (!ft_lexer(mshell))
 				continue ;
-			if (ft_parser(mshell))
+			if (!ft_parser(mshell))
 				continue ;
 			ft_executer(mshell, env);
 		}

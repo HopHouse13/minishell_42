@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 13:14:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 18:06:41 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_valid_pipes(t_mshell *ms, t_parser *parser)
+char	*ft_valid_pipes(t_parser *parser)
 {
 	t_token	*tmp;
 	bool	pipe;
@@ -20,23 +20,23 @@ bool	ft_valid_pipes(t_mshell *ms, t_parser *parser)
 	pipe =false;
 	tmp = parser->list_token;
 	if (tmp && tmp->token == PIPE)
-		return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
+		return (tmp->elem);
 	while (tmp->next && tmp->next->token != END)
 	{
 		if (tmp->token != PIPE)
 			pipe = false;
 		else if (tmp->token == PIPE && pipe)
-			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
+			return (tmp->elem);
 		else if (tmp->token == PIPE && !pipe)
 			pipe = true;
 		tmp= tmp->next;
 	}
 	if (tmp->token == PIPE)
-		return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
-	return (true);
+		return (tmp->elem);
+	return (NULL);
 }
 
-bool	ft_valid_cmds(t_mshell *ms, t_parser *parser)
+char	*ft_valid_cmds(t_parser *parser)
 {
 	t_token *tmp;
 	bool	cmd;
@@ -48,15 +48,15 @@ bool	ft_valid_cmds(t_mshell *ms, t_parser *parser)
 		if ((tmp->token == CMD || tmp->token == BI) && !cmd)
 			cmd = true;
 		else if (tmp->token == ARG && !cmd)
-			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
+			return (tmp->elem);
 		else if (tmp->token == PIPE)
 			cmd = false;
 		tmp = tmp->next;
 	}
-	return (true);
+	return (NULL);
 }
 
-bool	ft_valid_redirs(t_mshell *ms, t_parser *parser)
+char	*ft_valid_redirs(t_parser *parser)
 {
 	t_token	*tmp;
 
@@ -67,13 +67,13 @@ bool	ft_valid_redirs(t_mshell *ms, t_parser *parser)
 			|| (tmp->token == R_OUT && tmp->next->token != F_OUT)
 			|| (tmp->token == APPEND && tmp->next->token != F_APP)
 			|| (tmp->token == HD && tmp->next->token != DELIM))
-				return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
+				return (tmp->elem);
 		tmp= tmp->next;
 	}
 	if (tmp && (tmp->token == R_IN || tmp->token == R_OUT
 		|| tmp->token == APPEND || tmp->token == HD))
-			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
-	return (true);
+			return (tmp->elem);
+	return (NULL);
 }
 
 // on pourrait retourner tmp->elem du noeud ou il ya une erreur pour le message
@@ -83,11 +83,11 @@ bool	ft_valid_redirs(t_mshell *ms, t_parser *parser)
 // Check si toutes les redir sont suivis du bon token.
 bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser)
 {
-	if (!ft_valid_pipes(mshell, parser))
-		return (false);
-	if (!ft_valid_cmds(mshell, parser))
-		return (false);
-	if (!ft_valid_redirs(mshell, parser))
-		return (false);
+	if (ft_valid_pipes(parser))
+		return (ft_syntax_err(mshell, ft_valid_pipes(parser), 2));
+	if (ft_valid_cmds(parser))
+		return (ft_syntax_err(mshell, ft_valid_cmds(parser), 2));
+	if (ft_valid_redirs(parser))
+		return (ft_syntax_err(mshell, ft_valid_redirs(parser), 2));
 	return (true);
 }
