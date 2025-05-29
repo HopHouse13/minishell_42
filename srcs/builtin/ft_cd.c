@@ -24,7 +24,7 @@ int	ft_cd(t_mshell *mshell)
         if (!home || chdir(home) == -1)
         {
             perror("cd: HOME absent\n");
-            return (0);
+            return (1);
         }
     }
     else
@@ -36,8 +36,18 @@ int	ft_cd(t_mshell *mshell)
         }
     }
 
+	ft_update_env(mshell, cmd_node->cmd[1]);
 	//update env / pwd a faire !
-	//update _ pour cmd
-    return (1);
+    return (0);
 }
+//update _ pour CMD
+
+// ~
+// .
+// ..
+// cd -
+// cd path ok
+
+
+
 

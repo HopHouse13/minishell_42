@@ -81,7 +81,7 @@ debug:		$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
 			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME)_debug -lreadline -g
 			@echo "\033[33m""Compilation de $(NAME)_debug (mode debug) est terminée!""\033[0m"
 
-leaks: # Ensure the debug executable is built before running Valgrind
+leaks:
 	    @echo "\033[33m""Lancement de $(NAME) avec Valgrind pour check leaks""\033[0m"
 	    valgrind --suppressions=readline.supp --trace-children=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)_debug
 

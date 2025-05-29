@@ -1,12 +1,12 @@
 LOGIQUE :
 
-echo        O
-unset       O
-exit        O
-cd          O
-pwd         X
-export      O
-env         O
+echo        o
+unset       x
+exit        o
+cd          x
+pwd         x
+export      x
+env         x
 
 INTEGRATION : 
 

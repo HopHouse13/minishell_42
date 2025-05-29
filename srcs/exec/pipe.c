@@ -111,7 +111,7 @@ void	ft_forker(t_mshell *mshell, char **envp)
 				ft_free_env(mshell->env_list);
 				free((*mshell).qts);
 				free(mshell);
-				exit(EXIT_FAILURE);
+				exit(127);
 			}
 		}
 		else 

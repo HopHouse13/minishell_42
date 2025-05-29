@@ -15,8 +15,7 @@
 int	ft_exit(t_cmd *cmd)
 {
 	// La fonction exit() termine le processus du shell de manière contrôlée,
-	// en libérant toutes les ressources 
-	// et en signalant au système d'exploitation son statut de terminaison.
+	// en libérant toutes les ressources
 	int	status;
 
 	printf("exit");

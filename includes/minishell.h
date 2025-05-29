@@ -179,7 +179,6 @@ void	ft_print_list_cmd(t_mshell *mshell);
 // redirections
 
 void	ft_redir(t_mshell *mshell);
-//void	ft_redir_case(t_mshell *mshell);
 void	ft_redir_out(t_mshell *mshell);
 void	ft_redir_in(t_mshell *mshell);
 void	ft_redir_hd(t_mshell *s_mshell);
@@ -196,18 +195,28 @@ void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 // exec
 void	ft_executer(t_mshell *mshell, char **env);
 t_cmd	*cmd_init(void);
-// t_mshell	*cmd_remplissage(t_mshell *mshell); // ???
 
 /// BUILTINS ///
 
 // ft_env_utilities
+// char	*ft_get_env(char *key, t_env *env);
 char	*ft_get_env_value(t_mshell *mshell, char *key);
-char	*ft_get_env(char *key, t_env *env);
+int		ft_check_env_key(t_env *env, char *key_value);
+void	ft_update_env(t_mshell *mshell, char *key);
 
-void	ft_print_env_list(t_env *env_list);
+void	ft_add_var(t_mshell *mshell);
+void	ft_add_node_env(t_mshell *mshell, char *env);
+void	ft_change_env_value(t_env *env, char **key_value);
+void	ft_create_env_node(t_mshell *mshell, char **key_value);
+
+
+//	ft_exe_builtins
+void	ft_exe_built_in(t_mshell *mshell);
 
 // builtin_utilities
-void	ft_exe_built_in(t_mshell *mshell);
+char	**ft_split_var(t_mshell *mshell, char *cmd);
+int		ft_isequal(char *str);
+void	ft_print_env_list(t_env *env_list);
 
 // ft_cd
 int		ft_cd(t_mshell *mshell);
@@ -217,27 +226,14 @@ int		ft_cd(t_mshell *mshell);
 
 // ft_env
 int		ft_env(t_mshell *mshell);
-void	ft_env_minimal(t_mshell *mshell);
 void	ft_build_env_list(t_mshell *mshell, char **env);
-char	**ft_split_var(char *cmd);
-
-//update_env();
+void	ft_env_minimal(t_mshell *mshell);
 
 // ft_exit
 int		ft_exit(t_cmd *cmd);
 
 // ft_export
 int		ft_export(t_mshell *mshell);
-
-void	ft_add_var(t_mshell *mshell);
-void	ft_add_node_env(t_mshell *mshell, char *cmd);
-int		ft_isequal(char *str);
-void	ft_free_tab(char **tab);
-
-int		ft_check_env_key(t_env *env, char **key_value);
-void	ft_change_env_value(t_env *env, char **key_value);
-void	ft_create_env_node(t_mshell *mshell, char **key_value);
-
 void	ft_swap_env(t_env *a, t_env *b);
 void	ft_print_sorted_env(t_env *env);
 
@@ -272,7 +268,7 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 void	handle_sig_int(int num);
 void	ft_handle_signals(void);
 
-void ft_child_signals(void);
+void	ft_child_signals(void);
 
 void	ft_handle_eof(void);
 void	handle_sig_quit(int num);

@@ -12,4 +12,10 @@ int	ft_pwd(t_mshell *mshell)
     }
     else */
         return (printf("%s", pwd));
+
+		// .
+		// ..
+
+
+
 }
