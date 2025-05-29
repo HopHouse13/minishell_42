@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 02:27:23 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 13:05:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int		ft_parser(t_mshell *mshell);
 void	ft_init_parser(t_parser *parser, t_token *list_token);
 
 /// PARSER_VALID_SYNTAX ///
-bool	ft_valid_pipes(t_parser *parser);
-bool	ft_valid_cmds(t_parser *parser);
-bool	ft_valid_redirs(t_parser *parser);
+bool	ft_valid_pipes(t_mshell *ms, t_parser *parser);
+bool	ft_valid_cmds(t_mshell *ms, t_parser *parser);
+bool	ft_valid_redirs(t_mshell *ms, t_parser *parser);
 bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_INITIALISATION_LIST_CMD ///

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 01:24:42 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 12:36:01 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_character_valid(t_mshell *ms, char *input)
 			&& (ft_invalid_character(c)
 				|| (i == ft_strlen(input) - 1 && c == '\\')))
 		{
-			ft_err(ms, "erreur de syntaxe près du symbole inattendu", &c, 258);
+			ft_err(ms, "erreur de syntaxe près du symbole inattendu", &c, 2);
 			return (false);
 		}
 	}

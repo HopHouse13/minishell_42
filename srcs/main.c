@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 01:54:14 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 12:08:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	main(int ac, char **av, char **env)
 			ft_executer(mshell, env);
 		}
 	}
-	// rl_clear_history();
 	ft_exit_cleanly(mshell);
 }

@@ -6,13 +6,13 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 02:22:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/05/29 13:14:29 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_valid_pipes(t_parser *parser)
+bool	ft_valid_pipes(t_mshell *ms, t_parser *parser)
 {
 	t_token	*tmp;
 	bool	pipe;
@@ -20,23 +20,23 @@ bool	ft_valid_pipes(t_parser *parser)
 	pipe =false;
 	tmp = parser->list_token;
 	if (tmp && tmp->token == PIPE)
-		return (false);
+		return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
 	while (tmp->next && tmp->next->token != END)
 	{
-		if (tmp->token == PIPE && pipe)
-			return (false);
-		if (tmp->token == PIPE && !pipe)
-			pipe = true;
-		else
+		if (tmp->token != PIPE)
 			pipe = false;
+		else if (tmp->token == PIPE && pipe)
+			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
+		else if (tmp->token == PIPE && !pipe)
+			pipe = true;
 		tmp= tmp->next;
 	}
 	if (tmp->token == PIPE)
-		return (false);
+		return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
 	return (true);
 }
 
-bool	ft_valid_cmds(t_parser *parser)
+bool	ft_valid_cmds(t_mshell *ms, t_parser *parser)
 {
 	t_token *tmp;
 	bool	cmd;
@@ -48,11 +48,7 @@ bool	ft_valid_cmds(t_parser *parser)
 		if ((tmp->token == CMD || tmp->token == BI) && !cmd)
 			cmd = true;
 		else if (tmp->token == ARG && !cmd)
-		{
-			fprintf(stderr,"minishell: syntax error near unexpected token %s\n", tmp->elem);
-			// exit code ?
-			return (false);
-		}
+			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
 		else if (tmp->token == PIPE)
 			cmd = false;
 		tmp = tmp->next;
@@ -60,7 +56,7 @@ bool	ft_valid_cmds(t_parser *parser)
 	return (true);
 }
 
-bool	ft_valid_redirs(t_parser *parser)
+bool	ft_valid_redirs(t_mshell *ms, t_parser *parser)
 {
 	t_token	*tmp;
 
@@ -71,12 +67,12 @@ bool	ft_valid_redirs(t_parser *parser)
 			|| (tmp->token == R_OUT && tmp->next->token != F_OUT)
 			|| (tmp->token == APPEND && tmp->next->token != F_APP)
 			|| (tmp->token == HD && tmp->next->token != DELIM))
-			return (false); // g_exit_code = 258 ???
+				return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
 		tmp= tmp->next;
 	}
 	if (tmp && (tmp->token == R_IN || tmp->token == R_OUT
 		|| tmp->token == APPEND || tmp->token == HD))
-		return (false);// g_exit_code = 258  ???
+			return (ft_err(ms, "erreur de syntaxe près du symbole inattendu", tmp->elem, 2));
 	return (true);
 }
 
@@ -85,13 +81,13 @@ bool	ft_valid_redirs(t_parser *parser)
 // check si il y a un pipe en premier ou en dernier de l'input.
 // check si il y a plus d'une cmd par pipe.
 // Check si toutes les redir sont suivis du bon token.
-bool	ft_valid_syntax( t_mshell *mshell, t_parser *parser)
+bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser)
 {
-	if (!ft_valid_pipes(parser))
-		ft_err(mshell," PROBLEME\n", "|", 1); // temporaire
-	if (!ft_valid_cmds(parser))
-		return (printf("cmds_issue\n"), false);
-	if (!ft_valid_redirs(parser))
-		return (printf("redir_issue\n"), false);
+	if (!ft_valid_pipes(mshell, parser))
+		return (false);
+	if (!ft_valid_cmds(mshell, parser))
+		return (false);
+	if (!ft_valid_redirs(mshell, parser))
+		return (false);
 	return (true);
 }
