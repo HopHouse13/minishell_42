@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 19:24:23 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/02 19:39:15 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,28 @@ void	ft_mem_err(t_mshell *mshell)
 	ft_exit_cleanly(mshell);
 }
 
-bool	ft_open_err(t_mshell *mshell, char *file)
+bool	ft_fd_err(t_mshell *mshell, char *file)
 {
 	g_exit_code = errno; // ???
 	perror(file);
 	ft_free_ml(mshell);
 	return (false);
+}
+
+void	ft_hd_err(int *fd, char *delim)
+{
+	close(*fd);
+	*fd = -1;
+	unlink("/tmp/heredoc_tmp.txt");
+	ft_putstr_fd("minishell: warning: ", 2);
+	ft_putstr_fd("here-document delimited by end-of-file (wanted \" ", 2);
+	ft_putstr_fd(delim, 2);
+	ft_putstr_fd(" \")\n", 2);
+}
+
+void	ft_main_err(t_mshell *mshell)
+{
+	g_exit_code = 1; // ???
+	ft_putstr_fd("exit\n", 2);
+	ft_exit_cleanly(mshell);
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:19:55 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 19:46:38 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/02 12:41:46 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_get_fd_outfile(t_mshell *mshell, t_cmd *cmd, t_token *token)
 	if (token->token == F_OUT)
 		cmd->fd_out = open(token->elem, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (cmd->fd_out == -1)
-		return (ft_open_err(mshell, token->elem));
+		return (ft_fd_err(mshell, token->elem));
 	return (true);	
 }
 
@@ -29,7 +29,7 @@ bool	ft_get_fd_infile(t_mshell *mshell, t_cmd *cmd, t_token *token)
 		close(cmd->fd_in);
 	cmd->fd_in = open(token->elem, O_RDONLY);
 	if (cmd->fd_in == -1)
-		return (ft_open_err(mshell, token->elem));
+		return (ft_fd_err(mshell, token->elem));
 	return (true);
 }	
 

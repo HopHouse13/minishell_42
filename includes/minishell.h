@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 19:24:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/02 19:38:07 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,9 @@ int		ft_msspace(char c);
 /// ERRORS ///
 bool	ft_syntax_err(t_mshell *ms, char *elem, int exit_code);
 void	ft_mem_err(t_mshell *mshell);
-bool	ft_open_err(t_mshell *mshell, char *file);
+bool	ft_fd_err(t_mshell *mshell, char *file);
+void	ft_hd_err(int *fd, char *delim);
+void	ft_main_err(t_mshell *mshell);
 
 /// HANDLE_INPUT ///
 bool	ft_pipe_last(t_mshell *mshell, char *input);

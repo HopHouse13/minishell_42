@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 18:57:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/02 18:22:14 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **env)
 		ft_handle_signals();
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
-			break ;
+			ft_main_err(mshell);
 		else
 		{
 			//ft_signal(2)
@@ -38,5 +38,4 @@ int	main(int ac, char **av, char **env)
 			ft_executer(mshell, env);
 		}
 	}
-	ft_exit_cleanly(mshell);
 }
