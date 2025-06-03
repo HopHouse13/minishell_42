@@ -24,3 +24,5 @@ HEREDOC :
 					avec simple quote -> Tout est pris littéralement (pas d'expansion, pas d'interprétation)
 					avec double quote -> 
 
+ERREURS:
+	> 'echo $HOME' --> Ne pas expand et prendre tout comme une commande

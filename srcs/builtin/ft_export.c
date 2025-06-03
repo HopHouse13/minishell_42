@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:14:27 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 15:14:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 16:14:05 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int ft_export(t_mshell *mshell)
 {
-    t_cmd   *cmd;
-    cmd = mshell->list_cmd;
+    // t_cmd   *cmd;
+    // cmd = mshell->list_cmd;
     
-    if (!cmd->cmd[1])
-		ft_print_sorted_env(mshell->env_list);
-    else
-        ft_add_var(mshell);
+    // if (!cmd->cmd[1])
+	// 	ft_print_sorted_env(mshell->env_list);
+    // else
+    //     ft_add_var(mshell);
+	(void)mshell;
     return (1);
 }
 
@@ -124,14 +125,15 @@ int ft_isequal(char *str)
 
 char **ft_split_var(char *cmd)
 {
-    char    **key_value;
-
-    if (ft_isequal(cmd))
-    {
-        key_value = ft_split(cmd, '=');
-        if (!key_value || !key_value[0])
-            return NULL;
-    }
+    // char    **key_value;
+	char	**key_value = NULL;
+    // if (ft_isequal(cmd))
+    // {
+    //     key_value = ft_split(cmd, '=');
+    //     if (!key_value || !key_value[0])
+    //         return NULL;
+    // }
+	(void)cmd;
     return (key_value);
 }
 

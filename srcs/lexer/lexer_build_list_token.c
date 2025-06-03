@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/02 13:07:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 19:26:20 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	while (lexer->clear_input[i])
 	{
 		srt = i;
-		while (lexer->clear_input[i] && !ft_msspace(lexer->clear_input[i]))
+		while (lexer->clear_input[i] && (!ft_msspace(lexer->clear_input[i])
+				|| ft_status_qts(&mshell->qts, lexer->clear_input, i)))
 		{
 			j++;
 			i++;
