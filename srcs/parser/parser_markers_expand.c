@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 16:17:01 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/03 21:03:34 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_find_end_var(char *str, int i)
 {
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (i + 2); // pour me mettre juste apres le carac invalide
-	while (ft_isalnum(str[i]) || str[i] == '_') // ici on arrive deja la bonne position just +1 pour passe d'un adexe a un eme positionemment (bcp de mal avec ca)
+		return (i +2); // pour me mettre juste apres le carac invalide
+	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
-	return (i + 1);
+	return (i + 1); // ici on arrive deja la bonne position just +1 pour passer d'un indexe a un eme positionemment (bcp de mal avec ca)
 }
 
 char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
@@ -27,7 +27,7 @@ char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
 	int		j;
 	int		k;
 	int		end_name;
-	
+
 	end_name = 0;
 	end_name = ft_find_end_var(str, i);
 	printf("\tvalue end : %d\n\n", end_name);
@@ -50,7 +50,7 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 {
 	int		i;
 	char	*str;
-	
+
 	str = tmp->elem;
 	i = -1;
 	while (str[++i])
@@ -66,13 +66,13 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 			i++;
 		}
 	}
-	return (str);	
+	return (str);
 }
 
 void	ft_mark_expand(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*tmp;
-	
+
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{

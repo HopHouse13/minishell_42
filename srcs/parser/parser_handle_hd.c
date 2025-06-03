@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_hd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/02 17:52:48 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 21:08:10 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ bool	ft_get_hd(t_mshell *mshell, t_cmd *lt_cmd, t_token *lt_token)
 {
 	if (lt_cmd->fd_hd != -1)
 		close(lt_cmd->fd_hd);
-	lt_cmd->fd_hd = open("/tmp/heredoc_tmp.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	lt_cmd->fd_hd = open("/tmp/heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (lt_cmd->fd_hd == -1)
-		return (ft_fd_err(mshell, "heredoc")); // pas bon
+		return (ft_fd_err(mshell, "heredoc"));
 	lt_cmd->delim_hd = lt_token->elem;
 	return (true);
 }
@@ -29,7 +29,7 @@ bool	ft_handle_hd(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*lt_token;
 	t_cmd	*lt_cmd;
-	
+
 	lt_token = parser->list_token;
 	lt_cmd = parser->list_cmd;
 	while (lt_token->token != END)
@@ -42,9 +42,9 @@ bool	ft_handle_hd(t_mshell *mshell, t_parser *parser)
 			lt_token->elem = ft_remove(mshell, parser, lt_token->elem);
 			if (!ft_get_hd(mshell, lt_cmd, lt_token))
 				return (false);
-			ft_heredoc(mshell, lt_cmd); // pas au bon endroit
+			ft_heredoc(mshell, lt_cmd); // pas au bon endroit ou pas
 		}
-		lt_token = lt_token->next; 
+		lt_token = lt_token->next;
 	}
 	return (true);
 }

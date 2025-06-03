@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 18:06:41 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 22:27:23 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_character_valid(t_mshell *ms, char *input)
-{
-	printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
+{printf("\n\n\t-------------------- CARAC_VALID --------------------\n");
 	int		i;
 	char	c;
 

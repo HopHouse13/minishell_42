@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 16:15:31 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/03 22:15:52 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_expand_list(t_mshell *mshell, t_parser *parser);
 /// PARSER_FILL_LIST_CMD ///
 bool	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser);
 
-/// PARSER_HAMDLE_REDIR ///
+/// PARSER_HANDLE_REDIR ///
 bool	ft_get_fd_outfile(t_mshell *mshell, t_cmd *lt_cmd, t_token *lt_token);
 bool	ft_get_fd_infile(t_mshell *mshell, t_cmd *cmd, t_token *token);
 bool	ft_handle_redir(t_mshell *mshell, t_parser *parser);
@@ -130,6 +130,7 @@ void	ft_handle_cmd(t_mshell *mshell, t_parser *parser);
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
 bool	ft_srch_quotes(char *elem);
+char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser);
 
 ////////////////////////////////////////////////////////////////////////////////
 

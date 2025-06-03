@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/02 19:39:15 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 20:53:35 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool	ft_syntax_err(t_mshell *ms, char *elem, int exit_code)
 			(ms, "erreur de syntaxe près du symbole inattendu", " « "));
 	mess = ft_strjoin_ml(ms, mess, ft_strjoin_ml(ms, elem, " »\n"));
 	ft_putstr_fd(mess, 2);
-	g_exit_code = exit_code;
+	g_exit_code = exit_code;  // faut il un code erreur pour syntax?????
 	ft_free_ml(ms);
-	return (false); // faut il un code erreur pour syntax?????
+	return (false);
 }
 
 void	ft_mem_err(t_mshell *mshell)

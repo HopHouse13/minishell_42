@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 02:27:23 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 20:52:37 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 bool	ft_pipe_last(t_mshell *mshell, char *input)
 {
-	int	i;
+	int		i;
 	bool	pipe;
-	
+
 	i = -1;
 	pipe = false;
 	while (input[++i])
 	{
-		if ((!ft_status_qts(&mshell->qts, input, i) 
-			|| ft_effect_esc(&mshell->qts, input, i))
+		if ((!ft_status_qts(&mshell->qts, input, i)
+				|| ft_effect_esc(&mshell->qts, input, i))
 			&& input[i] == '|')
 			pipe = true;
-		else if (!ft_msspace(input[i]))	
+		else if (!ft_msspace(input[i]))
 			pipe = false;
 	}
 	return (pipe);
@@ -33,7 +33,7 @@ bool	ft_pipe_last(t_mshell *mshell, char *input)
 
 bool	ft_open_quotes(t_mshell *mshell, char *input)
 {
-	int	i;
+	int		i;
 	bool	sq;
 	bool	dq;
 
@@ -78,7 +78,7 @@ void	ft_handle_input(t_mshell *mshell)
 			input_buff = ft_strjoin_ml(mshell, input_buff, mshell->input);
 			if (!ft_incomplete_cmd(mshell, input_buff))
 				break ;
-			if(!ft_pipe_last(mshell, input_buff))
+			if (!ft_pipe_last(mshell, input_buff))
 				input_buff = ft_strjoin_ml(mshell, input_buff, "\n");
 			free(mshell->input);
 			mshell->input = NULL;

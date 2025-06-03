@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_valid_syntax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/05/29 18:06:41 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 20:59:45 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_valid_pipes(t_parser *parser)
 	t_token	*tmp;
 	bool	pipe;
 
-	pipe =false;
+	pipe = false;
 	tmp = parser->list_token;
 	if (tmp && tmp->token == PIPE)
 		return (tmp->elem);
@@ -29,7 +29,7 @@ char	*ft_valid_pipes(t_parser *parser)
 			return (tmp->elem);
 		else if (tmp->token == PIPE && !pipe)
 			pipe = true;
-		tmp= tmp->next;
+		tmp = tmp->next;
 	}
 	if (tmp->token == PIPE)
 		return (tmp->elem);
@@ -38,9 +38,9 @@ char	*ft_valid_pipes(t_parser *parser)
 
 char	*ft_valid_cmds(t_parser *parser)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	bool	cmd;
-	
+
 	cmd = false;
 	tmp = parser->list_token;
 	while (tmp->token != END)
@@ -67,12 +67,12 @@ char	*ft_valid_redirs(t_parser *parser)
 			|| (tmp->token == R_OUT && tmp->next->token != F_OUT)
 			|| (tmp->token == APPEND && tmp->next->token != F_APP)
 			|| (tmp->token == HD && tmp->next->token != DELIM))
-				return (tmp->elem);
-		tmp= tmp->next;
+			return (tmp->elem);
+		tmp = tmp->next;
 	}
 	if (tmp && (tmp->token == R_IN || tmp->token == R_OUT
-		|| tmp->token == APPEND || tmp->token == HD))
-			return (tmp->elem);
+			|| tmp->token == APPEND || tmp->token == HD))
+		return (tmp->elem);
 	return (NULL);
 }
 
