@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 22:28:02 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/05 14:10:03 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	while (lexer->clear_input[i])
 	{
 		srt = i;
-		while (lexer->clear_input[i] && (!ft_msspace(lexer->clear_input[i])
-				|| ft_status_qts(&mshell->qts, lexer->clear_input, i)))
+		while (lexer->clear_input[i]
+			&& (ft_status_qts(&mshell->qts, lexer->clear_input, i)
+				|| !ft_msspace(lexer->clear_input[i])))
 		{
 			j++;
 			i++;
@@ -128,5 +129,5 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
 	mshell->list_token = lexer->list_token;
-	ft_print_list_token(mshell->list_token);
+	ft_print_list_token(mshell->list_token); //ASUPP
 }
