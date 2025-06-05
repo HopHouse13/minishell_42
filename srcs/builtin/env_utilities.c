@@ -28,8 +28,6 @@ int	ft_check_env_key(t_env *env, char *key_value) // key existe ?
 
 
 
-
-
 void	ft_add_var(t_mshell *mshell)
 {
 	t_cmd	*list_cmd;
