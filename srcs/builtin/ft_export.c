@@ -19,8 +19,10 @@ int	ft_export(t_mshell *mshell)
 	cmd = mshell->list_cmd;
 	if (!cmd->cmd[1])
 		ft_print_sorted_env(mshell->env_list);
+	/*
 	else
 		ft_add_var(mshell);
+	*/
 	return (1);
 }
 

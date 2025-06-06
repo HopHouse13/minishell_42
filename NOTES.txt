@@ -24,3 +24,8 @@ HEREDOC :
 					avec simple quote -> Tout est pris littéralement (pas d'expansion, pas d'interprétation)
 					avec double quote -> 
 
+
+
+liste des malloc ;
+- create_new_node (ft_env);
+-

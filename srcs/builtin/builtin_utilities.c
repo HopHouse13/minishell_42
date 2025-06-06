@@ -33,7 +33,7 @@ void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
 		printf("BRUHHH\n");
 	while (env_list)
 	{
-		printf(BLUE"%s="RESET GREEN"%s"RESET"\n", env_list->key, env_list->value);
+		printf(RED"%s="RESET GREEN"%s"RESET"\n", env_list->key, env_list->value);
 		env_list = env_list->next;
 	}
     return ;

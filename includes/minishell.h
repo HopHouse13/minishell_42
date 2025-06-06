@@ -198,16 +198,35 @@ t_cmd	*cmd_init(void);
 
 /// BUILTINS ///
 
-// ft_env_utilities
-// char	*ft_get_env(char *key, t_env *env);
+//			ft_env_utilities
+
+void	ft_build_env_list(t_mshell *mshell, char **env);
+
+char	*ft_get_envp_key(char *envp);
+char	*ft_get_envp_value(char *envp);
+t_env	*ft_create_env_node(t_mshell *mshell);
+
+void	ft_update_env_value(t_mshell *mshell, char *key, char *value);
+
+
+
+
 char	*ft_get_env_value(t_mshell *mshell, char *key);
 int		ft_check_env_key(t_env *env, char *key_value);
-void	ft_update_env(t_mshell *mshell, char *key);
 
 void	ft_add_var(t_mshell *mshell);
-void	ft_add_node_env(t_mshell *mshell, char *env);
+
 void	ft_change_env_value(t_env *env, char **key_value);
-void	ft_create_env_node(t_mshell *mshell, char **key_value);
+
+
+
+
+//			ft_env
+int		ft_env(t_mshell *mshell);
+
+void	ft_env_minimal(t_mshell *mshell);
+
+int	ft_strlen_equal(char *str);
 
 
 //	ft_exe_builtins
@@ -224,10 +243,6 @@ int		ft_cd(t_mshell *mshell);
 // ft_echo
 //int		ft_echo();
 
-// ft_env
-int		ft_env(t_mshell *mshell);
-void	ft_build_env_list(t_mshell *mshell, char **env);
-void	ft_env_minimal(t_mshell *mshell);
 
 // ft_exit
 int		ft_exit(t_cmd *cmd);
