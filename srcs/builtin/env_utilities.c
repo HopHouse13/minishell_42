@@ -19,7 +19,6 @@ void	ft_build_env_list(t_mshell *mshell, char **envp)
         new_node->value = value;
 		i++;
 	}
-	ft_print_env_list(mshell->env_list);
 }
 
 char	*ft_get_envp_key(char *envp)	
@@ -109,13 +108,14 @@ void	ft_update_env_value(t_mshell *mshell, char *key, char *value) // change la 
 //////////////////
 
 
-char	*ft_get_env_value(t_mshell *mshell, char *key)  // value du node ?
+char	*ft_get_env_value(t_mshell *mshell, char *key)
 {
 	t_env	*env;
 
 	env = mshell->env_list;
-	while (env)
+	while (env->next != NULL)
 	{
+
 		if (ft_strcmp(env->key, key) == 0)
 			return (env->value);
 		env = env->next;

@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **env)
 	}
 	rl_clear_history();
 	ft_free_ml(mshell); // a voir
-	ft_free_env(mshell->env_list);
+	// ft_free_env(mshell->env_list);
 	free((*mshell).qts);
 	free(mshell);
 }
