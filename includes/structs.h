@@ -65,6 +65,7 @@ typedef struct s_cmd
 typedef struct s_env
 {
 	char			*key;
+	bool			equal;
 	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;

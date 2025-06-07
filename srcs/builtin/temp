@@ -1,0 +1,80 @@
+/*
+void	ft_add_var(t_mshell *mshell)
+{
+	t_cmd	*list_cmd;
+	int		i;
+
+	list_cmd = mshell->list_cmd;
+	i = 1;
+	while (list_cmd->cmd[i])
+	{
+		ft_add_node_env(mshell, list_cmd->cmd[i]);
+		i++;
+	}
+}
+*/
+
+/*
+void    ft_add_node_env(t_mshell *mshell, char *cmd) // split cmd | < | {create new node env} ; {change value}
+{
+    char    **key_value;
+
+    key_value = ft_split_var(mshell, cmd);
+	if (!key_value || !key_value[0])
+            return ;
+	if (!ft_check_env_key(mshell->env_list, key_value[0]))
+	{
+	   printf(CYAN"[INFO]Creation new Env variable"RESET"\n");
+	   ft_create_env_node(mshell, key_value);
+	}
+	else
+	{
+		printf(CYAN"[INFO]Changement value Env"RESET"\n");
+		ft_change_env_value(mshell->env_list, key_value);
+	}
+    // ft_free_tab(key_value);
+}
+*/
+/*
+void	ft_change_env_value(t_env *env, char **key_value) // change la valeur d;un noeud
+{
+	while (env)
+    {
+        if (ft_strcmp(env->key, key_value[0]) == 0)
+        {
+            free(env->value);
+            if (key_value[1])
+                env->value = ft_strdup(key_value[1]);
+            else
+                env->value = ft_strdup("");
+            // ft_free_tab(key_value);
+            return ;
+        }
+        env = env->next;
+    }
+}
+*/
+
+/*
+
+void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
+{
+	if (!env_list)
+		printf(RED"ENV LISTE VIDE"RESET"\n");
+	while (env_list)
+	{
+		if (ft_isequal(env_list->key))
+		{
+			printf(RED"%s="RESET, env_list->key);
+			printf(GREEN"%s"RESET"\n", env_list->value);
+		}
+		if (!ft_isequal(env_list->key) && !env_list->value)
+		{
+			printf(RED"%s"RESET, env_list->key);
+			printf("\tVALUE = NULL\n");
+		}
+		env_list = env_list->next;
+	}
+    return ;
+}
+*/
