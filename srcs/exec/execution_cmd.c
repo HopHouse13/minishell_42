@@ -26,7 +26,11 @@ void	ft_executer(t_mshell *mshell, char **envp)
 	if (mshell->count_pipe)
 	{
 		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
+		printf("BUG ICI XXX");
+
 		ft_piper(mshell, envp);
+		printf("BUG ICI 000");
+
 	}
 	else if (list_cmd->cmd && !mshell->count_pipe && !list_cmd->builtin) 
 	{
@@ -39,6 +43,5 @@ void	ft_executer(t_mshell *mshell, char **envp)
 	}
 	//wait(NULL);
 	ft_free_ml(mshell);
-	ft_free_env(mshell->env_list);
 	printf(RED "\n[INFO] Fin Exec."RESET"\n");
 }

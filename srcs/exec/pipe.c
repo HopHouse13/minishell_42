@@ -15,15 +15,19 @@
 // v3
 int ft_piper(t_mshell *mshell, char **envp)
 {
-	t_cmd *cmd = mshell->list_cmd;
+
+	t_cmd *cmd;
 	int pipe_fd[2];
 	int prev_fd = -1;
 	pid_t pid;
 
+	cmd = mshell->list_cmd;
 	while (cmd)
 	{
+		printf("BUG ICI 1");
 		if (cmd->next && pipe(pipe_fd) == -1)
 		{
+			printf("BUG ICI 2");
 			perror("pipe");
 			exit(EXIT_FAILURE);
 		}
@@ -37,6 +41,7 @@ int ft_piper(t_mshell *mshell, char **envp)
 
 		if (pid == 0) // child
 		{
+			printf("BUG ICI 3");
 			if (prev_fd != -1)
 			{
 				dup2(prev_fd, STDIN_FILENO);

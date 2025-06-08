@@ -36,7 +36,7 @@ int	ft_cd(t_mshell *mshell)
         }
     }
 
-	ft_update_env(mshell, cmd_node->cmd[1]);
+	//ft_update_env(mshell, cmd_node->cmd[1]);
 	//update env / pwd a faire !
     return (0);
 }
