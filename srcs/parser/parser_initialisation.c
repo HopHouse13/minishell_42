@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:58:15 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 12:29:51 by pbret            ###   ########.fr       */
+/*   Created: 2025/06/03 22:12:34 by pbret             #+#    #+#             */
+/*   Updated: 2025/06/03 22:12:48 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,3 @@ void	ft_init_parser(t_parser *parser, t_token *list_token)
 	parser->end = -1;
 	parser->mark_b = OUT;
 }
-
-

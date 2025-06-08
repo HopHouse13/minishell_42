@@ -5,6 +5,13 @@
 		"cmath": "c",
 		"wait.h": "c",
 		"stdbool.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"cstdlib": "c",
+		"structs.h": "c",
+		"errno.h": "c",
+		"types.h": "c",
+		"readline.h": "c",
+		"font_style.h": "c",
+		"ft_printf.h": "c"
 	}
 }

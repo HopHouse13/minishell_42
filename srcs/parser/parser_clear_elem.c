@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 17:26:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/20 14:04:15 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/03 22:25:25 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 	if (ft_inside_brackets(parser, str, i)
 		|| (i >= 2 && str[i -1] == ']' && str[i -2] == '\\'))
 		return (true);
-	if ( str[i] == '\\')
+	if (str[i] == '\\')
 	{
-		if (mshell->qts->spl_q)
+		if (mshell->qts.spl_q)
 			return (true);
-		if (ft_effect_esc(mshell->qts, str, i))
+		if (ft_effect_esc(&mshell->qts, str, i))
 			return (true);
-		if (mshell->qts->dbl_q)
+		if (mshell->qts.dbl_q)
 		{
 			if (str[i + 1] == '\\' || str[i + 1] == '$' || str[i + 1] == '\"')
 				return (false);
@@ -33,27 +33,28 @@ bool	ft_char_saved(t_mshell *mshell, t_parser *parser, char *str, int i)
 	}
 	else if (str[i] == '\'' || str[i] == '\"')
 	{
-		if (mshell->qts->in_q || ft_effect_esc(mshell->qts, str, i))
+		if (mshell->qts.in_q || ft_effect_esc(&mshell->qts, str, i))
 			return (true);
 		return (false);
 	}
-	return(true);
+	return (true);
 }
 
-// PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est pas devant " / $ 
-// faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles.
+// PROBLEME le \ est aussi enleve dans les doubles quotes alors qu'il n'est
+//  pas devant " / $
+// faut qu'il soit supprimer uniquement devant ces 3 caracteres dans des doubles
 char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 {
 	int		i;
 	int		j;
 	size_t	count_save;
 	char	*str_clear;
-	
+
 	i = -1;
 	count_save = 0;
 	while (str[++i])
 	{
-		ft_status_qts(mshell->qts, str, i);
+		ft_status_qts(&mshell->qts, str, i);
 		if (ft_char_saved(mshell, parser, str, i))
 			count_save++;
 	}
@@ -62,7 +63,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 	j = 0;
 	while (str[++i])
 	{
-		ft_status_qts(mshell->qts, str, i);
+		ft_status_qts(&mshell->qts, str, i);
 		if (ft_char_saved(mshell, parser, str, i))
 			str_clear[j++] = str[i];
 	}
@@ -76,7 +77,7 @@ char	*ft_remove(t_mshell *mshell, t_parser *parser, char *str)
 void	ft_clear_elems(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*tmp;
-	
+
 	tmp = parser->list_token;
 	while (tmp && tmp->token != END)
 	{

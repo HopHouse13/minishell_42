@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:14:40 by pab               #+#    #+#             */
-/*   Updated: 2025/05/20 13:48:42 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/03 21:08:45 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd)
 	t_token	*tmp;
 	int		count_str;
 	int		i;
-	
+
 	tmp = list_token;
 	count_str = 0;
 	while (tmp->token != PIPE && tmp->token != END)
@@ -44,7 +44,7 @@ void	ft_handle_cmd(t_mshell *mshell, t_parser *parser)
 {
 	t_token	*list_token;
 	t_cmd	*list_cmd;
-	
+
 	list_token = parser->list_token;
 	list_cmd = parser->list_cmd;
 	ft_make_cmd_tab(mshell, list_token, list_cmd);

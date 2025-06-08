@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/05/21 17:21:32 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/02 19:44:11 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd)
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
 	else
-		ev_expanded = NULL; // renvoie le signal qu'il faut stopper le processus d'expand et continuer a analyser les char suivants
+		ev_expanded = NULL;
 	return (ev_expanded);
 }
 
@@ -75,10 +75,10 @@ char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd)
 	}
 	return (line);
 }
-
+// (1er if) si '\' est a la fin de line, fait l'enlever + pas de retour de ligne
 void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd)
 {
-	if (ft_escape_last_char(line)) // si  '\' est a la fin de line, fait l'enlever + pas de retour de ligne
+	if (ft_escape_last_char(line))
 	{
 		line = ft_substr_ml(mshell, line, 0, ft_strlen(line) -1);
 		write(cmd->fd_hd, line, ft_strlen(line));
@@ -88,26 +88,22 @@ void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd)
 		write(cmd->fd_hd, line, ft_strlen(line));
 		write(cmd->fd_hd, "\n", 1);
 	}
-	//printf("\n>>>>> result [%s]\n\n\n", line); // ASUPP
 }
-// if (line == NULL)
-// {
-// 	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `", 2);
-// 	ft_putstr_fd(cmd->delim_hd, 2);
-// 	ft_putstr_fd("')\n", 2);
-// 	break ;
-// }
+
 void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 {
 	t_hd		hd;
 	char		*value_rdl;
 	char		*line;
-	
+
 	while (1)
 	{
 		value_rdl = readline("> ");
 		if (value_rdl == NULL)
-			break; // voir le commantaire au dessus
+		{
+			ft_hd_err(&cmd->fd_hd, cmd->delim_hd);
+			break ;
+		}
 		if (!ft_strcmp(value_rdl, cmd->delim_hd))
 			break ;
 		line = ft_strdup_ml(mshell, value_rdl);
@@ -117,8 +113,8 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 		ft_put_in_hd(mshell, line, cmd);	
 		ft_free_one_node_ml(line, &mshell->ml);
 	}
-	close(cmd->fd_hd);
-	cmd->fd_hd = -1;
+	// close(cmd->fd_hd); // le fermer dans l'execution
+	// cmd->fd_hd = -1; // et le mettre a -1 apres l'avoir close
 }
 
 // 2 problemes:

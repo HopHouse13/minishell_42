@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parser_fill_list_cmd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/03 21:09:03 by pbret             #+#    #+#             */
+/*   Updated: 2025/06/03 21:09:06 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser)
+bool	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser)
 {
-	ft_handle_redir(parser);
+	if (!ft_handle_redir(mshell, parser))
+		return (false);
 	ft_handle_cmd(mshell, parser);
-	ft_handle_hd(mshell, parser);
+	if (!ft_handle_hd(mshell, parser))
+		return (false);
 	mshell->list_cmd = parser->list_cmd;
-
+	return (true);
 }

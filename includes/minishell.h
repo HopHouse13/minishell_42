@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 16:43:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 12:30:13 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		main(int ac, char **av, char **env);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// LEXER ///
-int		ft_lexer(t_mshell *mshell);
+bool		ft_lexer(t_mshell *mshell);
 
 /// LEXER_INITIALISATION ///
 void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
@@ -54,7 +54,7 @@ void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
 void	ft_define_token_elem(t_lexer *lexer);
 void	ft_define_token_redir(t_lexer *lexer);
 void	ft_init_head_list_token(t_mshell *mshell, t_token **list_t, char *elem);
-void	ft_add_node(t_mshell *mshell, t_lexer *lexer, char *elem);
+void	ft_add(t_mshell *mshell, t_lexer *lexer, char *elem);
 void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer);
 
 /// LEXER_CLEANING_INPUT ///
@@ -73,16 +73,16 @@ t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// PARSER ///
-int		ft_parser(t_mshell *mshell);
+bool		ft_parser(t_mshell *mshell);
 
 /// PARSER_INITIALISATION ///
 void	ft_init_parser(t_parser *parser, t_token *list_token);
 
 /// PARSER_VALID_SYNTAX ///
-bool	ft_valid_pipes(t_parser *parser);
-bool	ft_valid_cmds(t_parser *parser);
-bool	ft_valid_redirs(t_parser *parser);
-bool	ft_valid_syntax(t_parser *parser);
+char	*ft_valid_pipes(t_parser *parser);
+char	*ft_valid_cmds(t_parser *parser);
+char	*ft_valid_redirs(t_parser *parser);
+bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_INITIALISATION_LIST_CMD ///
 void	ft_init_node_values(t_cmd *new_elem);
@@ -112,16 +112,16 @@ void	ft_exp_elem(t_mshell *mshell, t_token *tmp, t_parser *parser);
 void	ft_expand_list(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_FILL_LIST_CMD ///
-void	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser);
+bool	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser);
 
-/// PARSER_HAMDLE_REDIR ///
-void	ft_get_fd_outfile(t_cmd *lt_cmd, t_token *lt_token);
-void	ft_get_fd_infile(t_cmd *cmd, t_token *token);
-void	ft_handle_redir(t_parser *parser);
+/// PARSER_HANDLE_REDIR ///
+bool	ft_get_fd_outfile(t_mshell *mshell, t_cmd *lt_cmd, t_token *lt_token);
+bool	ft_get_fd_infile(t_mshell *mshell, t_cmd *cmd, t_token *token);
+bool	ft_handle_redir(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_HD ///
-void	ft_get_hd(t_cmd *cmd, t_token *token);
-void	ft_handle_hd(t_mshell *mshell, t_parser *parser);
+bool	ft_get_hd(t_mshell *mshell, t_cmd *cmd, t_token *token);
+bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_CMD ///
 void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd);
@@ -130,6 +130,8 @@ void	ft_handle_cmd(t_mshell *mshell, t_parser *parser);
 /// PARSER_UTILITIES ///
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
+bool	ft_srch_quotes(char *elem);
+char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -143,6 +145,7 @@ char	**ft_split_ml(t_mshell *mshell, char *s, char c);
 char	*ft_strdup_ml(t_mshell *mshell, char *s_src);
 char	*ft_strjoin_ml(t_mshell *mshell, char *s1, char *s2);
 char	*ft_substr_ml(t_mshell *mshell, char *s_src, int start, int len);
+void	ft_exit_cleanly(t_mshell *mshell);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env *env_list);
@@ -152,14 +155,19 @@ void	ft_free_env(t_env *env_list);
 /// UTILITIES ///
 void	ft_init_mshell(t_mshell **mshell, char **env);
 bool	ft_empty_line(char *input);
+int		ft_msspace(char c);
 
 /// ERRORS ///
-char	*ft_build_err_mess(t_mshell *ms, char *message, char *elem);
-bool	ft_err(t_mshell *mshell, char *message, char *elem, int exit_code);
+bool	ft_syntax_err(t_mshell *ms, char *elem, int exit_code);
 void	ft_mem_err(t_mshell *mshell);
+bool	ft_fd_err(t_mshell *mshell, char *file);
+void	ft_hd_err(int *fd, char *delim);
+void	ft_main_err(t_mshell *mshell);
 
 /// HANDLE_INPUT ///
-bool	ft_open_input(t_mshell *mshell, char *input);
+bool	ft_pipe_last(t_mshell *mshell, char *input);
+bool	ft_open_quotes(t_mshell *mshell, char *input);
+bool	ft_incomplete_cmd(t_mshell *mshell, char *input);
 void	ft_handle_input(t_mshell *mshell);
 
 /// HANDLE_QUOTES ///

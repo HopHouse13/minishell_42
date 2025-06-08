@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/26 21:35:27 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/05 14:10:03 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_define_token_redir(t_lexer *lexer)
 	}
 }
 
-void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem)
+void	ft_init_head_list_token(t_mshell *mshell, t_token **list_t, char *elem)
 {
 	t_token	*first_node;
 
@@ -81,7 +81,7 @@ void	ft_init_head_list_token( t_mshell *mshell, t_token **list_t, char *elem)
 	*list_t = first_node;
 }
 
-void	ft_add_node( t_mshell *mshell, t_lexer *lexer, char *elem)
+void	ft_add(t_mshell *mshell, t_lexer *lexer, char *elem)
 {
 	t_token	*tmp;
 	t_token	*new_elem;
@@ -114,18 +114,20 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	while (lexer->clear_input[i])
 	{
 		srt = i;
-		while (lexer->clear_input[i] && lexer->clear_input[i] != ' ')
+		while (lexer->clear_input[i]
+			&& (ft_status_qts(&mshell->qts, lexer->clear_input, i)
+				|| !ft_msspace(lexer->clear_input[i])))
 		{
 			j++;
 			i++;
 		}
-		ft_add_node(mshell, lexer, ft_substr_ml(mshell, lexer->clear_input, srt,
-				j));
+		ft_add(mshell, lexer, ft_substr_ml(mshell, lexer->clear_input, srt, j));
 		j = 0;
-		if (lexer->clear_input[i] == ' ')
+		while (ft_msspace(lexer->clear_input[i]))
 			i++;
 	}
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
 	mshell->list_token = lexer->list_token;
+	ft_print_list_token(mshell->list_token); //ASUPP
 }

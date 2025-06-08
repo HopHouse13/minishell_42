@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/05/27 16:43:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/03 22:26:36 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_exit_cleanly(t_mshell *mshell)
+{
+	rl_clear_history();
+	if (mshell->ml != NULL)
+		ft_free_ml(mshell);
+	if (mshell->env_list != NULL)
+		ft_free_env(mshell->env_list);
+	if (mshell != NULL)
+		free(mshell);
+	exit(g_exit_code);
+}
 
 void	ft_free_env(t_env *env_list)
 {
