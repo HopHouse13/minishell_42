@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 20:53:35 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/08 22:32:16 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	ft_syntax_err(t_mshell *ms, char *elem, int exit_code)
 void	ft_mem_err(t_mshell *mshell)
 {
 	g_exit_code = 1; // errno ou ENOMEM == 12
-	perror("malloc: impossible d'allouer la mémoire");
+	perror("minishell: malloc");
 	ft_exit_cleanly(mshell);
 }
 

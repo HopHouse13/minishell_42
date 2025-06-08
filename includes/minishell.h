@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/08 22:12:31 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 00:08:34 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ t_env	*ft_create_env_node(t_mshell *mshell);
 t_env	*ft_init_env_node(t_env *new_node);
 char	*ft_get_env_key(char *envp);
 char	*ft_get_envp_value(char *envp);
-int		ft_isenv_key(t_mshell *mshell, char *key);
 
 void	ft_update_env_value(t_mshell *mshell, char *key, char *value);
 
@@ -224,7 +223,7 @@ void	ft_free_env_node(t_env *env_node);
 
 int		ft_strlen_equal(char *str);
 int		ft_isequal(char *str);
-t_env	*ft_check_env_key(t_env *env, char *key);
+t_env	*ft_found_key(t_env *env, char *key);
 
 
 

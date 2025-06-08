@@ -60,11 +60,7 @@ t_env	*ft_create_env_node(t_mshell *mshell)
 
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
-	{
-		free(new_node);
-		new_node = NULL;
-		return (NULL);
-	}
+		ft_mem_err(mshell);
 	new_node = ft_init_env_node(new_node);
 	if (!mshell->env_list)
 		mshell->env_list = new_node;
@@ -109,7 +105,7 @@ void	ft_update_env_value(t_mshell *mshell, char *key, char *value)
     }
 }
 
-t_env	*ft_check_env_key(t_env *env, char *key)
+t_env	*ft_found_key(t_env *env, char *key)
 {
 	while (env)
 	{
@@ -135,52 +131,3 @@ char	*ft_get_env_value(t_mshell *mshell, char *key)
 	}
 	return (NULL);
 }
-
-int		ft_isenv_key(t_mshell *mshell, char *key)  // bool pour detecter presence '='
-{
-	t_env	*env;
-
-	env = mshell->env_list;
-	while (env != NULL)
-	{
-		if (!ft_strcmp(env->key, key))
-			return (1);
-		env = env->next;
-	}
-	return (0);
-}
-
-
-
-
-
-/*
-void	ft_update_env(t_mshell *mshell, char *key)
-{
-	t_env	*env_list;
-
-	env_list = mshell->env_list;
-	// concernant PWD, il existe pas tant que ya pas eu de mouv.
-
-	//OLDPWD 
-	if (!ft_check_env_key(env_list, key))
-	{
-		//  creer OLDPWD
-		// **TODO **
-	}
-
-	// nouvelle value PWD maj
-	while (env_list)
-	{
-		if (ft_check_env_key(env_list, key))
-		{
-			//free
-			env_list->value = getcwd(NULL, 0); //pwd 
-		}
-		env_list = env_list->next;
-	}
-	//value = ft_strdup(new_cwd);
-	return ;
-}
-
-*/
