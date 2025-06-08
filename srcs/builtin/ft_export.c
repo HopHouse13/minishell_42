@@ -34,45 +34,71 @@ int	ft_export(t_mshell *mshell)
 			i++;
 		}
 	}
-		// ft_export_value(mshell);
-		//ft_add_var(mshell);
 	return (1);
 }
 
-/*
-void	ft_export_var(t_mshell *mshell)
+void	ft_print_sorted_env(t_env *env_list)
 {
-	t_cmd	*list_cmd;
-	t_env	*new_node;
-	int		i;
 
-	list_cmd = mshell->list_cmd;
-	i = 1;
-	while (list_cmd->cmd[i])
+
+	while (env_list->next != NULL)
 	{
-		new_node = ft_create_env_node(mshell);
-		if (!new_node)
-		return ;
-		new_node->key = ft_get_envp_key(list_cmd->cmd[i]);
-		new_node->value = ft_get_envp_value(list_cmd->cmd[i]);
-		i++;
+		if (env_list->current)
+			break ;
+		env_list->current = true;
+		if (env_list->ignore)
+		{
+			env_list = env_list->next;
+			env_list->next = env_list->next->next;
+		}
+		else
+		{
+			if (ft_strcmp (env_list->key, env_list->next->key) < 0)
+			{
+				env_list->current = false;
+				env_list->next->current = true;
+			}
+			else if (ft_strcmp (env_list->key, env_list->next->key) > 0)
+			{
+				env_list->next = env_list->next->next;
+			}
+		}
+		env_list = env_list->next;
+	}
+
+	while (env_list != NULL)
+	{
+		if (env_list->current)
+		{
+			print_env_node(env_list);
+			env_list->ignore = true;
+		}
+		env_list = env_list->next;
 	}
 }
-*/
 
-// int	print_export_key(char *str)
-// {
-// 	// int	i;
-// 	// i = 0;
-// 	if (ft_isequal(str))
-// 		printf("%s=", str);
-// 	else
-// }
+	// 2x passage de la liste 
+	// 1er pour current a imprimer 				// flag : current_compare
+	// 2eme pour set up le flag pour ignorer	// flag : ignore
+
+//void	node
 
 
+void	print_env_node(t_env *env)
+{
+	if (env->equal)
+	{
+		printf(BLUE BLINK"%s"RESET, env->key);
+		printf(WHITE"=");
+		printf(RED"%s"RESET"\n", env->value);
+	}
+	else
+		printf(RED"%s"RESET, env->key);
+}
 
 ////////
 
+/*
 void	ft_print_sorted_env(t_env *env)
 {
 	t_env	*cur;
@@ -107,11 +133,8 @@ void	ft_swap_env(t_env *a, t_env *b)
 	a->value = b->value;
 	b->value = tmp_value;
 }
+*/
 
-
-// 2x passage de la liste 
-// 1er pour current a imprimer 				// flag : current_compare
-// 2eme pour set up le flag pour ignorer	// flag : ignore
 
 
 

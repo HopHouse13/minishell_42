@@ -27,7 +27,7 @@ char	*ft_get_env_key(t_env *node, char *envp)
 		node->equal = true;
 		// printf("BOOL\n");
 	}
-	printf(CYAN"[INFO] Input %s  ; BOOL : %d", envp, node->equal);
+	// printf(CYAN"[INFO] Input %s  ; BOOL : %d", envp, node->equal);
 	return (ft_substr(envp, 0, ft_strlen_equal(envp)));
 }
 
@@ -90,6 +90,8 @@ t_env	*ft_init_env_node(t_env *new_node)
 	new_node->key = NULL;
 	new_node->value = NULL;
 	new_node->equal = false;
+	new_node->current = false;
+	new_node->ignore = false;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);

@@ -67,6 +67,8 @@ typedef struct s_env
 	char			*key;
 	bool			equal;
 	char			*value;
+	bool			current;
+	bool			ignore;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;

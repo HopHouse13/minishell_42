@@ -252,8 +252,11 @@ int		ft_exit(t_cmd *cmd);
 
 // ft_export
 int		ft_export(t_mshell *mshell);
-void	ft_swap_env(t_env *a, t_env *b);
 void	ft_print_sorted_env(t_env *env);
+void	print_env_node(t_env *env_list);
+
+void	ft_swap_env(t_env *a, t_env *b);
+
 
 // ft_pwd
 int		ft_pwd(t_mshell *mshell);
