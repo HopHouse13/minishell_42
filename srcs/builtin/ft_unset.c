@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:55:15 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 15:55:16 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 22:18:15 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,19 @@ void	ft_remove_env_node(t_env *env_list, char *key)
 				env_list = cur->next;
 			if (cur->next)
 				cur->next->prev = cur->prev;
-			free(cur->key);
-			free(cur->value);
-			free(cur);
+			ft_free_env_node(cur);
 			return;
 		}
 		cur = cur->next;
 	}
+}
+void	ft_free_env_node(t_env *env_node)
+{
+	// free(env_node->equal);
+	// free(env_node->ignore);
+	free(env_node->key);
+	free(env_node->value);
+	free(env_node->next);
+	free(env_node->prev);
+	free(env_node);
 }

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:14:27 by pab               #+#    #+#             */
-/*   Updated: 2025/06/08 12:30:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 22:17:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,117 +26,99 @@ int	ft_export(t_mshell *mshell)
 	{
 		while(list_cmd->cmd[i])
 		{
-			new_node = ft_create_env_node(mshell);
-			if (!new_node)
+			// if (ft_check_env_key(mshell->env_list, ft_get_env_key(list_cmd->cmd[i])))
+				// new_node->value = ft_get_envp_value(list_cmd->cmd[i]);
+				// ft_update_node(ft_check_env_key(mshell->env_list, ft_get_env_key(list_cmd->cmd[i])), c));
+			if (ft_isenv_key(mshell, ft_get_env_key(list_cmd->cmd[i])))
+			{
+				new_node = ft_check_env_key(mshell->env_list, ft_get_env_key(list_cmd->cmd[i]));
+				printf("Ecrasement key en cours : %s\t", new_node->key);
+				ft_update_env_node(mshell, list_cmd->cmd[i]);
+			}
+			else
+			{
+				new_node = ft_create_env_node(mshell);
+				if (!new_node)
 				return (1);
-			new_node->key = ft_get_env_key(new_node, list_cmd->cmd[i]);
-			new_node->value = ft_get_envp_value(list_cmd->cmd[i]);
+				new_node->key = ft_get_env_key(list_cmd->cmd[i]);
+				if (ft_isequal(list_cmd->cmd[i]))
+					new_node->equal = true;
+				printf("Creation de nouveau noeud : %s\n", new_node->key);
+				new_node->value = ft_get_envp_value(list_cmd->cmd[i]);
+			}
 			i++;
 		}
 	}
-	return (1);
+	return (0);
 }
+void	ft_update_env_node(t_mshell *mshell, char *str)
+{
+	t_env	*env_list;
+	// t_env	*tmp_node;
+	printf("STR = %s\n",str);
+	env_list = mshell->env_list;
+	while (env_list)
+	{
+		// tmp_node = env_list;
+		printf("\n\nNode en cours:\nKAY:%s\nVALUE:%s\n\n",env_list->key, env_list->value);
+		if (!ft_strcmp(env_list->key, ft_get_env_key(str)))
+		{
+			printf("key en cours.. : %s\n", ft_get_env_key(str));
+			env_list->value = ft_get_envp_value(str);
+			printf("KEEEY : %s ", env_list->key);
+			printf("VALUE : %s\n\n", env_list->value);
+			return ;
+		}
+		env_list = env_list->next;
+	}
+	return ;
+}
+
+
 
 void	ft_print_sorted_env(t_env *env_list)
 {
-
-
-	while (env_list->next != NULL)
+	t_env	*mini_node;
+	t_env	*tmp_list;
+	int		count;
+	
+	count = ft_count_node(env_list);
+	ft_ignore_underscore(env_list, &count);
+	while (count > 0)
 	{
-		if (env_list->current)
-			break ;
-		env_list->current = true;
-		if (env_list->ignore)
+		tmp_list = env_list;
+		while (tmp_list->next && tmp_list->ignore)
+			tmp_list = tmp_list->next;
+		mini_node = tmp_list;
+		tmp_list = env_list;
+		while (tmp_list)
 		{
-			env_list = env_list->next;
-			env_list->next = env_list->next->next;
+			if (!tmp_list->ignore && ft_strcmp(tmp_list->key, mini_node->key) < 0)
+				mini_node = tmp_list;
+			tmp_list = tmp_list->next;
 		}
-		else
-		{
-			if (ft_strcmp (env_list->key, env_list->next->key) < 0)
-			{
-				env_list->current = false;
-				env_list->next->current = true;
-			}
-			else if (ft_strcmp (env_list->key, env_list->next->key) > 0)
-			{
-				env_list->next = env_list->next->next;
-			}
-		}
-		env_list = env_list->next;
+		mini_node->ignore = true;
+		printf("export ");
+		ft_print_env_node(mini_node);
+		count--;
 	}
-
-	while (env_list != NULL)
-	{
-		if (env_list->current)
-		{
-			print_env_node(env_list);
-			env_list->ignore = true;
-		}
-		env_list = env_list->next;
-	}
+	ft_init_ignore(env_list);
 }
 
-	// 2x passage de la liste 
-	// 1er pour current a imprimer 				// flag : current_compare
-	// 2eme pour set up le flag pour ignorer	// flag : ignore
-
-//void	node
-
-
-void	print_env_node(t_env *env)
+void	ft_print_env_node(t_env *env)
 {
 	if (env->equal)
 	{
-		printf(BLUE BLINK"%s"RESET, env->key);
+		printf(BLUE"%s"RESET, env->key);
 		printf(WHITE"=");
-		printf(RED"%s"RESET"\n", env->value);
+		if (env->ignore)
+			printf(RED"\"%s\""RESET"\n", env->value);
+		else
+			printf(RED"%s"RESET"\n", env->value);
 	}
 	else
-		printf(RED"%s"RESET, env->key);
+		printf(RED"%s"RESET"\n", env->key);
 }
-
-////////
-
-/*
-void	ft_print_sorted_env(t_env *env)
-{
-	t_env	*cur;
-	t_env	*tmp;
-
-	if (!env || !env)
-		return ;
-	cur = env;
-	while (cur->next)
-	{
-		tmp = cur->next;
-		while (tmp)
-		{
-			if (ft_strcmp(cur->key, tmp->key))
-				ft_swap_env(cur, tmp);
-			tmp = tmp->next;
-		}
-		cur = cur->next;
-	}
-	ft_print_env_list(env);
-}
-
-void	ft_swap_env(t_env *a, t_env *b)
-{
-	char	*tmp_key;
-	char	*tmp_value;
-
-	tmp_key = a->key;
-	a->key = b->key;
-	b->key = tmp_key;
-	tmp_value = a->value;
-	a->value = b->value;
-	b->value = tmp_value;
-}
-*/
-
-
-
 
 /*
     // /!\ sensible a la casse

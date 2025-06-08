@@ -1,5 +1,39 @@
 #include "../../includes/minishell.h"
 
+int	ft_count_node(t_env *env_list)
+{
+	int	count;
+
+	count = 0;
+	while (env_list)
+	{
+		count++;
+		env_list = env_list->next;
+	}
+	return (count);
+}
+
+void	ft_ignore_underscore(t_env *env_list, int *count)
+{
+	while (env_list)
+	{
+		if (!ft_strcmp(env_list->key, "_"))
+		{
+			env_list->ignore = true;
+			(*count)--;
+		}
+		env_list = env_list->next;
+	}
+}
+
+void	ft_init_ignore(t_env *env_list)
+{
+	while (env_list)
+	{
+		env_list->ignore = false;
+		env_list = env_list->next;
+	}
+}
 
 
 char	**ft_split_var(t_mshell *mshell, char *cmd)
@@ -30,7 +64,7 @@ int		ft_isequal(char *str)
 }
 
 
-void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
+/* void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
 {
 	if (!env_list)
 		printf(RED"ENV LISTE VIDE"RESET"\n");
@@ -50,7 +84,7 @@ void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
 	}
     return ;
 }
-
+ */
 /*
 void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
 {

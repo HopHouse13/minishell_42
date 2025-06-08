@@ -6,14 +6,14 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:27:43 by pab               #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:22 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 16:49:41 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void	ft_executer(t_mshell *mshell, char **envp)
-{return;
+{
 	t_cmd	*list_cmd;
 	
 	list_cmd = mshell->list_cmd;
@@ -41,6 +41,7 @@ void	ft_executer(t_mshell *mshell, char **envp)
 	{
 		printf("HereDoc par la\n");
 	}
+	// update_env_pwd_old_pwd;
 	//wait(NULL);
 	ft_free_ml(mshell);
 	printf(RED "\n[INFO] Fin Exec."RESET"\n");

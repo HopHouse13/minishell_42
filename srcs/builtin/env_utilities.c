@@ -5,29 +5,22 @@ void	ft_build_env_list(t_mshell *mshell, char **envp)
 	t_env	*new_node;
 	int		i;
 
-	// char *key;
-
 	i = 0;
 	while (envp[i])
 	{
 		new_node = ft_create_env_node(mshell);
 		if (!new_node)
 			return ;
-		new_node->key = ft_get_env_key(new_node, envp[i]);
+		new_node->key = ft_get_env_key(envp[i]);
+		if (ft_isequal(envp[i]))
+				new_node->equal = true;
 		new_node->value = ft_get_envp_value(envp[i]);
 		i++;
 	}
 }
 
-char	*ft_get_env_key(t_env *node, char *envp)	
+char	*ft_get_env_key(char *envp)	// recupere KEY depuis str [KEY | = value]
 {
-
-	if (ft_isequal(envp))
-	{
-		node->equal = true;
-		// printf("BOOL\n");
-	}
-	// printf(CYAN"[INFO] Input %s  ; BOOL : %d", envp, node->equal);
 	return (ft_substr(envp, 0, ft_strlen_equal(envp)));
 }
 
@@ -41,19 +34,20 @@ int		ft_strlen_equal(char *str)
 	return (i);
 }
 
-char	*ft_get_envp_value(char *envp)
+char	*ft_get_envp_value(char *envp) // recupere VALUE depuis str [key = | VALUE] 
 {
 	char	*value;
-					//KEY
+	int		i;
+
 	if (ft_isequal(envp))
 	{
-		value = ft_substr(envp, ft_strlen_equal(envp)+1, ft_strlen(envp));
-		if (!value)
-		{
-			free(value);
-			value = ft_strdup(""); // /!\ Free a checker
-			return (value);
-		}
+		i = 0;
+		while (envp[i] && envp[i] != '=')
+			i++;
+		if (envp[i +1])
+			value = ft_substr(envp, ft_strlen_equal(envp)+1, ft_strlen(envp));
+		else
+			value = ft_strdup("");
 		return (value);
 	}
 	return (NULL);
@@ -90,7 +84,6 @@ t_env	*ft_init_env_node(t_env *new_node)
 	new_node->key = NULL;
 	new_node->value = NULL;
 	new_node->equal = false;
-	new_node->current = false;
 	new_node->ignore = false;
 	new_node->prev = NULL;
 	new_node->next = NULL;
@@ -116,34 +109,16 @@ void	ft_update_env_value(t_mshell *mshell, char *key, char *value)
     }
 }
 
-int	ft_check_env_key(t_env *env, char *key_value)
+t_env	*ft_check_env_key(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->key, key_value) == 0)
-			return (1);
+		if (!ft_strcmp(env->key, key))
+			return (env);
 		env = env->next;
 	}
-	return (0);
+	return (NULL);
 }
-
-/*
-char	*ft_get_envp_value(char *envp)
-{
-	char	*value;
-
-	value = ft_substr(envp, ft_strlen_equal(envp)+1, ft_strlen(envp));
-	if (!value)
-	{
-		free(value);
-		value = ft_strdup(""); // /!\ Free a checker
-		return (value);
-	}
-	return (value);
-}
-*/
-
-//////////////////
 
 
 char	*ft_get_env_value(t_mshell *mshell, char *key)
@@ -161,66 +136,21 @@ char	*ft_get_env_value(t_mshell *mshell, char *key)
 	return (NULL);
 }
 
-
-
-
-
-/*
-void	ft_add_var(t_mshell *mshell)
+int		ft_isenv_key(t_mshell *mshell, char *key)  // bool pour detecter presence '='
 {
-	t_cmd	*list_cmd;
-	int		i;
+	t_env	*env;
 
-	list_cmd = mshell->list_cmd;
-	i = 1;
-	while (list_cmd->cmd[i])
+	env = mshell->env_list;
+	while (env != NULL)
 	{
-		ft_add_node_env(mshell, list_cmd->cmd[i]);
-		i++;
+		if (!ft_strcmp(env->key, key))
+			return (1);
+		env = env->next;
 	}
+	return (0);
 }
-*/
 
-/*
-void    ft_add_node_env(t_mshell *mshell, char *cmd) // split cmd | < | {create new node env} ; {change value}
-{
-    char    **key_value;
 
-    key_value = ft_split_var(mshell, cmd);
-	if (!key_value || !key_value[0])
-            return ;
-	if (!ft_check_env_key(mshell->env_list, key_value[0]))
-	{
-	   printf(CYAN"[INFO]Creation new Env variable"RESET"\n");
-	   ft_create_env_node(mshell, key_value);
-	}
-	else
-	{
-		printf(CYAN"[INFO]Changement value Env"RESET"\n");
-		ft_change_env_value(mshell->env_list, key_value);
-	}
-    // ft_free_tab(key_value);
-}
-*/
-/*
-void	ft_change_env_value(t_env *env, char **key_value) // change la valeur d;un noeud
-{
-	while (env)
-    {
-        if (ft_strcmp(env->key, key_value[0]) == 0)
-        {
-            free(env->value);
-            if (key_value[1])
-                env->value = ft_strdup(key_value[1]);
-            else
-                env->value = ft_strdup("");
-            // ft_free_tab(key_value);
-            return ;
-        }
-        env = env->next;
-    }
-}
-*/
 
 
 

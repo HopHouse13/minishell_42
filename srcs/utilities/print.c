@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/05/26 20:24:16 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 17:48:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_print_header_list_cmd(void)
 	printf("\t║\t\t\t\t\t\t  ║\n");
 	printf(GREEN"\t\t\t   \033[1m[ LIST_CMD ]\n");
 	printf(MAGEN"\t║\t\t\t\t\t\t  ║\n");
-	printf("\t╚═════════════════════════════════════════════════╝\n%s", RESET);
+	printf("\t╚═════════════════════════════════════════════════╝\n"RESET);
 }
 
 void	ft_print_list_cmd(t_mshell *mshell)
@@ -94,6 +94,6 @@ void	ft_print_list_cmd(t_mshell *mshell)
 		printf("\t\tEXPAND_HD?\t->\t[ %d ]\n%s", tmp->expand_hd, RESET);
 		tmp = tmp->next;
 		printf(CYAN"\n\t\t══════════════════════════════════\n");
-		printf(MAGEN"\t\t══════════════════════════════════\n%s", RESET);
+		printf(MAGEN"\t\t══════════════════════════════════\n"RESET);
 	}
 }

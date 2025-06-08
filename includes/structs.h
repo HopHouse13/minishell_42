@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/05/28 11:51:24 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/08 14:18:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_env
 	char			*key;
 	bool			equal;
 	char			*value;
-	bool			current;
+	//bool			current;
 	bool			ignore;
 	struct s_env	*prev;
 	struct s_env	*next;
