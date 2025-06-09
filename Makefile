@@ -42,16 +42,16 @@ SRCS		= srcs/main.c \
 			srcs/utilities/init.c \
 			srcs/utilities/print.c \
 			srcs/utilities/utilities.c \
+			srcs/builtin/builtin_echo.c \
+			srcs/builtin/builtin_export.c \
+			srcs/builtin/builtin_pwd.c \
+			srcs/builtin/builtin_unset.c \
 			srcs/builtin/builtin_utilities_0.c \
 			srcs/builtin/builtin_utilities_1.c \
 			srcs/builtin/builtin_utilities_2.c \
 			srcs/builtin/ft_cd.c \
-			srcs/builtin/builtin_echo.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
-			srcs/builtin/builtin_export.c \
-			srcs/builtin/ft_pwd.c \
-			srcs/builtin/ft_unset.c \
 			srcs/exec/exec_utilities.c \
 			srcs/exec/execution_cmd.c \
 			srcs/exec/ft_exe_builtins.c \

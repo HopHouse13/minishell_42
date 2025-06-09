@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 23:19:36 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 23:57:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,13 @@ bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
 void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd);
 void	ft_handle_cmd(t_mshell *mshell, t_parser *parser);
 
+/// PARSER_HEREDOC ///
+char	*ft_merge_hd(t_mshell *mshell, char *line, char *ev_exp, t_hd *hd);
+char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd);
+char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd);
+void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd);
+void	ft_heredoc(t_mshell *mshell, t_cmd *cmd);
+
 /// PARSER_UTILITIES ///
 bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
@@ -188,6 +195,38 @@ void	ft_print_list_cmd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/// BUILTIN ///
+void	ft_exe_built_in(t_mshell *mshell);
+
+/// BUILTIN_CD ///
+int		ft_cd(t_mshell *mshell);
+
+/// BUILTIN_ECHO ///
+int		ft_count_args(char **tab_args);
+bool	ft_valid_option_n(char *arg);
+int		ft_echo(t_mshell *mshell);
+
+/// BUILTIN_ENV ///
+int		ft_env(t_mshell *mshell);
+void	ft_env_minimal(t_mshell *mshell);
+
+/// BUILTIN_EXIT ///
+int		ft_exit(t_cmd *cmd);
+
+/// BUILTIN_EXPORT ///
+void	ft_ignore_underscore(t_env *env_list, int *count);
+void	ft_print_sorted_env(t_env *env_list);
+bool	ft_valid_key(char *c_key);
+void	ft_edit_var_env(t_mshell *mshell);
+int		ft_export(t_mshell *mshell);
+
+/// BUILTIN_PWD ///
+int		ft_pwd(void);
+
+/// BUILTIN_UNSET ///
+void	ft_remove_env_node(t_mshell *mshell, char *key);
+int 	ft_unset(t_mshell *mshell);
+
 /// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
 bool	ft_isequal(char *str);
@@ -203,38 +242,7 @@ t_env	*ft_get_key_node(t_env *env, char *key);
 char	*ft_found_value_key(t_mshell *mshell, char *key);
 void	ft_init_ignore(t_env *env_list);
 
-		// ||  ft_cd.c  ||
-int		ft_cd(t_mshell *mshell);
-
-/// BUILTIN_ECHO ///
-int		ft_echo(t_mshell *mshell);
-
-// ||  ft_env.c  ||
-int		ft_env(t_mshell *mshell);
-void	ft_env_minimal(t_mshell *mshell);
-
-		// ||  ft_exit.c  ||
-int		ft_exit(t_cmd *cmd);
-
-		// ||  ft_exe_builtins.c  ||
-void	ft_exe_built_in(t_mshell *mshell);
-
-		// ||  ft_export_utilities.c  ||
-void	ft_init_ignore(t_env *env_list);
-void	ft_ignore_underscore(t_env *env_list, int *count);
-void	ft_print_sorted_env(t_env *env_list);
-bool	ft_valid_key(char *c_key);
-void	ft_edit_var_env(t_mshell *mshell);
-
-		// ||  ft_export.c  ||
-int		ft_export(t_mshell *mshell);
-
-		// ||  ft_pwd.c ||
-int		ft_pwd(t_mshell *mshell);
-
-/// BUILTIN_UNSET ///
-void	ft_remove_env_node(t_mshell *mshell, char *key);
-int 	ft_unset(t_mshell *mshell);
+////////////////////////////////////////////////////////////////////////////////
 
 		/// EXEC ///
 void	ft_executer(t_mshell *mshell, char **env);
@@ -255,15 +263,6 @@ void	ft_forker(t_mshell *mshell, char **envp);
 int		ft_piper(t_mshell *mshell, char **envp);
 void	ft_pipe_read(t_mshell *mshell, int pipe_read);
 void	ft_pipe_write(t_mshell *mshell, int pipe_write);
-
-
-
-		/// PARSER_HEREDOC ///
-char	*ft_merge_hd(t_mshell *mshell, char *line, char *ev_exp, t_hd *hd);
-char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd);
-char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd);
-void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd);
-void	ft_heredoc(t_mshell *mshell, t_cmd *cmd);
 
 		/// EXEC_UTILITIES ///
 int		ft_check_path_access(char *cmd);

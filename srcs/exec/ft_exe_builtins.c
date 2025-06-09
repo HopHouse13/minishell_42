@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:28:45 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 17:57:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 23:38:40 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	ft_exe_built_in(t_mshell *mshell)
 	}    
 	else if (ft_strcmp(cmd, "pwd") == 0)
 	{
-		ft_pwd(mshell);    
-		// ft_env(mshell);
+		ft_pwd();
 	}
 	else if (ft_strcmp(cmd, "unset") == 0)
 	{
