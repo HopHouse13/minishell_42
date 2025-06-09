@@ -22,24 +22,23 @@ void	ft_executer(t_mshell *mshell, char **envp)
 		printf (CYAN "\n [INFO] Commande BuiltIn :"RESET YELLOW " %s"RESET"\n", list_cmd->cmd[0]);
 		ft_exe_built_in(mshell);
 	}
-	ft_build_path(mshell);
-	if (mshell->count_pipe)
+	else 
 	{
-		printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
-		printf("BUG ICI XXX");
-
-		ft_piper(mshell, envp);
-		printf("BUG ICI 000");
-
-	}
-	else if (list_cmd->cmd && !mshell->count_pipe && !list_cmd->builtin) 
-	{
-		printf("\n"CYAN"[INFO] Commande unique :"RESET YELLOW" %s"RESET, list_cmd->cmd[0]);
-		ft_forker(mshell, envp);
-	}
-	if (list_cmd->fd_hd != -1)
-	{
-		printf("HereDoc par la\n");
+		ft_build_path(mshell);
+		if (mshell->count_pipe)
+		{
+			printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
+			ft_piper(mshell, envp);
+		}
+		else if (list_cmd->cmd && !mshell->count_pipe && !list_cmd->builtin) 
+		{
+			printf("\n"CYAN"[INFO] Commande unique :"RESET YELLOW" %s"RESET, list_cmd->cmd[0]);
+			ft_forker(mshell, envp);
+		}
+		if (list_cmd->fd_hd != -1)
+		{
+			printf("HereDoc par la\n");
+		}
 	}
 	// update_env_pwd_old_pwd;
 	//wait(NULL);

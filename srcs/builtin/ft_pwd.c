@@ -2,16 +2,18 @@
 
 int	ft_pwd(t_mshell *mshell)
 {
-	char	*pwd;
+	(void)mshell;
+	char	pwd[1024];
 
-	pwd = ft_strdup_ml(mshell, ft_get_env_value(mshell, "PWD")); // printf + boucle
+	getcwd(pwd, sizeof(pwd));
+	//ft_strdup_ml(mshell, ft_get_env_value(mshell, "PWD")); // printf + boucle
     /* if (!pwd)
     {
         perror("PWD = NULL\n");
 		exit (1);
     }
     else */
-        return (printf("%s", pwd));
+    return (printf("%s", pwd));
 
 		// .
 		// ..

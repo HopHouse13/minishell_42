@@ -122,10 +122,9 @@ char	*ft_get_env_value(t_mshell *mshell, char *key)
 	t_env	*env;
 
 	env = mshell->env_list;
-	while (env->next != NULL)
+	while (env != NULL)
 	{
-
-		if (ft_strcmp(env->key, key) == 0)
+		if (!ft_strcmp(env->key, key))
 			return (env->value);
 		env = env->next;
 	}

@@ -225,16 +225,8 @@ int		ft_strlen_equal(char *str);
 int		ft_isequal(char *str);
 t_env	*ft_found_key(t_env *env, char *key);
 
-
-
 char	*ft_get_env_value(t_mshell *mshell, char *key);
 
-
-//void	ft_add_var(t_mshell *mshell);
-//void	ft_change_env_value(t_env *env, char **key_value);
-//void    ft_add_node_env(t_mshell *mshell, char *cmd);
-
-//void	ft_update_env(t_mshell *mshell, char *key);
 
 
 //			ft_env
@@ -253,7 +245,7 @@ void	ft_ignore_underscore(t_env *env_list, int *count);
 void	ft_init_ignore(t_env *env_list);
 char	**ft_split_var(t_mshell *mshell, char *cmd);
 int		ft_isequal(char *str);
-void	ft_print_env_list(t_env *env_list);
+// void	ft_print_env_list(t_env *env_list);
 
 // ft_cd
 int		ft_cd(t_mshell *mshell);
@@ -270,7 +262,6 @@ int		ft_export(t_mshell *mshell);
 void	ft_print_sorted_env(t_env *env);
 void	ft_print_env_node(t_env *env_list);
 
-void	ft_swap_env(t_env *a, t_env *b);
 
 
 // ft_pwd

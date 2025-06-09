@@ -44,7 +44,10 @@ void	ft_exe_built_in(t_mshell *mshell)
 		ft_export(mshell);
 	}    
 	else if (ft_strcmp(cmd, "pwd") == 0)
+	{
 		ft_pwd(mshell);    
+		// ft_env(mshell);
+	}
 	else if (ft_strcmp(cmd, "unset") == 0)
 	{
 		printf(CYAN"[INFO] BI : "RESET YELLOW"unset"RESET"\n");
