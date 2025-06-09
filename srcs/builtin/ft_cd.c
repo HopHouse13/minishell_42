@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:18:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 01:26:50 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_cd(t_mshell *mshell)
         home = ft_found_value_key(mshell, "HOME");
         if (!home || chdir(home) == -1)
         {
-            perror("cd: HOME absent\n");
+            perror("cd: HOME absent");
             return (1);
         }
     }
