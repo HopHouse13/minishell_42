@@ -4,7 +4,7 @@ int	ft_pwd(t_mshell *mshell)
 {
 	char	*pwd;
 
-	pwd = ft_strdup_ml(mshell, ft_get_env_value(mshell, "PWD")); // printf + boucle
+	pwd = ft_strdup_ml(mshell, ft_get_value_var(mshell, "PWD")); // printf + boucle
     /* if (!pwd)
     {
         perror("PWD = NULL\n");

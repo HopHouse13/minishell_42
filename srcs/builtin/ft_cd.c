@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/05/27 14:31:42 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 02:42:46 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_cd(t_mshell *mshell)
 	cmd_node = mshell->list_cmd;
     if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
     {
-        home = ft_get_env_value(mshell, "HOME");
+        home = ft_get_value_var(mshell, "HOME");
         if (!home || chdir(home) == -1)
         {
             perror("cd: HOME absent\n");

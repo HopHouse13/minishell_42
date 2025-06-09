@@ -13,43 +13,7 @@ int	ft_count_node(t_env *env_list)
 	return (count);
 }
 
-void	ft_ignore_underscore(t_env *env_list, int *count)
-{
-	while (env_list)
-	{
-		if (!ft_strcmp(env_list->key, "_"))
-		{
-			env_list->ignore = true;
-			(*count)--;
-		}
-		env_list = env_list->next;
-	}
-}
-
-void	ft_init_ignore(t_env *env_list)
-{
-	while (env_list)
-	{
-		env_list->ignore = false;
-		env_list = env_list->next;
-	}
-}
-
-
-char	**ft_split_var(t_mshell *mshell, char *cmd)
-{
-    char    **key_value;
-
-    if (ft_isequal(cmd))
-    {
-        key_value = ft_split_ml(mshell, cmd, '=');
-        if (!key_value || !key_value[0])
-            return NULL;
-    }
-    return (key_value);
-}
-
-int		ft_isequal(char *str)
+bool ft_isequal(char *str)
 {
     int	i;
     
@@ -63,47 +27,30 @@ int		ft_isequal(char *str)
     return (0);
 }
 
-
-/* void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
+void	ft_print_env_node(t_env *env)
 {
-	if (!env_list)
-		printf(RED"ENV LISTE VIDE"RESET"\n");
-	while (env_list)
+	if (env->equal)
 	{
-		// KEY
-		// printf("KEY= %s; BOOL = %d\n", env_list->key, env_list->equal);
-		if (!env_list->equal)
-		{
-			printf(RED"%s"RESET"\n",env_list->key);
-		}
-		//KEY = && KEY=VALUE
+		printf(BLUE"%s"RESET, env->key);
+		printf(WHITE"=");
+		if (env->ignore)
+			printf(RED"\"%s\""RESET"\n", env->value);
 		else
-			printf(RED"%s"CYAN"="GREEN"%s"RESET"\n", env_list->key, env_list->value);
-			// printf(YELLOW"%s"GREEN"%s"RESET"\n",env_list->key, env_list->value);
-		env_list = env_list->next;
+			printf(RED"%s"RESET"\n", env->value);
 	}
-    return ;
+	else
+		printf(RED"%s"RESET"\n", env->key);
 }
- */
-/*
-void	ft_print_env_list(t_env *env_list)  //print liste chainee env[key:value]
+
+char	*ft_get_key(char *var)	// recupere KEY depuis VAR [KEY <-| = value]
 {
-	if (!env_list)
-		printf(RED"ENV LISTE VIDE"RESET"\n");
-	while (env_list)
-	{
-		if (ft_isequal(env_list->key))
-		{
-			printf(RED"%s="RESET, env_list->key);
-			printf(GREEN"%s"RESET"\n", env_list->value);
-		}
-		if (!ft_isequal(env_list->key) && !env_list->value)
-		{
-			printf(RED"%s"RESET, env_list->key);
-			printf("\tVALUE = NULL\n");
-		}
-		env_list = env_list->next;
-	}
-    return ;
+	return (ft_substr(var, 0, ft_strlen_equal(var)));
 }
-*/
+
+char	*ft_get_value(char *var)	// recupere VALUE depuis VAR [KEY = |-> value]
+{
+	if (ft_isequal(var))
+		return (ft_substr(var, ft_strlen_equal(var) +1, ft_strlen(var)));
+	else
+		return (NULL);
+}
