@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:27:43 by pab               #+#    #+#             */
-/*   Updated: 2025/06/08 16:49:41 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 19:23:54 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	ft_executer(t_mshell *mshell, char **envp)
 	// update_env_pwd_old_pwd;
 	//wait(NULL);
 	ft_free_ml(mshell);
-	printf(RED "\n[INFO] Fin Exec."RESET"\n");
+	//printf(RED "[INFO] Fin Exec."RESET"\n");
 }

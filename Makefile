@@ -43,7 +43,7 @@ SRCS		= srcs/main.c \
 			srcs/builtin/builtin_utilities_0.c \
 			srcs/builtin/builtin_utilities_1.c \
 			srcs/builtin/ft_cd.c \
-			srcs/builtin/ft_echo.c \
+			srcs/builtin/builtin_echo.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
 			srcs/builtin/ft_export_utilities.c \
