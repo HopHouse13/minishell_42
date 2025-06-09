@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:28:45 by pab               #+#    #+#             */
-/*   Updated: 2025/06/08 13:34:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 17:57:54 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_exe_built_in(t_mshell *mshell)
 	else if (ft_strcmp(cmd, "echo") == 0)
 	{
 		printf(CYAN"[INFO] BI : "RESET YELLOW"echo"RESET"\n");
-		//ft_echo();
+		ft_echo(mshell);
 	}    
 	else if (ft_strcmp(cmd, "env") == 0)
 	{

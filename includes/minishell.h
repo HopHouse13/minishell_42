@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 04:43:08 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 17:06:29 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,9 +254,9 @@ char	*ft_get_value(char *var);
 // ft_cd
 int		ft_cd(t_mshell *mshell);
 
-// ft_echo
-//int		ft_echo();
-
+/// BUILTIN_ECHO ///
+int 	ft_echo(t_mshell *mshell);
+bool	ft_valid_option_n(char *arg);
 
 // ft_exit
 int		ft_exit(t_cmd *cmd);
