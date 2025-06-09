@@ -184,7 +184,66 @@ void	ft_print_list_cmd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// redirections
+			/// BUILTIN ///
+
+		// ||  builtin_utilities.c  ||
+int		ft_count_node(t_env *env_list);
+bool	ft_isequal(char *str);
+void	ft_print_env_node(t_env *env);
+char	*ft_get_key(char *var);
+char	*ft_get_value(char *var);
+
+		// ||  ft_cd.c  ||
+int		ft_cd(t_mshell *mshell);
+
+		// ||  ft_echo.c  ||
+int		ft_echo(t_mshell *mshell);
+
+		// ||  ft_env_utilities.c  ||
+void	ft_build_env_list(t_mshell *mshell, char **env);
+int		ft_strlen_equal(char *str);
+char	*ft_get_envp_value(char *envp);
+void	ft_up_value_var(t_env *env_list, char *key, char * value);
+
+t_env	*ft_get_key_node(t_env *env, char *key);
+char	*ft_get_value_key(t_mshell *mshell, char *key);
+
+// ||  ft_env.c  ||
+int		ft_env(t_mshell *mshell);
+void	ft_env_minimal(t_mshell *mshell);
+t_env	*ft_create_env_node(t_mshell *mshell);
+t_env	*ft_init_env_node(t_env *new_node);
+
+		// ||  ft_exit.c  ||
+int		ft_exit(t_cmd *cmd);
+
+		// ||  ft_exe_builtins.c  ||
+void	ft_exe_built_in(t_mshell *mshell);
+
+		// ||  ft_export_utilities.c  ||
+void	ft_init_ignore(t_env *env_list);
+void	ft_ignore_underscore(t_env *env_list, int *count);
+void	ft_print_sorted_env(t_env *env);
+bool	ft_valid_key(char *c_key);
+void	ft_edit_var_env(t_mshell *mshell);
+
+		// ||  ft_export.c  ||
+int		ft_export(t_mshell *mshell);
+
+		// ||  ft_pwd.c ||
+int		ft_pwd(t_mshell *mshell);
+
+		// ||  ft_unset.c ||
+int		ft_unset(t_mshell *mshell);
+void	ft_remove_env_node(t_env *env_list, char *key);
+void	ft_free_env_node(t_env *env_node);
+
+
+		/// EXEC ///
+void	ft_executer(t_mshell *mshell, char **env);
+t_cmd	*cmd_init(void);
+
+		// redirections
 
 void	ft_redir(t_mshell *mshell);
 void	ft_redir_out(t_mshell *mshell);
@@ -194,90 +253,22 @@ void	ft_redir_hd(t_mshell *s_mshell);
 void	ft_redir_pipe_read(t_mshell *mshell, int *pipe_fd);
 void	ft_redir_pipe_write(t_mshell *mshell, int *pipe_fd);
 
-// pipe.c
+		// pipe.c
 void	ft_forker(t_mshell *mshell, char **envp);
 int		ft_piper(t_mshell *mshell, char **envp);
 void	ft_pipe_read(t_mshell *mshell, int pipe_read);
 void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
-// exec
-void	ft_executer(t_mshell *mshell, char **env);
-t_cmd	*cmd_init(void);
-
-/// BUILTINS ///
-
-//			ft_env_utilities
-
-void	ft_build_env_list(t_mshell *mshell, char **env);
-
-t_env	*ft_create_env_node(t_mshell *mshell);
-t_env	*ft_init_env_node(t_env *new_node);
-char	*ft_get_key(char *envp);
-char	*ft_get_envp_value(char *envp);
-
-void	ft_up_value_var(t_env *env_list, char *key, char * value);
-
-void	ft_free_env_node(t_env *env_node);
-
-int		ft_strlen_equal(char *str);
-int		ft_isequal(char *str);
-t_env	*ft_found_key(t_env *env, char *key);
-
-char	*ft_get_value_var(t_mshell *mshell, char *key);
 
 
-
-//			ft_env
-int		ft_env(t_mshell *mshell);
-
-void	ft_env_minimal(t_mshell *mshell);
-
-
-
-//	ft_exe_builtins
-void	ft_exe_built_in(t_mshell *mshell);
-
-/// BUILTIN_UTILITIES ///
-int		ft_count_node(t_env *env_list);
-void	ft_ignore_underscore(t_env *env_list, int *count);
-void	ft_init_ignore(t_env *env_list);
-char	**ft_split_var(t_mshell *mshell, char *cmd);
-int		ft_isequal(char *str);
-// void	ft_print_env_list(t_env *env_list);
-
-// ft_cd
-int		ft_cd(t_mshell *mshell);
-
-// ft_echo
-//int		ft_echo();
-
-
-// ft_exit
-int		ft_exit(t_cmd *cmd);
-
-/// BUILTIN_EXPORT ///
-void	ft_init_ignore(t_env *env_list);
-void	ft_ignore_underscore(t_env *env_list, int *count);
-void	ft_print_sorted_env(t_env *env);
-void	ft_print_env_node(t_env *env_list);
-
-
-
-// ft_pwd
-int		ft_pwd(t_mshell *mshell);
-
-// ft_unset
-int		ft_unset(t_mshell *mshell);
-void	ft_remove_env_node(t_env *env_list, char *key);
-
-/// EXEC_HEREDOC ///
+		/// EXEC_HEREDOC ///
 char	*ft_merge_hd(t_mshell *mshell, char *line, char *ev_exp, t_hd *hd);
 char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd);
 char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd);
 void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd);
 void	ft_heredoc(t_mshell *mshell, t_cmd *cmd);
 
-/// EXEC_UTILITIES ///
+		/// EXEC_UTILITIES ///
 bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
 bool	ft_escape_last_char(char *line);
@@ -289,7 +280,9 @@ void	ft_build_path(t_mshell *mshell);
 void	ft_build_cmd_path(t_mshell *mshell);
 void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
-// signal
+
+
+		// signal
 
 void	handle_sig_int(int num);
 void	ft_handle_signals(void);
@@ -298,7 +291,6 @@ void	ft_child_signals(void);
 
 void	ft_handle_eof(void);
 void	handle_sig_quit(int num);
-
 
 
 #endif

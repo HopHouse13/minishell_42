@@ -31,8 +31,8 @@ void	ft_build_cmd_path(t_mshell *mshell)
 	char	*path_env;
 	char	**path_tab;
 
-	printf("STRING PATH : %s\n", ft_get_env_value(mshell, "PATH"));
-	path_env = ft_strdup_ml(mshell, ft_get_env_value(mshell, "PATH"));
+	// printf("STRING PATH : %s\n", ft_get_env_value(mshell, "PATH"));
+	path_env = ft_strdup_ml(mshell, ft_get_value_key(mshell, "PATH"));
 	path_tab = ft_split_ml(mshell, path_env, ':');
 	ft_path_makeur(mshell, path_tab); // Ajout '/' + 'cmd' --> Path
 }

@@ -93,35 +93,12 @@ void	ft_up_value_var(t_env *env_list, char *key, char *value)
 					free(env_list->value);
 				env_list->value = value;
 				env_list->equal = true;
-				//printf ("value_key [%s]\tvalue_value [%s]\n\n", env_list->key, env_list->value);
 			}
 			env_list = env_list->next;
 		}
 	}
 	free(key);
 }
-
-// void	ft_up_value_var(t_mshell *mshell, char *key, char *value)
-// {
-// 	t_env *tmp_list;
-
-// 	tmp_list = mshell->env_list;
-// 	if (value)
-// 	{
-// 		while (tmp_list)
-// 		{
-// 			if (!ft_strcmp(tmp_list->key, key))
-// 			{
-// 				if (tmp_list->value)
-// 					free(tmp_list->value);
-// 				tmp_list->value = value;
-// 				// printf ("value_key [%s]\tvalue_value [%s]\n\n", tmp_list->key, tmp_list->value);
-// 			}
-// 			tmp_list = tmp_list->next;
-// 		}
-// 	}
-// 	free(key);
-// }
 
 t_env	*ft_get_key_node(t_env *env, char *key)
 {
@@ -134,7 +111,7 @@ t_env	*ft_get_key_node(t_env *env, char *key)
 	return (NULL);
 }
 
-char	*ft_get_value_var(t_mshell *mshell, char *key) // recupere VALUE depuis une VAR existante via sa KEY
+char	*ft_get_value_key(t_mshell *mshell, char *key) // recupere VALUE depuis une VAR existante via sa KEY
 {
 	t_env	*env;
 

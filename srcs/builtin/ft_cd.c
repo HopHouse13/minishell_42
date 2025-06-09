@@ -20,7 +20,7 @@ int	ft_cd(t_mshell *mshell)
 	cmd_node = mshell->list_cmd;
     if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
     {
-        home = ft_get_value_var(mshell, "HOME");
+        home = ft_get_value_key(mshell, "HOME");
         if (!home || chdir(home) == -1)
         {
             perror("cd: HOME absent\n");

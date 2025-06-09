@@ -42,12 +42,12 @@ void	ft_print_env_node(t_env *env)
 		printf(RED"%s"RESET"\n", env->key);
 }
 
-char	*ft_get_key(char *var)	// recupere KEY depuis VAR [KEY <-| = value]
+char	*ft_get_key(char *var)
 {
 	return (ft_substr(var, 0, ft_strlen_equal(var)));
 }
 
-char	*ft_get_value(char *var)	// recupere VALUE depuis VAR [KEY = |-> value]
+char	*ft_get_value(char *var)
 {
 	if (ft_isequal(var))
 		return (ft_substr(var, ft_strlen_equal(var) +1, ft_strlen(var)));

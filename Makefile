@@ -40,23 +40,24 @@ SRCS		= srcs/main.c \
 			srcs/utilities/init.c \
 			srcs/utilities/print.c \
 			srcs/utilities/utilities.c \
-			srcs/exec/execution_cmd.c \
-			srcs/exec/ft_exe_builtins.c \
-			srcs/exec/pipe.c \
-			srcs/exec/redirect.c \
-			srcs/exec/test_init.c \
-			srcs/exec/exec_heredoc.c \
-			srcs/exec/exec_utilities.c \
-			srcs/exec/path.c \
+			srcs/builtin/builtin_utilities_0.c \
+			srcs/builtin/builtin_utilities_1.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/ft_echo.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
-			srcs/builtin/builtin_export.c \
+			srcs/builtin/ft_export_utilities.c \
+			srcs/builtin/ft_export.c \
 			srcs/builtin/ft_pwd.c \
 			srcs/builtin/ft_unset.c \
-			srcs/builtin/builtin_utilities.c \
-			srcs/builtin/env_utilities.c \
+			srcs/exec/exec_heredoc.c \
+			srcs/exec/exec_utilities.c \
+			srcs/exec/execution_cmd.c \
+			srcs/exec/ft_exe_builtins.c \
+			srcs/exec/path.c \
+			srcs/exec/pipe.c \
+			srcs/exec/redirect.c \
+			srcs/exec/test_init.c \
 			srcs/signals/signals.c
 
 

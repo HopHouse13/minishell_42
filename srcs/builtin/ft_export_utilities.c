@@ -84,7 +84,7 @@ bool	ft_valid_key(char *c_key) // a ranger
 	{
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(c_key, 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
+		ft_putstr_fd("' : not a valid identifier\n", 2);
 		free(c_key);
 		return (false);
 	}
@@ -117,13 +117,4 @@ void	ft_edit_var_env(t_mshell *mshell)
 			new_node->value = c_value;
 		}
 	}
-}
-
-int	ft_export(t_mshell *mshell)
-{
-	if (!mshell->list_cmd->cmd[1])
-		ft_print_sorted_env(mshell->env_list);
-	else
-		ft_edit_var_env(mshell);
-	return (0);
 }
