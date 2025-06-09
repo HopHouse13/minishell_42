@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_heredoc.c                                     :+:      :+:    :+:   */
+/*   parser_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/06/02 19:44:11 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 21:22:56 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd)
 	char	*ev_ptr;
 	char	*ev_expanded;
 	
-	/* if (line[exp->start] == '\0')
-		return (ft_strdup_ml(mshell, "$")); */ // voir si c'est utilse ou pas
 	if (line[hd->start] == '?')
 	{
 		hd->end = hd->start +1;
@@ -43,8 +41,7 @@ char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd)
 	while (ft_isalnum(line[hd->end]) || line[hd->end] == '_')
 		hd->end++;
 	ev_name = ft_substr_ml(mshell, line, hd->start, hd->end - hd->start);
-	//ev_ptr = ft_get_env(ev_name, mshell->env_list);
-	ev_ptr = getenv(ev_name); // ASUPP
+	ev_ptr = ft_found_value_key(mshell, ev_name);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
 	else
@@ -117,19 +114,3 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 	// cmd->fd_hd = -1; // et le mettre a -1 apres l'avoir close
 }
 
-// 2 problemes:
-
-// quand $VAR valide mais n'hexiste pas, ca fait ligne vide alors qu'il faudrait affichier tout brut ($hello -> $hello)
-// quand $VAR invalide, ca fait buguer voir ligne 32 dans ko_exp_hd
-
-// NOTE HEREDOC
-
-// Qu'un niveau d'expand:
-// si une $VAR expanded dans le heredoc, a une autre $VAR dedans, la 2eme ne doit pas etre expanded mais affichee brute.
-// WARNING par contre elle doit l'etre endehors d'un heredoc.
-
-// Une seule regles pour les KO:
-// si $VAR invalid ou valid mais n'hexiste pas -> print brut
-
-// Zero regles pour les quotes:
-// toutes les quotes sont print bruts

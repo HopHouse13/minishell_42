@@ -21,7 +21,7 @@ void    ft_env_minimal(t_mshell *mshell)
 	char	cwd[1024];
 
 	new_node = ft_create_env_node(mshell);
-	new_node->key = ft_get_value_key(mshell, "PWD");
+	new_node->key = ft_found_value_key(mshell, "PWD");
 	new_node->value = getcwd(cwd, sizeof(cwd));
 	printf("Node PWD :\nKEY : %s\nVALUE :%s\n",new_node->key, new_node->value);
 

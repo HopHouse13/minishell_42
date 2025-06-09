@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:05:55 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 02:42:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 20:18:10 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_build_cmd_path(t_mshell *mshell)
 	char	**path_tab;
 
 	// printf("STRING PATH : %s\n", ft_get_env_value(mshell, "PATH"));
-	path_env = ft_strdup_ml(mshell, ft_get_value_key(mshell, "PATH"));
+	path_env = ft_strdup_ml(mshell, ft_found_value_key(mshell, "PATH"));
 	path_tab = ft_split_ml(mshell, path_env, ':');
 	ft_path_makeur(mshell, path_tab); // Ajout '/' + 'cmd' --> Path
 }

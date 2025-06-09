@@ -47,10 +47,22 @@ char	*ft_get_key(char *var)
 	return (ft_substr(var, 0, ft_strlen_equal(var)));
 }
 
+ // recupere VALUE depuis str [key = | VALUE] 
 char	*ft_get_value(char *var)
 {
+	char	*value;
+	int		i;
+
 	if (ft_isequal(var))
-		return (ft_substr(var, ft_strlen_equal(var) +1, ft_strlen(var)));
-	else
-		return (NULL);
+	{
+		i = 0;
+		while (var[i] && var[i] != '=')
+			i++;
+		if (var[i +1])
+			value = ft_substr(var, ft_strlen_equal(var) +1, ft_strlen(var));
+		else
+			value = ft_strdup("");
+		return (value);
+	}
+	return (NULL);
 }

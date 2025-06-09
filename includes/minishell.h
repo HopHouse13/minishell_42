@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 19:32:29 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 20:45:20 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ bool	ft_inside_brackets(t_parser *parser, char *str, int i);
 int		ft_count_pipe(t_parser *parser);
 bool	ft_srch_quotes(char *elem);
 char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser);
+bool	ft_effect_escape_hd(char *str, int i);
+bool	ft_found_dollar_active(char *str);
+bool	ft_escape_last_char(char *line);
+int		ft_ispath(char *str);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -184,35 +188,30 @@ void	ft_print_list_cmd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-			/// BUILTIN ///
-
-		// ||  builtin_utilities.c  ||
+/// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
 bool	ft_isequal(char *str);
 void	ft_print_env_node(t_env *env);
 char	*ft_get_key(char *var);
 char	*ft_get_value(char *var);
+void	ft_build_env_list(t_mshell *mshell, char **env);
+int		ft_strlen_equal(char *str);
+t_env	*ft_create_env_node(t_mshell *mshell);
+t_env	*ft_init_env_node(t_env *new_node);
+void	ft_up_value_var(t_env *env_list, char *key, char * value);
+t_env	*ft_get_key_node(t_env *env, char *key);
+char	*ft_found_value_key(t_mshell *mshell, char *key);
+void	ft_init_ignore(t_env *env_list);
 
 		// ||  ft_cd.c  ||
 int		ft_cd(t_mshell *mshell);
 
-		// ||  ft_echo.c  ||
+/// BUILTIN_ECHO ///
 int		ft_echo(t_mshell *mshell);
-
-		// ||  ft_env_utilities.c  ||
-void	ft_build_env_list(t_mshell *mshell, char **env);
-int		ft_strlen_equal(char *str);
-char	*ft_get_envp_value(char *envp);
-void	ft_up_value_var(t_env *env_list, char *key, char * value);
-
-t_env	*ft_get_key_node(t_env *env, char *key);
-char	*ft_get_value_key(t_mshell *mshell, char *key);
 
 // ||  ft_env.c  ||
 int		ft_env(t_mshell *mshell);
 void	ft_env_minimal(t_mshell *mshell);
-t_env	*ft_create_env_node(t_mshell *mshell);
-t_env	*ft_init_env_node(t_env *new_node);
 
 		// ||  ft_exit.c  ||
 int		ft_exit(t_cmd *cmd);
@@ -223,7 +222,7 @@ void	ft_exe_built_in(t_mshell *mshell);
 		// ||  ft_export_utilities.c  ||
 void	ft_init_ignore(t_env *env_list);
 void	ft_ignore_underscore(t_env *env_list, int *count);
-void	ft_print_sorted_env(t_env *env);
+void	ft_print_sorted_env(t_env *env_list);
 bool	ft_valid_key(char *c_key);
 void	ft_edit_var_env(t_mshell *mshell);
 
@@ -261,7 +260,7 @@ void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 
 
-		/// EXEC_HEREDOC ///
+		/// PARSER_HEREDOC ///
 char	*ft_merge_hd(t_mshell *mshell, char *line, char *ev_exp, t_hd *hd);
 char	*ft_expand_ev_hd(t_mshell *mshell, char *line, t_hd *hd);
 char	*ft_expand_hd(t_mshell *mshell, char *line, t_hd *hd);
@@ -269,11 +268,6 @@ void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd);
 void	ft_heredoc(t_mshell *mshell, t_cmd *cmd);
 
 		/// EXEC_UTILITIES ///
-bool	ft_effect_escape_hd(char *str, int i);
-bool	ft_found_dollar_active(char *str);
-bool	ft_escape_last_char(char *line);
-
-int		ft_ispath(char *str);
 int		ft_check_path_access(char *cmd);
 
 void	ft_build_path(t_mshell *mshell);

@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:27:43 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 19:23:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 21:29:17 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	ft_executer(t_mshell *mshell, char **envp)
 		ft_build_path(mshell);
 		if (mshell->count_pipe)
 		{
-			printf(CYAN "\n[INFO] Activation Pipeline" RESET"\n");
+			printf(CYAN "\n[INFO] Activation Pipeline"RESET"\n");
 			ft_piper(mshell, envp);
 		}
 		else if (list_cmd->cmd && !mshell->count_pipe && !list_cmd->builtin) 
 		{
-			printf("\n"CYAN"[INFO] Commande unique :"RESET YELLOW" %s"RESET, list_cmd->cmd[0]);
+			printf("\n"CYAN"[INFO] Commande unique :"RESET YELLOW" %s"RESET"\n", list_cmd->cmd[0]);
 			ft_forker(mshell, envp);
 		}
 		if (list_cmd->fd_hd != -1)

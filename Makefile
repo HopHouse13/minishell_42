@@ -25,8 +25,10 @@ SRCS		= srcs/main.c \
 			srcs/parser/parser_handle_cmd.c \
 			srcs/parser/parser_handle_hd.c \
 			srcs/parser/parser_handle_redir.c \
+			srcs/parser/parser_heredoc.c \
 			srcs/parser/parser_fill_list_cmd.c \
-			srcs/parser/parser_utilities.c \
+			srcs/parser/parser_utilities_0.c \
+			srcs/parser/parser_utilities_1.c \
 			srcs/malloc/malloc_list.c \
 			srcs/malloc/malloc_free.c \
 			srcs/malloc/malloc_itoa_ml.c \
@@ -42,15 +44,14 @@ SRCS		= srcs/main.c \
 			srcs/utilities/utilities.c \
 			srcs/builtin/builtin_utilities_0.c \
 			srcs/builtin/builtin_utilities_1.c \
+			srcs/builtin/builtin_utilities_2.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/builtin_echo.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
-			srcs/builtin/ft_export_utilities.c \
-			srcs/builtin/ft_export.c \
+			srcs/builtin/builtin_export.c \
 			srcs/builtin/ft_pwd.c \
 			srcs/builtin/ft_unset.c \
-			srcs/exec/exec_heredoc.c \
 			srcs/exec/exec_utilities.c \
 			srcs/exec/execution_cmd.c \
 			srcs/exec/ft_exe_builtins.c \

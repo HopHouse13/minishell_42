@@ -1,20 +1,20 @@
 #include "../../includes/minishell.h"
 
-void	ft_build_env_list(t_mshell *mshell, char **envp)
+void	ft_build_env_list(t_mshell *mshell, char **env)
 {
 	t_env	*new_node;
 	int		i;
 
 	i = 0;
-	while (envp[i])
+	while (env[i])
 	{
 		new_node = ft_create_env_node(mshell);
 		if (!new_node)
 			return ;
-		new_node->key = ft_get_key(envp[i]);
-		if (ft_isequal(envp[i]))
+		new_node->key = ft_get_key(env[i]);
+		if (ft_isequal(env[i]))
 				new_node->equal = true;
-		new_node->value = ft_get_envp_value(envp[i]);
+		new_node->value = ft_get_value(env[i]);
 		i++;
 	}
 }
@@ -27,25 +27,6 @@ int		ft_strlen_equal(char *str)
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
 	return (i);
-}
-
-char	*ft_get_envp_value(char *envp) // recupere VALUE depuis str [key = | VALUE] 
-{
-	char	*value;
-	int		i;
-
-	if (ft_isequal(envp))
-	{
-		i = 0;
-		while (envp[i] && envp[i] != '=')
-			i++;
-		if (envp[i +1])
-			value = ft_substr(envp, ft_strlen_equal(envp)+1, ft_strlen(envp));
-		else
-			value = ft_strdup("");
-		return (value);
-	}
-	return (NULL);
 }
 
 t_env	*ft_create_env_node(t_mshell *mshell)
@@ -106,20 +87,6 @@ t_env	*ft_get_key_node(t_env *env, char *key)
 	{
 		if (!ft_strcmp(env->key, key))
 			return (env);
-		env = env->next;
-	}
-	return (NULL);
-}
-
-char	*ft_get_value_key(t_mshell *mshell, char *key) // recupere VALUE depuis une VAR existante via sa KEY
-{
-	t_env	*env;
-
-	env = mshell->env_list;
-	while (env != NULL)
-	{
-		if (!ft_strcmp(env->key, key))
-			return (env->value);
 		env = env->next;
 	}
 	return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 22:15:57 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/09 20:45:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,14 @@ char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser)
 		parser->end++;
 	return (ft_substr_ml(mshell, elem, parser->srt, parser->end - parser->srt)); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
 }
+
+bool	ft_effect_escape_hd(char *str, int i)
+{
+	bool	on_off;
+
+	on_off = false;
+	while (--i >= 0 && str[i] == '\\')
+		on_off = !on_off;
+	return (on_off);
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 22:22:53 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/09 21:19:24 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ char	*ft_expand(t_mshell *mshell, char *elem, t_parser *parser)
 		parser->end = parser->srt +1;
 		return (ft_substr_ml(mshell, elem, parser->srt, 1));
 	}
-	printf("\tVAR_NAME : %s\n", ev_name); // ASUPP
-	// ev_ptr = ft_get_env(ev_name, mshell->env_list);
-	ev_ptr = getenv(ev_name);
+	printf("\tVAR_NAME : %s\n", ev_name);
+	ev_ptr = ft_found_value_key(mshell, ev_name);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
 	else

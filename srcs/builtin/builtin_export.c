@@ -5,21 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 15:14:27 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 16:02:57 by pab              ###   ########.fr       */
+/*   Created: 2025/06/09 19:39:34 by pab               #+#    #+#             */
+/*   Updated: 2025/06/09 20:27:38 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_init_ignore(t_env *env_list)
-{
-	while (env_list)
-	{
-		env_list->ignore = false;
-		env_list = env_list->next;
-	}
-}
 
 void	ft_ignore_underscore(t_env *env_list, int *count)
 {
@@ -63,7 +54,7 @@ void	ft_print_sorted_env(t_env *env_list)
 	ft_init_ignore(env_list);
 }
 
-bool	ft_valid_key(char *c_key) // a ranger
+bool	ft_valid_key(char *c_key)
 {
 	int	i;
 	bool	error;
@@ -117,4 +108,13 @@ void	ft_edit_var_env(t_mshell *mshell)
 			new_node->value = c_value;
 		}
 	}
+}
+
+int	ft_export(t_mshell *mshell)
+{
+	if (!mshell->list_cmd->cmd[1])
+		ft_print_sorted_env(mshell->env_list);
+	else
+		ft_edit_var_env(mshell);
+	return (0);
 }
