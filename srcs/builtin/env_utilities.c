@@ -11,17 +11,12 @@ void	ft_build_env_list(t_mshell *mshell, char **envp)
 		new_node = ft_create_env_node(mshell);
 		if (!new_node)
 			return ;
-		new_node->key = ft_get_env_key(envp[i]);
+		new_node->key = ft_get_key(envp[i]);
 		if (ft_isequal(envp[i]))
 				new_node->equal = true;
 		new_node->value = ft_get_envp_value(envp[i]);
 		i++;
 	}
-}
-
-char	*ft_get_env_key(char *envp)	// recupere KEY depuis str [KEY | = value]
-{
-	return (ft_substr(envp, 0, ft_strlen_equal(envp)));
 }
 
 int		ft_strlen_equal(char *str)
@@ -86,26 +81,49 @@ t_env	*ft_init_env_node(t_env *new_node)
 	return (new_node);
 }
 
-void	ft_update_env_value(t_mshell *mshell, char *key, char *value)
+void	ft_up_value_var(t_env *env_list, char *key, char *value)
 {
-	t_env	*env_node;
-
-	env_node = mshell->env_list;
-	while (env_node)
+	if (value)
 	{
-		if (ft_strcmp(env_node->key, key) == 0)
+		while (env_list)
 		{
-			if (value)
-				env_node->value = ft_strdup_ml(mshell, value);
-			else if (!value)
-				env_node->value = ft_strdup_ml(mshell, "");
-			return ;
+			if (!ft_strcmp(env_list->key, key))
+			{
+				if (env_list->value)
+					free(env_list->value);
+				env_list->value = value;
+				env_list->equal = true;
+				//printf ("value_key [%s]\tvalue_value [%s]\n\n", env_list->key, env_list->value);
+			}
+			env_list = env_list->next;
 		}
-		env_node = env_node->next;
-    }
+	}
+	free(key);
 }
 
-t_env	*ft_found_key(t_env *env, char *key)
+// void	ft_up_value_var(t_mshell *mshell, char *key, char *value)
+// {
+// 	t_env *tmp_list;
+
+// 	tmp_list = mshell->env_list;
+// 	if (value)
+// 	{
+// 		while (tmp_list)
+// 		{
+// 			if (!ft_strcmp(tmp_list->key, key))
+// 			{
+// 				if (tmp_list->value)
+// 					free(tmp_list->value);
+// 				tmp_list->value = value;
+// 				// printf ("value_key [%s]\tvalue_value [%s]\n\n", tmp_list->key, tmp_list->value);
+// 			}
+// 			tmp_list = tmp_list->next;
+// 		}
+// 	}
+// 	free(key);
+// }
+
+t_env	*ft_get_key_node(t_env *env, char *key)
 {
 	while (env)
 	{
@@ -116,8 +134,7 @@ t_env	*ft_found_key(t_env *env, char *key)
 	return (NULL);
 }
 
-
-char	*ft_get_env_value(t_mshell *mshell, char *key)
+char	*ft_get_value_var(t_mshell *mshell, char *key) // recupere VALUE depuis une VAR existante via sa KEY
 {
 	t_env	*env;
 

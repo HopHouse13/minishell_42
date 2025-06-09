@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 00:08:34 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 04:43:08 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,12 +212,10 @@ void	ft_build_env_list(t_mshell *mshell, char **env);
 
 t_env	*ft_create_env_node(t_mshell *mshell);
 t_env	*ft_init_env_node(t_env *new_node);
-char	*ft_get_env_key(char *envp);
+char	*ft_get_key(char *envp);
 char	*ft_get_envp_value(char *envp);
 
-void	ft_update_env_value(t_mshell *mshell, char *key, char *value);
-
-void	ft_update_env_node(t_mshell *mshell, char *str);
+void	ft_up_value_var(t_env *env_list, char *key, char * value);
 
 void	ft_free_env_node(t_env *env_node);
 
@@ -225,7 +223,7 @@ int		ft_strlen_equal(char *str);
 int		ft_isequal(char *str);
 t_env	*ft_found_key(t_env *env, char *key);
 
-char	*ft_get_env_value(t_mshell *mshell, char *key);
+char	*ft_get_value_var(t_mshell *mshell, char *key);
 
 
 
@@ -239,7 +237,7 @@ void	ft_env_minimal(t_mshell *mshell);
 //	ft_exe_builtins
 void	ft_exe_built_in(t_mshell *mshell);
 
-// builtin_utilities
+/// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
 void	ft_ignore_underscore(t_env *env_list, int *count);
 void	ft_init_ignore(t_env *env_list);
@@ -257,8 +255,9 @@ int		ft_cd(t_mshell *mshell);
 // ft_exit
 int		ft_exit(t_cmd *cmd);
 
-// ft_export
-int		ft_export(t_mshell *mshell);
+/// BUILTIN_EXPORT ///
+void	ft_init_ignore(t_env *env_list);
+void	ft_ignore_underscore(t_env *env_list, int *count);
 void	ft_print_sorted_env(t_env *env);
 void	ft_print_env_node(t_env *env_list);
 
