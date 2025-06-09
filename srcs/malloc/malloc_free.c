@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/06/03 22:26:36 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/09 22:31:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	ft_free_one_node_ml(void *ptr, t_mnode **ml)
 	t_mnode	*tmp;
 	t_mnode	*prev;
 
-	if (!ml)
-		return ;
+	if (!ml || !*ml)
+	return;
 	tmp = *ml;
 	prev = NULL;
 	while (tmp)

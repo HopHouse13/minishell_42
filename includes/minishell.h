@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:45:20 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/09 23:19:36 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,11 +232,9 @@ int		ft_export(t_mshell *mshell);
 		// ||  ft_pwd.c ||
 int		ft_pwd(t_mshell *mshell);
 
-		// ||  ft_unset.c ||
-int		ft_unset(t_mshell *mshell);
-void	ft_remove_env_node(t_env *env_list, char *key);
-void	ft_free_env_node(t_env *env_node);
-
+/// BUILTIN_UNSET ///
+void	ft_remove_env_node(t_mshell *mshell, char *key);
+int 	ft_unset(t_mshell *mshell);
 
 		/// EXEC ///
 void	ft_executer(t_mshell *mshell, char **env);
