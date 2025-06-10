@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 16:55:40 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:44:57 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <string.h>
 # include <fcntl.h>				// open;
 # include <signal.h>
@@ -297,6 +298,19 @@ char	**fix_path(char **path);
 char	*get_cmd_path(char *binary, t_mshell *mshell);
 
 //exec_utils.c
-int	count_cmds(t_mshell *mshell);
+int		count_cmds(t_mshell *mshell);
+int		init_pipes(t_mshell *mshell);
+
+//exec_start.c
+void	make_dup(t_cmd *cmd);
+void	close_pipes(t_mshell *mshell);
+void	check_cmd(t_cmd *cmd, t_mshell *mshell);
+void	child_process(t_cmd *cmd, t_mshell *mshell);
+void	wait_for_all(t_mshell *mshell);
+
+//error2.c
+void	fork_error(t_mshell *mshell);
+void	free_mshell(t_mshell *mshell);
+void	ft_put_error(char *str, char *str2);
 
 #endif

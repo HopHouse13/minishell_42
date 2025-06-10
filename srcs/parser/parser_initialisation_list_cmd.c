@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 15:31:20 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:08:46 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_init_node_values(t_cmd *new_elem)
 	new_elem->delim_hd = NULL;
 	new_elem->expand_hd = false;
 	new_elem->no_cmd = false;
+	new_elem->pid = -1;
 	new_elem->prev = NULL;
 	new_elem->next = NULL;
 }

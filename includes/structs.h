@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 15:30:58 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:25:21 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_cmd
 	char			*delim_hd;
 	bool			expand_hd;
 	bool			no_cmd;
+	int				pid;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -117,5 +118,6 @@ typedef struct s_mshell
 	int				count_pipe;
 	int				shlvl;
 	char			*pwd;
+	char			**envp;
 }					t_mshell;
 #endif

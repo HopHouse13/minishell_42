@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:38:58 by pbret             #+#    #+#             */
-/*   Updated: 2025/05/29 00:21:52 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 17:25:40 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init_mshell(t_mshell **mshell, char **env)
 	(*mshell)->count_pipe = 0;
 	(*mshell)->shlvl = 0;
 	(*mshell)->pwd = NULL;
+	(*mshell)->envp = env;
 	ft_build_env_list(*mshell, env);
 	g_exit_code = 0;
 }

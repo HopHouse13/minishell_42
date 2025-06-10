@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:53:42 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/10 16:54:01 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:42:53 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	set_path(t_mshell *mshell)
 			if (!cmd_temp->path)
 				ft_mem_err(mshell);
 		}
+		cmd_temp = cmd_temp->next;
 	}
 }
 
