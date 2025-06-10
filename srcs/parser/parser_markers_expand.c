@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_markers_expand.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 21:03:34 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/10 10:42:44 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
 
 	end_name = 0;
 	end_name = ft_find_end_var(str, i);
-	printf("\tvalue end : %d\n\n", end_name);
 	result = ft_calloc_list(mshell, ft_strlen(str) + 3, sizeof(char));
 	j = 0;
 	k = 0;
@@ -42,7 +41,7 @@ char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
 		if (k == end_name)
 			result[k++] = ']';
 	}
-	printf("\n\tresult_marker : %s\n\n", result);
+	// printf("\n\tresult_marker : %s\n\n", result); // ASUPP
 	return (result);
 }
 

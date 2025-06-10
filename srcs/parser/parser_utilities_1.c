@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 20:46:06 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:46:26 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:22:01 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,9 @@ bool	ft_escape_last_char(char *line)
 
 	i = -1;
 	while (line[++i])
-		continue;
+		continue ;
 	i--;
 	if (i > 0 && line[i] == '\\' && !ft_effect_escape_hd(line, i))
 		return (true);
 	return (false);
-}
-
-int ft_ispath(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
 }

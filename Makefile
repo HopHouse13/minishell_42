@@ -58,7 +58,6 @@ SRCS		= srcs/main.c \
 			srcs/exec/path.c \
 			srcs/exec/pipe.c \
 			srcs/exec/redirect.c \
-			srcs/exec/test_init.c \
 			srcs/signals/signals.c
 
 

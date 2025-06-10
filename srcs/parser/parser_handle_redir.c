@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:19:55 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 21:06:44 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/10 10:23:18 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	ft_get_fd_infile(t_mshell *mshell, t_cmd *cmd, t_token *token)
 	if (cmd->fd_in == -1)
 		return (ft_fd_err(mshell, token->elem));
 	return (true);
-}	
+}
 
 bool	ft_handle_redir(t_mshell *mshell, t_parser *parser)
 {

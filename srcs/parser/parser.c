@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:57:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 20:58:02 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/10 10:37:46 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_parser(t_mshell *mshell)
-{printf("\n\t|||||||||||||||||||||| PARSER |||||||||||||||||||||||\n\n");
+{/* printf("\n\t|||||||||||||||||||||| PARSER |||||||||||||||||||||||\n\n"); // ASUPP */
 	t_parser	parser;
 
 	ft_init_parser(&parser, mshell->list_token);

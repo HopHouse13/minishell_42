@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:39:34 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:27:38 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:03:35 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_print_sorted_env(t_env *env_list)
 	t_env	*mini_node;
 	t_env	*list;
 	int		count;
-	
+
 	count = ft_count_node(env_list);
 	ft_ignore_underscore(env_list, &count);
 	while (count > 0)
@@ -56,19 +56,19 @@ void	ft_print_sorted_env(t_env *env_list)
 
 bool	ft_valid_key(char *c_key)
 {
-	int	i;
+	int		i;
 	bool	error;
 
 	error = false;
 	i = -1;
 	if (!ft_isalpha(c_key[++i]))
-		error= !error;
-	if(!error)
+		error = !error;
+	if (!error)
 	{
 		while (c_key[++i])
 		{
 			if (!ft_isalnum(c_key[i]))
-				error= !error;
+				error = !error;
 		}
 	}
 	if (error)
@@ -79,7 +79,7 @@ bool	ft_valid_key(char *c_key)
 		free(c_key);
 		return (false);
 	}
-	return(true);
+	return (true);
 }
 
 void	ft_edit_var_env(t_mshell *mshell)
@@ -88,13 +88,12 @@ void	ft_edit_var_env(t_mshell *mshell)
 	char	*c_key;
 	char	*c_value;
 	t_env	*new_node;
-	
-	i = 0;
 
-	while(mshell->list_cmd->cmd[++i])
+	i = 0;
+	while (mshell->list_cmd->cmd[++i])
 	{
 		c_key = ft_get_key(mshell->list_cmd->cmd[i]);
-		if(!ft_valid_key(c_key))
+		if (!ft_valid_key(c_key))
 			continue ;
 		c_value = ft_get_value(mshell->list_cmd->cmd[i]);
 		if (ft_get_key_node(mshell->env_list, c_key))

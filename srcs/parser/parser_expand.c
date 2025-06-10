@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 21:19:24 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:41:33 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_merge(t_mshell *ms, char *str, char *ev_exp, t_parser *parser)
 		&& str[parser->srt] != '?')
 		str_merge = ft_inval(ms, str, ev_exp, parser);
 	else
-	{	
+	{
 		before = ft_substr_ml(ms, str, 0, parser->srt -2); // -2 car on veut une len et pas un indexe donc +1 pour passer d'un indexe a une len ET comme [start] = 'H' $[HOME]; [start-3] = carac devant $ DONC -3 + 1 = -2
 		after = ft_substr_ml(ms, str, parser->end +1, ft_strlen(str));
 		str_merge = ft_strjoin_ml(ms, before, ft_strjoin_ml(ms, ev_exp, after));
@@ -70,7 +70,7 @@ char	*ft_expand(t_mshell *mshell, char *elem, t_parser *parser)
 		parser->end = parser->srt +1;
 		return (ft_substr_ml(mshell, elem, parser->srt, 1));
 	}
-	printf("\tVAR_NAME : %s\n", ev_name);
+	// printf("\tVAR_NAME : %s\n", ev_name); // ASUPP
 	ev_ptr = ft_found_value_key(mshell, ev_name);
 	if (ev_ptr)
 		ev_expanded = ft_strdup_ml(mshell, ev_ptr);
@@ -89,7 +89,7 @@ void	ft_exp_elem(t_mshell *mshell, t_token *tmp, t_parser *parser)
 		if (tmp->elem[parser->i] == '$' && tmp->elem[parser->i +1] == '[')
 		{
 			ev_exp = ft_expand(mshell, tmp->elem, parser);
-			printf("\tEXPANDED : %s\n", ev_exp); // ASUPP
+			// printf("\tEXPANDED : %s\n", ev_exp); // ASUPP
 			tmp->elem = ft_merge(mshell, tmp->elem, ev_exp, parser);
 			parser->i = -1;
 		}
@@ -104,7 +104,7 @@ void	ft_expand_list(t_mshell *mshell, t_parser *parser)
 	while (tmp && tmp->token != END)
 	{
 		ft_exp_elem(mshell, tmp, parser);
-		printf("\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
+		// printf("\tELEM_FINAL : %s\n", tmp->elem); // ASUPP
 		tmp = tmp->next;
 	}
 }

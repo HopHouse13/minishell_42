@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:07:23 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 19:13:54 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:04:19 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	ft_valid_option_n(char *arg)
 		return (false);
 	while (arg[++i])
 	{
-		if(arg[i] != 'n')
+		if (arg[i] != 'n')
 			return (false);
 	}
 	return (true);

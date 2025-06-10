@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/06/08 17:48:09 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:39:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_print_list_cmd(t_mshell *mshell)
 		printf("\t\tDELIM_HD\t->\t[ %s ]\n", tmp->delim_hd);
 		printf("\t\tEXPAND_HD?\t->\t[ %d ]\n%s", tmp->expand_hd, RESET);
 		tmp = tmp->next;
-		printf(CYAN"\n\t\t══════════════════════════════════\n");
+		printf(CYAN"\n\t\t══════════════════════════════════\n"RESET);
 		printf(MAGEN"\t\t══════════════════════════════════\n"RESET);
 	}
 }

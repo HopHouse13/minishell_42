@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 23:57:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:19:04 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		main(int ac, char **av, char **env);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// LEXER ///
-bool		ft_lexer(t_mshell *mshell);
+bool	ft_lexer(t_mshell *mshell);
 
 /// LEXER_INITIALISATION ///
 void	ft_init_lexer(t_mshell *mshell, t_lexer *lexer);
@@ -73,7 +73,7 @@ t_type	ft_builtin_or_cmd(t_lexer *lexer, char *elem);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// PARSER ///
-bool		ft_parser(t_mshell *mshell);
+bool	ft_parser(t_mshell *mshell);
 
 /// PARSER_INITIALISATION ///
 void	ft_init_parser(t_parser *parser, t_token *list_token);
@@ -142,7 +142,6 @@ char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser);
 bool	ft_effect_escape_hd(char *str, int i);
 bool	ft_found_dollar_active(char *str);
 bool	ft_escape_last_char(char *line);
-int		ft_ispath(char *str);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -225,7 +224,7 @@ int		ft_pwd(void);
 
 /// BUILTIN_UNSET ///
 void	ft_remove_env_node(t_mshell *mshell, char *key);
-int 	ft_unset(t_mshell *mshell);
+int		ft_unset(t_mshell *mshell);
 
 /// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
@@ -237,7 +236,7 @@ void	ft_build_env_list(t_mshell *mshell, char **env);
 int		ft_strlen_equal(char *str);
 t_env	*ft_create_env_node(t_mshell *mshell);
 t_env	*ft_init_env_node(t_env *new_node);
-void	ft_up_value_var(t_env *env_list, char *key, char * value);
+void	ft_up_value_var(t_env *env_list, char *key, char *value);
 t_env	*ft_get_key_node(t_env *env, char *key);
 char	*ft_found_value_key(t_mshell *mshell, char *key);
 void	ft_init_ignore(t_env *env_list);
@@ -266,12 +265,10 @@ void	ft_pipe_write(t_mshell *mshell, int pipe_write);
 
 		/// EXEC_UTILITIES ///
 int		ft_check_path_access(char *cmd);
-
+int		ft_ispath(char *str);
 void	ft_build_path(t_mshell *mshell);
 void	ft_build_cmd_path(t_mshell *mshell);
 void	ft_path_makeur(t_mshell *mshell, char **path_tab);
-
-
 
 		// signal
 
@@ -282,6 +279,4 @@ void	ft_child_signals(void);
 
 void	ft_handle_eof(void);
 void	handle_sig_quit(int num);
-
-
 #endif

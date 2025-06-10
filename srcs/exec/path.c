@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 16:05:55 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:18:10 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:18:00 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,18 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab)
 		i++;
 	}
 	return ;
+}
+
+int	ft_ispath(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
 }

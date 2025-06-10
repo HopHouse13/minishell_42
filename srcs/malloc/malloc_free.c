@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/06/09 22:31:28 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:01:03 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_free_one_node_ml(void *ptr, t_mnode **ml)
 	t_mnode	*prev;
 
 	if (!ml || !*ml)
-	return;
+		return ;
 	tmp = *ml;
 	prev = NULL;
 	while (tmp)

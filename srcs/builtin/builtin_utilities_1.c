@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_utilities_1.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 09:57:41 by pab               #+#    #+#             */
+/*   Updated: 2025/06/10 09:59:39 by pab              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	ft_build_env_list(t_mshell *mshell, char **env)
@@ -13,13 +25,13 @@ void	ft_build_env_list(t_mshell *mshell, char **env)
 			return ;
 		new_node->key = ft_get_key(env[i]);
 		if (ft_isequal(env[i]))
-				new_node->equal = true;
+			new_node->equal = true;
 		new_node->value = ft_get_value(env[i]);
 		i++;
 	}
 }
 
-int		ft_strlen_equal(char *str)
+int	ft_strlen_equal(char *str)
 {
 	int	i;
 
@@ -79,15 +91,4 @@ void	ft_up_value_var(t_env *env_list, char *key, char *value)
 		}
 	}
 	free(key);
-}
-
-t_env	*ft_get_key_node(t_env *env, char *key)
-{
-	while (env)
-	{
-		if (!ft_strcmp(env->key, key))
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
 }

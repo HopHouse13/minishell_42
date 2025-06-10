@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 20:00:09 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 20:52:37 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/10 10:36:09 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ bool	ft_open_quotes(t_mshell *mshell, char *input)
 }
 
 bool	ft_incomplete_cmd(t_mshell *mshell, char *input)
-{
-	printf("\n\t-------------------- BUILD_CMD ----------------------\n");
+{/* printf("\n\t-------------------- BUILD_CMD ----------------------\n"); // ASUPP */
 	if (!ft_open_quotes(mshell, input) && !ft_pipe_last(mshell, input))
 		return (false);
 	return (true);

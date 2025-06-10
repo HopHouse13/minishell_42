@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utilities.c                                 :+:      :+:    :+:   */
+/*   parser_utilities_0.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 00:32:42 by pab               #+#    #+#             */
-/*   Updated: 2025/06/09 20:45:38 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 10:13:21 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ bool	ft_srch_quotes(char *elem)
 	return (true);
 }
 
+// le return ->
+// end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons
+// une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
 char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser)
 {
 	if (!ft_isalpha(elem[parser->srt]) && elem[parser->srt] != '_')
@@ -69,7 +72,7 @@ char	*ft_get_ev_name(t_mshell *mshell, char *elem, t_parser *parser)
 	parser->end = parser->srt;
 	while (elem[parser->end] && elem[parser->end] != ']')
 		parser->end++;
-	return (ft_substr_ml(mshell, elem, parser->srt, parser->end - parser->srt)); // end(carac : ']') - start = l'indexe du dernier carac et commme nous voulons une len -> +1 ; c'est pour ca que decrmente end apres cette ligne.
+	return (ft_substr_ml(mshell, elem, parser->srt, parser->end - parser->srt));
 }
 
 bool	ft_effect_escape_hd(char *str, int i)
@@ -81,4 +84,3 @@ bool	ft_effect_escape_hd(char *str, int i)
 		on_off = !on_off;
 	return (on_off);
 }
-

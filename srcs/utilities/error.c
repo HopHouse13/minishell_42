@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/08 22:32:16 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 09:54:14 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	ft_syntax_err(t_mshell *ms, char *elem, int exit_code)
 			(ms, "erreur de syntaxe près du symbole inattendu", " « "));
 	mess = ft_strjoin_ml(ms, mess, ft_strjoin_ml(ms, elem, " »\n"));
 	ft_putstr_fd(mess, 2);
-	g_exit_code = exit_code;  // faut il un code erreur pour syntax?????
+	g_exit_code = exit_code; // faut il un code erreur pour syntax?????
 	ft_free_ml(ms);
 	return (false);
 }

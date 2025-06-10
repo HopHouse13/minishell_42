@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cleaning_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:31:08 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/03 22:27:41 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/10 10:33:27 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void	ft_put_pipe(t_lexer *lexer)
 }
 
 void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
-{
-	printf("\n\n\t--------------------- ONE_SPACE ---------------------\n");
+{/* printf("\n\n\t--------------------- ONE_SPACE ---------------------\n"); // ASUPP */
 	lexer->i = 0;
 	while (mshell->input && mshell->input[lexer->i])
 	{
@@ -115,5 +114,5 @@ void	ft_cleaning_input(t_mshell *mshell, t_lexer *lexer)
 	lexer->wild_input[++lexer->j] = ';';
 	lexer->wild_input[++lexer->j] = '\0';
 	ft_make_clear_input(mshell, lexer, lexer->wild_input);
-	ft_printf("\n\n\tclear_line : [%s]\n\n", lexer->clear_input);
+	// ft_printf("\n\n\tclear_line : [%s]\n\n", lexer->clear_input); // ASUPP
 }
