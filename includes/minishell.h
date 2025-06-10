@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:19:04 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 16:55:40 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	ft_exit_cleanly(t_mshell *mshell);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env *env_list);
+void	ft_free_double_array(char **array);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -279,4 +280,23 @@ void	ft_child_signals(void);
 
 void	ft_handle_eof(void);
 void	handle_sig_quit(int num);
+
+/////////////////////NEW EXEC/////////////////////
+
+//debug_utils.c
+void	print_cmd(t_mshell *mshell);
+
+//exec.c
+int		exec(t_mshell *mshell);
+
+//exec_path.c
+char	**get_path(t_mshell *mshell);
+void	set_cmd_path(t_mshell *mshell, t_cmd *cmd);
+void	set_path(t_mshell *mshell);
+char	**fix_path(char **path);
+char	*get_cmd_path(char *binary, t_mshell *mshell);
+
+//exec_utils.c
+int	count_cmds(t_mshell *mshell);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/08 13:31:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/10 14:45:43 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (!ft_parser(mshell))
 				continue ;
-			ft_executer(mshell, env);
+			if (exec(mshell))
+				return (1);
+			// ft_executer(mshell, env);
 		}
 	}
 }
