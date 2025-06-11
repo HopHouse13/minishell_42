@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:09:36 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/11 17:02:43 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void	ft_put_in_hd(t_mshell *mshell, char *line, t_cmd *cmd)
 	if (ft_escape_last_char(line))
 	{
 		line = ft_substr_ml(mshell, line, 0, ft_strlen(line) - 1);
-		write(cmd->fd_hd, line, ft_strlen(line));
+		write(cmd->fd_in, line, ft_strlen(line));
 	}
 	else
 	{
-		write(cmd->fd_hd, line, ft_strlen(line));
-		write(cmd->fd_hd, "\n", 1);
+		write(cmd->fd_in, line, ft_strlen(line));
+		write(cmd->fd_in, "\n", 1);
 	}
 }
 
@@ -99,7 +99,7 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 		value_rdl = readline("> ");
 		if (value_rdl == NULL)
 		{
-			ft_hd_err(&cmd->fd_hd, cmd->delim_hd);
+			ft_hd_err(&cmd->fd_in, cmd->delim_hd);
 			break ;
 		}
 		if (!ft_strcmp(value_rdl, cmd->delim_hd))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:19:55 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:23:18 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/11 16:59:25 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ bool	ft_handle_redir(t_mshell *mshell, t_parser *parser)
 			if (!ft_get_fd_outfile(mshell, list_cmd, list_token))
 				return (false);
 		}
+		else if (list_token->token == DELIM)
+			ft_handle_hd(mshell, parser, list_token, list_cmd);
 		list_token = list_token->next;
 	}
 	return (true);

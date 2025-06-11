@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 17:44:57 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:41:48 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ bool	ft_handle_redir(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_HD ///
 bool	ft_get_hd(t_mshell *mshell, t_cmd *cmd, t_token *token);
-bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
+void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_token *lt_token, t_cmd *lt_cmd);
+// bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_CMD ///
 void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd);
