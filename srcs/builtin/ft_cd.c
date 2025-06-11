@@ -3,51 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 01:26:50 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/11 17:27:37 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cd(t_mshell *mshell)
-{
-    char    *home;
- 	t_cmd	*cmd_node;
-	
-	cmd_node = mshell->list_cmd;
-    if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
-    {
-        home = ft_found_value_key(mshell, "HOME");
-        if (!home || chdir(home) == -1)
-        {
-            perror("cd: HOME absent");
-            return (1);
-        }
-    }
-    else
-    {
-        if (chdir(cmd_node->cmd[1]) == -1)
-        {
-            perror("cd");
-            return (1);
-        }
-    }
-
-	//ft_update_env(mshell, cmd_node->cmd[1]);
-	//update env / pwd a faire !
-    return (0);
-}
-//update _ pour CMD
-
-// ~
-// .
-// ..
-// cd -
-// cd path ok
+// int	update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd)
+// {
+// 	ft_env
+// }
 
 
 
+// int	ft_cd(char **argv, t_mshell *mshell)
+// {
+// 	int	ret;
+// 	char	*path;
+// 	char	*old_pwd;
+// 	char	*new_pwd;
+
+// 	if (argv[1] && argv[2])
+// 		return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
+// 	if (!argv[1])
+// 	{
+// 		path = ft_found_value_key(mshell, "HOME");
+// 		if (!path)
+// 			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+// 	}
+// 	else
+// 		path = argv[1];
+// 	old_pwd = getcwd(NULL, 0);
+// 	if (!old_pwd)
+// 		return (ft_mem_err(mshell), 0);
+// 	ret = chdir(path);
+// 	if (ret == -1)
+// 		return (perror("minishell: cd"), 1);
+// 	new_pwd = getcwd(NULL, 0);
+// 	if (!new_pwd)
+// 		return (ft_mem_err(mshell), 1);
+// 	return ()
+// }
 
