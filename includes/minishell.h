@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: p0ulp1 <p0ulp1@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/11 17:32:43 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/11 22:49:55 by p0ulp1           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,9 @@ void	ft_print_list_cmd(t_mshell *mshell);
 void	ft_exe_built_in(t_mshell *mshell);
 
 /// BUILTIN_CD ///
-int		ft_cd(t_mshell *mshell);
+int		ft_cd(char **argv, t_mshell *mshell);
+void	ft_set_var(t_mshell *mshell, char *key, char *value);
+int		update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd);
 
 /// BUILTIN_ECHO ///
 int		ft_count_args(char **tab_args);
@@ -290,6 +292,8 @@ void	print_cmd(t_mshell *mshell);
 
 //exec.c
 int		exec(t_mshell *mshell);
+void	child_process(t_cmd *cmd, t_mshell *mshell);
+void	start_exec(t_mshell *mshell);
 
 //exec_path.c
 char	**get_path(t_mshell *mshell);
@@ -301,12 +305,13 @@ char	*get_cmd_path(char *binary, t_mshell *mshell);
 //exec_utils.c
 int		count_cmds(t_mshell *mshell);
 int		init_pipes(t_mshell *mshell);
+int		single_builtin(t_mshell *mshell, t_cmd *cmd);
+int		exec_builtin(t_mshell *mshell, t_cmd *cmd, int save, int save2);
 
 //exec_start.c
 void	make_dup(t_cmd *cmd);
 void	close_pipes(t_mshell *mshell);
 void	check_cmd(t_cmd *cmd, t_mshell *mshell);
-void	child_process(t_cmd *cmd, t_mshell *mshell);
 void	wait_for_all(t_mshell *mshell);
 
 //error2.c

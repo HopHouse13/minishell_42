@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: p0ulp1 <p0ulp1@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:43:54 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/11 16:29:25 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/11 22:49:34 by p0ulp1           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,6 @@ void	check_cmd(t_cmd *cmd, t_mshell *mshell)
 		free_mshell(mshell);
 		exit(127);
 	}
-}
-
-void	child_process(t_cmd *cmd, t_mshell *mshell)
-{
-	int	builtin_exit;
-
-	//BUILTIN EXEC IF
-	(void)builtin_exit;
-	//ELSE
-	check_cmd(cmd, mshell);
-	make_dup(cmd);
-	close_pipes(mshell);
-	execve(cmd->path, cmd->cmd, mshell->envp);
 }
 
 void	wait_for_all(t_mshell *mshell)
