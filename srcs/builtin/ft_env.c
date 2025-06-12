@@ -1,5 +1,30 @@
 #include "../../includes/minishell.h"
 
+void	print_export(t_mshell *mshell)
+{
+	t_env	*env;
+
+	env =mshell->env_list;
+	while (env)
+	{
+		if (env->value && *env->value)
+			printf("export %s=\"%s\"\n", env->key, env->value);
+		else if (env->equal == true)
+			printf("export %s=\"\"\n", env->key);
+		else
+			printf("export %s\n", env->key);
+		env = env->next;
+	}
+}
+
+void	ft_export_main(t_mshell *mshell, char **argv)
+{
+	if (!argv[1])
+		print_export(mshell);
+	else
+		ft_export2(mshell, argv[1]);
+}
+
 void	ft_export2(t_mshell *mshell, char *argv)
 {
 	char	*c_key;
@@ -40,7 +65,7 @@ char	*ft_get_value_2(char *var)
 		if (var[i + 1])
 			value = ft_substr(var, ft_strlen_equal(var) + 1, ft_strlen(var));
 		else
-			value = NULL;
+			value = ft_strdup("");
 		return (value);
 	}
 	return (NULL);
@@ -55,7 +80,7 @@ void	ft_env(t_mshell *mshell)
 	{
 		if (env->value && *env->value)
 			printf("%s=\"%s\"\n", env->key, env->value);
-		else if (!env->value)
+		else if (env->equal == true)
 			printf("%s=\n", env->key);
 		env = env->next;
 	}

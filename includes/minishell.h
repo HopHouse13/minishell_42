@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 11:31:06 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:16:27 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	ft_print_list_cmd(t_mshell *mshell);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// BUILTIN ///
-void	ft_exe_built_in(t_mshell *mshell);
+// void	ft_exe_built_in(t_mshell *mshell);
 
 /// BUILTIN_CD ///
 int		ft_cd(char **argv, t_mshell *mshell);
@@ -211,6 +211,7 @@ bool	ft_valid_option_n(char *arg);
 int		ft_echo(t_mshell *mshell);
 
 /// BUILTIN_ENV ///
+void	ft_export_main(t_mshell *mshell, char **argv);
 void	ft_export2(t_mshell *mshell, char *argv);
 void	ft_env(t_mshell *mshell);
 char	*ft_get_value_2(char *var);
@@ -219,7 +220,7 @@ char	*ft_get_value_2(char *var);
 // int		var_exists(t_mshell *mshell, char *key, char *value);
 
 /// BUILTIN_EXIT ///
-int		ft_exit(t_cmd *cmd);
+int		ft_exit(char **argv, t_mshell *mshell, int save, int save2);
 
 /// BUILTIN_EXPORT ///
 void	ft_ignore_underscore(t_env *env_list, int *count);

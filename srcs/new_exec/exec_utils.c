@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: p0ulp1 <p0ulp1@student.42.fr>              +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:55:13 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/11 22:45:39 by p0ulp1           ###   ########.fr       */
+/*   Updated: 2025/06/12 12:22:52 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ int	exec_builtin(t_mshell *mshell, t_cmd *cmd, int save, int save2)
 {
 	if (!ft_strcmp(cmd->path, "cd"))
 		return (ft_cd(cmd->cmd, mshell));
+	//Need to see echo back
+	else if (!ft_strcmp(cmd->path, "pwd"))
+		return (ft_pwd(), 0);
+	else if (!ft_strcmp(cmd->path, "export"))
+		return (ft_export_main(mshell, cmd->cmd), 0);
+	else if (!ft_strcmp(cmd->path, "env"))
+		return (ft_env(mshell), 0);
+	else if (!ft_strcmp(cmd->path, "exit"))
+		return (ft_exit(cmd->cmd, mshell, save, save2));
 	(void)save;
 	(void)save2;
 	return (1);

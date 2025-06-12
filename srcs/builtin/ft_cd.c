@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 11:07:11 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:06:55 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,6 @@ int	update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd)
 	update_newpwd(mshell, new_pwd);
 	free(old_pwd);
 	free(new_pwd);
-
-	t_env	*env;
-	env = mshell->env_list;
-	while (env)
-	{
-		if (!ft_strcmp(env->key, "PWD"))
-			printf("PWD: [%s]\n", env->value);
-		if (!ft_strcmp(env->key, "OLDPWD"))
-			printf("OLDPWD: [%s]\n", env->value);
-		env = env->next;
-	}
 	return (0);
 }
 
