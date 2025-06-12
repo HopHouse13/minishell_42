@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: p0ulp1 <p0ulp1@student.42.fr>              +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/11 22:49:55 by p0ulp1           ###   ########.fr       */
+/*   Updated: 2025/06/12 10:01:27 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,5 +318,9 @@ void	wait_for_all(t_mshell *mshell);
 void	fork_error(t_mshell *mshell);
 void	free_mshell(t_mshell *mshell);
 void	ft_put_error(char *str, char *str2);
+
+//paul_free.c
+void	free_after_exec(t_mshell *mshell);
+void	free_paul_stuff(t_mshell *mshell);
 
 #endif

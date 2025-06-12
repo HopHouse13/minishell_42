@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/11 16:05:16 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 10:12:32 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (exec(mshell))
 				return (1);
-			// ft_executer(mshell, env);
 		}
 	}
+	free_mshell(mshell);
 }
