@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_hd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/11 17:03:24 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:39:39 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 bool	ft_get_hd(t_mshell *mshell, t_cmd *lt_cmd, t_token *lt_token)
 {
-	if (lt_cmd->fd_in != -1)
+	if (lt_cmd->fd_in > -1)
 		close(lt_cmd->fd_in);
 	lt_cmd->fd_in = open("./heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (lt_cmd->fd_in == -1)
 		return (ft_fd_err(mshell, "heredoc"));
+	// close(lt_cmd->fd_in);
 	lt_cmd->delim_hd = lt_token->elem;
 	return (true);
 }
