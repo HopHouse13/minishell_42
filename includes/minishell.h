@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 12:16:27 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:31:58 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,9 +206,10 @@ void	ft_set_var(t_mshell *mshell, char *key, char *value);
 int		update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd);
 
 /// BUILTIN_ECHO ///
-int		ft_count_args(char **tab_args);
-bool	ft_valid_option_n(char *arg);
-int		ft_echo(t_mshell *mshell);
+void	ft_echo(char *argv[]);
+// int		ft_count_args(char **tab_args);
+// bool	ft_valid_option_n(char *arg);
+// int		ft_echo(t_mshell *mshell);
 
 /// BUILTIN_ENV ///
 void	ft_export_main(t_mshell *mshell, char **argv);
@@ -234,7 +235,7 @@ int		ft_pwd(void);
 
 /// BUILTIN_UNSET ///
 void	ft_remove_env_node(t_mshell *mshell, char *key);
-int		ft_unset(t_mshell *mshell);
+void	ft_unset(t_mshell *mshell, char **argv);
 
 /// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
