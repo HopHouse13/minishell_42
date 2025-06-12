@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 10:01:27 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 11:31:06 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,12 @@ bool	ft_valid_option_n(char *arg);
 int		ft_echo(t_mshell *mshell);
 
 /// BUILTIN_ENV ///
-int		ft_env(t_mshell *mshell);
-void	ft_env_minimal(t_mshell *mshell);
+void	ft_export2(t_mshell *mshell, char *argv);
+void	ft_env(t_mshell *mshell);
+char	*ft_get_value_2(char *var);
+// void	ft_env_minimal(t_mshell *mshell);
+// void	ft_export_paul(t_mshell *mshell, char *key, char *value);
+// int		var_exists(t_mshell *mshell, char *key, char *value);
 
 /// BUILTIN_EXIT ///
 int		ft_exit(t_cmd *cmd);
