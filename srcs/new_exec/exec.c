@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:44:48 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/12 12:06:26 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:35:30 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,18 @@ void	child_process(t_cmd *cmd, t_mshell *mshell)
 {
 	int	builtin_exit;
 
-	//BUILTIN EXEC IF
-	(void)builtin_exit;
-	//ELSE
-	check_cmd(cmd, mshell);
-	make_dup(cmd);
-	close_pipes(mshell);
-	execve(cmd->path, cmd->cmd, mshell->envp);
+	if (cmd->builtin == true)
+	{
+		make_dup(cmd);
+		close_pipes(mshell);
+		builtin_exit = exec_builtin(mshell, cmd, 0, 0);
+		exit(builtin_exit);
+	}
+	else
+	{
+		check_cmd(cmd, mshell);
+		make_dup(cmd);
+		close_pipes(mshell);
+		execve(cmd->path, cmd->cmd, mshell->envp);
+	}
 }
