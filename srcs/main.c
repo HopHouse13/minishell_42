@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/12 12:06:06 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:29:24 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ int	main(int ac, char **av, char **env)
 	ft_init_mshell(&mshell, env);
 	while (ac && av)
 	{
-		ft_handle_signals();
-		// ft_export2(mshell, "TEST=123");
-		// ft_env(mshell);
+		ft_signals(1);
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			ft_main_err(mshell);
 		else
 		{
-			//ft_signal(2)
+			ft_signals(2);
 			ft_handle_input(mshell);
 			if (ft_empty_line(mshell->input))
 				continue ;

@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:55:13 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/12 12:31:40 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:35:58 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_builtin(t_mshell *mshell, t_cmd *cmd, int save, int save2)
 	else if (!ft_strcmp(cmd->path, "pwd"))
 		return (ft_pwd(), 0);
 	else if (!ft_strcmp(cmd->path, "export"))
-		return (ft_export_main(mshell, cmd->cmd), 0);
+		return (ft_export_main(mshell, cmd->cmd));
 	else if (!ft_strcmp(cmd->path, "env"))
 		return (ft_env(mshell), 0);
 	else if (!ft_strcmp(cmd->path, "exit"))

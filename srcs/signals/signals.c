@@ -1,97 +1,66 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/13 14:25:47 by phautena          #+#    #+#             */
+/*   Updated: 2025/06/13 14:27:25 by phautena         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_handle_signals(void)
-{// int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
-	
-	struct sigaction sigint; // ^C --> SIGINT
+#include "../includes/minishell.h"
 
-	sigint.sa_handler = &handle_sig_int;
-	sigemptyset(&sigint.sa_mask);
-	sigint.sa_flags = 0; // No special flags
-
-	sigaction (SIGINT, &sigint, NULL);  // Ctrl+C
-	
-    struct sigaction sa_quit; // ^/ --> SIGQUIT
-    
-	sa_quit.sa_handler = SIG_IGN;            // Set handler to ignore the signal
-    sigemptyset(&sa_quit.sa_mask);           // Initialize and clear the signal mask
-    sa_quit.sa_flags = 0;                    // No special flags needed for ignoring
-
-	sigaction(SIGQUIT, &sa_quit, NULL);
-	
-	// ^D --> EOF
-	// Signal HD
-
-}
-
-void	ft_child_signals(void)
+static void	handle_sigint(int sig)
 {
-	struct sigaction reinit_dfl;
-
-	reinit_dfl.sa_handler = SIG_DFL; // Default behavior
-	sigemptyset(&reinit_dfl.sa_mask);
-	reinit_dfl.sa_flags = 0;
-
-	// Apply default behavior for SIGINT
-	if (sigaction(SIGINT, &reinit_dfl, NULL) == -1)
-		perror(RED"SIGINT child failed"RESET".");
-
-	// Apply default behavior for SIGQUIT
-	if (sigaction(SIGQUIT, &reinit_dfl, NULL) == -1)
-		perror(RED"sigaction SIGQUIT child failed"RESET".");
-}
-
-void handle_sig_int(int num)
-{/*    ^C    */
-	(void)num;
-	write(STDOUT_FILENO,"\n", 1);
-	rl_replace_line("", 0); // Efface ligne actuelle
-	rl_on_new_line(); // nouvelle ligne pour readline
-	rl_redisplay(); // Affiche le nouveau prompt
-	//write(STDOUT_FILENO,"^C",2);
+	(void)sig;
 	g_exit_code = 130;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-/*
-void	handle_sig_quit(int num)
-{   ^\   
-
-	(void)num;
-
-
-	g_exit_code = 131;
-}
-*/
-
-/*
-void	ft_handle_eof(void)
-{ // ^D
-
-	// si readline == NULL --> EOF a ete presse sur ligne vide
-	if (!readline)
-	{
-		printf("exit"); // + quitter proprement
-		//break ; // si dans loop
-	}
-	// si ligne non vide ajoute a l'historique ?
-	add_history(readline);
-
-}
-*/
-/*
-//reinit avance execve
-void	setup_child_signals(void)
+static void	handle_child_slash(int sig)
 {
-	struct sigaction sa_quit;
-	struct sigaction sigint;
-
-	//sigint.sa_handler = &handle_sig_int;
-	//sigemptyset(&sigint.sa_mask);
-	//sigint.sa_flags = 0; // No special flags
-    
-	//sigaction(SIGINT, &sigint, NULL);  // Réinitialiser à comportement par défaut
-    //sigaction(SIGQUIT, SIG_DFL); // Réinitialiser à comportement par défaut
-    // SIG_IGN
-
+	(void)sig;
+	ft_putstr_fd("Quit (core dumped)\n", 2);
 }
-*/
+
+static void	handle_child_c(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+}
+
+static void	handle_heredoc(int sig)
+{
+	(void)sig;
+	g_exit_code = 130;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	rl_done = 1;
+	ioctl(STDIN_FILENO, TIOCSTI, "");
+}
+
+void	ft_signals(int mode)
+{
+	if (mode == 1)
+	{
+		signal(SIGINT, &handle_sigint);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == 2)
+	{
+		signal(SIGINT, &handle_child_c);
+		signal(SIGQUIT, &handle_child_slash);
+	}
+	else if (mode == 3)
+	{
+		signal(SIGINT, &handle_heredoc);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}

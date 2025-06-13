@@ -1,0 +1,28 @@
+exit
+67== Memcheck, a memory error detector
+==76667== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==76667== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==76667== Command: /usr/bin/dir
+==76667== 
+==76667== 
+==76667== FILE DESCRIPTORS: 3 open (1 std) at exit.
+==76667== Open file descriptor 4: /home/phautena/Documents/minishell_42/error.txt
+==76667==    <inherited from parent>
+==76667== 
+==76667== Open file descriptor 3: /home/phautena/Documents/minishell_42/error.txt
+==76667==    <inherited from parent>
+==76667== 
+==76667== 
+==76667== HEAP SUMMARY:
+==76667==     in use at exit: 22,753 bytes in 17 blocks
+==76667==   total heap usage: 54 allocs, 37 frees, 62,308 bytes allocated
+==76667== 
+==76667== LEAK SUMMARY:
+==76667==    definitely lost: 0 bytes in 0 blocks
+==76667==    indirectly lost: 0 bytes in 0 blocks
+==76667==      possibly lost: 0 bytes in 0 blocks
+==76667==    still reachable: 0 bytes in 0 blocks
+==76667==         suppressed: 22,753 bytes in 17 blocks
+==76667== 
+==76667== For lists of detected and suppressed errors, rerun with: -s
+==76667== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

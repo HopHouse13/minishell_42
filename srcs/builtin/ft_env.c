@@ -17,15 +17,16 @@ void	print_export(t_mshell *mshell)
 	}
 }
 
-void	ft_export_main(t_mshell *mshell, char **argv)
+int	ft_export_main(t_mshell *mshell, char **argv)
 {
 	if (!argv[1])
 		print_export(mshell);
 	else
-		ft_export2(mshell, argv[1]);
+		return (ft_export2(mshell, argv[1]));
+	return (0);
 }
 
-void	ft_export2(t_mshell *mshell, char *argv)
+int	ft_export2(t_mshell *mshell, char *argv)
 {
 	char	*c_key;
 	char	*c_value;
@@ -33,12 +34,12 @@ void	ft_export2(t_mshell *mshell, char *argv)
 
 	c_key = ft_get_key(argv);
 	if (ft_valid_key(c_key) == false)
-		return ;
+		return (1);
 	c_value = ft_get_value_2(argv);
 	if (!c_value && !ft_isequal(argv))
 	{
 		free(c_key);
-		return ;
+		return (0);
 	}
 	if (ft_get_key_node(mshell->env_list, c_key))
 		ft_up_value_var(mshell->env_list, c_key, c_value);
@@ -50,6 +51,7 @@ void	ft_export2(t_mshell *mshell, char *argv)
 			new_node->equal = true;
 		new_node->value = c_value;
 	}
+	return (0);
 }
 
 char	*ft_get_value_2(char *var)

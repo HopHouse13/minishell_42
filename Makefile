@@ -52,12 +52,6 @@ SRCS		= srcs/main.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
-			srcs/exec/exec_utilities.c \
-			srcs/exec/execution_cmd.c \
-			srcs/exec/ft_exe_builtins.c \
-			srcs/exec/path.c \
-			srcs/exec/pipe.c \
-			srcs/exec/redirect.c \
 			srcs/signals/signals.c \
 			srcs/new_exec/debug_utils.c\
 			srcs/new_exec/exec.c \

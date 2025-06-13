@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_hd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/12 17:39:39 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/13 14:29:07 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_token *lt_token, t_cmd *
 	lt_token->elem = ft_remove(mshell, parser, lt_token->elem);
 	if (!ft_get_hd(mshell, lt_cmd, lt_token))
 		ft_mem_err(mshell);
+	ft_signals(3);
 	ft_heredoc(mshell, lt_cmd); // pas au bon endroit ou pas
+	ft_signals(2);
 	lt_cmd->fd_in = open("./heredoc.txt", O_RDONLY);
 	if (!lt_cmd->fd_in)
 		ft_mem_err(mshell);

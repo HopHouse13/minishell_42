@@ -40,3 +40,5 @@ ERREURS:
 *	probleme de free :
 	echo $HOME |
 	> cw -l
+
+*	echo "$" doesnt write anything

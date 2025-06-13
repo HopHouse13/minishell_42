@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/11 16:47:48 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:39:43 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	ft_hd_err(int *fd, char *delim)
 void	ft_main_err(t_mshell *mshell)
 {
 	g_exit_code = 1; // ???
-	ft_putstr_fd("exit\n", 2);
+	printf("exit\n");
 	ft_exit_cleanly(mshell);
 }

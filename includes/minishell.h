@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 12:31:58 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:50:16 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <string.h>
 # include <fcntl.h>				// open;
 # include <signal.h>
+# include <sys/ioctl.h>
+# include <dirent.h>
 
 /// MSHELL_HEADERS ///
 # include "./structs.h"
@@ -84,6 +86,7 @@ char	*ft_valid_pipes(t_parser *parser);
 char	*ft_valid_cmds(t_parser *parser);
 char	*ft_valid_redirs(t_parser *parser);
 bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser);
+bool	invalid_dir(t_mshell *mshell);
 
 /// PARSER_INITIALISATION_LIST_CMD ///
 void	ft_init_node_values(t_cmd *new_elem);
@@ -212,8 +215,8 @@ void	ft_echo(char *argv[]);
 // int		ft_echo(t_mshell *mshell);
 
 /// BUILTIN_ENV ///
-void	ft_export_main(t_mshell *mshell, char **argv);
-void	ft_export2(t_mshell *mshell, char *argv);
+int		ft_export_main(t_mshell *mshell, char **argv);
+int		ft_export2(t_mshell *mshell, char *argv);
 void	ft_env(t_mshell *mshell);
 char	*ft_get_value_2(char *var);
 // void	ft_env_minimal(t_mshell *mshell);
@@ -283,13 +286,7 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 		// signal
 
-void	handle_sig_int(int num);
-void	ft_handle_signals(void);
-
-void	ft_child_signals(void);
-
-void	ft_handle_eof(void);
-void	handle_sig_quit(int num);
+void	ft_signals(int mode);
 
 /////////////////////NEW EXEC/////////////////////
 
