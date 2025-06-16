@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/16 20:51:56 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/16 21:37:08 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 		if (str[i] == '$'
 			&& mshell->qts.spl_q == OUT
 			&& tmp->token != DELIM
-			&& str[i +1] && str[i +1] != '\"'
+			// && (mshell->qts.dbl_q == IN && str[i +1] && str[i +1] == '\"')
 			&& (i == 0 || !ft_effect_esc(&mshell->qts, str, i))
 			&& !ft_inside_brackets(parser, str, i))
 		{
