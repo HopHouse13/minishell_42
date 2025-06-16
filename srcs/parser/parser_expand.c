@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:41:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/16 20:52:18 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_inval(t_mshell *ms, char *str, char *ev_exp, t_parser *parser)
 	char	*after;
 	char	*middle;
 	char	*str_merge;
-
+printf("str [%s]\t ev_exp [%s]\n", str, ev_exp);
 	str_merge = NULL;
 	before = ft_substr_ml(ms, str, 0, parser->srt -2);
 	after = ft_substr_ml(ms, str, parser->end +1, ft_strlen(str));
