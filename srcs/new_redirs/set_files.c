@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:29:58 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/16 15:56:57 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:42:02 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	set_hd(t_cmd *cmd, t_token *token, t_mshell *mshell, t_parser *parser)
 {
 	if (cmd->fd_in > -1)
 		close(cmd->fd_in);
-	ft_handle_hd(mshell, parser, token, cmd);
+	ft_handle_hd(mshell, parser, token->next, cmd);
 	if (cmd->fd_in == -1)
 	{
 		perror(token->next->elem);
