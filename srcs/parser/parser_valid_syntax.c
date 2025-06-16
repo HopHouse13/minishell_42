@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_valid_syntax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:11:43 by pab               #+#    #+#             */
-/*   Updated: 2025/06/03 20:59:45 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/13 14:50:53 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,33 @@ bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser)
 		return (ft_syntax_err(mshell, ft_valid_cmds(parser), 2));
 	if (ft_valid_redirs(parser))
 		return (ft_syntax_err(mshell, ft_valid_redirs(parser), 2));
+	if (invalid_dir(mshell))
+		return (false);
 	return (true);
+}
+
+bool	invalid_dir(t_mshell *mshell)
+{
+	t_token	*temp;
+	int		fd;
+
+	temp = mshell->list_token;
+	while (temp)
+	{
+		if (!temp->prev || temp->prev->token == PIPE)
+		{
+			fd = open(temp->elem, __O_DIRECTORY);
+			if (fd > -1 && ft_strchr(temp->elem, '/'))
+			{
+				close(fd);
+				ft_putstr_fd("minishell : ", 2);
+				ft_putstr_fd(temp->elem, 2);
+				ft_putstr_fd(": Is a directory\n", 2);
+				g_exit_code = 126;
+				return (true);
+			}
+		}
+		temp = temp->next;
+	}
+	return (false);
 }

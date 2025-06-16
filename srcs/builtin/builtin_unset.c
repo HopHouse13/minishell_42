@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:55:15 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:05:33 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/12 12:31:33 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,10 @@ void	ft_remove_env_node(t_mshell *mshell, char *key)
 	}
 }
 
-int	ft_unset(t_mshell *mshell)
+void	ft_unset(t_mshell *mshell, char **argv)
 {
-	t_cmd	*cmd;
-	int		i;
-
-	if (!mshell || !mshell->list_cmd)
-		return (0);
-	cmd = mshell->list_cmd;
-	i = 0;
-	while (cmd->cmd[++i])
-		ft_remove_env_node(mshell, cmd->cmd[i]);
-	return (0);
+	if (!argv[1])
+		return;
+	else
+		ft_remove_env_node(mshell, argv[1]);
 }

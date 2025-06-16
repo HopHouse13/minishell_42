@@ -5,29 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 12:44:51 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/10 15:54:07 by phautena         ###   ########.fr       */
+/*   Created: 2025/06/10 16:53:42 by phautena          #+#    #+#             */
+/*   Updated: 2025/06/11 17:31:51 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-static char	**fix_env(char **env)
+void	set_path(t_mshell *mshell)
+{
+	int		cmd_n;
+	t_cmd	*cmd_temp;
+
+	cmd_n = count_cmds(mshell);
+	cmd_temp = mshell->list_cmd;
+	while (cmd_n-- > 0)
+	{
+		if (cmd_temp->builtin == false && cmd_temp->no_cmd == false)
+			set_cmd_path(mshell, cmd_temp);
+		else if (cmd_temp->no_cmd == false)
+		{
+			cmd_temp->path = ft_strdup(cmd_temp->cmd[0]);
+			if (!cmd_temp->path)
+				ft_mem_err(mshell);
+		}
+		cmd_temp = cmd_temp->next;
+	}
+}
+
+char	**fix_path(char **path)
 {
 	char	**res;
 	int		len;
 	int		i;
 
 	len = 0;
-	while (env[len])
+	while (path[len])
 		len++;
 	res = malloc((len + 1) * sizeof(char *));
 	if (!res)
 		return (NULL);
 	i = 0;
-	while (env[i])
+	while (path[i])
 	{
-		res[i] = ft_strjoin(env[i], "/");
+		res[i] = ft_strjoin(path[i], "/");
 		if (!res[i])
 			return (NULL);
 		i++;
@@ -36,91 +57,65 @@ static char	**fix_env(char **env)
 	return (res);
 }
 
-static char	**get_path(t_data **data)
+char	**get_path(t_mshell *mshell)
 {
 	char	*path;
 	char	**splitted_path;
 	char	**fixed;
 
-	path = get_var("PATH", data);
+	path = ft_found_value_key(mshell, "PATH");
 	if (!path)
 		return (NULL);
 	splitted_path = ft_split(path, ':');
 	if (!splitted_path)
 		return (NULL);
-	fixed = fix_env(splitted_path);
-	free_array(splitted_path);
+	fixed = fix_path(splitted_path);
+	ft_free_double_array(splitted_path);
 	if (!fixed)
 		return (NULL);
 	return (fixed);
 }
 
-char	*get_cmd_path(char *binary, t_data **data)
+char	*get_cmd_path(char *binary, t_mshell *mshell)
 {
 	int		i;
 	char	**path;
 	char	*path_binary;
 
 	i = 0;
-	path = get_path(data);
+	path = get_path(mshell);
 	if (!path)
 		return (NULL);
 	while (path[i])
 	{
 		path_binary = ft_strjoin(path[i], binary);
 		if (!path_binary)
-			return (free_array(path), NULL);
+			return (ft_free_double_array(path), NULL);
 		if (!access(path_binary, F_OK))
-			return (free_array(path), path_binary);
+			return (ft_free_double_array(path), path_binary);
 		free(path_binary);
 		i++;
 	}
-	free_array(path);
+	ft_free_double_array(path);
 	return (ft_strdup(binary));
 }
 
-static char	*set_path_bis(t_token *current, t_cmd *cmd, t_data **data)
+void	set_cmd_path(t_mshell *mshell, t_cmd *cmd)
 {
-	if (current->value[0] != '/')
+	if (cmd->cmd[0][0] != '/')
 	{
-		cmd->path = get_cmd_path(current->value, data);
+		cmd->path = get_cmd_path(cmd->cmd[0], mshell);
 		if (!cmd->path)
 		{
-			cmd->path = ft_strdup(current->value);
+			cmd->path = ft_strdup(cmd->cmd[0]);
 			if (!cmd->path)
-				mem_error(data);
+				ft_mem_err(mshell);
 		}
 	}
 	else
 	{
-		cmd->path = ft_strdup(current->value);
+		cmd->path = ft_strdup(cmd->cmd[0]);
 		if (!cmd->path)
-			mem_error(data);
-	}
-	return (NULL);
-}
-
-void	set_path_cmd(t_token *current, t_cmd *cmd, t_data **data)
-{
-	while (current)
-	{
-		if (current->token == PIPE)
-			current = current->next;
-		else if (current->token == WORD)
-		{
-			set_path_bis(current, cmd, data);
-			return ;
-		}
-		else if (current->token == REDIR && (!current->next->next
-				|| current->next->next->token == PIPE))
-		{
-			cmd->no_cmd = true;
-			cmd->path = ft_strdup("no_cmd");
-			if (!cmd->path)
-				mem_error(data);
-			return ;
-		}
-		else
-			current = current->next->next;
+			ft_mem_err(mshell);
 	}
 }

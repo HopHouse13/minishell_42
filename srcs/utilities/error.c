@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:50 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/10 09:54:14 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/13 14:39:43 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_hd_err(int *fd, char *delim)
 {
 	close(*fd);
 	*fd = -1;
-	unlink("/tmp/heredoc_tmp.txt");
+	unlink("./heredoc.txt");
 	ft_putstr_fd("minishell: warning: ", 2);
 	ft_putstr_fd("here-document delimited by end-of-file (wanted \" ", 2);
 	ft_putstr_fd(delim, 2);
@@ -55,6 +55,6 @@ void	ft_hd_err(int *fd, char *delim)
 void	ft_main_err(t_mshell *mshell)
 {
 	g_exit_code = 1; // ???
-	ft_putstr_fd("exit\n", 2);
+	printf("exit\n");
 	ft_exit_cleanly(mshell);
 }

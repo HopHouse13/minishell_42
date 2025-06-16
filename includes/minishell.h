@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:19:04 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/16 14:45:05 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # include <sys/errno.h>         // meilleur portabilite avec cette librairie.
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <string.h>
 # include <fcntl.h>				// open;
 # include <signal.h>
+# include <sys/ioctl.h>
+# include <dirent.h>
 
 /// MSHELL_HEADERS ///
 # include "./structs.h"
@@ -83,6 +86,7 @@ char	*ft_valid_pipes(t_parser *parser);
 char	*ft_valid_cmds(t_parser *parser);
 char	*ft_valid_redirs(t_parser *parser);
 bool	ft_valid_syntax(t_mshell *mshell, t_parser *parser);
+bool	invalid_dir(t_mshell *mshell);
 
 /// PARSER_INITIALISATION_LIST_CMD ///
 void	ft_init_node_values(t_cmd *new_elem);
@@ -121,7 +125,8 @@ bool	ft_handle_redir(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_HD ///
 bool	ft_get_hd(t_mshell *mshell, t_cmd *cmd, t_token *token);
-bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
+void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_token *lt_token, t_cmd *lt_cmd);
+// bool	ft_handle_hd(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_HANDLE_CMD ///
 void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd);
@@ -159,6 +164,7 @@ void	ft_exit_cleanly(t_mshell *mshell);
 void	ft_free_one_node_ml(void *ptr, t_mnode **ml);
 void	ft_free_ml(t_mshell *mshell);
 void	ft_free_env(t_env *env_list);
+void	ft_free_double_array(char **array);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -195,22 +201,30 @@ void	ft_print_list_cmd(t_mshell *mshell);
 ////////////////////////////////////////////////////////////////////////////////
 
 /// BUILTIN ///
-void	ft_exe_built_in(t_mshell *mshell);
+// void	ft_exe_built_in(t_mshell *mshell);
 
 /// BUILTIN_CD ///
-int		ft_cd(t_mshell *mshell);
+int		ft_cd(char **argv, t_mshell *mshell);
+void	ft_set_var(t_mshell *mshell, char *key, char *value);
+int		update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd);
 
 /// BUILTIN_ECHO ///
-int		ft_count_args(char **tab_args);
-bool	ft_valid_option_n(char *arg);
-int		ft_echo(t_mshell *mshell);
+void	ft_echo(char *argv[]);
+// int		ft_count_args(char **tab_args);
+// bool	ft_valid_option_n(char *arg);
+// int		ft_echo(t_mshell *mshell);
 
 /// BUILTIN_ENV ///
-int		ft_env(t_mshell *mshell);
-void	ft_env_minimal(t_mshell *mshell);
+int		ft_export_main(t_mshell *mshell, char **argv);
+int		ft_export2(t_mshell *mshell, char *argv);
+void	ft_env(t_mshell *mshell);
+char	*ft_get_value_2(char *var);
+// void	ft_env_minimal(t_mshell *mshell);
+// void	ft_export_paul(t_mshell *mshell, char *key, char *value);
+// int		var_exists(t_mshell *mshell, char *key, char *value);
 
 /// BUILTIN_EXIT ///
-int		ft_exit(t_cmd *cmd);
+int		ft_exit(char **argv, t_mshell *mshell, int save, int save2);
 
 /// BUILTIN_EXPORT ///
 void	ft_ignore_underscore(t_env *env_list, int *count);
@@ -224,7 +238,7 @@ int		ft_pwd(void);
 
 /// BUILTIN_UNSET ///
 void	ft_remove_env_node(t_mshell *mshell, char *key);
-int		ft_unset(t_mshell *mshell);
+void	ft_unset(t_mshell *mshell, char **argv);
 
 /// BUILTIN_UTILITIES ///
 int		ft_count_node(t_env *env_list);
@@ -272,11 +286,54 @@ void	ft_path_makeur(t_mshell *mshell, char **path_tab);
 
 		// signal
 
-void	handle_sig_int(int num);
-void	ft_handle_signals(void);
+void	ft_signals(int mode);
 
-void	ft_child_signals(void);
+/////////////////////NEW EXEC/////////////////////
 
-void	ft_handle_eof(void);
-void	handle_sig_quit(int num);
+//debug_utils.c
+void	print_cmd(t_mshell *mshell);
+
+//exec.c
+int		exec(t_mshell *mshell);
+void	child_process(t_cmd *cmd, t_mshell *mshell);
+void	start_exec(t_mshell *mshell);
+
+//exec_path.c
+char	**get_path(t_mshell *mshell);
+void	set_cmd_path(t_mshell *mshell, t_cmd *cmd);
+void	set_path(t_mshell *mshell);
+char	**fix_path(char **path);
+char	*get_cmd_path(char *binary, t_mshell *mshell);
+
+//exec_utils.c
+int		count_cmds(t_mshell *mshell);
+int		init_pipes(t_mshell *mshell);
+int		single_builtin(t_mshell *mshell, t_cmd *cmd);
+int		exec_builtin(t_mshell *mshell, t_cmd *cmd, int save, int save2);
+
+//exec_start.c
+void	make_dup(t_cmd *cmd);
+void	close_pipes(t_mshell *mshell);
+void	check_cmd(t_cmd *cmd, t_mshell *mshell);
+void	wait_for_all(t_mshell *mshell);
+
+//error2.c
+void	fork_error(t_mshell *mshell);
+void	free_mshell(t_mshell *mshell);
+void	ft_put_error(char *str, char *str2);
+
+//paul_free.c
+void	free_after_exec(t_mshell *mshell);
+void	free_paul_stuff(t_mshell *mshell);
+
+////////////////////////NEW_REDIRS////////////////////////
+
+//redirections.c
+int		set_outfile(t_cmd *cmd, t_token *token, int mode);
+int		set_infile(t_cmd *cmd, t_token *token);
+int		set_hd(t_cmd *cmd, t_token *token, t_mshell *mshell, t_parser *parser);
+
+//set_files.c
+void	init_redirections(t_mshell *mshell, t_parser *parser);
+
 #endif

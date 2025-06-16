@@ -52,13 +52,16 @@ SRCS		= srcs/main.c \
 			srcs/builtin/ft_cd.c \
 			srcs/builtin/ft_env.c \
 			srcs/builtin/ft_exit.c \
-			srcs/exec/exec_utilities.c \
-			srcs/exec/execution_cmd.c \
-			srcs/exec/ft_exe_builtins.c \
-			srcs/exec/path.c \
-			srcs/exec/pipe.c \
-			srcs/exec/redirect.c \
-			srcs/signals/signals.c
+			srcs/signals/signals.c \
+			srcs/new_exec/debug_utils.c\
+			srcs/new_exec/exec.c \
+			srcs/new_exec/exec_utils.c \
+			srcs/new_exec/exec_path.c \
+			srcs/new_exec/exec_start.c \
+			srcs/utilities/error2.c \
+			srcs/utilities/paul_free.c \
+			srcs/new_redirs/redirections.c \
+			srcs/new_redirs/set_files.c
 
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -71,11 +74,11 @@ PRINTF_AR	= ./includes/printf/printf.a
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 			@mkdir -p $(@D)
 			@$(CC) -g $(CFLAGS) -c $< -o $@
-			
+
 all:		$(NAME)
-			
+
 $(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline -g 
+			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline -g
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
 debug:		$(OBJS) $(LIBFT_AR) $(PRINTF_AR)

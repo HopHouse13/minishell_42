@@ -3,51 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 01:26:50 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/12 12:06:55 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cd(t_mshell *mshell)
+void	update_oldpwd(t_mshell *mshell, char *old_pwd)
 {
-    char    *home;
- 	t_cmd	*cmd_node;
-	
-	cmd_node = mshell->list_cmd;
-    if (!cmd_node->cmd[1] || ft_strcmp(cmd_node->cmd[1], "~") == 0) // si 0 args "cd"
-    {
-        home = ft_found_value_key(mshell, "HOME");
-        if (!home || chdir(home) == -1)
-        {
-            perror("cd: HOME absent");
-            return (1);
-        }
-    }
-    else
-    {
-        if (chdir(cmd_node->cmd[1]) == -1)
-        {
-            perror("cd");
-            return (1);
-        }
-    }
+	t_env	*env;
 
-	//ft_update_env(mshell, cmd_node->cmd[1]);
-	//update env / pwd a faire !
-    return (0);
+	env = mshell->env_list;
+	while (env)
+	{
+		if (!ft_strcmp(env->key, "OLDPWD"))
+		{
+			if (env->value)
+				free(env->value);
+			env->value = ft_strdup(old_pwd);
+			return;
+		}
+		env = env->next;
+	}
 }
-//update _ pour CMD
 
-// ~
-// .
-// ..
-// cd -
-// cd path ok
+void	update_newpwd(t_mshell *mshell, char *new_pwd)
+{
+	t_env	*env;
+
+	env = mshell->env_list;
+	while (env)
+	{
+		if (!ft_strcmp(env->key, "PWD"))
+		{
+			if (env->value)
+				free(env->value);
+			env->value = ft_strdup(new_pwd);
+			return;
+		}
+		env = env->next;
+	}
+}
+
+int	update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd)
+{
+	update_oldpwd(mshell, old_pwd);
+	update_newpwd(mshell, new_pwd);
+	free(old_pwd);
+	free(new_pwd);
+	return (0);
+}
 
 
+void	ft_set_var(t_mshell *mshell, char *key, char *value)
+{
+	int		i;
+	t_env	*new_node;
 
+	i = 0;
+	while (mshell->list_cmd->cmd[++i])
+	{
+		if (ft_valid_key(key) == false)
+			continue ;
+		if (ft_get_key_node(mshell->env_list, value))
+			ft_up_value_var(mshell->env_list, key, value);
+		else
+		{
+			new_node = ft_create_env_node(mshell);
+			new_node->key = key;
+			if (ft_isequal(mshell->list_cmd->cmd[i]))
+				new_node->equal = true;
+			new_node->value = value;
+		}
+	}
+}
+
+int	ft_cd(char **argv, t_mshell *mshell)
+{
+	int	ret;
+	char	*path;
+	char	*old_pwd;
+	char	*new_pwd;
+
+	if (argv[1] && argv[2])
+		return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
+	if (!argv[1])
+	{
+		path = ft_found_value_key(mshell, "HOME");
+		if (!path)
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+	}
+	else
+		path = argv[1];
+	old_pwd = getcwd(NULL, 0);
+	if (!old_pwd)
+		return (ft_mem_err(mshell), 0);
+	ret = chdir(path);
+	if (ret == -1)
+		return (perror("minishell: cd"), free(old_pwd), 1);
+	new_pwd = getcwd(NULL, 0);
+	if (!new_pwd)
+		return (ft_mem_err(mshell), 1);
+	return (update_pwd(mshell, old_pwd, new_pwd));
+}
 

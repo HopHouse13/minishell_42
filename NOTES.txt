@@ -32,3 +32,13 @@ liste des malloc ;
 
 ERREURS:
 	> 'echo $HOME' --> Ne pas expand et prendre tout comme une commande
+
+*	unlink a la fin de l'exec
+
+*	voir le FD_hd
+
+*	probleme de free :
+	echo $HOME |
+	> cw -l
+
+*	echo "$" doesnt write anything

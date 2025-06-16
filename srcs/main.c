@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:25:32 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/08 13:31:51 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/13 14:29:24 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	main(int ac, char **av, char **env)
 	ft_init_mshell(&mshell, env);
 	while (ac && av)
 	{
-		ft_handle_signals();
+		ft_signals(1);
 		mshell->input = readline("minishell$ ");
 		if (!mshell->input)
 			ft_main_err(mshell);
 		else
 		{
-			//ft_signal(2)
+			ft_signals(2);
 			ft_handle_input(mshell);
 			if (ft_empty_line(mshell->input))
 				continue ;
@@ -35,7 +35,9 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			if (!ft_parser(mshell))
 				continue ;
-			ft_executer(mshell, env);
+			if (exec(mshell))
+				return (1);
 		}
 	}
+	free_mshell(mshell);
 }

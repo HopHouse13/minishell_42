@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_fill_list_cmd.c                             :+:      :+:    :+:   */
+/*   paul_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 21:09:03 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/16 15:50:39 by phautena         ###   ########.fr       */
+/*   Created: 2025/06/12 10:00:36 by phautena          #+#    #+#             */
+/*   Updated: 2025/06/12 10:23:31 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-bool	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser)
+void	free_after_exec(t_mshell *mshell)
 {
-// 	if (!ft_handle_redir(mshell, parser))
-// 	{
-// 		g_exit_code = 1;
-// 		return (false);
-// 	}
-	init_redirections(mshell, parser);
-	ft_handle_cmd(mshell, parser);
-	// if (!ft_handle_hd(mshell, parser))
-		// return (false);
-	mshell->list_cmd = parser->list_cmd;
-	return (true);
+	free_paul_stuff(mshell);
+	if (mshell->ml)
+		ft_free_ml(mshell);
+}
+
+void	free_paul_stuff(t_mshell *mshell)
+{
+	t_cmd	*cmd;
+
+	cmd = mshell->list_cmd;
+	while (cmd)
+	{
+		if (cmd->path)
+		{
+			free(cmd->path);
+			cmd->path = NULL;
+		}
+		cmd = cmd->next;
+	}
 }

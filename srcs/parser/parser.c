@@ -6,7 +6,7 @@
 /*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:57:59 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/10 10:37:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/12 17:42:28 by pab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ bool	ft_parser(t_mshell *mshell)
 	if (!ft_fill_list_cmd(mshell, &parser))
 		return (false);
 	mshell->count_pipe = ft_count_pipe(&parser);
-	ft_print_list_cmd(mshell); // ASUPP
+	// ft_print_list_cmd(mshell); // ASUPP
 	return (true);
 }
