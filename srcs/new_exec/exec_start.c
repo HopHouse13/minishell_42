@@ -6,13 +6,11 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:43:54 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/13 14:53:50 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:37:44 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 void	make_dup(t_cmd *cmd)
 {
