@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:09:03 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/13 15:07:30 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:50:39 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 bool	ft_fill_list_cmd(t_mshell *mshell, t_parser *parser)
 {
-	if (!ft_handle_redir(mshell, parser))
-	{
-		g_exit_code = 1;
-		return (false);
-	}
+// 	if (!ft_handle_redir(mshell, parser))
+// 	{
+// 		g_exit_code = 1;
+// 		return (false);
+// 	}
+	init_redirections(mshell, parser);
 	ft_handle_cmd(mshell, parser);
 	// if (!ft_handle_hd(mshell, parser))
 		// return (false);

@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/13 14:50:16 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:45:05 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,5 +325,15 @@ void	ft_put_error(char *str, char *str2);
 //paul_free.c
 void	free_after_exec(t_mshell *mshell);
 void	free_paul_stuff(t_mshell *mshell);
+
+////////////////////////NEW_REDIRS////////////////////////
+
+//redirections.c
+int		set_outfile(t_cmd *cmd, t_token *token, int mode);
+int		set_infile(t_cmd *cmd, t_token *token);
+int		set_hd(t_cmd *cmd, t_token *token, t_mshell *mshell, t_parser *parser);
+
+//set_files.c
+void	init_redirections(t_mshell *mshell, t_parser *parser);
 
 #endif

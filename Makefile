@@ -59,7 +59,9 @@ SRCS		= srcs/main.c \
 			srcs/new_exec/exec_path.c \
 			srcs/new_exec/exec_start.c \
 			srcs/utilities/error2.c \
-			srcs/utilities/paul_free.c
+			srcs/utilities/paul_free.c \
+			srcs/new_redirs/redirections.c \
+			srcs/new_redirs/set_files.c
 
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
