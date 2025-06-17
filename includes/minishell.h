@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/16 14:45:05 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:01:26 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,7 @@ void	ft_put_error(char *str, char *str2);
 //paul_free.c
 void	free_after_exec(t_mshell *mshell);
 void	free_paul_stuff(t_mshell *mshell);
+void	ft_exit_cleanly2(t_mshell *mshell);
 
 ////////////////////////NEW_REDIRS////////////////////////
 

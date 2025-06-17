@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:44:48 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/16 17:39:27 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:18:17 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	child_process(t_cmd *cmd, t_mshell *mshell)
 		make_dup(cmd);
 		close_pipes(mshell);
 		builtin_exit = exec_builtin(mshell, cmd, 0, 0);
+		g_exit_code = builtin_exit;
+		ft_exit_cleanly2(mshell);
 		exit(builtin_exit);
 	}
 	else
