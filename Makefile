@@ -98,13 +98,13 @@ $(PRINTF_AR):
 clean:
 			@make clean -sC ./includes/libft
 			@make clean -sC ./includes/printf
-			$(RM) $(OBJ_DIR)
+			@$(RM) $(OBJ_DIR)
 			@echo "\033[36m""Répertoire $(OBJ_DIR) supprimé.""\033[0m"
 
 fclean:		clean
 			@$(RM) $(LIBFT_AR)
 			@$(RM) $(PRINTF_AR)
-			$(RM) $(NAME)
+			@$(RM) $(NAME)
 			@echo "\033[36m""Exécutable $(NAME) supprimé.""\033[0m"
 
 re:			fclean 	all
