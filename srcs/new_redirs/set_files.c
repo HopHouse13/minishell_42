@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:29:58 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/16 17:42:02 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/17 14:49:10 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	set_infile(t_cmd *cmd, t_token *token)
 {
 	if (cmd->fd_in)
 		close(cmd->fd_in);
-	cmd->fd_in = open(token->next->elem, O_RDONLY);
+	cmd->fd_in = open(token->elem, O_RDONLY);
 	if (cmd->fd_in == -1)
 	{
-		perror(token->next->elem);
+		perror(token->elem);
 		return (1);
 	}
 	return (0);
