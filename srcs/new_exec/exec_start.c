@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:43:54 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/17 15:08:44 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:03:26 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	wait_for_all(t_mshell *mshell)
 		if (temp->pid > -1)
 		{
 			waitpid(temp->pid, &status, 0);
-			if (WIFEXITED(status))
+			if (temp->next && !ft_strcmp(temp->next->cmd[0], "echo") && temp->next->no_cmd == true)
+				g_exit_code = 1;
+			else if (WIFEXITED(status))
 				g_exit_code = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 				g_exit_code = 128 + WTERMSIG(status);
