@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/06/18 17:36:39 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/18 17:42:58 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,10 @@ void	ft_free_one_token_list(t_token *node)
 		if (node->prev)
 			node->next->prev = node->prev;
 		else
-			node->next->prev = NULL
+			node->next->prev = NULL;
 	}
-	if (node->next)
-		*tmp = tmp->next;
-	free(tmp->ptr);
+	free(node->elem);
 	free(node);
-	return ;
-	}
 }
 
 void	ft_remove_node_list_token(t_token *node)
