@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/06/18 17:42:58 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/18 17:59:18 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ void	ft_add_node_cmd(t_mshell *mshell, t_parser *parser)
 }
 void	ft_free_one_token_list(t_token *node)
 {
-	t_token	*tmp;
-	t_token	*prev;
-
-	prev = NULL;
 	if (node->prev)
 	{
 		if (node->next)
@@ -75,8 +71,6 @@ void	ft_free_one_token_list(t_token *node)
 		else
 			node->next->prev = NULL;
 	}
-	free(node->elem);
-	free(node);
 }
 
 void	ft_remove_node_list_token(t_token *node)
@@ -98,11 +92,17 @@ void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser)
 	t_token	*tmp;
 
 	tmp = parser->list_token;
-	ft_add_node_cmd(mshell, parser);
-	while (tmp)
+	while(tmp)
 	{
 		if (tmp->elem[0] == '\0')
 			ft_remove_node_list_token(tmp);
+		tmp = tmp->next;
+	}
+	tmp = parser->list_token;
+	if () // si pas pas de node dans list_token (car supp les node juste avant) -> return (new line)
+	ft_add_node_cmd(mshell, parser);
+	while (tmp)
+	{
 		if (tmp->token == PIPE)
 			ft_add_node_cmd(mshell, parser);
 		tmp = tmp->next;

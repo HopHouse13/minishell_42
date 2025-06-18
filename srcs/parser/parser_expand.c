@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:16:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/18 15:58:06 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/18 17:45:32 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	ft_exp_elem(t_mshell *mshell, t_token *tmp, t_parser *parser)
 	parser->i = -1;
 	while (tmp->elem[++parser->i])
 	{
-		if (tmp->elem[parser->i] == '$' && tmp-	printf(">>>>>>>>>>> [%s]\n", s_dup);
->elem[parser->i +1] == '[')
+		if (tmp->elem[parser->i] == '$' && tmp->elem[parser->i +1] == '[')
 		{
 			ev_exp = ft_expand(mshell, tmp->elem, parser);
 			// printf("\tEXPANDED : %s\n", ev_exp); // ASUPP
