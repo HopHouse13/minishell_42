@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_initialisation_list_cmd.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:48:36 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 17:08:46 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:36:39 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,47 @@ void	ft_add_node_cmd(t_mshell *mshell, t_parser *parser)
 		tmp->next = new_elem;
 	}
 }
+void	ft_free_one_token_list(t_token *node)
+{
+	t_token	*tmp;
+	t_token	*prev;
+
+	prev = NULL;
+	if (node->prev)
+	{
+		if (node->next)
+			node->prev->next = node->next;	
+		else
+			node->prev->next = NULL;
+	}
+	if (node->next)
+	{
+		if (node->prev)
+			node->next->prev = node->prev;
+		else
+			node->next->prev = NULL
+	}
+	if (node->next)
+		*tmp = tmp->next;
+	free(tmp->ptr);
+	free(node);
+	return ;
+	}
+}
+
+void	ft_remove_node_list_token(t_token *node)
+{
+	while (node && node->token != PIPE)
+	{
+		ft_free_one_token_list(node);
+		node = node->next;
+	}
+	while (node && node->token != PIPE)
+	{
+		ft_free_one_token_list(node);
+		node = node->prev;
+	}
+}
 
 void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser)
 {
@@ -64,6 +105,8 @@ void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser)
 	ft_add_node_cmd(mshell, parser);
 	while (tmp)
 	{
+		if (tmp->elem[0] == '\0')
+			ft_remove_node_list_token(tmp);
 		if (tmp->token == PIPE)
 			ft_add_node_cmd(mshell, parser);
 		tmp = tmp->next;
