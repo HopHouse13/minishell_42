@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:12:48 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/16 17:46:14 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:16:16 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ft_handle_hd(t_mshell *mshell, t_parser *parser, t_token *lt_token, t_cmd *
 		ft_mem_err(mshell);
 	ft_signals(3);
 	ft_heredoc(mshell, lt_cmd); // pas au bon endroit ou pas
-	close(lt_cmd->fd_in);
+	if (lt_cmd->fd_in != -1)
+		close(lt_cmd->fd_in);
 	ft_signals(2);
 	lt_cmd->fd_in = open("./heredoc.txt", O_RDONLY);
 	if (!lt_cmd->fd_in)
