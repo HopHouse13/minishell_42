@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/18 13:36:38 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:15:40 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ bool	invalid_dir(t_mshell *mshell);
 void	ft_init_node_values(t_cmd *new_elem);
 void	ft_init_head_list_cmd(t_mshell *mshell, t_cmd **list_cmd);
 void	ft_add_node_cmd(t_mshell *mshell, t_parser *parser);
-void	ft_init_list_cmd(t_mshell *mshell, t_parser *parser);
+bool	ft_init_list_cmd(t_mshell *mshell, t_parser *parser);
 
 /// PARSER_CLEANUP_AND_EXPAND ///
 void	ft_clear_and_expand(t_mshell *mshell, t_parser *parser);
