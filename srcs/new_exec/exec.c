@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:44:48 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/18 12:04:58 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:30:21 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	start_exec(t_mshell *mshell);
 
 int	exec(t_mshell *mshell)
 {
+	// print_cmd(mshell);
 	set_path(mshell);
 	if (init_pipes(mshell))
 		return (1);
-	print_cmd(mshell);
 	start_exec(mshell);
 	free_paul_stuff(mshell);
 	return (0);

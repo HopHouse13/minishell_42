@@ -6,11 +6,25 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:14:40 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 15:28:38 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:37:17 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	count_strings(t_token *tmp)
+{
+	int	count_str;
+
+	count_str = 0;
+	while (tmp->token != PIPE && tmp->token != END)
+	{
+		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG) && ft_strlen(tmp->elem) > 0)
+			count_str++;
+		tmp = tmp->next;
+	}
+	return (count_str);
+}
 
 static void	check_no_cmd(t_cmd *current, int count_str)
 {
@@ -25,13 +39,7 @@ void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd)
 	int		i;
 
 	tmp = list_token;
-	count_str = 0;
-	while (tmp->token != PIPE && tmp->token != END)
-	{
-		if (tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
-			count_str++;
-		tmp = tmp->next;
-	}
+	count_str = count_strings(tmp);
 	check_no_cmd(list_cmd, count_str);
 	list_cmd->cmd = ft_malloc_list(mshell, sizeof(char *) * (count_str + 1));
 	tmp = list_token;
@@ -40,7 +48,7 @@ void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd)
 	{
 		if (tmp->token == BI)
 			list_cmd->builtin = true;
-		if (tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
+		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG) && ft_strlen(tmp->elem) > 0)
 			list_cmd->cmd[i++] = tmp->elem;
 		tmp = tmp->next;
 	}

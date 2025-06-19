@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:53:42 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/11 17:31:51 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:15:44 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,12 @@ char	*get_cmd_path(char *binary, t_mshell *mshell)
 
 void	set_cmd_path(t_mshell *mshell, t_cmd *cmd)
 {
-	if (cmd->cmd[0][0] != '/')
+	if (ft_strlen(cmd->cmd[0]) == 0)
+	{
+		cmd->no_cmd = true;
+		return;
+	}
+	else if (cmd->cmd[0][0] != '/')
 	{
 		cmd->path = get_cmd_path(cmd->cmd[0], mshell);
 		if (!cmd->path)

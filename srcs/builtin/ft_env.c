@@ -81,7 +81,7 @@ void	ft_env(t_mshell *mshell)
 	while (env)
 	{
 		if (env->value && *env->value)
-			printf("%s=\"%s\"\n", env->key, env->value);
+			printf("%s=%s\n", env->key, env->value);
 		else if (env->equal == true)
 			printf("%s=\n", env->key);
 		env = env->next;
