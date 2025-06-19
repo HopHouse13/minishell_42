@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:38:01 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/10 15:56:35 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:21:43 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_cmd(t_mshell *mshell)
 {
-	int	i;
+	int		i;
 	t_cmd	*current;
 
 	current = mshell->list_cmd;
@@ -31,7 +31,8 @@ void	print_cmd(t_mshell *mshell)
 		printf("Builtin: %d\n", current->builtin);
 		if (current->no_cmd == true)
 			printf("no_cmd --> YES\n");
-		printf("FDIN / FDOUT / FDHD: [%d] [%d] [%d]\n", current->fd_in, current->fd_out, current->fd_hd);
+		printf("FDIN / FDOUT / FDHD: [%d] [%d] [%d]\n",
+			current->fd_in, current->fd_out, current->fd_hd);
 		if (current->delim_hd != NULL)
 			printf("HEREDOC LIM: [%s]\n", current->delim_hd);
 		printf("--------------------------------------------\n");

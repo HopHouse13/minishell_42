@@ -66,6 +66,9 @@ void	ft_delay(t_qts *qts)
 	}
 }
 
+// printf pour la verif
+// printf("\tsimple  %d\tdouble  %d\tin_q  %d\t\t[ %c ]\n", qts->spl_q,
+// 	qts->dbl_q, qts->in_q, str[i]);
 bool	ft_status_qts(t_qts *qts, char *str, int i)
 {
 	if (i == 0)
@@ -76,7 +79,5 @@ bool	ft_status_qts(t_qts *qts, char *str, int i)
 		ft_swipe(&qts->spl_q, &qts->in_q, &qts->delay_in, &qts->delay_out);
 	else if (str[i] == '\"' && qts->spl_q == OUT && !ft_effect_esc(qts, str, i))
 		ft_swipe(&qts->dbl_q, &qts->in_q, &qts->delay_in, &qts->delay_out);
-	// printf("\tsimple  %d\tdouble  %d\tin_q  %d\t\t[ %c ]\n", qts->spl_q,
-	// 	qts->dbl_q, qts->in_q, str[i]); // ASUPP
 	return (qts->in_q);
 }

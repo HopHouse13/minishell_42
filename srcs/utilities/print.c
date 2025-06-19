@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:13:42 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 10:39:03 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/19 16:09:37 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_print_list_token(t_token *head)
 	tmp = head;
 	if (!tmp)
 		return ;
-	ft_printf("\n\t\t\t*** LIST_ELEMENTS ***\n\n");
+	printf("\n\t\t\t*** LIST_ELEMENTS ***\n\n");
 	while (tmp)
 	{
 		printf("\t\tElem [ %s ]\tToken [ %s ]\n\n", tmp->elem,

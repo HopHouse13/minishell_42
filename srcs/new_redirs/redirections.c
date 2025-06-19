@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:24:49 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/18 12:11:21 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:16:22 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	count_redirs(t_token *token)
 	return (count);
 }
 
-static int	set_files(t_cmd *cmd, t_token *token, t_mshell *mshell, t_parser *parser)
+int	set_files(t_cmd *cmd, t_token *token, t_mshell *mshell, t_parser *parser)
 {
 	if (!ft_strcmp(token->elem, "<"))
 	{
@@ -90,7 +90,7 @@ void	init_redirections(t_mshell *mshell, t_parser *parser)
 			{
 				cmd->no_cmd = true;
 				g_exit_code = 1;
-				break;
+				break ;
 			}
 			token = token->next;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:53:42 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/19 15:15:44 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:17:37 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	set_cmd_path(t_mshell *mshell, t_cmd *cmd)
 	if (ft_strlen(cmd->cmd[0]) == 0)
 	{
 		cmd->no_cmd = true;
-		return;
+		return ;
 	}
 	else if (cmd->cmd[0][0] != '/')
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:29:58 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/17 15:16:45 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:15:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	set_outfile(t_cmd *cmd, t_token *token, int mode)
 	if (cmd->fd_out > -1)
 		close(cmd->fd_out);
 	if (mode == 1)
-		cmd->fd_out = open(token->next->elem, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		cmd->fd_out = open(token->next->elem,
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
-		cmd->fd_out = open(token->next->elem, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		cmd->fd_out = open(token->next->elem,
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (cmd->fd_out == -1)
 	{
 		perror(token->next->elem);

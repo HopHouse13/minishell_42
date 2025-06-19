@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:37 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/12 10:11:12 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:22:51 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 void	fork_error(t_mshell *mshell)
 {

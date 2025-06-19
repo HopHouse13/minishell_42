@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:44:48 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/19 15:30:21 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:18:03 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	start_exec(t_mshell *mshell);
 
 int	exec(t_mshell *mshell)
 {
-	// print_cmd(mshell);
 	set_path(mshell);
 	if (init_pipes(mshell))
 		return (1);

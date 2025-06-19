@@ -69,7 +69,6 @@ CC			= cc
 RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -ggdb -I$(SRCS_DIR)
 LIBFT_AR	= ./includes/libft/libft.a
-PRINTF_AR	= ./includes/printf/printf.a
 
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 			@mkdir -p $(@D)
@@ -77,12 +76,12 @@ $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.c
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME) -lreadline -g
+$(NAME):	$(OBJS) $(LIBFT_AR)
+			@$(CC) $(OBJS) $(LIBFT_AR) -o $(NAME) -lreadline -g
 			@echo "\033[32m""Compilation de $(NAME) est terminée!""\033[0m"
 
-debug:		$(OBJS) $(LIBFT_AR) $(PRINTF_AR)
-			@$(CC) $(OBJS) $(LIBFT_AR) $(PRINTF_AR) -o $(NAME)_debug -lreadline -g
+debug:		$(OBJS) $(LIBFT_AR)
+			@$(CC) $(OBJS) $(LIBFT_AR) -o $(NAME)_debug -lreadline -g
 			@echo "\033[33m""Compilation de $(NAME)_debug (mode debug) est terminée!""\033[0m"
 
 leaks:
@@ -92,18 +91,13 @@ leaks:
 $(LIBFT_AR):
 			@make -sC ./includes/libft
 
-$(PRINTF_AR):
-			@make -sC ./includes/printf
-
 clean:
 			@make clean -sC ./includes/libft
-			@make clean -sC ./includes/printf
 			@$(RM) $(OBJ_DIR)
 			@echo "\033[36m""Répertoire $(OBJ_DIR) supprimé.""\033[0m"
 
 fclean:		clean
 			@$(RM) $(LIBFT_AR)
-			@$(RM) $(PRINTF_AR)
 			@$(RM) $(NAME)
 			@echo "\033[36m""Exécutable $(NAME) supprimé.""\033[0m"
 

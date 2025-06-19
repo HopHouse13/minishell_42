@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 14:25:47 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/18 13:36:35 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:19:09 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	handle_heredoc(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	rl_done = 1;
-	// ioctl(STDIN_FILENO, TIOCSTI, "");
 }
 
 void	ft_signals(int mode)
