@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:14:37 by pab               #+#    #+#             */
-/*   Updated: 2025/06/20 15:25:27 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/20 15:32:09 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ int	ft_exit(char **argv, t_mshell *mshell, int save, int save2)
 		printf("exit\n");
 		close_dup(save, save2);
 		free_mshell(mshell);
-		exit(0);
+		exit(1);
 	}
-	if (ft_exit_error(argv[1], argv[2] != NULL))
+	g_exit_code = ft_exit_error(argv[1], argv[2] != NULL);
+	if (g_exit_code != 0)
 	{
-		g_exit_code = 2;
 		close_dup(save, save2);
 		ft_exit_cleanly2(mshell);
 	}
