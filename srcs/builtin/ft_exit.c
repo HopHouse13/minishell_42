@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:14:37 by pab               #+#    #+#             */
-/*   Updated: 2025/06/20 13:54:02 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:25:27 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_exit_error(char *current, int has_next)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(current, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit(2);
+		return (2);
 	}
 	if (has_next)
 	{
@@ -83,7 +83,7 @@ int	ft_exit_error(char *current, int has_next)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(current, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit(2);
+		return (2);
 	}
 	return (0);
 }
@@ -108,7 +108,11 @@ int	ft_exit(char **argv, t_mshell *mshell, int save, int save2)
 		exit(0);
 	}
 	if (ft_exit_error(argv[1], argv[2] != NULL))
-		return (1);
+	{
+		g_exit_code = 2;
+		close_dup(save, save2);
+		ft_exit_cleanly2(mshell);
+	}
 	exit_code = ft_atoll_exit(argv[1], NULL);
 	if (exit_code > 255)
 		exit_code %= 256;
