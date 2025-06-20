@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/20 11:45:29 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/20 12:19:20 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_cd(char **argv, t_mshell *mshell)
 
 	if (argv[1] && argv[2])
 		return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
-	if (!argv[1])
+	if (!argv[1] || argv[1][0] == '~')
 	{
 		path = ft_found_value_key(mshell, "HOME");
 		if (!path)

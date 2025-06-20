@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:37 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/19 16:22:51 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/20 12:48:34 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	fork_error(t_mshell *mshell)
 void	free_mshell(t_mshell *mshell)
 {
 	rl_clear_history();
-	free_paul_stuff(mshell);
+	close_pipes(mshell);
+	// free_paul_stuff(mshell);
 	if (mshell->ml != NULL)
 		ft_free_ml(mshell);
 	if (mshell->env_list != NULL)

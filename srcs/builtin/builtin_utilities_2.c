@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utilities_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:43:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 09:59:57 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/20 12:37:16 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	emergency_pwd(t_mshell *mshell)
+{
+	char	*cwd;
+	char	*res;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		perror("minishell: pwd");
+		g_exit_code = 1;
+		ft_mem_err(mshell);
+	}
+	res = ft_strjoin("PWD=", cwd);
+	if (!res)
+		ft_mem_err(mshell);
+	free(cwd);
+	ft_export2(mshell, res);
+	free(res);
+}
 
 t_env	*ft_get_key_node(t_env *env, char *key)
 {

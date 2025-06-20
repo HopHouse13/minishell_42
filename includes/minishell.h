@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:10:14 by pab               #+#    #+#             */
-/*   Updated: 2025/06/20 11:33:20 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/20 12:34:29 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ void	ft_up_value_var(t_env *env_list, char *key, char *value);
 t_env	*ft_get_key_node(t_env *env, char *key);
 char	*ft_found_value_key(t_mshell *mshell, char *key);
 void	ft_init_ignore(t_env *env_list);
+void	emergency_pwd(t_mshell *mshell);
 
 ////////////////////////////////////////////////////////////////////////////////
 

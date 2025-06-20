@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 09:57:41 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 10:38:52 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:34:39 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_build_env_list(t_mshell *mshell, char **env)
 		new_node->value = ft_get_value(env[i]);
 		i++;
 	}
+	ft_export2(mshell, "OLDPWD=""");
+	emergency_pwd(mshell);
 }
 
 int	ft_strlen_equal(char *str)
