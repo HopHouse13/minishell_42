@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/20 11:43:41 by pbret             #+#    #+#             */
+/*   Updated: 2025/06/20 11:43:42 by pbret            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	print_export(t_mshell *mshell)
 {
 	t_env	*env;
 
-	env =mshell->env_list;
+	env = mshell->env_list;
 	while (env)
 	{
 		if (env->value && *env->value)
@@ -87,38 +99,3 @@ void	ft_env(t_mshell *mshell)
 		env = env->next;
 	}
 }
-
-// int ft_env(t_mshell *mshell)
-// {
-// 	t_env	*cur;
-//     //if (mshell->env_list == NULL)
-//         //ft_env_minimal(mshell); // plutot avec ft_build_env_list ??
-//     cur = mshell->env_list;
-// 	while (cur)
-// 	{
-// 		ft_print_env_node(cur);
-// 		cur = cur->next;
-// 	}
-// 	return (0);
-// }
-
-
-// void    ft_env_minimal(t_mshell *mshell)
-// { 	// PWD | SHLVL | _
-// 	t_env	*new_node;
-// 	char	cwd[1024];
-
-// 	new_node = ft_create_env_node(mshell);
-// 	new_node->key = ft_found_value_key(mshell, "PWD");
-// 	new_node->value = getcwd(cwd, sizeof(cwd));
-// 	printf("Node PWD :\nKEY : %s\nVALUE :%s\n",new_node->key, new_node->value);
-
-//     // si env -i cad , minishell lancé avec un environnement vide, copie des variable minimale ?
-//     // TO DO
-
-//PAUL: Si minishell est lance avec env -i, les quelques variables environnement sont quand meme copiees par ta fonction ft_build_env_list au debut de ton main.
-//				--> Donc fonction inutile je pense
-
-// }
-
-

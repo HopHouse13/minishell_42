@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:30:12 by pab               #+#    #+#             */
-/*   Updated: 2025/06/12 12:06:55 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:45:29 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	update_oldpwd(t_mshell *mshell, char *old_pwd)
 			if (env->value)
 				free(env->value);
 			env->value = ft_strdup(old_pwd);
-			return;
+			return ;
 		}
 		env = env->next;
 	}
@@ -42,7 +42,7 @@ void	update_newpwd(t_mshell *mshell, char *new_pwd)
 			if (env->value)
 				free(env->value);
 			env->value = ft_strdup(new_pwd);
-			return;
+			return ;
 		}
 		env = env->next;
 	}
@@ -56,7 +56,6 @@ int	update_pwd(t_mshell *mshell, char *old_pwd, char *new_pwd)
 	free(new_pwd);
 	return (0);
 }
-
 
 void	ft_set_var(t_mshell *mshell, char *key, char *value)
 {
@@ -83,7 +82,7 @@ void	ft_set_var(t_mshell *mshell, char *key, char *value)
 
 int	ft_cd(char **argv, t_mshell *mshell)
 {
-	int	ret;
+	int		ret;
 	char	*path;
 	char	*old_pwd;
 	char	*new_pwd;
@@ -109,4 +108,3 @@ int	ft_cd(char **argv, t_mshell *mshell)
 		return (ft_mem_err(mshell), 1);
 	return (update_pwd(mshell, old_pwd, new_pwd));
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:14:40 by pab               #+#    #+#             */
-/*   Updated: 2025/06/19 15:37:17 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:36:40 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	count_strings(t_token *tmp)
 	count_str = 0;
 	while (tmp->token != PIPE && tmp->token != END)
 	{
-		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG) && ft_strlen(tmp->elem) > 0)
+		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
+			&& ft_strlen(tmp->elem) > 0)
 			count_str++;
 		tmp = tmp->next;
 	}
@@ -48,7 +49,8 @@ void	ft_make_cmd_tab(t_mshell *mshell, t_token *list_token, t_cmd *list_cmd)
 	{
 		if (tmp->token == BI)
 			list_cmd->builtin = true;
-		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG) && ft_strlen(tmp->elem) > 0)
+		if ((tmp->token == CMD || tmp->token == BI || tmp->token == ARG)
+			&& ft_strlen(tmp->elem) > 0)
 			list_cmd->cmd[i++] = tmp->elem;
 		tmp = tmp->next;
 	}
@@ -75,4 +77,3 @@ void	ft_handle_cmd(t_mshell *mshell, t_parser *parser)
 			list_token = list_token->next;
 	}
 }
-

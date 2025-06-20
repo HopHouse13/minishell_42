@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/06/16 17:44:52 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:40:05 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_free_double_array(char **array)
 
 	i = 0;
 	if (!array)
-		return;
+		return ;
 	while (array[i])
 	{
 		free(array[i]);

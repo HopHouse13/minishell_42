@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:53:06 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/10 10:33:46 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/20 11:41:02 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 bool	ft_character_valid(t_mshell *ms, char *input)
-{/* printf("\n\n\t-------------------- CARAC_VALID --------------------\n"); // ASUPP */
+{
 	int		i;
 	char	c;
 
@@ -56,7 +56,7 @@ void	ft_init_wild_input(t_mshell *mshell, t_lexer *lexer)
 		}
 		i++;
 	}
-	count = count +3; // le space + ';' + '\0' rajoute a la fin de whild_input
+	count = count +3;
 	lexer->wild_input = ft_calloc_list(mshell, count, sizeof (char));
 }
 

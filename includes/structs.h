@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:07:51 by pab               #+#    #+#             */
-/*   Updated: 2025/06/10 17:25:21 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:49:31 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 typedef enum e_type
 {
 	ELEM,
-	PIPE,		// "|"
-	R_IN,		// "<"
-	R_OUT,		// ">"
-	HD,			// "<<"
-	APPEND,		// ">>"
-	F_IN,		// fichier d'entree
-	F_OUT,		// ecrasement dans fichier
-	F_APP,		// rajout dans fichier
-	DELIM,		// delimiteur heredoc
-	CMD,		// commande
-	BI,			// builtin
-	ARG,		// argument de la precedente commande
-	END,		// fin de input
+	PIPE,
+	R_IN,
+	R_OUT,
+	HD,
+	APPEND,
+	F_IN,
+	F_OUT,
+	F_APP,
+	DELIM,
+	CMD,
+	BI,
+	ARG,
+	END,
 }					t_type;
 
 typedef struct s_token
@@ -75,7 +75,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct s_parser // local
+typedef struct s_parser
 {
 	int				i;
 	t_token			*list_token;
@@ -87,11 +87,11 @@ typedef struct s_parser // local
 
 typedef struct s_qts
 {
-	bool			spl_q;	// État des guillemets simples
-	bool			dbl_q;	// État des guillemets doubles
-	bool			in_q;		// Mark -> a l'intérieur des quotes
-	bool			delay_in;	// retarde le chagement d'etat d'entree
-	bool			delay_out;	// retarde le chagement d'etat de sortie
+	bool			spl_q;
+	bool			dbl_q;
+	bool			in_q;
+	bool			delay_in;
+	bool			delay_out;
 }					t_qts;
 
 typedef struct s_mnode

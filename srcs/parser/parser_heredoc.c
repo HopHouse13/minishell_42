@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:29:47 by pab               #+#    #+#             */
-/*   Updated: 2025/06/13 14:28:43 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:38:41 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,4 @@ void	ft_heredoc(t_mshell *mshell, t_cmd *cmd)
 		ft_put_in_hd(mshell, line, cmd);
 		ft_free_one_node_ml(line, &mshell->ml);
 	}
-	// close(cmd->fd_hd); // le fermer dans l'execution
-	// cmd->fd_hd = -1; // et le mettre a -1 apres l'avoir close
 }

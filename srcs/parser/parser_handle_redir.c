@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_handle_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:19:55 by pab               #+#    #+#             */
-/*   Updated: 2025/06/13 15:01:41 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:33:48 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ bool	ft_get_fd_infile(t_mshell *mshell, t_cmd *cmd, t_token *token)
 		perror(token->elem);
 		return (true);
 		(void)mshell;
-		// return (ft_fd_err(mshell, token->elem));
 	}
 	return (true);
 }

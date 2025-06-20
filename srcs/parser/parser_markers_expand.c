@@ -6,7 +6,7 @@
 /*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:56:25 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/17 14:14:22 by pbret            ###   ########.fr       */
+/*   Updated: 2025/06/20 11:38:04 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_find_end_var(char *str, int i)
 {
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (i +2); // pour me mettre juste apres le carac invalide
+		return (i +2);
 	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
-	return (i + 1); // ici on arrive deja la bonne position just +1 pour passer d'un indexe a un eme positionemment (bcp de mal avec ca)
+	return (i + 1);
 }
 
 char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
@@ -41,7 +41,6 @@ char	*ft_insert_marker(t_mshell *mshell, char *str, int i)
 		if (k == end_name)
 			result[k++] = ']';
 	}
-	// printf("\n\tresult_marker : %s\n\n", result); // ASUPP
 	return (result);
 }
 
@@ -57,7 +56,7 @@ char	*ft_marker(t_mshell *mshell, t_token *tmp, t_parser *parser)
 		ft_status_qts(&mshell->qts, str, i);
 		if (str[i] == '$'
 			&& ((mshell->qts.dbl_q == IN && str[i +1] && str[i +1] != '\"')
-			|| mshell->qts.dbl_q == OUT)
+				|| mshell->qts.dbl_q == OUT)
 			&& mshell->qts.spl_q == OUT
 			&& tmp->token != DELIM
 			&& (i == 0 || !ft_effect_esc(&mshell->qts, str, i))

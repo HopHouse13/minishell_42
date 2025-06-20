@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_build_list_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pab <pab@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pbret <pbret@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:39:56 by pbret             #+#    #+#             */
-/*   Updated: 2025/06/10 10:28:58 by pab              ###   ########.fr       */
+/*   Updated: 2025/06/20 11:42:18 by pbret            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,4 @@ void	ft_build_list_token(t_mshell *mshell, t_lexer *lexer)
 	ft_define_token_redir(lexer);
 	ft_define_token_elem(lexer);
 	mshell->list_token = lexer->list_token;
-	// ft_print_list_token(mshell->list_token); // ASUPP
 }
