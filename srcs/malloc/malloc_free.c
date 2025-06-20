@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:58:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2025/06/20 12:48:26 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:43:09 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exit_cleanly(t_mshell *mshell)
 {
 	rl_clear_history();
 	unlink("./heredoc.txt");
-	// free_paul_stuff(mshell);
+	free_paul_stuff(mshell);
 	if (mshell->ml != NULL)
 		ft_free_ml(mshell);
 	if (mshell->env_list != NULL)

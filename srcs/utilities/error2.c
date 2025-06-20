@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:37 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/20 12:48:34 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:48:56 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_mshell(t_mshell *mshell)
 {
 	rl_clear_history();
 	close_pipes(mshell);
-	// free_paul_stuff(mshell);
+	free_paul_stuff(mshell);
 	if (mshell->ml != NULL)
 		ft_free_ml(mshell);
 	if (mshell->env_list != NULL)

@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:55:13 by phautena          #+#    #+#             */
-/*   Updated: 2025/06/18 11:53:23 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:39:41 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int	single_builtin(t_mshell *mshell, t_cmd *cmd)
 		if (cmd->fd_in > -1)
 			dup2(cmd->fd_in, STDIN_FILENO);
 		g_exit_code = exec_builtin(mshell, cmd, save, save2);
+		if (cmd->fd_out > -1)
+			close(cmd->fd_out);
+		if (cmd->fd_in > -1)
+			close(cmd->fd_in);
 		dup2(save, STDOUT_FILENO);
 		dup2(save2, STDIN_FILENO);
 		close(save);

@@ -6,7 +6,7 @@
 /*   By: phautena <phautena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:14:37 by pab               #+#    #+#             */
-/*   Updated: 2025/06/20 12:48:24 by phautena         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:54:02 by phautena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	ft_exit(char **argv, t_mshell *mshell, int save, int save2)
 	{
 		printf("exit\n");
 		close_dup(save, save2);
-		ft_free_ml(mshell);
+		free_mshell(mshell);
 		exit(0);
 	}
 	if (ft_exit_error(argv[1], argv[2] != NULL))
@@ -114,8 +114,7 @@ int	ft_exit(char **argv, t_mshell *mshell, int save, int save2)
 		exit_code %= 256;
 	printf("exit\n");
 	close_dup(save, save2);
-	// free_paul_stuff(mshell);
-	ft_free_ml(mshell);
+	free_mshell(mshell);
 	exit(exit_code);
 	return (0);
 }
